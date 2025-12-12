@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>
+      net10.0;
+      net10.0-android;
+      net10.0-ios;
+      net10.0-maccatalyst;
+      net10.0-windows10.0.19041.0
+    </TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ChoreoApp</RootNamespace>
+    <UseMaui>true</UseMaui>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-windows10.0.19041.0'">
+    <!-- Avoid WinUI XBF generation for MAUI resource dictionaries -->
+    <DisableXbfGeneration>true</DisableXbfGeneration>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Include="Microsoft.Maui.Controls" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Controls.Core" />
+    <PackageReference Include="PolySharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Remove="MaterialDesignColors.xaml" />
+    <MauiXaml Include="MaterialDesignColors.xaml" />
+  </ItemGroup>
+</Project>

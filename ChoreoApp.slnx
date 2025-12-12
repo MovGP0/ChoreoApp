@@ -9,5 +9,8 @@
         <File Path="nuget.config" />
         <File Path="README.md" />
     </Folder>
+    <Project Path="ChoreoApp.i18n/ChoreoApp.i18n.csproj" />
+    <Project Path="ChoreoApp.Styling/ChoreoApp.Styling.csproj" />
     <Project Path="ChoreoApp/ChoreoApp.csproj" />
+    <Project Path="MaterialColorUtilities/MaterialColorUtilities.csproj" />
 </Solution>

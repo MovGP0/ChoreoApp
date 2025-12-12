@@ -64,4 +64,9 @@
     <PackageReference Include="ReactiveUI" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\ChoreoApp.i18n\ChoreoApp.i18n.csproj" />
+	  <ProjectReference Include="..\ChoreoApp.Styling\ChoreoApp.Styling.csproj" />
+	</ItemGroup>
+
 </Project>

@@ -1,0 +1,54 @@
+namespace ChoreoApp;
+
+public static class ThemeKey
+{
+    public static string Primary = nameof(Theme.Primary);
+    public static string SurfaceTint = nameof(Theme.SurfaceTint);
+    public static string OnPrimary = nameof(Theme.OnPrimary);
+    public static string PrimaryContainer = nameof(Theme.PrimaryContainer);
+    public static string OnPrimaryContainer = nameof(Theme.OnPrimaryContainer);
+    public static string Secondary = nameof(Theme.Secondary);
+    public static string OnSecondary = nameof(Theme.OnSecondary);
+    public static string SecondaryContainer = nameof(Theme.SecondaryContainer);
+    public static string OnSecondaryContainer = nameof(Theme.OnSecondaryContainer);
+    public static string Tertiary = nameof(Theme.Tertiary);
+    public static string OnTertiary = nameof(Theme.OnTertiary);
+    public static string TertiaryContainer = nameof(Theme.TertiaryContainer);
+    public static string OnTertiaryContainer = nameof(Theme.OnTertiaryContainer);
+    public static string Error = nameof(Theme.Error);
+    public static string OnError = nameof(Theme.OnError);
+    public static string ErrorContainer = nameof(Theme.ErrorContainer);
+    public static string OnErrorContainer = nameof(Theme.OnErrorContainer);
+    public static string Background = nameof(Theme.Background);
+    public static string OnBackground = nameof(Theme.OnBackground);
+    public static string Surface = nameof(Theme.Surface);
+    public static string OnSurface = nameof(Theme.OnSurface);
+    public static string SurfaceVariant = nameof(Theme.SurfaceVariant);
+    public static string OnSurfaceVariant = nameof(Theme.OnSurfaceVariant);
+    public static string Outline = nameof(Theme.Outline);
+    public static string OutlineVariant = nameof(Theme.OutlineVariant);
+    public static string Shadow = nameof(Theme.Shadow);
+    public static string Scrim = nameof(Theme.Scrim);
+    public static string InverseSurface = nameof(Theme.InverseSurface);
+    public static string InverseOnSurface = nameof(Theme.InverseOnSurface);
+    public static string InversePrimary = nameof(Theme.InversePrimary);
+    public static string PrimaryFixed = nameof(Theme.PrimaryFixed);
+    public static string OnPrimaryFixed = nameof(Theme.OnPrimaryFixed);
+    public static string PrimaryFixedDim = nameof(Theme.PrimaryFixedDim);
+    public static string OnPrimaryFixedVariant = nameof(Theme.OnPrimaryFixedVariant);
+    public static string SecondaryFixed = nameof(Theme.SecondaryFixed);
+    public static string OnSecondaryFixed = nameof(Theme.OnSecondaryFixed);
+    public static string SecondaryFixedDim = nameof(Theme.SecondaryFixedDim);
+    public static string OnSecondaryFixedVariant = nameof(Theme.OnSecondaryFixedVariant);
+    public static string TertiaryFixed = nameof(Theme.TertiaryFixed);
+    public static string OnTertiaryFixed = nameof(Theme.OnTertiaryFixed);
+    public static string TertiaryFixedDim = nameof(Theme.TertiaryFixedDim);
+    public static string OnTertiaryFixedVariant = nameof(Theme.OnTertiaryFixedVariant);
+    public static string SurfaceDim = nameof(Theme.SurfaceDim);
+    public static string SurfaceBright = nameof(Theme.SurfaceBright);
+    public static string SurfaceContainerLowest = nameof(Theme.SurfaceContainerLowest);
+    public static string SurfaceContainerLow = nameof(Theme.SurfaceContainerLow);
+    public static string SurfaceContainer = nameof(Theme.SurfaceContainer);
+    public static string SurfaceContainerHigh = nameof(Theme.SurfaceContainerHigh);
+    public static string SurfaceContainerHighest = nameof(Theme.SurfaceContainerHighest);
+}

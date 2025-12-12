@@ -1,0 +1,106 @@
+namespace ChoreoApp;
+
+public static class ColorPaletteKey
+{
+    public static string Primary = nameof(ColorPalette.Primary);
+    public static string Secondary = nameof(ColorPalette.Secondary);
+    public static string Tertiary = nameof(ColorPalette.Tertiary);
+    public static string Error = nameof(ColorPalette.Error);
+    public static string Neutral = nameof(ColorPalette.Neutral);
+    public static string NeutralVariant = nameof(ColorPalette.NeutralVariant);
+
+    public static string Primary0 = nameof(ColorPalette.Primary0);
+    public static string Primary5 = nameof(ColorPalette.Primary5);
+    public static string Primary10 = nameof(ColorPalette.Primary10);
+    public static string Primary15 = nameof(ColorPalette.Primary15);
+    public static string Primary20 = nameof(ColorPalette.Primary20);
+    public static string Primary25 = nameof(ColorPalette.Primary25);
+    public static string Primary30 = nameof(ColorPalette.Primary30);
+    public static string Primary35 = nameof(ColorPalette.Primary35);
+    public static string Primary40 = nameof(ColorPalette.Primary40);
+    public static string Primary50 = nameof(ColorPalette.Primary50);
+    public static string Primary60 = nameof(ColorPalette.Primary60);
+    public static string Primary70 = nameof(ColorPalette.Primary70);
+    public static string Primary80 = nameof(ColorPalette.Primary80);
+    public static string Primary90 = nameof(ColorPalette.Primary90);
+    public static string Primary95 = nameof(ColorPalette.Primary95);
+    public static string Primary98 = nameof(ColorPalette.Primary98);
+    public static string Primary99 = nameof(ColorPalette.Primary99);
+    public static string Primary100 = nameof(ColorPalette.Primary100);
+
+    public static string Secondary0 = nameof(ColorPalette.Secondary0);
+    public static string Secondary5 = nameof(ColorPalette.Secondary5);
+    public static string Secondary10 = nameof(ColorPalette.Secondary10);
+    public static string Secondary15 = nameof(ColorPalette.Secondary15);
+    public static string Secondary20 = nameof(ColorPalette.Secondary20);
+    public static string Secondary25 = nameof(ColorPalette.Secondary25);
+    public static string Secondary30 = nameof(ColorPalette.Secondary30);
+    public static string Secondary35 = nameof(ColorPalette.Secondary35);
+    public static string Secondary40 = nameof(ColorPalette.Secondary40);
+    public static string Secondary50 = nameof(ColorPalette.Secondary50);
+    public static string Secondary60 = nameof(ColorPalette.Secondary60);
+    public static string Secondary70 = nameof(ColorPalette.Secondary70);
+    public static string Secondary80 = nameof(ColorPalette.Secondary80);
+    public static string Secondary90 = nameof(ColorPalette.Secondary90);
+    public static string Secondary95 = nameof(ColorPalette.Secondary95);
+    public static string Secondary98 = nameof(ColorPalette.Secondary98);
+    public static string Secondary99 = nameof(ColorPalette.Secondary99);
+    public static string Secondary100 = nameof(ColorPalette.Secondary100);
+
+    public static string Tertiary0 = nameof(ColorPalette.Tertiary0);
+    public static string Tertiary5 = nameof(ColorPalette.Tertiary5);
+    public static string Tertiary10 = nameof(ColorPalette.Tertiary10);
+    public static string Tertiary15 = nameof(ColorPalette.Tertiary15);
+    public static string Tertiary20 = nameof(ColorPalette.Tertiary20);
+    public static string Tertiary25 = nameof(ColorPalette.Tertiary25);
+    public static string Tertiary30 = nameof(ColorPalette.Tertiary30);
+    public static string Tertiary35 = nameof(ColorPalette.Tertiary35);
+    public static string Tertiary40 = nameof(ColorPalette.Tertiary40);
+    public static string Tertiary50 = nameof(ColorPalette.Tertiary50);
+    public static string Tertiary60 = nameof(ColorPalette.Tertiary60);
+    public static string Tertiary70 = nameof(ColorPalette.Tertiary70);
+    public static string Tertiary80 = nameof(ColorPalette.Tertiary80);
+    public static string Tertiary90 = nameof(ColorPalette.Tertiary90);
+    public static string Tertiary95 = nameof(ColorPalette.Tertiary95);
+    public static string Tertiary98 = nameof(ColorPalette.Tertiary98);
+    public static string Tertiary99 = nameof(ColorPalette.Tertiary99);
+    public static string Tertiary100 = nameof(ColorPalette.Tertiary100);
+
+    public static string Neutral0 = nameof(ColorPalette.Neutral0);
+    public static string Neutral5 = nameof(ColorPalette.Neutral5);
+    public static string Neutral10 = nameof(ColorPalette.Neutral10);
+    public static string Neutral15 = nameof(ColorPalette.Neutral15);
+    public static string Neutral20 = nameof(ColorPalette.Neutral20);
+    public static string Neutral25 = nameof(ColorPalette.Neutral25);
+    public static string Neutral30 = nameof(ColorPalette.Neutral30);
+    public static string Neutral35 = nameof(ColorPalette.Neutral35);
+    public static string Neutral40 = nameof(ColorPalette.Neutral40);
+    public static string Neutral50 = nameof(ColorPalette.Neutral50);
+    public static string Neutral60 = nameof(ColorPalette.Neutral60);
+    public static string Neutral70 = nameof(ColorPalette.Neutral70);
+    public static string Neutral80 = nameof(ColorPalette.Neutral80);
+    public static string Neutral90 = nameof(ColorPalette.Neutral90);
+    public static string Neutral95 = nameof(ColorPalette.Neutral95);
+    public static string Neutral98 = nameof(ColorPalette.Neutral98);
+    public static string Neutral99 = nameof(ColorPalette.Neutral99);
+    public static string Neutral100 = nameof(ColorPalette.Neutral100);
+
+    public static string NeutralVariant0 = nameof(ColorPalette.NeutralVariant0);
+    public static string NeutralVariant5 = nameof(ColorPalette.NeutralVariant5);
+    public static string NeutralVariant10 = nameof(ColorPalette.NeutralVariant10);
+    public static string NeutralVariant15 = nameof(ColorPalette.NeutralVariant15);
+    public static string NeutralVariant20 = nameof(ColorPalette.NeutralVariant20);
+    public static string NeutralVariant25 = nameof(ColorPalette.NeutralVariant25);
+    public static string NeutralVariant30 = nameof(ColorPalette.NeutralVariant30);
+    public static string NeutralVariant35 = nameof(ColorPalette.NeutralVariant35);
+    public static string NeutralVariant40 = nameof(ColorPalette.NeutralVariant40);
+    public static string NeutralVariant50 = nameof(ColorPalette.NeutralVariant50);
+    public static string NeutralVariant60 = nameof(ColorPalette.NeutralVariant60);
+    public static string NeutralVariant70 = nameof(ColorPalette.NeutralVariant70);
+    public static string NeutralVariant80 = nameof(ColorPalette.NeutralVariant80);
+    public static string NeutralVariant90 = nameof(ColorPalette.NeutralVariant90);
+    public static string NeutralVariant95 = nameof(ColorPalette.NeutralVariant95);
+    public static string NeutralVariant98 = nameof(ColorPalette.NeutralVariant98);
+    public static string NeutralVariant99 = nameof(ColorPalette.NeutralVariant99);
+    public static string NeutralVariant100 = nameof(ColorPalette.NeutralVariant100);
+}
