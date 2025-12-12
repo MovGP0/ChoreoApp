@@ -1,15 +1,97 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<maui:ReactiveContentPage x:TypeArguments="choreoApp:MainViewModel" xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="choreoApp:MainViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                           xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
+                          xmlns:styling="clr-namespace:ChoreoApp.Styling;assembly=ChoreoApp.Styling"
                           xmlns:choreoApp="using:ChoreoApp"
                           x:Class="ChoreoApp.MainPage">
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
-            <!-- TODO -->
-        </VerticalStackLayout>
-    </ScrollView>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="NavColumnDefinition"
+                              Width="{Binding NavColumnWidth}" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
+        <Border Grid.Row="0"
+                Grid.Column="0"
+                Grid.RowSpan="2"
+                BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}">
+            <Grid RowDefinitions="*,Auto"
+                  ColumnDefinitions="*"
+                  Padding="12,16">
+                <CollectionView Grid.Row="0"
+                                ItemsSource="{Binding NavItems}"
+                                SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="8"
+                                           Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="choreoApp:NavItemViewModel">
+                            <Border StrokeThickness="1"
+                                    Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
+                                    BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}"
+                                    Padding="10"
+                                    StrokeShape="RoundRectangle 6">
+                                <Grid ColumnDefinitions="*"
+                                      Padding="4">
+                                    <Label Text="{Binding Title}"
+                                           FontAttributes="Bold"
+                                           VerticalOptions="Center" />
+                                </Grid>
+                                <Border.GestureRecognizers>
+                                    <DragGestureRecognizer CanDrag="True"
+                                                           DragStarting="OnNavItemDragStarting" />
+                                    <DropGestureRecognizer AllowDrop="True"
+                                                           DragOver="OnNavItemDragOver"
+                                                           Drop="OnNavItemDrop" />
+                                </Border.GestureRecognizers>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <SearchBar Grid.Row="1"
+                           Placeholder="Search"
+                           Text="{Binding SearchText, Mode=TwoWay}"
+                           Margin="0,12,0,0" />
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="0"
+              Grid.Column="1"
+              Padding="12,8"
+              ColumnDefinitions="Auto,*,Auto"
+              BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
+            <Button Grid.Column="0"
+                    Text="☰"
+                    FontSize="18"
+                    WidthRequest="42"
+                    HeightRequest="42"
+                    Clicked="OnBurgerClicked" />
+
+            <Label Grid.Column="1"
+                   Text="ChoreoApp"
+                   FontSize="20"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center" />
+
+            <Button Grid.Column="2"
+                    Text="Settings"
+                    Clicked="OnSettingsClicked" />
+        </Grid>
+
+        <Grid Grid.Row="1"
+              Grid.Column="1">
+            <skia:SKCanvasView x:Name="CanvasView"
+                               PaintSurface="OnCanvasViewPaintSurface"
+                               EnableTouchEvents="True" />
+        </Grid>
+    </Grid>
 </maui:ReactiveContentPage>

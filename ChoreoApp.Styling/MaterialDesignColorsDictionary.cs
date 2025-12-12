@@ -1,7 +1,7 @@
 ﻿using MaterialColorUtilities;
 using Microsoft.Maui.Graphics;
 
-namespace ChoreoApp;
+namespace ChoreoApp.Styling;
 
 public sealed partial class MaterialDesignColorsDictionary : ResourceDictionary
 {

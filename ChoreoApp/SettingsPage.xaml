@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="choreoApp:SettingsViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:choreoApp="using:ChoreoApp"
+                          x:Class="ChoreoApp.SettingsPage">
+    <ScrollView>
+        <VerticalStackLayout Padding="24"
+                             Spacing="16">
+            <Label Text="Settings"
+                   FontSize="26"
+                   FontAttributes="Bold" />
+            <Label Text="Add settings controls here." />
+        </VerticalStackLayout>
+    </ScrollView>
+</maui:ReactiveContentPage>

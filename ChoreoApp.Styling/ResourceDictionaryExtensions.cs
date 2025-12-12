@@ -1,6 +1,6 @@
 ﻿using Microsoft.Maui.Graphics;
 
-namespace ChoreoApp;
+namespace ChoreoApp.Styling;
 
 public static class ResourceDictionaryExtensions
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Maui.Graphics;
 
-namespace ChoreoApp;
+namespace ChoreoApp.Styling;
 
 /// <summary>
 /// Automatically generated color palette.

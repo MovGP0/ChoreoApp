@@ -6,10 +6,5 @@
     xmlns:local="clr-namespace:ChoreoApp"
     xmlns:i18N="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
     Title="{x:Static i18N:Translations.HelloWorld}">
-
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+    <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
 </Shell>
