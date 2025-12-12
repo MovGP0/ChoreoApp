@@ -4,7 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ChoreoApp"
-    Title="ChoreoApp">
+    xmlns:i18N="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
+    Title="{x:Static i18N:Translations.HelloWorld}">
 
     <ShellContent
         Title="Home"

@@ -24,4 +24,24 @@
     <PackageReference Include="Microsoft.Maui.Controls.Core" />
     <PackageReference Include="PolySharp" />
   </ItemGroup>
+  <ItemGroup>
+    <Page Remove="*.xaml" />
+    <MauiXaml Include="*.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Translations.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Translations.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Translations.*.resx">
+      <DependentUpon>Translations.resx</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Translations.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Translations.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

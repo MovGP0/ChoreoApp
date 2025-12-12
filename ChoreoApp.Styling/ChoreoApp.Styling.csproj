@@ -26,9 +26,6 @@
     <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" />
   </ItemGroup>
   <ItemGroup>
-    <Page Remove="MaterialDesignColors.xaml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MaterialColorUtilities\MaterialColorUtilities.csproj" />
   </ItemGroup>
   <ItemGroup>
