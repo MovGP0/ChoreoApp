@@ -4,7 +4,7 @@ namespace ChoreoApp;
 
 public static class ResourceDictionaryExtensions
 {
-    extension(ResourceDictionary dict)
+    extension (ResourceDictionary dict)
     {
         public void SetColor(string key, Color value)
         {

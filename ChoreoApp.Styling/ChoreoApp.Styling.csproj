@@ -23,6 +23,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls.Core" />
     <PackageReference Include="PolySharp" />
+    <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" />
   </ItemGroup>
   <ItemGroup>
     <Page Remove="MaterialDesignColors.xaml" />
