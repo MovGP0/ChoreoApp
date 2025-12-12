@@ -31,4 +31,9 @@
   <ItemGroup>
     <ProjectReference Include="..\MaterialColorUtilities\MaterialColorUtilities.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="MaterialDesignColorsDictionary.*.cs">
+      <DependentUpon>MaterialDesignColorsDictionary.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

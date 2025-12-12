@@ -5,27 +5,27 @@
     xmlns:choreoApp="clr-namespace:ChoreoApp;assembly=ChoreoApp.Styling">
 
     <Style TargetType="ActivityIndicator">
-        <Setter Property="Color" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="Color" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
     </Style>
 
     <Style TargetType="IndicatorView">
-        <Setter Property="IndicatorColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Gray200}}"/>
-        <Setter Property="SelectedIndicatorColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}"/>
+        <Setter Property="IndicatorColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Gray200}}"/>
+        <Setter Property="SelectedIndicatorColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}"/>
     </Style>
 
     <Style TargetType="Border">
-        <Setter Property="Stroke" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Outline}}" />
+        <Setter Property="Stroke" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Outline}}" />
         <Setter Property="StrokeShape" Value="Rectangle"/>
         <Setter Property="StrokeThickness" Value="1"/>
     </Style>
 
     <Style TargetType="BoxView">
-        <Setter Property="BackgroundColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     </Style>
 
     <Style TargetType="Button">
-        <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnPrimary}}" />
-        <Setter Property="BackgroundColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnPrimary}}" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="BorderWidth" Value="0"/>
@@ -39,8 +39,8 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <Setter Property="BackgroundColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.SurfaceVariant}}" />
+                            <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.SurfaceVariant}}" />
                         </VisualState.Setters>
                     </VisualState>
                     <VisualState x:Name="PointerOver" />
@@ -50,7 +50,7 @@
     </Style>
 
     <Style TargetType="CheckBox">
-        <Setter Property="Color" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="Color" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
@@ -59,7 +59,7 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="Color" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="Color" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -68,7 +68,7 @@
     </Style>
 
     <Style TargetType="DatePicker">
-        <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14"/>
@@ -80,7 +80,7 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -89,11 +89,11 @@
     </Style>
 
     <Style TargetType="Editor">
-        <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="PlaceholderColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+        <Setter Property="PlaceholderColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
@@ -102,7 +102,7 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -111,11 +111,11 @@
     </Style>
 
     <Style TargetType="Entry">
-        <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="PlaceholderColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+        <Setter Property="PlaceholderColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
         <Setter Property="MinimumWidthRequest" Value="44"/>
         <Setter Property="VisualStateManager.VisualStateGroups">
@@ -124,7 +124,7 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -155,7 +155,7 @@
     </Style>
 
     <Style TargetType="Label">
-        <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="14" />
@@ -165,7 +165,7 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -174,22 +174,22 @@
     </Style>
 
     <Style TargetType="Label" x:Key="Headline">
-        <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
         <Setter Property="FontSize" Value="32" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
     </Style>
 
     <Style TargetType="Label" x:Key="SubHeadline">
-        <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
         <Setter Property="FontSize" Value="24" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
     </Style>
 
     <Style TargetType="Picker">
-        <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
-        <Setter Property="TitleColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="TitleColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
@@ -201,8 +201,8 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <Setter Property="TitleColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="TitleColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -211,14 +211,14 @@
     </Style>
 
     <Style TargetType="ProgressBar">
-        <Setter Property="ProgressColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="ProgressColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="ProgressColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="ProgressColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -228,7 +228,7 @@
 
     <Style TargetType="RadioButton">
         <Setter Property="BackgroundColor" Value="Transparent"/>
-        <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="MinimumHeightRequest" Value="44"/>
@@ -239,7 +239,7 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -248,13 +248,13 @@
     </Style>
 
     <Style TargetType="RefreshView">
-        <Setter Property="RefreshColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="RefreshColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     </Style>
 
     <Style TargetType="SearchBar">
-        <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
-        <Setter Property="PlaceholderColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
-        <Setter Property="CancelButtonColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="PlaceholderColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+        <Setter Property="CancelButtonColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="14" />
@@ -266,8 +266,8 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <Setter Property="PlaceholderColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="PlaceholderColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -276,8 +276,8 @@
     </Style>
 
     <Style TargetType="SearchHandler">
-        <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
-        <Setter Property="PlaceholderColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="PlaceholderColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="14" />
@@ -287,8 +287,8 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <Setter Property="PlaceholderColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="PlaceholderColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -299,23 +299,23 @@
     <Style TargetType="Shadow">
         <Setter Property="Radius" Value="15" />
         <Setter Property="Opacity" Value="0.5" />
-        <Setter Property="Brush" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Shadow}}" />
+        <Setter Property="Brush" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Shadow}}" />
         <Setter Property="Offset" Value="10,10" />
     </Style>
 
     <Style TargetType="Slider">
-        <Setter Property="MinimumTrackColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
-        <Setter Property="MaximumTrackColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.SurfaceVariant}}" />
-        <Setter Property="ThumbColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="MinimumTrackColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="MaximumTrackColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.SurfaceVariant}}" />
+        <Setter Property="ThumbColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="MinimumTrackColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}"/>
-                            <Setter Property="MaximumTrackColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}"/>
-                            <Setter Property="ThumbColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}"/>
+                            <Setter Property="MinimumTrackColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}"/>
+                            <Setter Property="MaximumTrackColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}"/>
+                            <Setter Property="ThumbColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}"/>
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -324,31 +324,31 @@
     </Style>
 
     <Style TargetType="SwipeItem">
-        <Setter Property="BackgroundColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Surface}}" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Surface}}" />
     </Style>
 
     <Style TargetType="Switch">
-        <Setter Property="OnColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
-        <Setter Property="ThumbColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnPrimary}}" />
+        <Setter Property="OnColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="ThumbColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnPrimary}}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="OnColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <Setter Property="ThumbColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="OnColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="ThumbColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         </VisualState.Setters>
                     </VisualState>
                     <VisualState x:Name="On">
                         <VisualState.Setters>
-                            <Setter Property="OnColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Secondary}}" />
-                            <Setter Property="ThumbColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnPrimary}}" />
+                            <Setter Property="OnColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Secondary}}" />
+                            <Setter Property="ThumbColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnPrimary}}" />
                         </VisualState.Setters>
                     </VisualState>
                     <VisualState x:Name="Off">
                         <VisualState.Setters>
-                            <Setter Property="ThumbColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OutlineVariant}}" />
+                            <Setter Property="ThumbColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OutlineVariant}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -357,7 +357,7 @@
     </Style>
 
     <Style TargetType="TimePicker">
-        <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
         <Setter Property="BackgroundColor" Value="Transparent"/>
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14"/>
@@ -369,7 +369,7 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -379,33 +379,33 @@
 
     <Style TargetType="Page" ApplyToDerivedTypes="True">
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="BackgroundColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Background}}" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Background}}" />
     </Style>
 
     <Style TargetType="Shell" ApplyToDerivedTypes="True">
-        <Setter Property="Shell.BackgroundColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Background}}" />
-        <Setter Property="Shell.ForegroundColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnBackground}}" />
-        <Setter Property="Shell.TitleColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnBackground}}" />
-        <Setter Property="Shell.DisabledColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OutlineVariant}}" />
-        <Setter Property="Shell.UnselectedColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+        <Setter Property="Shell.BackgroundColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Background}}" />
+        <Setter Property="Shell.ForegroundColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnBackground}}" />
+        <Setter Property="Shell.TitleColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnBackground}}" />
+        <Setter Property="Shell.DisabledColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OutlineVariant}}" />
+        <Setter Property="Shell.UnselectedColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
         <Setter Property="Shell.NavBarHasShadow" Value="False" />
-        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Surface}}" />
-        <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
-        <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
-        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Surface}}" />
+        <Setter Property="Shell.TabBarForegroundColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="Shell.TabBarTitleColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
     </Style>
 
     <Style TargetType="NavigationPage">
-        <Setter Property="BarBackgroundColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Surface}}" />
-        <Setter Property="BarTextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
-        <Setter Property="IconColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="BarBackgroundColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Surface}}" />
+        <Setter Property="BarTextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="IconColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     </Style>
 
     <Style TargetType="TabbedPage">
-        <Setter Property="BarBackgroundColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Surface}}" />
-        <Setter Property="BarTextColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
-        <Setter Property="UnselectedTabColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
-        <Setter Property="SelectedTabColor" Value="{StaticResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="BarBackgroundColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Surface}}" />
+        <Setter Property="BarTextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="UnselectedTabColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+        <Setter Property="SelectedTabColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     </Style>
 
 </ResourceDictionary>

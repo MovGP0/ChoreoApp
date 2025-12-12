@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace ChoreoApp;
 
-public sealed partial class MaterialDesignColorsDictionary: IDictionary<string, object>
+public sealed partial class MaterialDesignColorsDictionary : IDictionary<string, object>
 {
     public IEnumerator<KeyValuePair<string, object>> GetEnumerator() => _baseDictionary.GetEnumerator();
 
@@ -11,7 +13,12 @@ public sealed partial class MaterialDesignColorsDictionary: IDictionary<string, 
 
     public void Add(KeyValuePair<string, object> item) => _baseDictionary.Add(item.Key, item.Value);
 
-    public void Clear() => _baseDictionary.Clear();
+    public void Clear()
+    {
+        _baseDictionary.Clear();
+        _brushesByColor.Clear();
+        _colorKeyToColor.Clear();
+    }
 
     bool ICollection<KeyValuePair<string, object>>.Contains(KeyValuePair<string, object> item)
     {
@@ -28,7 +35,13 @@ public sealed partial class MaterialDesignColorsDictionary: IDictionary<string, 
     bool ICollection<KeyValuePair<string, object>>.Remove(KeyValuePair<string, object> item)
     {
         ICollection<KeyValuePair<string, object>> collection = _baseDictionary;
-        return collection.Remove(item);
+        var removed = collection.Remove(item);
+        if (removed)
+        {
+            RemoveCacheEntry(item.Key);
+        }
+
+        return removed;
     }
 
     public int Count => _baseDictionary.Count;
@@ -39,16 +52,33 @@ public sealed partial class MaterialDesignColorsDictionary: IDictionary<string, 
 
     public bool ContainsKey(string key)
     {
-        if (key.EndsWith(BrushSuffix, StringComparison.InvariantCulture))
+        if (key.EndsWith(BrushSuffix, StringComparison.Ordinal))
         {
-            var k = key.TrimEnd(BrushSuffix).ToString();
-            return _baseDictionary.ContainsKey(k);
+            var colorKey = key[..^BrushSuffix.Length];
+            return _baseDictionary.ContainsKey(colorKey);
         }
 
         return _baseDictionary.ContainsKey(key);
     }
 
-    public bool Remove(string key) => _baseDictionary.Remove(key);
+    public bool Remove(string key)
+    {
+        if (key.EndsWith(BrushSuffix, StringComparison.Ordinal))
+        {
+            var colorKey = key[..^BrushSuffix.Length];
+            var removedBrush = RemoveCacheEntry(colorKey);
+            var removedColor = _baseDictionary.Remove(colorKey);
+            return removedBrush || removedColor;
+        }
+
+        var removed = _baseDictionary.Remove(key);
+        if (removed)
+        {
+            RemoveCacheEntry(key);
+        }
+
+        return removed;
+    }
 
     [IndexerName("Item")]
     public object this[string key]
@@ -59,4 +89,6 @@ public sealed partial class MaterialDesignColorsDictionary: IDictionary<string, 
 
     public ICollection<string> Keys => _baseDictionary.Keys;
     public ICollection<object> Values => _baseDictionary.Values;
+
+    bool IDictionary<string, object>.TryGetValue(string key, out object value) => TryGetValue(key, out value);
 }
