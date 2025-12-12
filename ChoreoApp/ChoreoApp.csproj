@@ -63,6 +63,8 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" />
     <PackageReference Include="ReactiveUI.Maui" />
     <PackageReference Include="ReactiveUI" />
+    <PackageReference Include="SkiaSharp" />
+    <PackageReference Include="SkiaSharp.Views.Maui.Controls" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace ChoreoApp;
 
@@ -9,6 +10,7 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+            .UseSkiaSharp()
 			.ConfigureFonts(fonts =>
 			{
                 fonts.AddFont("DroidSansMNerdFont-Regular.otf", "DroidSans");
