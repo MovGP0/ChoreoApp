@@ -26,6 +26,8 @@
   </ItemGroup>
   <ItemGroup>
     <Page Remove="MaterialDesignColors.xaml" />
-    <MauiXaml Include="MaterialDesignColors.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MaterialColorUtilities\MaterialColorUtilities.csproj" />
   </ItemGroup>
 </Project>

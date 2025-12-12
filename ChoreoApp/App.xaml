@@ -7,9 +7,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <styling:MaterialDesignColors />
-                <styling:ColorPaletteResourceDictionary />
-                <styling:ThemeResourceDictionary />
+                <styling:MaterialDesignColorsDictionary />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
