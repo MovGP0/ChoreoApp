@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:choreoApp="clr-namespace:ChoreoApp.Styling;assembly=ChoreoApp.Styling">
+
+  <!-- Base shadow color -->
+  <Color x:Key="MaterialDesignShadow">#000000</Color>
+  <SolidColorBrush x:Key="MaterialDesignShadowBrush" Color="{StaticResource MaterialDesignShadow}" />
+
+  <!-- Legacy depth shadows -->
+  <Shadow x:Key="MaterialDesignShadowDepth1"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,1"
+          Radius="5"
+          Opacity="0.42" />
+  <Shadow x:Key="MaterialDesignShadowDepth2"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,1.5"
+          Radius="8"
+          Opacity="0.42" />
+  <Shadow x:Key="MaterialDesignShadowDepth3"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,4.5"
+          Radius="14"
+          Opacity="0.42" />
+  <Shadow x:Key="MaterialDesignShadowDepth4"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,8"
+          Radius="25"
+          Opacity="0.42" />
+  <Shadow x:Key="MaterialDesignShadowDepth5"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,13"
+          Radius="35"
+          Opacity="0.42" />
+
+  <!-- Elevation shadows -->
+  <Shadow x:Key="MaterialDesignElevationShadow1"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,1"
+          Radius="3"
+          Opacity="0.45" />
+  <Shadow x:Key="MaterialDesignElevationShadow2"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,1.5"
+          Radius="5"
+          Opacity="0.45" />
+  <Shadow x:Key="MaterialDesignElevationShadow3"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,2"
+          Radius="7"
+          Opacity="0.45" />
+  <Shadow x:Key="MaterialDesignElevationShadow4"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,2.5"
+          Radius="9"
+          Opacity="0.45" />
+  <Shadow x:Key="MaterialDesignElevationShadow5"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,3"
+          Radius="11"
+          Opacity="0.45" />
+  <Shadow x:Key="MaterialDesignElevationShadow6"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,3.5"
+          Radius="13"
+          Opacity="0.45" />
+  <Shadow x:Key="MaterialDesignElevationShadow7"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,4"
+          Radius="15"
+          Opacity="0.45" />
+  <Shadow x:Key="MaterialDesignElevationShadow8"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,4.5"
+          Radius="17"
+          Opacity="0.45" />
+  <Shadow x:Key="MaterialDesignElevationShadow12"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,6.5"
+          Radius="25"
+          Opacity="0.45" />
+  <Shadow x:Key="MaterialDesignElevationShadow16"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,8.5"
+          Radius="33"
+          Opacity="0.45" />
+  <Shadow x:Key="MaterialDesignElevationShadow24"
+          Brush="{StaticResource MaterialDesignShadowBrush}"
+          Offset="0,12.5"
+          Radius="49"
+          Opacity="0.45" />
+
+</ResourceDictionary>

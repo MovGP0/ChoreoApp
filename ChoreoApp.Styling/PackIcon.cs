@@ -9,15 +9,18 @@ namespace ChoreoApp.Styling;
 public class PackIcon : ContentView
 {
     private static readonly Brush DefaultBrush = new SolidColorBrush(Colors.Black);
+    private static readonly Brush DefaultBackgroundBrush = new SolidColorBrush(Colors.Transparent);
 
     private readonly Path _path;
 
     public PackIcon()
     {
+        Background = DefaultBackgroundBrush;
+
         _path = new Path
         {
             Fill = DefaultBrush,
-            Stroke = DefaultBrush,
+            Stroke = DefaultBackgroundBrush,
             StrokeThickness = 0
         };
 

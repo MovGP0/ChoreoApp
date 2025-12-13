@@ -11,6 +11,8 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.ToggleButton.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Typography.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MaterialDesignTheme.Shadows.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MaterialDesignTheme.Button.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -52,8 +52,11 @@
                            Placeholder="Search"
                            Text="{Binding SearchText, Mode=TwoWay}" />
                 <styling:ContentButton Grid.Column="1"
+                                       Style="{StaticResource MaterialDesignFlatDarkButton}"
                                        Command="{Binding NavigateToSettingsCommand}">
-                    <styling:PackIcon Kind="Settings" />
+                    <styling:PackIcon Kind="Settings"
+                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                      BackgroundColor="Transparent" />
                 </styling:ContentButton>
             </Grid>
         </Grid>

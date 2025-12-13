@@ -68,6 +68,31 @@ public sealed class ContentButton : Border
         set => SetValue(PressedOpacityProperty, value);
     }
 
+    public static readonly BindableProperty CornerRadiusProperty =
+        BindableProperty.Create(
+            nameof(CornerRadius),
+            typeof(float),
+            typeof(ContentButton),
+            8f,
+            propertyChanged: OnCornerRadiusChanged);
+
+    public float CornerRadius
+    {
+        get => (float)GetValue(CornerRadiusProperty);
+        set => SetValue(CornerRadiusProperty, value);
+    }
+
+    private static void OnCornerRadiusChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (bindable is ContentButton button && newValue is float radius)
+        {
+            button.StrokeShape = new RoundRectangle
+            {
+                CornerRadius = new CornerRadius(radius)
+            };
+        }
+    }
+
     private async void OnTapped(object? sender, TappedEventArgs e)
     {
         if (!IsEnabled)
