@@ -6,7 +6,7 @@ namespace ChoreoApp.Styling;
 /// Attached properties to provide floating hints/helper text behavior for inputs.
 /// Ported from MaterialDesignThemes.Wpf HintAssist to MAUI.
 /// </summary>
-public static class HintAssist
+public static partial class HintAssist
 {
     private const double DefaultFloatingScale = 0.74;
     private const double DefaultHintOpacity = 0.56;

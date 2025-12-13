@@ -17,6 +17,7 @@
     <DisableXbfGeneration>true</DisableXbfGeneration>
   </PropertyGroup>
   <ItemGroup>
+    <Using Include="Microsoft.Maui" />
     <Using Include="Microsoft.Maui.Controls" />
   </ItemGroup>
   <ItemGroup>
@@ -30,6 +31,12 @@
   <ItemGroup>
     <Compile Update="MaterialDesignColorsDictionary.*.cs">
       <DependentUpon>MaterialDesignColorsDictionary.cs</DependentUpon>
+    </Compile>
+    <Compile Update="TextBlockAssist.Windows.cs">
+      <DependentUpon>TextBlockAssist.cs</DependentUpon>
+    </Compile>
+    <Compile Update="TextBlockAssist.Default.cs">
+      <DependentUpon>TextBlockAssist.cs</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
