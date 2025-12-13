@@ -177,3 +177,23 @@ public sealed class SearchSceneBehavior(
     }
 } 
 ```
+- behaviors need to be injected as `IEnumerable<IBehavior<T>>` in the constructor and activated in the ViewModel's `WhenActivated` extension method.
+```csharp
+public sealed class SomeViewModel(
+    IEnumerable<IBehavior<SomeViewModel>> behaviors):
+    ReactiveObject,
+    IActivatableViewModel
+{
+    // .ctor
+    public SomeViewModel()
+    {
+        this.WhenActivated(disposables => 
+        {
+            foreach (var behavior in behaviors)
+            {
+                behavior.Activate(this, disposables);
+            }
+        });
+    }
+}
+```
