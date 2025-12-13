@@ -67,6 +67,7 @@ global using ReactiveUI;
 global using ReactiveUI.SourceGenerators;
 global using Microsoft.Extensions.DependencyInjection;
 ```
+- do not import namespaces (`using` keyword) that are already imported globally
 
 ## MAUI Specific
 - Use `SemanticProperties` for accessibility (`SemanticProperties.Hint`, `SemanticProperties.Description`, `SemanticProperties.HeadingLevel`).
@@ -198,3 +199,7 @@ public sealed class SomeViewModel(
     }
 }
 ```
+
+## Remember
+- use Rider tools when possible. Avoid `pwsh` and `python` where possible.
+- do not use namespaces that are already implicit

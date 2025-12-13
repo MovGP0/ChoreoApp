@@ -13,11 +13,11 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     [ReactiveCollection]
     private ObservableCollection<NavItemViewModel> _navItems =
     [
-        new("Choreo A"),
-        new("Choreo B"),
-        new("Choreo C"),
-        new("Choreo D"),
-        new("Choreo E")
+        new("Scene A"),
+        new("Scene B"),
+        new("Scene C"),
+        new("Scene D"),
+        new("Scene E")
     ];
 
     public void MoveNavItem(NavItemViewModel? item, NavItemViewModel? target)
