@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<maui:ReactiveContentPage x:TypeArguments="choreoApp:MainViewModel"
+<maui:ReactiveContentPage x:TypeArguments="main:MainViewModel"
                           xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                           xmlns:maui="using:ReactiveUI.Maui"
                           xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
                           xmlns:styling="clr-namespace:ChoreoApp.Styling;assembly=ChoreoApp.Styling"
                           xmlns:choreoApp="using:ChoreoApp"
-                          x:Class="ChoreoApp.MainPage">
+                          xmlns:main="clr-namespace:ChoreoApp.Main"
+                          x:Class="ChoreoApp.Main.MainPage">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="NavColumnDefinition"
@@ -84,7 +85,7 @@
 
             <Button Grid.Column="2"
                     Text="Settings"
-                    Clicked="OnSettingsClicked" />
+                    Command="{Binding NavigateToSettings}" />
         </Grid>
 
         <Grid Grid.Row="1"

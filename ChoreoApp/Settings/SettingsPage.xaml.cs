@@ -1,6 +1,6 @@
-namespace ChoreoApp;
-
 using ReactiveUI.Maui;
+
+namespace ChoreoApp.Settings;
 
 public partial class SettingsPage : ReactiveContentPage<SettingsViewModel>
 {

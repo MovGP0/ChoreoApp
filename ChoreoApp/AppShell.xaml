@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ChoreoApp"
     xmlns:i18N="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
+    xmlns:main="clr-namespace:ChoreoApp.Main"
     Title="{x:Static i18N:Translations.HelloWorld}">
-    <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
+    <ShellContent ContentTemplate="{DataTemplate main:MainPage}" Route="MainPage" />
 </Shell>

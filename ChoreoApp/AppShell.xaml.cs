@@ -1,3 +1,5 @@
+using ChoreoApp.Settings;
+
 namespace ChoreoApp;
 
 public partial class AppShell

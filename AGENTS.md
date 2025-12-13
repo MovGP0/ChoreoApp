@@ -8,6 +8,29 @@
 - Indentation: C# 4 spaces; XML/props 2 spaces; use `end_of_line = crlf`, `charset = utf-8`.
 - Names: public members/consts PascalCase; instance fields `_camelCase`; static fields `s_camelCase`; `System.*` usings first; prefer file-scoped namespaces and implicit usings.
 - Use `var` when type obvious; prefer object/collection initializers; null-propagation.
+- Place the usings before the namespace:
+```csharp
+using Some.Namespace;
+using Some.Other.Namespace;
+
+using Local.Namespace;
+```
+- prefer the new array syntax:
+```csharp
+int[] values = [1, 2, 3, 4];
+IList<int> values = [1, 2, 3, 4];
+IEnumerable<int> values = [1, 2, 3, 4];
+```
+- Set properties after initializing an object when using `using var`
+```csharp
+// Wrong
+using var font = new SKFont() { Size = 12 };
+
+// Correct
+using var font = new SKFont();
+font.Size = 12;
+```
+- Never return `async void`. Use `async Task` instead.
 
 ## Testing Guidelines
 - Prefer xUnit + Shouldy assertions. Test class names: `<Subject>Tests`; method names start with `Should...` (set `DisplayName`).
@@ -50,3 +73,38 @@ global using ReactiveUI.SourceGenerators;
 ## ReactiveUI Specific
 - The documentation for ReactiveUI can be found at https://reactiveui.net/docs/
 - We use source generators for properties and commands. Make sure to read the documentation in https://github.com/reactiveui/ReactiveUI.SourceGenerators first.
+- Prefer the command pattern and data binding over event handlers. The name of the command should start with a verb and indicate the intention clearly. 
+```xaml
+<!-- incorrect -->
+<Button OnClick="OnSettingsClicked" />
+
+<!-- correct -->
+<Button Command="{Binding NavigateToSettings}" />
+```
+and in the ViewModel:
+```csharp
+// generates "CanNavigateToSettings" property
+// see ReactiveUI.SourceGenerators documentation
+[Reactive]
+private bool _canNavigateToSettings = true;
+
+// generates the "NavigateToSettings" command for binding
+// see ReactiveUI.SourceGenerators documentation
+[ReactiveCommand(CanExecute = nameof(CanNavigateToSettings))]
+private async Task NavigateToSettingsAsync()
+{
+    // ...
+}
+```
+Important: make sure the binding context of the control points to the view model, where the method is located, instead of to the control itself.
+
+- All Views (e.g. Pages, Controls) should either have the `[IViewFor<TViewModel>]` attribute, or derive from a `Reactive*` control type (e.g. `ReactiveContentPage`).
+- All ViewModels should derive from `ReactiveObject` and implement `IActivatableViewModel`.
+- Use Screaming Architecture: Views, ViewModels, and Behaviors that belong (change) together should be located in the same folder. Use different folders for different pages.
+    - Example: `SettingsPage.xaml`, `SettingsPage.xaml.cs`, `SettingsViewModel.cs`, etc. should be located in the `Settings/` folder.
+    - Behaviors of the settings page should be located in the `Settings/Behaviors/` folder.
+
+## SkiaSharp Specific
+- `SKPaint` does not have font properties like `TextSize` anymore. You need an `SKFont` and set the `Size` property instead.
+    - Use `skFont.MeasureText(string)`
+    - Use `canvas.DrawText(string, x, y, font, paint);` for drawing text

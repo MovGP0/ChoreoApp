@@ -62,7 +62,6 @@
 		<PackageReference Include="Microsoft.Maui.Essentials" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" />
     <PackageReference Include="ReactiveUI.Maui" />
-    <PackageReference Include="ReactiveUI" />
     <PackageReference Include="SkiaSharp" />
     <PackageReference Include="SkiaSharp.Views.Maui.Controls" />
 	</ItemGroup>
@@ -74,6 +73,26 @@
 
 	<ItemGroup>
 	  <Folder Include="Resources\Images\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Settings\SettingsPage.xaml">
+	    <SubType>Designer</SubType>
+	  </MauiXaml>
+	  <MauiXaml Update="Main\MainPage.xaml">
+	    <SubType>Designer</SubType>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Settings\SettingsPage.xaml.cs">
+	    <DependentUpon>SettingsPage.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="Main\MainPage.xaml.cs">
+	    <DependentUpon>MainPage.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
 	</ItemGroup>
 
 </Project>
