@@ -63,6 +63,8 @@ global using System.Threading;
 global using System.Threading.Tasks;
 global using Microsoft.Maui;
 global using Microsoft.Maui.Controls;
+global using Microsoft.Maui.Graphics;
+global using Microsoft.Maui.Storage;
 global using ReactiveUI;
 global using ReactiveUI.SourceGenerators;
 global using Microsoft.Extensions.DependencyInjection;

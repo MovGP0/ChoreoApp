@@ -4,7 +4,7 @@ using System.Reactive.Linq;
 
 namespace ChoreoApp.Settings.Behaviors;
 
-public sealed class SwitchDarkLightModeBehavior: IBehavior<SettingsViewModel>
+public sealed class SwitchDarkLightModeBehavior : IBehavior<SettingsViewModel>
 {
     public void Activate(SettingsViewModel viewModel, CompositeDisposable disposables)
     {
@@ -18,6 +18,8 @@ public sealed class SwitchDarkLightModeBehavior: IBehavior<SettingsViewModel>
                     return;
                 }
 
+                var theme = isDark ? "Dark" : "Light";
+                Preferences.Default.Set("Theme", theme);
                 application.UserAppTheme = isDark ? AppTheme.Dark : AppTheme.Light;
             })
             .DisposeWith(disposables);

@@ -11,10 +11,11 @@
                           x:Class="ChoreoApp.Main.MainPage"
                           Loaded="OnMainPageLoaded">
     <foldable:TwoPaneView x:Name="MainTwoPaneView"
-                 PanePriority="Pane1"
-                 WideModeConfiguration="LeftRight"
-                 TallModeConfiguration="SinglePane"
-                 ModeChanged="OnTwoPaneModeChanged">
+                          x:DataType="main:MainViewModel"
+                          PanePriority="Pane1"
+                          WideModeConfiguration="LeftRight"
+                          TallModeConfiguration="SinglePane"
+                          ModeChanged="OnTwoPaneModeChanged">
         <foldable:TwoPaneView.Pane1>
             <Grid>
                 <Grid x:Name="SinglePaneHost">

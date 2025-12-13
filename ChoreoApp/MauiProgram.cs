@@ -1,12 +1,9 @@
 using Microsoft.Extensions.Logging;
-using ReactiveUI;
-using ReactiveUI.Maui;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using ChoreoApp.Floor;
 using ChoreoApp.Main;
 using ChoreoApp.Scenes;
 using ChoreoApp.Settings;
-using System;
 
 namespace ChoreoApp;
 

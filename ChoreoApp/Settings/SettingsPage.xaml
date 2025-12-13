@@ -7,7 +7,7 @@
                           xmlns:settings="clr-namespace:ChoreoApp.Settings"
                           xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
                           x:Class="ChoreoApp.Settings.SettingsPage">
-    <ScrollView>
+    <ScrollView x:DataType="settings:SettingsViewModel">
         <VerticalStackLayout Padding="24"
                              Spacing="16">
             <Label Text="{x:Static i18n:Translations.SettingsTitle}"
