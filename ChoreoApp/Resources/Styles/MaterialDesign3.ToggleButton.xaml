@@ -42,7 +42,7 @@
     </Setter>
   </Style>
   
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesign3ToggleSwitchStyle}"
+  <Style x:Key="MaterialDesign3ToggleSwitchStyle"
          TargetType="Switch">
     <Setter Property="BackgroundColor" Value="Transparent" />
     <Setter Property="ThumbColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />

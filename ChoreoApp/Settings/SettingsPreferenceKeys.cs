@@ -1,0 +1,15 @@
+namespace ChoreoApp.Settings;
+
+public static class SettingsPreferenceKeys
+{
+    public const string Theme = "Theme";
+    public const string UseSystemTheme = "UseSystemTheme";
+
+    public const string UsePrimaryColor = "UsePrimaryColor";
+    public const string UseSecondaryColor = "UseSecondaryColor";
+    public const string UseTertiaryColor = "UseTertiaryColor";
+
+    public const string PrimaryColor = "PrimaryColor";
+    public const string SecondaryColor = "SecondaryColor";
+    public const string TertiaryColor = "TertiaryColor";
+}

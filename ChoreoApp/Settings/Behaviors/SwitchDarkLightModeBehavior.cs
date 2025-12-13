@@ -13,14 +13,47 @@ public sealed class SwitchDarkLightModeBehavior : IBehavior<SettingsViewModel>
             .Skip(1)
             .Subscribe(isDark =>
             {
+                if (viewModel.UseSystemTheme)
+                {
+                    return;
+                }
+
                 if (Application.Current is not { } application)
                 {
                     return;
                 }
 
                 var theme = isDark ? "Dark" : "Light";
-                Preferences.Default.Set("Theme", theme);
+                Preferences.Default.Set(SettingsPreferenceKeys.Theme, theme);
                 application.UserAppTheme = isDark ? AppTheme.Dark : AppTheme.Light;
+                App.UpdateMaterialScheme();
+            })
+            .DisposeWith(disposables);
+
+        viewModel
+            .WhenAnyValue(vm => vm.UseSystemTheme)
+            .Skip(1)
+            .Subscribe(useSystem =>
+            {
+                Preferences.Default.Set(SettingsPreferenceKeys.UseSystemTheme, useSystem);
+
+                if (Application.Current is not { } application)
+                {
+                    return;
+                }
+
+                if (useSystem)
+                {
+                    application.UserAppTheme = AppTheme.Unspecified;
+                    App.UpdateMaterialScheme();
+                    return;
+                }
+
+                var isDark = viewModel.IsDarkMode;
+                var theme = isDark ? "Dark" : "Light";
+                Preferences.Default.Set(SettingsPreferenceKeys.Theme, theme);
+                application.UserAppTheme = isDark ? AppTheme.Dark : AppTheme.Light;
+                App.UpdateMaterialScheme();
             })
             .DisposeWith(disposables);
     }

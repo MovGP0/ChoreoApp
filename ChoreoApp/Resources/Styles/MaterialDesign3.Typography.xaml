@@ -10,21 +10,21 @@
   -->
 
   <!-- Body -->
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBodySmallTextBlock}"
+  <Style x:Key="MaterialDesignBodySmallTextBlock"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansRegular" />
     <Setter Property="FontSize" Value="12" />
     <Setter Property="LineHeight" Value="1.333" />
   </Style>
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBodyMediumTextBlock}"
+  <Style x:Key="MaterialDesignBodyMediumTextBlock"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansRegular" />
     <Setter Property="FontSize" Value="14" />
     <Setter Property="LineHeight" Value="1.429" />
   </Style>
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBodyLargeTextBlock}"
+  <Style x:Key="MaterialDesignBodyLargeTextBlock"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansRegular" />
@@ -33,21 +33,21 @@
   </Style>
 
   <!-- Label -->
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignLabelSmallTextBlock}"
+  <Style x:Key="MaterialDesignLabelSmallTextBlock"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansSemibold" />
     <Setter Property="FontSize" Value="11" />
     <Setter Property="LineHeight" Value="1.455" />
   </Style>
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignLabelMediumTextBlock}"
+  <Style x:Key="MaterialDesignLabelMediumTextBlock"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansSemibold" />
     <Setter Property="FontSize" Value="12" />
     <Setter Property="LineHeight" Value="1.333" />
   </Style>
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignLabelLargeTextBlock}"
+  <Style x:Key="MaterialDesignLabelLargeTextBlock"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansSemibold" />
@@ -56,21 +56,21 @@
   </Style>
 
   <!-- Title -->
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignTitleSmallTextBlock}"
+  <Style x:Key="MaterialDesignTitleSmallTextBlock"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansSemibold" />
     <Setter Property="FontSize" Value="14" />
     <Setter Property="LineHeight" Value="1.429" />
   </Style>
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignTitleMediumTextBlock}"
+  <Style x:Key="MaterialDesignTitleMediumTextBlock"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansSemibold" />
     <Setter Property="FontSize" Value="16" />
     <Setter Property="LineHeight" Value="1.500" />
   </Style>
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignTitleLargeTextBlock}"
+  <Style x:Key="MaterialDesignTitleLargeTextBlock"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansSemibold" />
@@ -79,21 +79,21 @@
   </Style>
 
   <!-- Headline -->
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignHeadlineSmallTextBlock}"
+  <Style x:Key="MaterialDesignHeadlineSmallTextBlock"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansRegular" />
     <Setter Property="FontSize" Value="24" />
     <Setter Property="LineHeight" Value="1.333" />
   </Style>
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignHeadlineMediumTextBlock}"
+  <Style x:Key="MaterialDesignHeadlineMediumTextBlock"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansRegular" />
     <Setter Property="FontSize" Value="28" />
     <Setter Property="LineHeight" Value="1.286" />
   </Style>
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignHeadlineLargeTextBlock}"
+  <Style x:Key="MaterialDesignHeadlineLargeTextBlock"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansRegular" />
@@ -102,21 +102,21 @@
   </Style>
 
   <!-- Display -->
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignDisplaySmallTextBlock}"
+  <Style x:Key="MaterialDesignDisplaySmallTextBlock"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansRegular" />
     <Setter Property="FontSize" Value="36" />
     <Setter Property="LineHeight" Value="1.222" />
   </Style>
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignDisplayMediumTextBlock}"
+  <Style x:Key="MaterialDesignDisplayMediumTextBlock"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansRegular" />
     <Setter Property="FontSize" Value="45" />
     <Setter Property="LineHeight" Value="1.156" />
   </Style>
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignDisplayLargeTextBlock}"
+  <Style x:Key="MaterialDesignDisplayLargeTextBlock"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansRegular" />
@@ -125,7 +125,7 @@
   </Style>
 
   <!-- Hyperlinks (apply to Label and add a TapGestureRecognizer in usage) -->
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBody1Hyperlink}"
+  <Style x:Key="MaterialDesignBody1Hyperlink"
          TargetType="Label">
     <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="FontFamily" Value="OpenSansRegular" />
@@ -153,71 +153,71 @@
     </Setter>
   </Style>
 
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBody2Hyperlink}"
+  <Style x:Key="MaterialDesignBody2Hyperlink}"
          TargetType="Label"
-         BasedOn="{StaticResource {x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBody1Hyperlink}}">
+         BasedOn="{StaticResource MaterialDesignBody1Hyperlink}">
     <Setter Property="FontSize" Value="14" />
   </Style>
 
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignCaptionHyperlink}"
+  <Style x:Key="MaterialDesignCaptionHyperlink}"
          TargetType="Label"
-         BasedOn="{StaticResource {x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBody1Hyperlink}}">
+         BasedOn="{StaticResource MaterialDesignBody1Hyperlink}">
     <Setter Property="FontSize" Value="12" />
   </Style>
 
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignOverlineHyperlink}"
+  <Style x:Key="MaterialDesignOverlineHyperlink}"
          TargetType="Label"
-         BasedOn="{StaticResource {x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBody1Hyperlink}}">
+         BasedOn="{StaticResource MaterialDesignBody1Hyperlink}">
     <Setter Property="FontSize" Value="10" />
   </Style>
 
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignSubtitle1Hyperlink}"
+  <Style x:Key="MaterialDesignSubtitle1Hyperlink}"
          TargetType="Label"
-         BasedOn="{StaticResource {x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBody1Hyperlink}}">
+         BasedOn="{StaticResource MaterialDesignBody1Hyperlink}">
     <Setter Property="FontSize" Value="16" />
   </Style>
 
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignSubtitle2Hyperlink}"
+  <Style x:Key="MaterialDesignSubtitle2Hyperlink}"
          TargetType="Label"
-         BasedOn="{StaticResource {x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBody1Hyperlink}}">
+         BasedOn="{StaticResource MaterialDesignBody1Hyperlink}">
     <Setter Property="FontFamily" Value="OpenSansSemibold" />
     <Setter Property="FontSize" Value="14" />
   </Style>
 
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignHeadline6Hyperlink}"
+  <Style x:Key="MaterialDesignHeadline6Hyperlink}"
          TargetType="Label"
-         BasedOn="{StaticResource {x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBody1Hyperlink}}">
+         BasedOn="{StaticResource MaterialDesignBody1Hyperlink}">
     <Setter Property="FontFamily" Value="OpenSansSemibold" />
     <Setter Property="FontSize" Value="20" />
   </Style>
 
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignHeadline5Hyperlink}"
+  <Style x:Key="MaterialDesignHeadline5Hyperlink}"
          TargetType="Label"
-         BasedOn="{StaticResource {x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBody1Hyperlink}}">
+         BasedOn="{StaticResource MaterialDesignBody1Hyperlink}">
     <Setter Property="FontSize" Value="24" />
   </Style>
 
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignHeadline4Hyperlink}"
+  <Style x:Key="MaterialDesignHeadline4Hyperlink}"
          TargetType="Label"
-         BasedOn="{StaticResource {x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBody1Hyperlink}}">
+         BasedOn="{StaticResource MaterialDesignBody1Hyperlink}">
     <Setter Property="FontSize" Value="34" />
   </Style>
 
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignHeadline3Hyperlink}"
+  <Style x:Key="MaterialDesignHeadline3Hyperlink}"
          TargetType="Label"
-         BasedOn="{StaticResource {x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBody1Hyperlink}}">
+         BasedOn="{StaticResource MaterialDesignBody1Hyperlink}">
     <Setter Property="FontSize" Value="48" />
   </Style>
 
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignHeadline2Hyperlink}"
+  <Style x:Key="MaterialDesignHeadline2Hyperlink}"
          TargetType="Label"
-         BasedOn="{StaticResource {x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBody1Hyperlink}}">
+         BasedOn="{StaticResource MaterialDesignBody1Hyperlink}">
     <Setter Property="FontSize" Value="60" />
   </Style>
 
-  <Style x:Key="{x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignHeadline1Hyperlink}"
+  <Style x:Key="MaterialDesignHeadline1Hyperlink}"
          TargetType="Label"
-         BasedOn="{StaticResource {x:Static choreoApp:MaterialDesignStyleKey.MaterialDesignBody1Hyperlink}}">
+         BasedOn="{StaticResource MaterialDesignBody1Hyperlink}">
     <Setter Property="FontSize" Value="96" />
   </Style>
 

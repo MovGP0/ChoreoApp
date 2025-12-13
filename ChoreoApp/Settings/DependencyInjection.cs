@@ -10,6 +10,7 @@ public static class DependencyInjection
         services.AddTransient<SettingsPage>();
         services.AddTransient<SettingsViewModel>();
         services.AddTransient<IBehavior<SettingsViewModel>, SwitchDarkLightModeBehavior>();
+        services.AddTransient<IBehavior<SettingsViewModel>, ColorPreferencesBehavior>();
 
         return services;
     }
