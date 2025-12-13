@@ -12,7 +12,7 @@ public partial class MainPage
     public MainPage()
     {
         InitializeComponent();
-        ViewModel ??= new MainViewModel();
+        ViewModel ??= Splat.Locator.Current.GetRequiredService<MainViewModel>();
 
         SinglePaneScenes.BindingContext = _scenesViewModel;
         DualPaneScenes.BindingContext = _scenesViewModel;

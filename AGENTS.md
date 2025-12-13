@@ -65,6 +65,7 @@ global using Microsoft.Maui;
 global using Microsoft.Maui.Controls;
 global using ReactiveUI;
 global using ReactiveUI.SourceGenerators;
+global using Microsoft.Extensions.DependencyInjection;
 ```
 
 ## MAUI Specific

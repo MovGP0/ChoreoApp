@@ -1,6 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using ChoreoApp;
 using ChoreoApp.Settings;
 
 namespace ChoreoApp.Scenes;

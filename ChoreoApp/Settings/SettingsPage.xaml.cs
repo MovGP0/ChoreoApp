@@ -7,6 +7,6 @@ public partial class SettingsPage : ReactiveContentPage<SettingsViewModel>
     public SettingsPage()
     {
         InitializeComponent();
-        ViewModel ??= new SettingsViewModel();
+        ViewModel ??= Splat.Locator.Current.GetRequiredService<SettingsViewModel>();
     }
 }

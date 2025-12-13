@@ -1,5 +1,3 @@
-using ChoreoApp.Settings;
-
 namespace ChoreoApp.Main;
 
 public sealed partial class MainViewModel : ReactiveObject, IActivatableViewModel

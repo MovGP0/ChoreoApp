@@ -8,6 +8,7 @@ public partial class FloorCanvasView
     public FloorCanvasView()
     {
         InitializeComponent();
+        ViewModel ??= Splat.Locator.Current.GetRequiredService<FloorCanvasViewModel>();
     }
 
     private void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs e)
