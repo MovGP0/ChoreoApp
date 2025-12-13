@@ -51,9 +51,10 @@
                 <SearchBar Grid.Column="0"
                            Placeholder="Search"
                            Text="{Binding SearchText, Mode=TwoWay}" />
-                <Button Grid.Column="1"
-                        Text="Settings"
-                        Command="{Binding NavigateToSettingsCommand}" />
+                <styling:ContentButton Grid.Column="1"
+                                       Command="{Binding NavigateToSettingsCommand}">
+                    <styling:PackIcon Kind="Settings" />
+                </styling:ContentButton>
             </Grid>
         </Grid>
     </Border>
