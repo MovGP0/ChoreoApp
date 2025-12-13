@@ -1,14 +1,23 @@
-using SkiaSharp;
-using SkiaSharp.Views.Maui;
+using ChoreoApp.Floor;
+using ChoreoApp.Scenes;
+using Microsoft.Maui.Controls.Foldable;
 
 namespace ChoreoApp.Main;
 
 public partial class MainPage
 {
+    private readonly ScenesPaneViewModel _scenesViewModel = new();
+    private readonly FloorCanvasViewModel _floorViewModel = new();
+
     public MainPage()
     {
         InitializeComponent();
-        ViewModel ??= new Main.MainViewModel();
+        ViewModel ??= new MainViewModel();
+
+        SinglePaneScenes.BindingContext = _scenesViewModel;
+        DualPaneScenes.BindingContext = _scenesViewModel;
+        SinglePaneFloor.BindingContext = _floorViewModel;
+        DualPaneFloor.BindingContext = _floorViewModel;
 
         this.WhenActivated(disposables =>
         {
@@ -16,64 +25,28 @@ public partial class MainPage
         });
     }
 
+    private void OnMainPageLoaded(object sender, EventArgs e)
+    {
+        UpdatePaneLayout(MainTwoPaneView.Mode);
+    }
+
+    private void OnTwoPaneModeChanged(object sender, EventArgs e)
+    {
+        UpdatePaneLayout(MainTwoPaneView.Mode);
+    }
+
+    private void UpdatePaneLayout(TwoPaneViewMode mode)
+    {
+        var isSinglePane = mode == TwoPaneViewMode.SinglePane;
+
+        SinglePaneHost.IsVisible = isSinglePane;
+        DualPaneScenesHost.IsVisible = !isSinglePane;
+
+        MainTwoPaneView.PanePriority = TwoPaneViewPriority.Pane1;
+    }
+
     private void OnBurgerClicked(object sender, EventArgs e)
     {
         ViewModel?.ToggleNavigation();
-    }
-
-    private void OnNavItemDragStarting(object sender, DragStartingEventArgs e)
-    {
-        if (sender is BindableObject { BindingContext: NavItemViewModel item })
-        {
-            e.Data.Properties["NavItem"] = item;
-        }
-    }
-
-    private void OnNavItemDragOver(object sender, DragEventArgs e)
-    {
-        e.AcceptedOperation = DataPackageOperation.Copy;
-    }
-
-    private void OnNavItemDrop(object sender, DropEventArgs e)
-    {
-        if (ViewModel == null)
-        {
-            return;
-        }
-
-        if (e.Data.Properties.TryGetValue("NavItem", out var dragged) &&
-            dragged is NavItemViewModel draggedItem &&
-            sender is BindableObject bindable &&
-            bindable.BindingContext is NavItemViewModel targetItem)
-        {
-            ViewModel.MoveNavItem(draggedItem, targetItem);
-        }
-    }
-
-    private void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs e)
-    {
-        var canvas = e.Surface.Canvas;
-        canvas.Clear(SKColors.White);
-
-        using var backgroundPaint = new SKPaint();
-        backgroundPaint.Shader = SKShader.CreateLinearGradient(
-            new SKPoint(0, 0),
-            new SKPoint(e.Info.Width, e.Info.Height),
-            [SKColors.DeepSkyBlue, SKColors.MediumPurple],
-            null,
-            SKShaderTileMode.Clamp);
-
-        canvas.DrawRect(e.Info.Rect, backgroundPaint);
-
-        using var textPaint = new SKPaint();
-        textPaint.Color = SKColors.White;
-        textPaint.IsAntialias = true;
-
-        using var font = new SKFont();
-        font.Size = 48;
-
-        const string message = "SkiaSharp Surface";
-        var textWidth = font.MeasureText(message);
-        canvas.DrawText(message, (e.Info.Width - textWidth) / 2, e.Info.Height / 2f, font, textPaint);
     }
 }

@@ -64,6 +64,8 @@
     <PackageReference Include="ReactiveUI.Maui" />
     <PackageReference Include="SkiaSharp" />
     <PackageReference Include="SkiaSharp.Views.Maui.Controls" />
+    <PackageReference Include="Microsoft.Maui.Controls.Foldable" />
+    <PackageReference Include="MessagePipe" />
 	</ItemGroup>
 
 	<ItemGroup>

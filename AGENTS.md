@@ -79,7 +79,7 @@ global using ReactiveUI.SourceGenerators;
 <Button OnClick="OnSettingsClicked" />
 
 <!-- correct -->
-<Button Command="{Binding NavigateToSettings}" />
+<Button Command="{Binding NavigateToSettingsCommand}" />
 ```
 and in the ViewModel:
 ```csharp
@@ -88,7 +88,7 @@ and in the ViewModel:
 [Reactive]
 private bool _canNavigateToSettings = true;
 
-// generates the "NavigateToSettings" command for binding
+// generates the "NavigateToSettingsCommand" command for binding
 // see ReactiveUI.SourceGenerators documentation
 [ReactiveCommand(CanExecute = nameof(CanNavigateToSettings))]
 private async Task NavigateToSettingsAsync()
@@ -100,11 +100,80 @@ Important: make sure the binding context of the control points to the view model
 
 - All Views (e.g. Pages, Controls) should either have the `[IViewFor<TViewModel>]` attribute, or derive from a `Reactive*` control type (e.g. `ReactiveContentPage`).
 - All ViewModels should derive from `ReactiveObject` and implement `IActivatableViewModel`.
-- Use Screaming Architecture: Views, ViewModels, and Behaviors that belong (change) together should be located in the same folder. Use different folders for different pages.
-    - Example: `SettingsPage.xaml`, `SettingsPage.xaml.cs`, `SettingsViewModel.cs`, etc. should be located in the `Settings/` folder.
-    - Behaviors of the settings page should be located in the `Settings/Behaviors/` folder.
+- Make sure the set the `TypeArguments`, `Class` and `DataType` on the control as needed:
+```xaml
+<maui:ReactiveContentView x:TypeArguments="local:MyViewModel"
+xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+xmlns:maui="using:ReactiveUI.Maui"
+x:Class="local:MyView"
+x:DataType="local:MyViewModel">
+```
+
+## Software Architecture
+- Use Screaming Architecture
+- Views, ViewModels, and Behaviors that belong (change) together should be located in the same folder.
+- Use different folders for different pages.
+- Example: `SettingsPage.xaml`, `SettingsPage.xaml.cs`, `SettingsViewModel.cs`, `DependencyInjection.cs`, etc. should be located in the `Settings/` folder.
+- Behaviors of the settings page should be located in the `Settings/Behaviors/` folder.
+- there should also be a dedicated `DependencyInjection.cs` for every component:
+```charp
+public static IServiceCollection AddSettings(this IServiceCollection services)
+{
+    services.AddTransient<IViewFor<SettingsViewModel>, SettingsPage>();
+    services.AddTransient<SettingsViewModel>();
+    services.AddTransient<IBehavior<SettingsViewModel>>, Behaviors.SomeSettingsBehavior>();
+    // other behaviors come here
+    return services;
+} 
+```
+- the services need to be registered in the service collection found in `MauiProgram.cs`:
+```csharp
+builder.Services.AddSettings();
+```
 
 ## SkiaSharp Specific
 - `SKPaint` does not have font properties like `TextSize` anymore. You need an `SKFont` and set the `Size` property instead.
     - Use `skFont.MeasureText(string)`
     - Use `canvas.DrawText(string, x, y, font, paint);` for drawing text
+
+## MessagePipe Specific
+- When one component needs to communicate with another component, we use the Publisher/Subscriber pattern.
+- The documentation can be found here: https://github.com/Cysharp/MessagePipe
+- Typically, you create a `public sealed record` type that represents the message and inject the `IAsyncPublisher<T>` and `IAsyncPublisher<T>` services into the behavior of the sending/receiving view model.
+- The same of the record should be prefixed with `Command`, `Event`, `Query`, or `Response` - based on their role.
+  - Examples: `UpdateSceneCommand`, `SceneUpdatedEvent`, `GetScenesQuery`, `ScenesListResponse`
+
+## Behaviors
+- Behaviors contain the business logic of the view model.
+- Behaviors bind to ReactiveUI properties and commands, MessagePipe messages, and/or other observables.
+- A behavior follows the following structure:
+```csharp
+// sealed class implementing IBehavior<T>
+// you can also inject the required services in the constructor
+public sealed class SearchSceneBehavior(
+    ISubscriber<UpdateScenesCommand> updateScenesCommandSubsriber):
+    IBehavior<SceneViewModel>
+{
+    // attached to a view model
+    // subscriptions are disposed with the dispsoables collection
+    void Activate(SceneViewModel viewModel, CompositeDisposable disposables)
+    {
+        // Example: subcribing to a observable property
+        viewModel
+            .WhenAnyValue(vm => vm.SearchText)
+            .Subcribe(searchText => DoSomething())
+            .DisposeWith(disposables);
+
+        // Example: subscribe to a observable command
+        viewModel.SearchTextCommand
+            .Subsribe(_ => DoSomething())
+            .DisposeWith(disposables);
+        
+        // Example: subscribe to a message
+        updateScenesCommandSubsriber
+            .Subsribe(commandMessage => DoSomething())
+            .DisposeWith(disposables);
+    }
+} 
+```

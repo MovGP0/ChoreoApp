@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentView x:TypeArguments="scenes:ScenesPaneViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:ChoreoApp.Styling;assembly=ChoreoApp.Styling"
+                          xmlns:choreoApp="using:ChoreoApp"
+                          xmlns:scenes="clr-namespace:ChoreoApp.Scenes"
+                          x:Class="ChoreoApp.Scenes.ScenesPaneView"
+                          x:DataType="scenes:ScenesPaneViewModel">
+    <Border StrokeThickness="0"
+            BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+            Padding="12,16"
+            MaximumWidthRequest="600">
+        <Grid RowDefinitions="*,Auto">
+            <CollectionView Grid.Row="0"
+                            ItemsSource="{Binding NavItems}"
+                            SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="8"
+                                       Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="choreoApp:NavItemViewModel">
+                        <Border StrokeThickness="1"
+                                Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
+                                BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}"
+                                Padding="10"
+                                StrokeShape="RoundRectangle 6">
+                            <Grid ColumnDefinitions="*"
+                                  Padding="4">
+                                <Label Text="{Binding Title}"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                            <Border.GestureRecognizers>
+                                <DragGestureRecognizer CanDrag="True"
+                                                       DragStarting="OnNavItemDragStarting" />
+                                <DropGestureRecognizer AllowDrop="True"
+                                                       DragOver="OnNavItemDragOver"
+                                                       Drop="OnNavItemDrop" />
+                            </Border.GestureRecognizers>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Grid Grid.Row="1"
+                  ColumnDefinitions="*,Auto"
+                  Margin="0,12,0,0">
+                <SearchBar Grid.Column="0"
+                           Placeholder="Search"
+                           Text="{Binding SearchText, Mode=TwoWay}" />
+                <Button Grid.Column="1"
+                        Text="Settings"
+                        Command="{Binding NavigateToSettingsCommand}" />
+            </Grid>
+        </Grid>
+    </Border>
+</maui:ReactiveContentView>
