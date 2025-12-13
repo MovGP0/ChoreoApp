@@ -8,6 +8,17 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
 {
     public ViewModelActivator Activator { get; } = new();
 
+    public ScenesPaneViewModel(IEnumerable<IBehavior<ScenesPaneViewModel>> behaviors)
+    {
+        this.WhenActivated(disposables =>
+        {
+            foreach (var behavior in behaviors)
+            {
+                behavior.Activate(this, disposables);
+            }
+        });
+    }
+
     [Reactive]
     private string _searchText = string.Empty;
 
@@ -63,4 +74,7 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
             await shell.GoToAsync(nameof(AudioPlayerPage));
         }
     }
+
+    [ReactiveCommand]
+    private Task OpenChoreoAsync() => Task.CompletedTask;
 }

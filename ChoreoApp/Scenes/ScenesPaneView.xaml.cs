@@ -1,3 +1,5 @@
+using System.Reactive.Disposables.Fluent;
+
 namespace ChoreoApp.Scenes;
 
 public partial class ScenesPaneView
@@ -5,6 +7,11 @@ public partial class ScenesPaneView
     public ScenesPaneView()
     {
         InitializeComponent();
+
+        this.WhenActivated(disposables =>
+        {
+            ViewModel?.Activator.Activate().DisposeWith(disposables);
+        });
     }
 
     private void OnNavItemDragStarting(object sender, DragStartingEventArgs e)

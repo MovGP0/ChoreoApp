@@ -46,20 +46,27 @@
             </CollectionView>
 
             <Grid Grid.Row="1"
-                  ColumnDefinitions="*,Auto,Auto"
+                  ColumnDefinitions="*,Auto,Auto,Auto"
                   Margin="0,12,0,0"
                   ColumnSpacing="8">
                 <SearchBar Grid.Column="0"
                            Placeholder="Search"
                            Text="{Binding SearchText, Mode=TwoWay}" />
                 <styling:ContentButton Grid.Column="1"
+                                       Style="{StaticResource MaterialDesignFlatButton}"
+                                       Command="{Binding OpenChoreoCommand}">
+                    <styling:PackIcon Kind="FolderOpen"
+                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                      BackgroundColor="Transparent" />
+                </styling:ContentButton>
+                <styling:ContentButton Grid.Column="2"
                                        Style="{StaticResource MaterialDesignFlatDarkButton}"
                                        Command="{Binding NavigateToSettingsCommand}">
                     <styling:PackIcon Kind="Settings"
                                       Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                       BackgroundColor="Transparent" />
                 </styling:ContentButton>
-                <styling:ContentButton Grid.Column="2"
+                <styling:ContentButton Grid.Column="3"
                                        Style="{StaticResource MaterialDesignFlatDarkButton}"
                                        Command="{Binding NavigateToAudioPlayerCommand}">
                     <styling:PackIcon Kind="PlayCircle"
