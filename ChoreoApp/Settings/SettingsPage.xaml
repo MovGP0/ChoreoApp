@@ -5,14 +5,27 @@
                           xmlns:maui="using:ReactiveUI.Maui"
                           xmlns:choreoApp="using:ChoreoApp"
                           xmlns:settings="clr-namespace:ChoreoApp.Settings"
+                          xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
                           x:Class="ChoreoApp.Settings.SettingsPage">
     <ScrollView>
         <VerticalStackLayout Padding="24"
                              Spacing="16">
-            <Label Text="Settings"
+            <Label Text="{x:Static i18n:Translations.SettingsTitle}"
                    FontSize="26"
                    FontAttributes="Bold" />
-            <Label Text="Add settings controls here." />
+            <Grid ColumnDefinitions="*,Auto"
+                  RowDefinitions="Auto"
+                  ColumnSpacing="12"
+                  RowSpacing="0">
+                <Label Text="{x:Static i18n:Translations.DarkModeLabel}"
+                       Grid.Column="0"
+                       VerticalOptions="Center"
+                       SemanticProperties.Description="{x:Static i18n:Translations.DarkModeLabel}" />
+                <Switch Grid.Column="1"
+                        VerticalOptions="Center"
+                        Style="{StaticResource MaterialDesign3ToggleSwitchStyle}"
+                        IsToggled="{Binding IsDarkMode, Mode=TwoWay}" />
+            </Grid>
         </VerticalStackLayout>
     </ScrollView>
 </maui:ReactiveContentPage>

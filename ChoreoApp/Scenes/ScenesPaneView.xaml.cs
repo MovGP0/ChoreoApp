@@ -5,7 +5,6 @@ public partial class ScenesPaneView
     public ScenesPaneView()
     {
         InitializeComponent();
-        ViewModel ??= Splat.Locator.Current.GetRequiredService<ScenesPaneViewModel>();
     }
 
     private void OnNavItemDragStarting(object sender, DragStartingEventArgs e)

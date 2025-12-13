@@ -1,5 +1,8 @@
 ﻿using MaterialColorUtilities;
+using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Graphics;
+using Application = Microsoft.Maui.Controls.Application;
+using Platform = MaterialColorUtilities.Platform;
 
 namespace ChoreoApp.Styling;
 
@@ -11,9 +14,10 @@ public sealed partial class MaterialDesignColorsDictionary : ResourceDictionary
     {
         SetMaterialDesignColors();
 
+        var darkMode = Application.Current?.UserAppTheme == AppTheme.Dark;
         var scheme = new SchemeContent(
             Hct.FromInt(Color.ArgbFromColor(Color.FromRgb(0x19, 0x76, 0xD2))),
-            isDark: true,
+            isDark: darkMode,
             contrastLevel: 0.5,
             SpecVersion.Spec2025,
             Platform.Phone);

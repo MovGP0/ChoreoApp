@@ -6,8 +6,7 @@
                           xmlns:styling="clr-namespace:ChoreoApp.Styling;assembly=ChoreoApp.Styling"
                           xmlns:choreoApp="using:ChoreoApp"
                           xmlns:scenes="clr-namespace:ChoreoApp.Scenes"
-                          x:Class="ChoreoApp.Scenes.ScenesPaneView"
-                          x:DataType="scenes:ScenesPaneViewModel">
+                          x:Class="ChoreoApp.Scenes.ScenesPaneView">
     <Border StrokeThickness="0"
             BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
             Padding="12,16"

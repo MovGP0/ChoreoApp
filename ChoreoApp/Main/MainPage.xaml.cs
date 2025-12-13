@@ -1,28 +1,13 @@
-using ChoreoApp.Floor;
-using ChoreoApp.Scenes;
 using Microsoft.Maui.Controls.Foldable;
 
 namespace ChoreoApp.Main;
 
 public partial class MainPage
 {
-    private readonly ScenesPaneViewModel _scenesViewModel = new();
-    private readonly FloorCanvasViewModel _floorViewModel = new();
-
-    public MainPage()
+    public MainPage(MainViewModel viewModel)
     {
         InitializeComponent();
-        ViewModel ??= Splat.Locator.Current.GetRequiredService<MainViewModel>();
-
-        SinglePaneScenes.BindingContext = _scenesViewModel;
-        DualPaneScenes.BindingContext = _scenesViewModel;
-        SinglePaneFloor.BindingContext = _floorViewModel;
-        DualPaneFloor.BindingContext = _floorViewModel;
-
-        this.WhenActivated(disposables =>
-        {
-            // Bindings and activation logic can go here.
-        });
+        ViewModel = viewModel;
     }
 
     private void OnMainPageLoaded(object sender, EventArgs e)

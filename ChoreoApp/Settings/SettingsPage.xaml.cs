@@ -4,9 +4,9 @@ namespace ChoreoApp.Settings;
 
 public partial class SettingsPage : ReactiveContentPage<SettingsViewModel>
 {
-    public SettingsPage()
+    public SettingsPage(SettingsViewModel viewModel)
     {
         InitializeComponent();
-        ViewModel ??= Splat.Locator.Current.GetRequiredService<SettingsViewModel>();
+        ViewModel = viewModel;
     }
 }

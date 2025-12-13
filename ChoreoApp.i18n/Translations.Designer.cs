@@ -67,5 +67,23 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("HelloWorld", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string SettingsTitle {
+            get {
+                return ResourceManager.GetString("SettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark mode.
+        /// </summary>
+        public static string DarkModeLabel {
+            get {
+                return ResourceManager.GetString("DarkModeLabel", resourceCulture);
+            }
+        }
     }
 }

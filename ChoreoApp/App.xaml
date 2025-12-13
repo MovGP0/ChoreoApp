@@ -9,6 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <styling:MaterialDesignColorsDictionary />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.ToggleButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

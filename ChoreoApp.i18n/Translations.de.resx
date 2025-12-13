@@ -21,4 +21,10 @@
   <data name="HelloWorld" xml:space="preserve">
     <value>Hallo Welt</value>
   </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="DarkModeLabel" xml:space="preserve">
+    <value>Dunkelmodus</value>
+  </data>
 </root>
