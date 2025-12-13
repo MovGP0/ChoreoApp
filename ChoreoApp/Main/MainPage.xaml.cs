@@ -1,4 +1,6 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls.Foldable;
+using ChoreoApp.Scenes;
 
 namespace ChoreoApp.Main;
 
@@ -8,6 +10,15 @@ public partial class MainPage
     {
         InitializeComponent();
         ViewModel = viewModel;
+        BindingContext = viewModel;
+
+        var scenesVm = MauiProgram.Services.GetRequiredService<ScenesPaneViewModel>();
+        SinglePaneScenes.ViewModel = scenesVm;
+        SinglePaneScenes.BindingContext = scenesVm;
+
+        var dualScenesVm = MauiProgram.Services.GetRequiredService<ScenesPaneViewModel>();
+        DualPaneScenes.ViewModel = dualScenesVm;
+        DualPaneScenes.BindingContext = dualScenesVm;
     }
 
     private void OnMainPageLoaded(object sender, EventArgs e)

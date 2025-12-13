@@ -58,15 +58,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" />
-		<PackageReference Include="Microsoft.Maui.Essentials" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+    <PackageReference Include="Microsoft.Maui.Controls" />
+    <PackageReference Include="Microsoft.Maui.Essentials" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
     <PackageReference Include="ReactiveUI.Maui" />
     <PackageReference Include="SkiaSharp" />
     <PackageReference Include="SkiaSharp.Views.Maui.Controls" />
     <PackageReference Include="Microsoft.Maui.Controls.Foldable" />
     <PackageReference Include="MessagePipe" />
-	</ItemGroup>
+  </ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\ChoreoApp.i18n\ChoreoApp.i18n.csproj" />

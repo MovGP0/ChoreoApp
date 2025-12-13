@@ -111,6 +111,7 @@ xmlns:maui="using:ReactiveUI.Maui"
 x:Class="local:MyView"
 x:DataType="local:MyViewModel">
 ```
+- the source generators replace Fody. We do not use Fody.
 
 ## Software Architecture
 - Use Screaming Architecture

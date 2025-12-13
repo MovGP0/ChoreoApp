@@ -7,6 +7,7 @@ public static class DependencyInjection
     public static IServiceCollection AddSettings(this IServiceCollection services)
     {
         services.AddTransient<IViewFor<SettingsViewModel>, SettingsPage>();
+        services.AddTransient<SettingsPage>();
         services.AddTransient<SettingsViewModel>();
         services.AddTransient<IBehavior<SettingsViewModel>, SwitchDarkLightModeBehavior>();
 

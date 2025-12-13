@@ -1,9 +1,12 @@
 using Microsoft.Extensions.Logging;
+using ReactiveUI;
+using ReactiveUI.Maui;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using ChoreoApp.Floor;
 using ChoreoApp.Main;
 using ChoreoApp.Scenes;
 using ChoreoApp.Settings;
+using System;
 
 namespace ChoreoApp;
 
@@ -14,6 +17,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            //.UseReactiveUI()
             .UseSkiaSharp()
             .ConfigureFonts(fonts =>
             {
@@ -35,6 +39,10 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
-        return builder.Build();
+        var app = builder.Build();
+        Services = app.Services;
+        return app;
     }
+
+    public static IServiceProvider Services { get; private set; } = null!;
 }

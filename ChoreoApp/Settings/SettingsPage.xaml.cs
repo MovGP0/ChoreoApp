@@ -4,9 +4,8 @@ namespace ChoreoApp.Settings;
 
 public partial class SettingsPage : ReactiveContentPage<SettingsViewModel>
 {
-    public SettingsPage(SettingsViewModel viewModel)
+    public SettingsPage()
     {
         InitializeComponent();
-        ViewModel = viewModel;
     }
 }
