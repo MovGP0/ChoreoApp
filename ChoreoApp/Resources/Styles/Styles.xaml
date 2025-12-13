@@ -327,35 +327,6 @@
         <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Surface}}" />
     </Style>
 
-    <Style TargetType="Switch">
-        <Setter Property="OnColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
-        <Setter Property="ThumbColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnPrimary}}" />
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" />
-                    <VisualState x:Name="Disabled">
-                        <VisualState.Setters>
-                            <Setter Property="OnColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <Setter Property="ThumbColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState x:Name="On">
-                        <VisualState.Setters>
-                            <Setter Property="OnColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Secondary}}" />
-                            <Setter Property="ThumbColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnPrimary}}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState x:Name="Off">
-                        <VisualState.Setters>
-                            <Setter Property="ThumbColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OutlineVariant}}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
     <Style TargetType="TimePicker">
         <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
         <Setter Property="BackgroundColor" Value="Transparent"/>
