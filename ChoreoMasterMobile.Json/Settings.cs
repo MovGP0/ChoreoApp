@@ -24,6 +24,9 @@ public sealed class Settings
     [JsonPropertyName("PositionsAtSide")]
     public bool PositionsAtSide { get; set; }
 
+    /// <summary>
+    /// Flag that describes if the grid lines are shown on the floor.
+    /// </summary>
     [JsonPropertyName("GridLines")]
     public bool GridLines { get; set; }
 

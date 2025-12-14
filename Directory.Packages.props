@@ -17,6 +17,7 @@
     <PackageVersion Include="Microsoft.Maui.Controls.Foldable" Version="10.0.11" />
     <PackageVersion Include="Plugin.Maui.Audio" Version="4.0.0" />
     <PackageVersion Include="CommunityToolkit.Maui" Version="13.0.0" />
+    <PackageVersion Include="UnitsNet" Version="5.75.0" />
   </ItemGroup>
   <ItemGroup Label="ReactiveUI">
     <PackageVersion Include="ReactiveUI" Version="22.3.1" />

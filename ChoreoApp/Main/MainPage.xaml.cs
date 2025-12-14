@@ -1,5 +1,6 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
+using ChoreoApp.Floor;
 using ChoreoApp.Scenes;
 using ChoreoApp.Styling;
 
@@ -10,15 +11,22 @@ public partial class MainPage: IDisposable
     private CompositeDisposable Disposables { get; } = new();
     public void Dispose() => Disposables.Dispose();
 
-    public MainPage(MainViewModel viewModel)
+    public MainPage(
+        MainViewModel viewModel,
+        ScenesPaneViewModel scenesVm,
+        FloorCanvasViewModel floorVm)
     {
         InitializeComponent();
+
+        // setup bindings
         ViewModel = viewModel;
         BindingContext = viewModel;
 
-        var scenesVm = MauiProgram.Services.GetRequiredService<ScenesPaneViewModel>();
         LeftDrawerScenes.ViewModel = scenesVm;
         LeftDrawerScenes.BindingContext = scenesVm;
+
+        MainFloor.ViewModel = floorVm;
+        MainFloor.BindingContext = floorVm;
 
         Drawer.DrawerOpened += OnDrawerOpened;
         Disposable.Create(() => Drawer.DrawerOpened -= OnDrawerOpened).DisposeWith(Disposables);

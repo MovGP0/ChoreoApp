@@ -1,9 +1,11 @@
-﻿using System.Reactive.Disposables;
+using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
+using MessagePipe;
 
 namespace ChoreoApp.Scenes.Behaviors;
 
-public sealed class SelectSceneBehavior: IBehavior<ScenesPaneViewModel>
+public sealed class SelectSceneBehavior(
+    IPublisher<SelectedSceneChangedEvent> selectedSceneChangedPublisher) : IBehavior<ScenesPaneViewModel>
 {
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
     {
@@ -29,9 +31,10 @@ public sealed class SelectSceneBehavior: IBehavior<ScenesPaneViewModel>
                 }
 
                 previous = current;
+
+                selectedSceneChangedPublisher.Publish(new SelectedSceneChangedEvent(current));
             })
             .DisposeWith(disposables);
     }
 }
-
 

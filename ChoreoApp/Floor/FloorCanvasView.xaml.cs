@@ -1,3 +1,6 @@
+using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
+using ChoreoApp.Styling;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 
@@ -8,32 +11,84 @@ public partial class FloorCanvasView
     public FloorCanvasView()
     {
         InitializeComponent();
+
+        this.WhenActivated(disposables =>
+        {
+            var viewModelActivation = new SerialDisposable();
+            viewModelActivation.DisposeWith(disposables);
+
+            this
+                .WhenAnyValue(view => view.ViewModel)
+                .Subscribe(viewModel =>
+                {
+                    viewModelActivation.Disposable?.Dispose();
+
+                    if (viewModel is null)
+                    {
+                        viewModelActivation.Disposable = null;
+                        return;
+                    }
+
+                    var inner = new CompositeDisposable();
+
+                    viewModel.CanvasView = CanvasView;
+                    Disposable
+                        .Create(() => viewModel.CanvasView = null)
+                        .DisposeWith(inner);
+
+                    viewModel.Activator.Activate().DisposeWith(inner);
+
+                    CanvasView.InvalidateSurface();
+
+                    viewModelActivation.Disposable = inner;
+                })
+                .DisposeWith(disposables);
+
+            CanvasView.SizeChanged += OnCanvasViewSizeChanged;
+            Disposable
+                .Create(() => CanvasView.SizeChanged -= OnCanvasViewSizeChanged)
+                .DisposeWith(disposables);
+
+            CanvasView.InvalidateSurface();
+        });
+    }
+
+    /// <summary>
+    /// Transformation matrix for zooming/panning/rotating the floor view.
+    /// </summary>
+    /// <remarks>
+    /// Do not use this at the moment, as zooming/panning/rotating will be implemented later.
+    /// </remarks>
+    private SKMatrix TransformationMatrix { get; set; } = SKMatrix.Identity;
+
+    private static SKColor GetColor(string resourceKey)
+    {
+        var resources = Application.Current?.Resources;
+        if (resources is null
+            || !resources.TryGetValue(resourceKey, out var resource)
+            || resource is not Color color)
+        {
+            return SKColors.Transparent;
+        }
+
+        return color.ToSKColor();
     }
 
     private void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
-        var canvas = e.Surface.Canvas;
-        canvas.Clear(SKColors.White);
+        if (ViewModel is not { } viewModel)
+        {
+            SKColor surfaceColor = GetColor(MaterialDesignColorKey.Surface);
+            var canvas = e.Surface.Canvas;
+            canvas.Clear(surfaceColor);
+            return;
+        }
 
-        using var backgroundPaint = new SKPaint();
-        backgroundPaint.Shader = SKShader.CreateLinearGradient(
-            new SKPoint(0, 0),
-            new SKPoint(e.Info.Width, e.Info.Height),
-            [SKColors.DeepSkyBlue, SKColors.MediumPurple],
-            null,
-            SKShaderTileMode.Clamp);
+        viewModel.DrawFloorCommandPublisher.Publish(new DrawFloorCommand(e));
+    }
 
-        canvas.DrawRect(e.Info.Rect, backgroundPaint);
-
-        using var textPaint = new SKPaint();
-        textPaint.Color = SKColors.White;
-        textPaint.IsAntialias = true;
-
-        using var font = new SKFont();
-        font.Size = 48;
-
-        const string message = "SkiaSharp Surface";
-        var textWidth = font.MeasureText(message);
-        canvas.DrawText(message, (e.Info.Width - textWidth) / 2, e.Info.Height / 2f, font, textPaint);
+    private void OnCanvasViewSizeChanged(object? sender, EventArgs e)
+    {
+        CanvasView.InvalidateSurface();
     }
 }

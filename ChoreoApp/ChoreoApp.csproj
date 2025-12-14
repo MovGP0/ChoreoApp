@@ -71,7 +71,7 @@
     <PackageReference Include="MessagePipe" />
     <PackageReference Include="nor0x.Maui.ColorPicker" />
     <PackageReference Include="Plugin.Maui.Audio" />
-    <PackageReference Include="CommunityToolkit.Maui" />
+    <PackageReference Include="UnitsNet" />
   </ItemGroup>
 
 	<ItemGroup>
