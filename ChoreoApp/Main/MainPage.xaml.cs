@@ -25,6 +25,11 @@ public partial class MainPage: IDisposable
 
         Drawer.DrawerClosing += OnDrawerClosing;
         Disposable.Create(() => Drawer.DrawerClosing -= OnDrawerClosing).DisposeWith(Disposables);
+
+        this.WhenActivated(disposables =>
+        {
+            viewModel.Activator.Activate().DisposeWith(disposables);
+        });
     }
 
     private void OnDrawerOpened(object? sender, DrawerOpenedEventArgs? e)

@@ -7,7 +7,7 @@ public static class DependencyInjection
         services.AddTransient<IViewFor<MainViewModel>, MainPage>();
         services.AddTransient<MainPage>();
         services.AddTransient<MainViewModel>();
-
+        services.AddTransient<IBehavior<MainViewModel>, Behaviors.UpdateChoreographyTitleBehavior>();
         return services;
     }
 }

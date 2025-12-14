@@ -27,4 +27,7 @@
   <data name="DarkModeLabel" xml:space="preserve">
     <value>Dark mode</value>
   </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Choreography Viewer</value>
+  </data>
 </root>

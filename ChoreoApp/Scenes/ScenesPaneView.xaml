@@ -12,7 +12,7 @@
             BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
             Padding="12,16"
             MaximumWidthRequest="600">
-        <Grid RowDefinitions="*,Auto">
+        <Grid RowDefinitions="*,Auto,Auto">
             <CollectionView Grid.Row="0"
                             ItemsSource="{Binding Scenes}"
                             SelectionMode="None">
@@ -46,14 +46,18 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
             <Grid Grid.Row="1"
-                  ColumnDefinitions="*,Auto,Auto,Auto"
+                  ColumnDefinitions="*"
                   Margin="0,12,0,0"
                   ColumnSpacing="8">
                 <SearchBar Grid.Column="0"
                            Placeholder="Search"
                            Text="{Binding SearchText, Mode=TwoWay}" />
+            </Grid>
+            <Grid Grid.Row="2"
+                  ColumnDefinitions="*,Auto,Auto,Auto"
+                  Margin="0,12,0,0"
+                  ColumnSpacing="8">
                 <styling:ContentButton Grid.Column="1"
                                        Style="{StaticResource MaterialDesignFlatButton}"
                                        Command="{Binding OpenChoreoCommand}">

@@ -9,6 +9,7 @@
                           xmlns:main="clr-namespace:ChoreoApp.Main"
                           x:Class="ChoreoApp.Main.MainPage">
     <styling:DrawerHost x:Name="Drawer"
+                        x:DataType="main:MainViewModel"
                         ResponsiveBreakpoint="900"
                         OpenMode="Default">
         <styling:DrawerHost.LeftDrawerContent>
@@ -29,7 +30,7 @@
                                                    Checked="OnBurgerClicked"
                                                    Unchecked="OnBurgerClicked" />
                     <Label Grid.Column="1"
-                           Text="ChoreoApp"
+                           Text="{Binding Title}"
                            FontSize="20"
                            VerticalTextAlignment="Center"
                            HorizontalTextAlignment="Center" />

@@ -60,6 +60,24 @@ namespace ChoreoApp.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choreography Viewer.
+        /// </summary>
+        public static string AppTitle {
+            get {
+                return ResourceManager.GetString("AppTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark mode.
+        /// </summary>
+        public static string DarkModeLabel {
+            get {
+                return ResourceManager.GetString("DarkModeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hello World.
         /// </summary>
         public static string HelloWorld {
@@ -74,15 +92,6 @@ namespace ChoreoApp.i18n {
         public static string SettingsTitle {
             get {
                 return ResourceManager.GetString("SettingsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dark mode.
-        /// </summary>
-        public static string DarkModeLabel {
-            get {
-                return ResourceManager.GetString("DarkModeLabel", resourceCulture);
             }
         }
     }
