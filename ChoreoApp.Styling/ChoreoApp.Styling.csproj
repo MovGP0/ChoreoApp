@@ -19,6 +19,7 @@
   <ItemGroup>
     <Using Include="Microsoft.Maui" />
     <Using Include="Microsoft.Maui.Controls" />
+    <Using Include="Microsoft.Maui.Graphics" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls.Core" />
@@ -37,6 +38,18 @@
     </Compile>
     <Compile Update="TextBlockAssist.Default.cs">
       <DependentUpon>TextBlockAssist.cs</DependentUpon>
+    </Compile>
+    <Compile Update="DrawerHost.LeftDrawer.cs">
+      <DependentUpon>DrawerHost.cs</DependentUpon>
+    </Compile>
+    <Compile Update="DrawerHost.RightDrawer.cs">
+      <DependentUpon>DrawerHost.cs</DependentUpon>
+    </Compile>
+    <Compile Update="DrawerHost.TopDrawer.cs">
+      <DependentUpon>DrawerHost.cs</DependentUpon>
+    </Compile>
+    <Compile Update="DrawerHost.BottomDrawer.cs">
+      <DependentUpon>DrawerHost.cs</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
