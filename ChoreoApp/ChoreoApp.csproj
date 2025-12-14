@@ -44,7 +44,7 @@
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" TintColor="#66B3FF" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#B0BEC5" BaseSize="300,300" TintColor="#000000" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
