@@ -203,6 +203,33 @@ public sealed class SomeViewModel(
 }
 ```
 
+## Event Handler
+- When registering an event handler, the handler also needs to be disposed.
+```csharp
+public partial class SomeControl: IDisposable
+{
+    // implement dispose pattern with a disposable collection
+    private CompositeDisposable Disposables { get; } = new();
+    public void Dispose() => Disposables.Dispose();
+
+    public SomeControl()
+    {
+        // register the event handler
+        someEventSource.SomeEvent += OnSomeEvent;
+
+        // unregister the event handler on dispose
+        Disposable
+            .Create(() => someEventSource.SomeEvent -= OnSomeEvent)
+            .DisposeWith(Disposables);
+    }
+
+    private void OnSomeEvent(object? sender, EventArgs e)
+    {
+        // handle the event
+    }
+}
+```
+
 ## Remember
 - use Rider tools when possible. Avoid `pwsh` and `python` where possible.
 - do not use namespaces that are already implicit

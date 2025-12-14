@@ -10,7 +10,7 @@
         <VerticalStackLayout Padding="16"
                              Spacing="12"
                              BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
-            <Label Text="{Binding Title}"
+            <Label Text="{Binding Name}"
                    FontSize="20"
                    TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                    FontAttributes="Bold" />

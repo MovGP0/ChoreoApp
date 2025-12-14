@@ -23,32 +23,25 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     private string _searchText = string.Empty;
 
     [ReactiveCollection]
-    private ObservableCollection<NavItemViewModel> _navItems =
-    [
-        new("Scene A"),
-        new("Scene B"),
-        new("Scene C"),
-        new("Scene D"),
-        new("Scene E")
-    ];
+    private ObservableCollection<SceneViewModel> _scenes = [];
 
-    public void MoveNavItem(NavItemViewModel? item, NavItemViewModel? target)
+    public void MoveScenes(SceneViewModel? item, SceneViewModel? target)
     {
         if (item is null || target is null || item == target)
         {
             return;
         }
 
-        var oldIndex = NavItems.IndexOf(item);
-        var newIndex = NavItems.IndexOf(target);
+        var oldIndex = Scenes.IndexOf(item);
+        var newIndex = Scenes.IndexOf(target);
 
         if (oldIndex < 0 || newIndex < 0 || oldIndex == newIndex)
         {
             return;
         }
 
-        NavItems.RemoveAt(oldIndex);
-        NavItems.Insert(newIndex, item);
+        Scenes.RemoveAt(oldIndex);
+        Scenes.Insert(newIndex, item);
     }
 
     [Reactive]

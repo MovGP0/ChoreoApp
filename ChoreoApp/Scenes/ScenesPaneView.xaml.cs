@@ -16,7 +16,7 @@ public partial class ScenesPaneView
 
     private void OnNavItemDragStarting(object sender, DragStartingEventArgs e)
     {
-        if (sender is BindableObject { BindingContext: NavItemViewModel item })
+        if (sender is BindableObject { BindingContext: SceneViewModel item })
         {
             e.Data.Properties["NavItem"] = item;
         }
@@ -35,10 +35,10 @@ public partial class ScenesPaneView
         }
 
         if (e.Data.Properties.TryGetValue("NavItem", out var dragged)
-            && dragged is NavItemViewModel draggedItem
-            && sender is BindableObject { BindingContext: NavItemViewModel targetItem })
+            && dragged is SceneViewModel draggedItem
+            && sender is BindableObject { BindingContext: SceneViewModel targetItem })
         {
-            viewModel.MoveNavItem(draggedItem, targetItem);
+            viewModel.MoveScenes(draggedItem, targetItem);
         }
     }
 }

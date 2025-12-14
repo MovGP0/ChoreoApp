@@ -14,14 +14,14 @@
             MaximumWidthRequest="600">
         <Grid RowDefinitions="*,Auto">
             <CollectionView Grid.Row="0"
-                            ItemsSource="{Binding NavItems}"
+                            ItemsSource="{Binding Scenes}"
                             SelectionMode="None">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="8"
                                        Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="choreoApp:NavItemViewModel">
+                    <DataTemplate x:DataType="choreoApp:SceneViewModel">
                         <Border StrokeThickness="1"
                                 Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}"
@@ -29,9 +29,11 @@
                                 StrokeShape="RoundRectangle 6">
                             <Grid ColumnDefinitions="*"
                                   Padding="4">
-                                <Label Text="{Binding Title}"
+                                <Label Text="{Binding Name}"
                                        FontAttributes="Bold"
-                                       VerticalOptions="Center" />
+                                       VerticalOptions="Center"
+                                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                       BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
                             </Grid>
                             <Border.GestureRecognizers>
                                 <DragGestureRecognizer CanDrag="True"

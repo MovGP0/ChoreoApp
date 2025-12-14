@@ -8,6 +8,7 @@ public static class DependencyInjection
         services.AddTransient<ScenesPaneView>();
         services.AddTransient<ScenesPaneViewModel>();
         services.AddTransient<IBehavior<ScenesPaneViewModel>, Behaviors.OpenChoreoBehavior>();
+        services.AddTransient<IBehavior<ScenesPaneViewModel>, Behaviors.LoadScenesBehavior>();
 
         return services;
     }

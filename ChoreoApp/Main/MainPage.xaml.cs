@@ -1,11 +1,15 @@
-using Microsoft.Extensions.DependencyInjection;
+using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Scenes;
 using ChoreoApp.Styling;
 
 namespace ChoreoApp.Main;
 
-public partial class MainPage
+public partial class MainPage: IDisposable
 {
+    private CompositeDisposable Disposables { get; } = new();
+    public void Dispose() => Disposables.Dispose();
+
     public MainPage(MainViewModel viewModel)
     {
         InitializeComponent();
@@ -17,10 +21,13 @@ public partial class MainPage
         LeftDrawerScenes.BindingContext = scenesVm;
 
         Drawer.DrawerOpened += OnDrawerOpened;
+        Disposable.Create(() => Drawer.DrawerOpened -= OnDrawerOpened).DisposeWith(Disposables);
+
         Drawer.DrawerClosing += OnDrawerClosing;
+        Disposable.Create(() => Drawer.DrawerClosing -= OnDrawerClosing).DisposeWith(Disposables);
     }
 
-    private void OnDrawerOpened(object? sender, DrawerOpenedEventArgs e)
+    private void OnDrawerOpened(object? sender, DrawerOpenedEventArgs? e)
     {
         if (e.Dock == DrawerDock.Left && !HamburgerButton.IsChecked)
         {
@@ -36,7 +43,7 @@ public partial class MainPage
         }
     }
 
-    private void OnBurgerClicked(object sender, EventArgs e)
+    private void OnBurgerClicked(object? sender, EventArgs e)
     {
         Drawer.IsLeftDrawerOpen = HamburgerButton.IsChecked;
     }
