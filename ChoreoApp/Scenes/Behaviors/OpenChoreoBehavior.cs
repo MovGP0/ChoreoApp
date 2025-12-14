@@ -29,13 +29,18 @@ public sealed class OpenChoreoBehavior(
                 [DevicePlatform.WinUI] = [".choreo"],
                 [DevicePlatform.MacCatalyst] = ["choreo"],
                 [DevicePlatform.iOS] = ["choreo"],
-                [DevicePlatform.Android] = ["application/json", ".choreo"]
+                [DevicePlatform.Android] = ["application/octet-stream", "application/json", "*/*"],
             })
         });
 
         if (result is null)
         {
             return;
+        }
+
+        if (!string.Equals(Path.GetExtension(result.FileName), ".choreo", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException($"Unsupported file type: {result.FileName}");
         }
 
         var path = result.FullPath;
