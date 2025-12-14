@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <maui:ReactiveContentView x:TypeArguments="scenes:ScenesPaneViewModel"
+                          x:Name="Root"
                           xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                           xmlns:maui="using:ReactiveUI.Maui"
@@ -13,29 +14,50 @@
             Padding="12,16"
             MaximumWidthRequest="600">
         <Grid RowDefinitions="*,Auto,Auto">
-            <CollectionView Grid.Row="0"
+            <CollectionView x:Name="ScenesCollection"
+                            Grid.Row="0"
                             ItemsSource="{Binding Scenes}"
-                            SelectionMode="None">
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedScene, Mode=TwoWay}">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout ItemSpacing="8"
                                        Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="choreoApp:SceneViewModel">
-                        <Border StrokeThickness="1"
+                        <Border x:Name="SceneCard"
+                                StrokeThickness="1"
                                 Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}"
                                 Padding="10"
                                 StrokeShape="RoundRectangle 6">
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding IsSelected}"
+                                             Value="True">
+                                    <Setter Property="BackgroundColor"
+                                            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.PrimaryContainer}}" />
+                                    <Setter Property="Stroke"
+                                            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+                                    <Setter Property="StrokeThickness"
+                                            Value="2" />
+                                    <Setter TargetName="SceneName"
+                                            Property="Label.TextColor"
+                                            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimaryContainer}}" />
+                                </DataTrigger>
+                            </Border.Triggers>
                             <Grid ColumnDefinitions="*"
                                   Padding="4">
-                                <Label Text="{Binding Name}"
+                                <Label x:Name="SceneName"
+                                       Text="{Binding Name}"
                                        FontAttributes="Bold"
                                        VerticalOptions="Center"
                                        TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                                       BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
+                                       BackgroundColor="Transparent" />
                             </Grid>
                             <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.SelectSceneCommand, Source={x:Reference Root}}"
+                                                      CommandParameter="{Binding .}" />
                                 <DragGestureRecognizer CanDrag="True"
                                                        DragStarting="OnNavItemDragStarting" />
                                 <DropGestureRecognizer AllowDrop="True"

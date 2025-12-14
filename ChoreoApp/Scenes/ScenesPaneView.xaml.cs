@@ -1,4 +1,4 @@
-using System.Reactive.Disposables.Fluent;
+﻿using System.Reactive.Disposables.Fluent;
 
 namespace ChoreoApp.Scenes;
 
@@ -42,3 +42,4 @@ public partial class ScenesPaneView
         }
     }
 }
+

@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using ChoreoApp.Settings;
 using ChoreoApp.AudioPlayer;
 
@@ -24,6 +24,15 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
 
     [ReactiveCollection]
     private ObservableCollection<SceneViewModel> _scenes = [];
+
+    [Reactive]
+    private SceneViewModel? _selectedScene;
+
+    [ReactiveCommand]
+    private void SelectScene(SceneViewModel scene)
+    {
+        SelectedScene = scene;
+    }
 
     public void MoveScenes(SceneViewModel? item, SceneViewModel? target)
     {
@@ -71,3 +80,5 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     [ReactiveCommand]
     private Task OpenChoreoAsync() => Task.CompletedTask;
 }
+
+

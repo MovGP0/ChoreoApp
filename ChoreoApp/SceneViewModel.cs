@@ -7,4 +7,7 @@ public sealed partial class SceneViewModel(
 {
     [Reactive] private string _name = name;
     [Reactive] private Color _color = color;
+    [Reactive] private bool _isSelected;
 }
+
+

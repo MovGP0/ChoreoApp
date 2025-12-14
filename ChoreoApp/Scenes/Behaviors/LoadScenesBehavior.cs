@@ -1,10 +1,11 @@
 ﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
+using System.Linq;
 
 namespace ChoreoApp.Scenes.Behaviors;
 
 public sealed class LoadScenesBehavior(
-    GlobalStateModel globalState):
+    GlobalStateModel globalState) :
     IBehavior<ScenesPaneViewModel>
 {
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
@@ -17,6 +18,7 @@ public sealed class LoadScenesBehavior(
                 if (choreography is null)
                 {
                     viewModel.Scenes.Clear();
+                    viewModel.SelectedScene = null;
                     return;
                 }
 
@@ -29,7 +31,11 @@ public sealed class LoadScenesBehavior(
                     var sceneVm = new SceneViewModel(scene.Name, scene.Color);
                     viewModel.Scenes.Add(sceneVm);
                 }
+
+                viewModel.SelectedScene = viewModel.Scenes.FirstOrDefault();
             })
             .DisposeWith(disposables);
     }
 }
+
+
