@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Maui.Controls.Foldable;
 using ChoreoApp.Scenes;
+using ChoreoApp.Styling;
 
 namespace ChoreoApp.Main;
 
@@ -13,36 +13,31 @@ public partial class MainPage
         BindingContext = viewModel;
 
         var scenesVm = MauiProgram.Services.GetRequiredService<ScenesPaneViewModel>();
-        SinglePaneScenes.ViewModel = scenesVm;
-        SinglePaneScenes.BindingContext = scenesVm;
+        LeftDrawerScenes.ViewModel = scenesVm;
+        LeftDrawerScenes.BindingContext = scenesVm;
 
-        var dualScenesVm = MauiProgram.Services.GetRequiredService<ScenesPaneViewModel>();
-        DualPaneScenes.ViewModel = dualScenesVm;
-        DualPaneScenes.BindingContext = dualScenesVm;
+        Drawer.DrawerOpened += OnDrawerOpened;
+        Drawer.DrawerClosing += OnDrawerClosing;
     }
 
-    private void OnMainPageLoaded(object sender, EventArgs e)
+    private void OnDrawerOpened(object? sender, DrawerOpenedEventArgs e)
     {
-        UpdatePaneLayout(MainTwoPaneView.Mode);
+        if (e.Dock == DrawerDock.Left && !HamburgerButton.IsChecked)
+        {
+            HamburgerButton.IsChecked = true;
+        }
     }
 
-    private void OnTwoPaneModeChanged(object sender, EventArgs e)
+    private void OnDrawerClosing(object? sender, DrawerClosingEventArgs e)
     {
-        UpdatePaneLayout(MainTwoPaneView.Mode);
-    }
-
-    private void UpdatePaneLayout(TwoPaneViewMode mode)
-    {
-        var isSinglePane = mode == TwoPaneViewMode.SinglePane;
-
-        SinglePaneHost.IsVisible = isSinglePane;
-        DualPaneScenesHost.IsVisible = !isSinglePane;
-
-        MainTwoPaneView.PanePriority = TwoPaneViewPriority.Pane1;
+        if (e.Dock == DrawerDock.Left && HamburgerButton.IsChecked)
+        {
+            HamburgerButton.IsChecked = false;
+        }
     }
 
     private void OnBurgerClicked(object sender, EventArgs e)
     {
-        ViewModel?.ToggleNavigation();
+        Drawer.IsLeftDrawerOpen = HamburgerButton.IsChecked;
     }
 }

@@ -7,85 +7,38 @@
                           xmlns:floor="clr-namespace:ChoreoApp.Floor"
                           xmlns:scenes="clr-namespace:ChoreoApp.Scenes"
                           xmlns:main="clr-namespace:ChoreoApp.Main"
-                          xmlns:foldable="clr-namespace:Microsoft.Maui.Controls.Foldable;assembly=Microsoft.Maui.Controls.Foldable"
-                          x:Class="ChoreoApp.Main.MainPage"
-                          Loaded="OnMainPageLoaded">
-    <foldable:TwoPaneView x:Name="MainTwoPaneView"
-                          x:DataType="main:MainViewModel"
-                          PanePriority="Pane1"
-                          WideModeConfiguration="LeftRight"
-                          TallModeConfiguration="SinglePane"
-                          ModeChanged="OnTwoPaneModeChanged">
-        <foldable:TwoPaneView.Pane1>
-            <Grid>
-                <Grid x:Name="SinglePaneHost">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition x:Name="NavColumnDefinition"
-                                          Width="{Binding NavColumnWidth}" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                          x:Class="ChoreoApp.Main.MainPage">
+    <styling:DrawerHost x:Name="Drawer"
+                        ResponsiveBreakpoint="900"
+                        OpenMode="Default">
+        <styling:DrawerHost.LeftDrawerContent>
+            <Border BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+                    MaximumWidthRequest="600">
+                <scenes:ScenesPaneView x:Name="LeftDrawerScenes" />
+            </Border>
+        </styling:DrawerHost.LeftDrawerContent>
 
-                    <Border Grid.Row="0"
-                            Grid.Column="0"
-                            Grid.RowSpan="2"
-                            BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
-                            MaximumWidthRequest="600">
-                        <scenes:ScenesPaneView x:Name="SinglePaneScenes" />
-                    </Border>
-
-                    <Grid Grid.Row="0"
-                          Grid.Column="1"
-                          Padding="12,8"
-                          ColumnDefinitions="Auto,*"
-                          BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
-                        <Button Grid.Column="0"
-                                Text="☰"
-                                FontSize="18"
-                                WidthRequest="42"
-                                HeightRequest="42"
-                                Clicked="OnBurgerClicked" />
-
-                        <Label Grid.Column="1"
-                               Text="ChoreoApp"
-                               FontSize="20"
-                               VerticalTextAlignment="Center"
-                               HorizontalTextAlignment="Center" />
-                    </Grid>
-
-                    <Grid Grid.Row="1"
-                          Grid.Column="1">
-                        <floor:FloorCanvasView x:Name="SinglePaneFloor" />
-                    </Grid>
-                </Grid>
-
-                <Border x:Name="DualPaneScenesHost"
-                        IsVisible="False"
-                        BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
-                        MaximumWidthRequest="600">
-                    <scenes:ScenesPaneView x:Name="DualPaneScenes" />
-                </Border>
-            </Grid>
-        </foldable:TwoPaneView.Pane1>
-
-        <foldable:TwoPaneView.Pane2>
+        <styling:DrawerHost.MainContent>
             <Grid RowDefinitions="Auto,*">
                 <Grid Padding="12,8"
-                      ColumnDefinitions="*"
+                      ColumnDefinitions="Auto,*"
                       BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
-                    <Label Text="ChoreoApp"
+                    <styling:HamburgerToggleButton x:Name="HamburgerButton"
+                                                   Grid.Column="0"
+                                                   Style="{StaticResource Key={x:Static styling:MaterialDesignButtonKey.MaterialDesignHamburgerToggleButton}}"
+                                                   Checked="OnBurgerClicked"
+                                                   Unchecked="OnBurgerClicked" />
+                    <Label Grid.Column="1"
+                           Text="ChoreoApp"
                            FontSize="20"
                            VerticalTextAlignment="Center"
-                           HorizontalTextAlignment="Start" />
+                           HorizontalTextAlignment="Center" />
                 </Grid>
 
                 <Grid Grid.Row="1">
-                    <floor:FloorCanvasView x:Name="DualPaneFloor" />
+                    <floor:FloorCanvasView x:Name="MainFloor" />
                 </Grid>
             </Grid>
-        </foldable:TwoPaneView.Pane2>
-    </foldable:TwoPaneView>
+        </styling:DrawerHost.MainContent>
+    </styling:DrawerHost>
 </maui:ReactiveContentPage>

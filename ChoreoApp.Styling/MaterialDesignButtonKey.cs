@@ -44,4 +44,6 @@ public static class MaterialDesignButtonKey
     public const string MaterialDesignPaperSecondaryLightButton = nameof(MaterialDesignPaperSecondaryLightButton);
     public const string MaterialDesignPaperSecondaryButton = nameof(MaterialDesignPaperSecondaryButton);
     public const string MaterialDesignPaperSecondaryDarkButton = nameof(MaterialDesignPaperSecondaryDarkButton);
+
+    public const string MaterialDesignHamburgerToggleButton = nameof(MaterialDesignHamburgerToggleButton);
 }

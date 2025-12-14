@@ -5,6 +5,8 @@ using ChoreoApp.Floor;
 using ChoreoApp.Main;
 using ChoreoApp.Scenes;
 using ChoreoApp.Settings;
+using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Core;
 
 namespace ChoreoApp;
 
@@ -15,6 +17,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
             //.UseReactiveUI()
             .UseSkiaSharp()
             .ConfigureFonts(fonts =>

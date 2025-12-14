@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:choreoApp="clr-namespace:ChoreoApp.Styling;assembly=ChoreoApp.Styling">
+    <!-- default style -->
+    <Style TargetType="choreoApp:HamburgerToggleButton">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="Height" Value="37" />
+        <Setter Property="Width" Value="37" />
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="BarColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="CheckedBarColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="DisabledBarColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+        <Setter Property="BackgroundCheckedColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.SurfaceVariant}}" />
+        <Setter Property="PressedOpacity" Value="0.85" />
+    </Style>
+
+    <Style TargetType="choreoApp:HamburgerToggleButton" x:Key="MaterialDesignHamburgerToggleButton">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="Height" Value="37" />
+        <Setter Property="Width" Value="37" />
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="BarColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="CheckedBarColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="DisabledBarColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+        <Setter Property="BackgroundCheckedColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.SurfaceVariant}}" />
+        <Setter Property="PressedOpacity" Value="0.85" />
+    </Style>
+</ResourceDictionary>
