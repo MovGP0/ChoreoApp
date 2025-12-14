@@ -6,7 +6,6 @@ using ChoreoMasterMobile.Json;
 using MessagePipe;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
-using UnitsNet;
 
 namespace ChoreoApp.Floor.Behaviors;
 
@@ -57,10 +56,10 @@ public sealed class DrawFloorBehavior(
         var floor = choreography.Floor;
         var settings = choreography.Settings;
 
-        Length sizeFromCenterToFront = Length.FromMeters(floor.SizeFront);
-        Length sizeFromCenterToBack = Length.FromMeters(floor.SizeBack);
-        Length sizeFromCenterToLeft = Length.FromMeters(floor.SizeLeft);
-        Length sizeFromCenterToRight = Length.FromMeters(floor.SizeRight);
+        float sizeFromCenterToFront = floor.SizeFront;
+        float sizeFromCenterToBack = floor.SizeBack;
+        float sizeFromCenterToLeft = floor.SizeLeft;
+        float sizeFromCenterToRight = floor.SizeRight;
 
         float canvasWidth = args.Info.Width;
         float canvasHeight = args.Info.Height;
@@ -68,10 +67,10 @@ public sealed class DrawFloorBehavior(
 
         float centerX = canvasWidth / 2f;
         float centerY = canvasHeight / 2f;
-        float left = centerX - (float)sizeFromCenterToLeft.Meters * scale;
-        float right = centerX + (float)sizeFromCenterToRight.Meters * scale;
-        float top = centerY - (float)sizeFromCenterToFront.Meters * scale;
-        float bottom = centerY + (float)sizeFromCenterToBack.Meters * scale;
+        float left = centerX - sizeFromCenterToLeft * scale;
+        float right = centerX + sizeFromCenterToRight * scale;
+        float top = centerY - sizeFromCenterToFront * scale;
+        float bottom = centerY + sizeFromCenterToBack * scale;
 
         var floorRect = new SKRect(left, top, right, bottom);
 
@@ -92,7 +91,7 @@ public sealed class DrawFloorBehavior(
             using var gridPaint = new SKPaint();
 
             SKColor secondaryColor = GetColor(MaterialDesignColorKey.Secondary);
-            gridPaint.Color = secondaryColor.WithAlpha(96);
+            gridPaint.Color = secondaryColor;
             gridPaint.Style = SKPaintStyle.Stroke;
             gridPaint.IsAntialias = true;
             gridPaint.StrokeWidth = 1f;
@@ -102,13 +101,13 @@ public sealed class DrawFloorBehavior(
             {
                 float offset = meter * scale;
 
-                if (offset <= (float)sizeFromCenterToLeft.Meters * scale)
+                if (offset <= sizeFromCenterToLeft * scale)
                 {
                     float x = centerX - offset;
                     canvas.DrawLine(x, top, x, bottom, gridPaint);
                 }
 
-                if (offset <= (float)sizeFromCenterToRight.Meters * scale)
+                if (offset <= sizeFromCenterToRight * scale)
                 {
                     float x = centerX + offset;
                     canvas.DrawLine(x, top, x, bottom, gridPaint);
@@ -120,13 +119,13 @@ public sealed class DrawFloorBehavior(
             {
                 float offset = meter * scale;
 
-                if (offset <= (float)sizeFromCenterToFront.Meters * scale)
+                if (offset <= sizeFromCenterToFront * scale)
                 {
                     float y = centerY - offset;
                     canvas.DrawLine(left, y, right, y, gridPaint);
                 }
 
-                if (offset <= (float)sizeFromCenterToBack.Meters * scale)
+                if (offset <= sizeFromCenterToBack * scale)
                 {
                     float y = centerY + offset;
                     canvas.DrawLine(left, y, right, y, gridPaint);
@@ -140,10 +139,10 @@ public sealed class DrawFloorBehavior(
         {
             float padding = 46f; // pixels
             float scaleX = (canvasWidth - 2 * padding) /
-                           (float)(sizeFromCenterToLeft + sizeFromCenterToRight).Meters;
+                           (sizeFromCenterToLeft + sizeFromCenterToRight);
 
             float scaleY = (canvasHeight - 2 * padding) /
-                           (float)(sizeFromCenterToFront + sizeFromCenterToBack).Meters;
+                           (sizeFromCenterToFront + sizeFromCenterToBack);
 
             return Math.Min(scaleX, scaleY);
         }
@@ -198,31 +197,22 @@ public sealed class DrawFloorBehavior(
             var diameter = (float)settings.DancerSize;
             float radius = diameter / 2f * scale;
 
-            using var fillPaint = new SKPaint
-            {
-                Style = SKPaintStyle.Fill,
-                IsAntialias = true
-            };
+            using var fillPaint = new SKPaint();
+            fillPaint.Style = SKPaintStyle.Fill;
+            fillPaint.IsAntialias = true;
 
-            using var borderPaint = new SKPaint
-            {
-                Style = SKPaintStyle.Stroke,
-                IsAntialias = true,
-                StrokeWidth = 2f
-            };
+            using var borderPaint = new SKPaint();
+            borderPaint.Style = SKPaintStyle.Stroke;
+            borderPaint.IsAntialias = true;
+            borderPaint.StrokeWidth = 2f;
 
-            using var textPaint = new SKPaint
-            {
-                Color = SKColors.White,
-                IsAntialias = true,
-                TextAlign = SKTextAlign.Center
-            };
+            using var textPaint = new SKPaint();
+            textPaint.Color = SKColors.White;
+            textPaint.IsAntialias = true;
 
-            using var font = new SKFont
-            {
-                Size = 14f,
-                Edging = SKFontEdging.Antialias
-            };
+            using var font = new SKFont();
+            font.Size = 24f;
+            font.Edging = SKFontEdging.Antialias;
 
             foreach (var position in scene.Positions)
             {
@@ -235,6 +225,12 @@ public sealed class DrawFloorBehavior(
                 var y = centerY - (float)position.Y * scale;
 
                 fillPaint.Color = position.Dancer.Color.ToSKColor();
+                textPaint.Color = PickBlackOrWhite(fillPaint.Color) switch
+                {
+                    BlackOrWhite.White => GetColor(MaterialDesignColorKey.White),
+                    BlackOrWhite.Black => GetColor(MaterialDesignColorKey.Black),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
                 borderPaint.Color = GetRoleBorderColor(position.Dancer.Role);
 
                 canvas.DrawCircle(x, y, radius, fillPaint);
@@ -247,7 +243,7 @@ public sealed class DrawFloorBehavior(
                 }
 
                 var textY = y + font.Metrics.CapHeight / 2f;
-                canvas.DrawText(shortcut, x, textY, font, textPaint);
+                canvas.DrawText(shortcut, x, textY, SKTextAlign.Center, font, textPaint);
             }
         }
 
@@ -263,4 +259,41 @@ public sealed class DrawFloorBehavior(
             return color;
         }
     }
+
+    private enum BlackOrWhite
+    {
+        Black,
+        White
+    }
+
+    private static BlackOrWhite PickBlackOrWhite(SKColor color)
+    {
+        float luminance = RelativeLuminance(color.Red, color.Green, color.Blue);
+
+        // explicit contrast check
+        float contrastBlack = (luminance + 0.05f) / 0.05f;
+        float contrastWhite = 1.05f / (luminance + 0.05f);
+        return contrastWhite > contrastBlack
+            ? BlackOrWhite.White
+            : BlackOrWhite.Black;
+
+        // Equivalent shortcut threshold:
+        // return luminance < 0.179
+        //     ? BlackOrWhite.White
+        //     : BlackOrWhite.Black;
+    }
+
+    private static float RelativeLuminance(byte r8, byte g8, byte b8)
+    {
+        float r = LinearizeChannel(r8 / 255.0f);
+        float g = LinearizeChannel(g8 / 255.0f);
+        float b = LinearizeChannel(b8 / 255.0f);
+
+        return 0.2126f * r + 0.7152f * g + 0.0722f * b;
+    }
+
+    private static float LinearizeChannel(float srgb)
+        => srgb <= 0.04045f
+            ? srgb / 12.92f
+            : MathF.Pow((srgb + 0.055f) / 1.055f, 2.4f);
 }
