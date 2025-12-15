@@ -34,6 +34,16 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
         SelectedScene = scene;
     }
 
+    [ReactiveCommand]
+    private void AddSceneBefore()
+    {
+    }
+
+    [ReactiveCommand]
+    private void AddSceneAfter()
+    {
+    }
+
     public void MoveScenes(SceneViewModel? item, SceneViewModel? target)
     {
         if (item is null || target is null || item == target)

@@ -77,24 +77,38 @@
                            Text="{Binding SearchText, Mode=TwoWay}" />
             </Grid>
             <Grid Grid.Row="2"
-                  ColumnDefinitions="*,Auto,Auto,Auto"
+                  ColumnDefinitions="*,Auto,Auto,Auto,Auto,Auto"
                   Margin="0,12,0,0"
                   ColumnSpacing="8">
                 <styling:ContentButton Grid.Column="1"
+                                       Style="{StaticResource MaterialDesignFlatButton}"
+                                       Command="{Binding AddSceneBeforeCommand}">
+                    <styling:PackIcon Kind="TableRowPlusBefore"
+                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                      BackgroundColor="Transparent" />
+                </styling:ContentButton>
+                <styling:ContentButton Grid.Column="2"
+                                       Style="{StaticResource MaterialDesignFlatButton}"
+                                       Command="{Binding AddSceneAfterCommand}">
+                    <styling:PackIcon Kind="TableRowPlusAfter"
+                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                      BackgroundColor="Transparent" />
+                </styling:ContentButton>
+                <styling:ContentButton Grid.Column="3"
                                        Style="{StaticResource MaterialDesignFlatButton}"
                                        Command="{Binding OpenChoreoCommand}">
                     <styling:PackIcon Kind="FolderOpen"
                                       Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                       BackgroundColor="Transparent" />
                 </styling:ContentButton>
-                <styling:ContentButton Grid.Column="2"
+                <styling:ContentButton Grid.Column="4"
                                        Style="{StaticResource MaterialDesignFlatDarkButton}"
                                        Command="{Binding NavigateToSettingsCommand}">
                     <styling:PackIcon Kind="Settings"
                                       Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                       BackgroundColor="Transparent" />
                 </styling:ContentButton>
-                <styling:ContentButton Grid.Column="3"
+                <styling:ContentButton Grid.Column="5"
                                        Style="{StaticResource MaterialDesignFlatDarkButton}"
                                        Command="{Binding NavigateToAudioPlayerCommand}">
                     <styling:PackIcon Kind="PlayCircle"
