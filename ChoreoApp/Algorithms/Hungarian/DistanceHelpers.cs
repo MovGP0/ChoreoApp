@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace ChoreoApp.Algorithms;
+namespace ChoreoApp.Algorithms.Hungarian;
 
 public static class DistanceHelpers
 {

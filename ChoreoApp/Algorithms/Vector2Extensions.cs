@@ -22,7 +22,7 @@ public static class Vector2Extensions
         /// Computes the Euclidean distance to <paramref name="other"/>.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public float EuclideanDistanceTo(in Vector2 other)
+        public float DistanceTo(in Vector2 other)
         {
             var diff = other - vector;
             return diff.Length();

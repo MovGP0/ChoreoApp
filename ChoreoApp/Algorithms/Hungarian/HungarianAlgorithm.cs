@@ -1,4 +1,4 @@
-namespace ChoreoApp.Algorithms;
+namespace ChoreoApp.Algorithms.Hungarian;
 
 public static class HungarianAlgorithm
 {
