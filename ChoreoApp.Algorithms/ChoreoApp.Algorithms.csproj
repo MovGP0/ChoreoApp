@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>
+      net10.0;
+      net10.0-android;
+      net10.0-ios;
+      net10.0-maccatalyst;
+      net10.0-windows10.0.19041.0
+    </TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <UseMaui>true</UseMaui>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-windows10.0.19041.0'">
+    <!-- Avoid WinUI XBF generation for MAUI resource dictionaries -->
+    <DisableXbfGeneration>true</DisableXbfGeneration>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Include="Microsoft.Maui" />
+    <Using Include="Microsoft.Maui.Controls" />
+    <Using Include="Microsoft.Maui.Graphics" />
+  </ItemGroup>
+</Project>
+
