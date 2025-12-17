@@ -12,6 +12,7 @@
     <Project Path="ChoreoApp.i18n/ChoreoApp.i18n.csproj" />
     <Project Path="ChoreoApp.Styling/ChoreoApp.Styling.csproj" />
     <Project Path="ChoreoApp.Algorithms/ChoreoApp.Algorithms.csproj" />
+    <Project Path="ChoreoApp.Algorithms.Tests/ChoreoApp.Algorithms.Tests.csproj" />
     <Project Path="ChoreoApp/ChoreoApp.csproj" />
     <Project Path="ChoreoMasterMobile.Json.Tests/ChoreoMasterMobile.Json.Tests.csproj" />
     <Project Path="ChoreoMasterMobile.Json/ChoreoMasterMobile.Json.csproj" />
