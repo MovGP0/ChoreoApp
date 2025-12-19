@@ -91,6 +91,7 @@ public sealed class DrawFloorBehavior(
             DrawGridLines();
         }
         var scenePositions = GetScenePositions();
+        var (previousScene, currentScene, nextScene) = GetAdjacentScenes();
 
         DrawCenter();
         DrawFloorBorder();
@@ -98,6 +99,7 @@ public sealed class DrawFloorBehavior(
         {
             DrawAxisLabels(scenePositions);
         }
+        DrawSceneCurves(previousScene, currentScene, nextScene);
         DrawPositions(scenePositions);
 
         canvas.Restore();
@@ -115,7 +117,7 @@ public sealed class DrawFloorBehavior(
             gridPaint.IsAntialias = true;
             gridPaint.StrokeWidth = 1f;
 
-            int maxHorizontalMeters = Math.Max(floor.SizeLeft, floor.SizeRight);
+            int maxHorizontalMeters = Math.Max((int)floor.SizeLeft, (int)floor.SizeRight);
             for (int meter = 1; meter <= maxHorizontalMeters; meter++)
             {
                 float offset = meter * scale;
@@ -133,7 +135,7 @@ public sealed class DrawFloorBehavior(
                 }
             }
 
-            int maxVerticalMeters = Math.Max(floor.SizeFront, floor.SizeBack);
+            int maxVerticalMeters = Math.Max((int)floor.SizeFront, (int)floor.SizeBack);
             for (int meter = 1; meter <= maxVerticalMeters; meter++)
             {
                 float offset = meter * scale;
@@ -308,6 +310,124 @@ public sealed class DrawFloorBehavior(
             }
         }
 
+        void DrawSceneCurves(Scene? previous, Scene? current, Scene? next)
+        {
+            if (current?.Positions is null)
+            {
+                return;
+            }
+
+            using var paint = new SKPaint();
+            paint.Style = SKPaintStyle.Stroke;
+            paint.IsAntialias = true;
+            paint.StrokeWidth = 2f;
+
+            if (previous?.Positions is not null)
+            {
+                paint.PathEffect = SKPathEffect.CreateDash([6f, 6f], 0f);
+                DrawCurvesBetweenScenes(previous, current, paint, useDarkerColor: true);
+            }
+
+            if (next?.Positions is not null)
+            {
+                paint.PathEffect = null;
+                DrawCurvesBetweenScenes(current, next, paint, useDarkerColor: false);
+            }
+        }
+
+        void DrawCurvesBetweenScenes(Scene fromScene, Scene toScene, SKPaint paint, bool useDarkerColor)
+        {
+            var fromByDancer = BuildPositionsByDancerId(fromScene);
+            if (fromByDancer.Count == 0 || toScene.Positions is null)
+            {
+                return;
+            }
+
+            foreach (var toPosition in toScene.Positions)
+            {
+                int dancerId = toPosition.Dancer.DancerId.Value;
+                if (dancerId <= 0 || !fromByDancer.TryGetValue(dancerId, out var fromPosition))
+                {
+                    continue;
+                }
+
+                var dancerColor = toPosition.Dancer.Color.ToSKColor();
+                paint.Color = useDarkerColor
+                    ? DarkenColor(dancerColor, 0.7f)
+                    : dancerColor;
+                DrawCurve(fromPosition, toPosition, paint);
+            }
+        }
+
+        void DrawCurve(Position fromPosition, Position toPosition, SKPaint paint)
+        {
+            var start = ToCanvasPoint(fromPosition.X, fromPosition.Y);
+            var end = ToCanvasPoint(toPosition.X, toPosition.Y);
+
+            var curveX = fromPosition.Curve1X;
+            var curveY = fromPosition.Curve1Y;
+            if (curveX is null || curveY is null)
+            {
+                canvas.DrawLine(start, end, paint);
+                return;
+            }
+
+            var endCurveX = toPosition.Curve1X;
+            var endCurveY = toPosition.Curve1Y;
+
+            const double hermiteScale = 1.0 / 3.0;
+            var control1 = ToCanvasPoint(
+                fromPosition.X - curveX.Value * hermiteScale,
+                fromPosition.Y - curveY.Value * hermiteScale);
+
+            var control2 = endCurveX is not null && endCurveY is not null
+                ? ToCanvasPoint(
+                    toPosition.X + endCurveX.Value * hermiteScale,
+                    toPosition.Y - endCurveY.Value * hermiteScale)
+                : ToCanvasPoint(
+                    toPosition.X + curveX.Value * hermiteScale,
+                    toPosition.Y - curveY.Value * hermiteScale);
+
+            using var path = new SKPath();
+            path.MoveTo(start);
+            path.CubicTo(control1, control2, end);
+            canvas.DrawPath(path, paint);
+        }
+
+        SKPoint ToCanvasPoint(double x, double y)
+        {
+            return new SKPoint(
+                centerX + (float)x * scale,
+                centerY - (float)y * scale);
+        }
+
+        SKColor DarkenColor(SKColor color, float lightnessScale)
+        {
+            color.ToHsl(out float h, out float s, out float l);
+            float newLightness = Math.Clamp(l * lightnessScale, 0f, 100f);
+            return SKColor.FromHsl(h, s, newLightness, color.Alpha);
+        }
+
+        Dictionary<int, Position> BuildPositionsByDancerId(Scene scene)
+        {
+            var lookup = new Dictionary<int, Position>();
+            if (scene.Positions is null)
+            {
+                return lookup;
+            }
+
+            foreach (var position in scene.Positions)
+            {
+                int dancerId = position.Dancer.DancerId.Value;
+                if (dancerId > 0)
+                {
+                    lookup[dancerId] = position;
+                }
+            }
+
+            return lookup;
+        }
+
         IReadOnlyList<Position>? GetScenePositions()
         {
             if (_selectedScene is null
@@ -316,13 +436,44 @@ public sealed class DrawFloorBehavior(
                 return null;
             }
 
-            var scene = scenes.FirstOrDefault(s => string.Equals(s.Name, _selectedScene.Name, StringComparison.Ordinal));
+            var scene = FindScene(scenes);
             if (scene?.Positions is null)
             {
                 return [];
             }
 
             return scene.Positions.ToList();
+        }
+
+        (Scene? Previous, Scene? Current, Scene? Next) GetAdjacentScenes()
+        {
+            if (_selectedScene is null
+                || choreography.Scenes is not { } scenes)
+            {
+                return (null, null, null);
+            }
+
+            var currentScene = FindScene(scenes);
+            if (currentScene is null)
+            {
+                return (null, null, null);
+            }
+
+            var index = scenes.IndexOf(currentScene);
+            var previous = index > 0 ? scenes[index - 1] : null;
+            var next = index >= 0 && index + 1 < scenes.Count ? scenes[index + 1] : null;
+            return (previous, currentScene, next);
+        }
+
+        Scene? FindScene(IList<Scene> scenes)
+        {
+            if (_selectedScene is null)
+            {
+                return null;
+            }
+
+            var scene = scenes.FirstOrDefault(s => s.SceneId == _selectedScene.SceneId);
+            return scene ?? scenes.FirstOrDefault(s => string.Equals(s.Name, _selectedScene.Name, StringComparison.Ordinal));
         }
 
         SKColor GetRoleBorderColor(Role role)
