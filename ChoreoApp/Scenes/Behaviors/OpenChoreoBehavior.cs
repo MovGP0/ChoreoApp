@@ -1,6 +1,7 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.AudioPlayer;
+using ChoreoApp.Settings;
 using ChoreoMasterMobile.Json;
 using MessagePipe;
 
@@ -17,6 +18,13 @@ public sealed class OpenChoreoBehavior(
             .OpenChoreoCommand
             .Subscribe(async _ => await HandleOpenAsync())
             .DisposeWith(disposables);
+
+        var cancellationTokenSource = new CancellationTokenSource();
+        Disposable
+            .Create(() => cancellationTokenSource.Cancel())
+            .DisposeWith(disposables);
+
+        _ = LoadLastOpenedAsync(cancellationTokenSource.Token);
     }
 
     private async Task HandleOpenAsync()
@@ -54,8 +62,27 @@ public sealed class OpenChoreoBehavior(
             path = tempPath;
         }
 
+        await LoadChoreoAsync(path);
+    }
+
+    private async Task LoadLastOpenedAsync(CancellationToken cancellationToken)
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(200), cancellationToken);
+
+        var storedPath = Preferences.Default.Get(SettingsPreferenceKeys.LastOpenedChoreoFile, string.Empty);
+        if (string.IsNullOrWhiteSpace(storedPath) || !File.Exists(storedPath))
+        {
+            return;
+        }
+
+        await LoadChoreoAsync(storedPath);
+    }
+
+    private async Task LoadChoreoAsync(string path)
+    {
         var choreography = Util.ImportFromFile(path);
         globalState.Choreography = choreography;
+        Preferences.Default.Set(SettingsPreferenceKeys.LastOpenedChoreoFile, path);
 
         await TryLoadAudioAsync(path, choreography.Settings);
     }

@@ -12,4 +12,6 @@ public static class SettingsPreferenceKeys
     public const string PrimaryColor = "PrimaryColor";
     public const string SecondaryColor = "SecondaryColor";
     public const string TertiaryColor = "TertiaryColor";
+
+    public const string LastOpenedChoreoFile = "LastOpenedChoreoFile";
 }
