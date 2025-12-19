@@ -35,8 +35,7 @@ jobs:
         shell: pwsh
         run: |
           dotnet workload install maui
-          dotnet workload restore ${{ env.SOLUTION_PATH }} `
-            "-p:TargetFrameworks=net10.0-windows10.0.19041.0;net10.0-android"
+          dotnet workload restore ${{ env.SOLUTION_PATH }} -p:"TargetFrameworks=net10.0-windows10.0.19041.0;net10.0-android"
 
       - name: Restore
         shell: pwsh
@@ -48,28 +47,20 @@ jobs:
       - name: Publish Windows
         shell: pwsh
         run: |
-          dotnet publish ${{ env.PROJECT_PATH }} `
-            -c ${{ env.CONFIGURATION }} `
-            -f net10.0-windows10.0.19041.0 `
-            -p:GenerateAppxPackageOnBuild=false `
-            -o artifacts/windows
+          dotnet publish "${{ env.PROJECT_PATH }}" -c "${{ env.CONFIGURATION }}" -f 'net10.0-windows10.0.19041.0' -p:'GenerateAppxPackageOnBuild=false' -o 'artifacts/windows'
 
       # Android (APK example). For Play Store you likely want AAB: -p:AndroidPackageFormat=aab
       - name: Publish Android (APK)
         shell: pwsh
         run: |
-          dotnet publish ${{ env.PROJECT_PATH }} `
-            -c ${{ env.CONFIGURATION }} `
-            -f net10.0-android `
-            -p:AndroidPackageFormat=apk `
-            -o artifacts/android
+          dotnet publish ${{ env.PROJECT_PATH }} -c ${{ env.CONFIGURATION }} -f net10.0-android -p:'AndroidPackageFormat=apk' -o 'artifacts/android'
 
       - name: Zip artifacts (Windows/Android)
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path out | Out-Null
-          Compress-Archive -Path artifacts/windows/* -DestinationPath out/windows.zip -Force
-          Compress-Archive -Path artifacts/android/* -DestinationPath out/android.zip -Force
+          Compress-Archive -Path 'artifacts/windows/*' -DestinationPath 'out/windows.zip' -Force
+          Compress-Archive -Path 'artifacts/android/*' -DestinationPath 'out/android.zip' -Force
 
       - name: Upload workflow artifacts (Windows/Android)
         uses: actions/upload-artifact@v4
@@ -93,28 +84,28 @@ jobs:
       - name: Install MAUI workloads
         run: |
           dotnet workload install maui
-          dotnet workload restore "${{ env.SOLUTION_PATH }}" '-p:TargetFrameworks=net10.0-ios;net10.0-maccatalyst'
+          dotnet workload restore "${{ env.SOLUTION_PATH }}" -p:'TargetFrameworks=net10.0-ios;net10.0-maccatalyst'
 
       - name: Restore
         run: |
-          dotnet restore "${{ env.SOLUTION_PATH }}" -f net10.0-ios '-p:TargetFrameworks=net10.0-ios;net10.0-maccatalyst'
-          dotnet restore "${{ env.SOLUTION_PATH }}" -f net10.0-maccatalyst '-p:TargetFrameworks=net10.0-ios;net10.0-maccatalyst'
+          dotnet restore "${{ env.SOLUTION_PATH }}" -f 'net10.0-ios' -p:'TargetFrameworks=net10.0-ios;net10.0-maccatalyst'
+          dotnet restore "${{ env.SOLUTION_PATH }}" -f 'net10.0-maccatalyst' -p:'TargetFrameworks=net10.0-ios;net10.0-maccatalyst'
 
       # iOS: builds simulator output (no device signing required).
       # For a signed .ipa (device/AppStore), you'd add signing secrets and follow MS guidance.
       - name: Publish iOS (Simulator)
         run: |
-          dotnet publish "${{ env.PROJECT_PATH }}" -c "${{ env.CONFIGURATION }}" -f net10.0-ios '-p:TargetFrameworks=net10.0-ios;net10.0-maccatalyst' -p:RuntimeIdentifier=iossimulator-x64 -p:BuildIpa=false -o artifacts/ios-sim
+          dotnet publish "${{ env.PROJECT_PATH }}" -c "${{ env.CONFIGURATION }}" -f net10.0-ios -p:'TargetFrameworks=net10.0-ios;net10.0-maccatalyst' -p:'RuntimeIdentifier=iossimulator-x64' -p:'BuildIpa=false' -o 'artifacts/ios-sim'
 
       - name: Publish MacCatalyst
         run: |
-          dotnet publish "${{ env.PROJECT_PATH }}" -c "${{ env.CONFIGURATION }}" -f net10.0-maccatalyst '-p:TargetFrameworks=net10.0-ios;net10.0-maccatalyst' -o artifacts/maccatalyst
+          dotnet publish "${{ env.PROJECT_PATH }}" -c "${{ env.CONFIGURATION }}" -f net10.0-maccatalyst -p:'TargetFrameworks=net10.0-ios;net10.0-maccatalyst' -o 'artifacts/maccatalyst'
 
       - name: Zip artifacts (iOS/MacCatalyst)
         run: |
           mkdir -p out
-          ditto -c -k --sequesterRsrc --keepParent artifacts/ios-sim out/ios-simulator.zip
-          ditto -c -k --sequesterRsrc --keepParent artifacts/maccatalyst out/maccatalyst.zip
+          ditto -c -k --sequesterRsrc --keepParent 'artifacts/ios-sim' 'out/ios-simulator.zip'
+          ditto -c -k --sequesterRsrc --keepParent 'artifacts/maccatalyst' 'out/maccatalyst.zip'
 
       - name: Upload workflow artifacts (iOS/MacCatalyst)
         uses: actions/upload-artifact@v4
