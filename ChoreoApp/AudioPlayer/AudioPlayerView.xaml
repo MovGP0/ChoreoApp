@@ -38,14 +38,16 @@
                    Text="{Binding Speed, Converter={StaticResource SpeedToPercentTextConverter}}"
                    TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
 
-            <Slider Grid.Column="2"
-                    VerticalOptions="Center"
-                    Value="{Binding Position, Mode=TwoWay}"
-                    Maximum="{Binding Duration}"
-                    ValueChanged="OnPositionChanged"
-                    DragStarted="OnPositionDragStarted"
-                    DragCompleted="OnPositionDragCompleted"
-                    IsEnabled="{Binding CanSeek}" />
+            <styling:SliderWithTicks
+                Grid.Column="2"
+                VerticalOptions="Center"
+                Value="{Binding Position, Mode=TwoWay}"
+                Minimum="0"
+                Maximum="{Binding Duration}"
+                ValueChanged="OnPositionChanged"
+                DragStarted="OnPositionDragStarted"
+                DragCompleted="OnPositionDragCompleted"
+                IsEnabled="{Binding CanSeek}" />
 
             <Label Grid.Column="3"
                    VerticalOptions="Center"

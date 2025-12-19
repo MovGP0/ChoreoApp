@@ -10,6 +10,7 @@
                 <styling:MaterialDesignColorsDictionary />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.HamburgerToggleButton.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Slider.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Switch.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Typography.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesignTheme.Shadows.xaml" />
