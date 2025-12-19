@@ -15,6 +15,7 @@ public sealed class DrawFloorBehavior(
     ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber) : IBehavior<FloorCanvasViewModel>
 {
     private readonly Dictionary<int, SKColor> _roleBorderColors = new();
+    private FloorCanvasViewModel? _viewModel;
     private Scenes.SceneViewModel? _selectedScene;
 
     private static SKColor GetColor(string resourceKey)
@@ -32,6 +33,11 @@ public sealed class DrawFloorBehavior(
 
     public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)
     {
+        _viewModel = viewModel;
+        Disposable
+            .Create(() => _viewModel = null)
+            .DisposeWith(disposables);
+
         drawFloorCommandSubscriber
             .Subscribe(command => DrawFloor(command.SurfaceEventArgs))
             .DisposeWith(disposables);
@@ -44,9 +50,8 @@ public sealed class DrawFloorBehavior(
     private void DrawFloor(SKPaintSurfaceEventArgs args)
     {
         var canvas = args.Surface.Canvas;
-
-        // get colors for the current application theme
-        SKColor primaryColor = GetColor(MaterialDesignColorKey.Primary);
+        SKColor surfaceColor = GetColor(MaterialDesignColorKey.Surface);
+        canvas.Clear(surfaceColor);
 
         if (globalState.Choreography is not { } choreography)
         {
@@ -73,6 +78,11 @@ public sealed class DrawFloorBehavior(
         float bottom = centerY + sizeFromCenterToBack * scale;
 
         var floorRect = new SKRect(left, top, right, bottom);
+        _viewModel?.UpdateFloorBounds(floorRect, new SKSize(canvasWidth, canvasHeight));
+
+        var transformationMatrix = _viewModel?.TransformationMatrix ?? SKMatrix.CreateIdentity();
+        canvas.Save();
+        canvas.SetMatrix(in transformationMatrix);
 
         DrawFloorRectangle();
         if (settings.GridLines)
@@ -82,6 +92,8 @@ public sealed class DrawFloorBehavior(
         DrawCenter();
         DrawFloorBorder();
         DrawPositions();
+
+        canvas.Restore();
 
         void DrawGridLines()
         {
@@ -150,7 +162,7 @@ public sealed class DrawFloorBehavior(
         void DrawCenter()
         {
             using var centerPaint = new SKPaint();
-            centerPaint.Color = primaryColor;
+            centerPaint.Color = GetColor(MaterialDesignColorKey.Primary);
             centerPaint.Style = SKPaintStyle.StrokeAndFill;
             centerPaint.IsAntialias = true;
             centerPaint.StrokeWidth = 2f;
@@ -163,7 +175,7 @@ public sealed class DrawFloorBehavior(
         void DrawFloorBorder()
         {
             using var borderPaint = new SKPaint();
-            borderPaint.Color = primaryColor;
+            borderPaint.Color = GetColor(MaterialDesignColorKey.Primary);
             borderPaint.Style = SKPaintStyle.Stroke;
             borderPaint.IsAntialias = true;
             borderPaint.StrokeWidth = 2f;

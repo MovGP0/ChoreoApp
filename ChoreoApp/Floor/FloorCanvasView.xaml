@@ -9,6 +9,14 @@
     <Grid>
         <skia:SKCanvasView x:Name="CanvasView"
                            PaintSurface="OnCanvasViewPaintSurface"
-                           EnableTouchEvents="True" />
+                           EnableTouchEvents="True">
+            <skia:SKCanvasView.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="OnCanvasViewPanUpdated" />
+                <PinchGestureRecognizer PinchUpdated="OnCanvasViewPinchUpdated" />
+                <PointerGestureRecognizer PointerPressed="OnCanvasViewPointerPressed"
+                                          PointerMoved="OnCanvasViewPointerMoved"
+                                          PointerReleased="OnCanvasViewPointerReleased" />
+            </skia:SKCanvasView.GestureRecognizers>
+        </skia:SKCanvasView>
     </Grid>
 </maui:ReactiveContentView>

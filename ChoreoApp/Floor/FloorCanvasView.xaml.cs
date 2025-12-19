@@ -49,17 +49,45 @@ public partial class FloorCanvasView
                 .Create(() => CanvasView.SizeChanged -= OnCanvasViewSizeChanged)
                 .DisposeWith(disposables);
 
+#if WINDOWS
+            var wheelSubscription = new SerialDisposable();
+            wheelSubscription.DisposeWith(disposables);
+
+            CanvasView.HandlerChanged += OnCanvasViewHandlerChanged;
+            Disposable
+                .Create(() => CanvasView.HandlerChanged -= OnCanvasViewHandlerChanged)
+                .DisposeWith(disposables);
+
+            void OnCanvasViewHandlerChanged(object? sender, EventArgs args)
+            {
+                wheelSubscription.Disposable?.Dispose();
+
+                if (CanvasView.Handler?.PlatformView is not Microsoft.UI.Xaml.FrameworkElement platformView)
+                {
+                    wheelSubscription.Disposable = null;
+                    return;
+                }
+
+                void OnPointerWheelChanged(object? _, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs eventArgs)
+                {
+                    if (ViewModel is not { } viewModel)
+                    {
+                        return;
+                    }
+
+                    var point = eventArgs.GetCurrentPoint(platformView);
+                    var position = new Point(point.Position.X, point.Position.Y);
+                    viewModel.HandlePointerWheelChanged(CanvasView, point.Properties.MouseWheelDelta, position);
+                }
+
+                platformView.PointerWheelChanged += OnPointerWheelChanged;
+                wheelSubscription.Disposable = Disposable.Create(() => platformView.PointerWheelChanged -= OnPointerWheelChanged);
+            }
+#endif
+
             CanvasView.InvalidateSurface();
         });
     }
-
-    /// <summary>
-    /// Transformation matrix for zooming/panning/rotating the floor view.
-    /// </summary>
-    /// <remarks>
-    /// Do not use this at the moment, as zooming/panning/rotating will be implemented later.
-    /// </remarks>
-    private SKMatrix TransformationMatrix { get; set; } = SKMatrix.Identity;
 
     private static SKColor GetColor(string resourceKey)
     {
@@ -90,5 +118,55 @@ public partial class FloorCanvasView
     private void OnCanvasViewSizeChanged(object? sender, EventArgs e)
     {
         CanvasView.InvalidateSurface();
+    }
+
+    private void OnCanvasViewPanUpdated(object? sender, PanUpdatedEventArgs e)
+    {
+        if (ViewModel is not { } viewModel)
+        {
+            return;
+        }
+
+        viewModel.HandlePanUpdated(CanvasView, e);
+    }
+
+    private void OnCanvasViewPinchUpdated(object? sender, PinchGestureUpdatedEventArgs e)
+    {
+        if (ViewModel is not { } viewModel)
+        {
+            return;
+        }
+
+        viewModel.HandlePinchUpdated(CanvasView, e);
+    }
+
+    private void OnCanvasViewPointerPressed(object? sender, PointerEventArgs e)
+    {
+        if (ViewModel is not { } viewModel)
+        {
+            return;
+        }
+
+        viewModel.HandlePointerPressed(CanvasView, e);
+    }
+
+    private void OnCanvasViewPointerMoved(object? sender, PointerEventArgs e)
+    {
+        if (ViewModel is not { } viewModel)
+        {
+            return;
+        }
+
+        viewModel.HandlePointerMoved(CanvasView, e);
+    }
+
+    private void OnCanvasViewPointerReleased(object? sender, PointerEventArgs e)
+    {
+        if (ViewModel is not { } viewModel)
+        {
+            return;
+        }
+
+        viewModel.HandlePointerReleased(e);
     }
 }
