@@ -35,7 +35,7 @@ jobs:
         run: |
           dotnet workload install maui
           dotnet workload restore ${{ env.PROJECT_PATH }} `
-            -p:TargetFrameworks=net10.0-windows10.0.19041.0;net10.0-android
+            "-p:TargetFrameworks=net10.0-windows10.0.19041.0;net10.0-android"
 
       - name: Restore
         shell: pwsh
@@ -95,16 +95,16 @@ jobs:
         run: |
           dotnet workload install maui
           dotnet workload restore ${{ env.PROJECT_PATH }} \
-            -p:TargetFrameworks=net10.0-ios;net10.0-maccatalyst
+            "-p:TargetFrameworks=net10.0-ios;net10.0-maccatalyst"
 
       - name: Restore
         run: |
           dotnet restore ${{ env.PROJECT_PATH }} \
             -f net10.0-ios \
-            -p:TargetFrameworks=net10.0-ios;net10.0-maccatalyst
+            "-p:TargetFrameworks=net10.0-ios;net10.0-maccatalyst"
           dotnet restore ${{ env.PROJECT_PATH }} \
             -f net10.0-maccatalyst \
-            -p:TargetFrameworks=net10.0-ios;net10.0-maccatalyst
+            "-p:TargetFrameworks=net10.0-ios;net10.0-maccatalyst"
 
       # iOS: builds simulator output (no device signing required).
       # For a signed .ipa (device/AppStore), you'd add signing secrets and follow MS guidance.
@@ -113,7 +113,7 @@ jobs:
           dotnet publish ${{ env.PROJECT_PATH }} \
             -c ${{ env.CONFIGURATION }} \
             -f net10.0-ios \
-            -p:TargetFrameworks=net10.0-ios;net10.0-maccatalyst \
+            "-p:TargetFrameworks=net10.0-ios;net10.0-maccatalyst" \
             -p:RuntimeIdentifier=iossimulator-x64 \
             -p:BuildIpa=false \
             -o artifacts/ios-sim
@@ -123,7 +123,7 @@ jobs:
           dotnet publish ${{ env.PROJECT_PATH }} \
             -c ${{ env.CONFIGURATION }} \
             -f net10.0-maccatalyst \
-            -p:TargetFrameworks=net10.0-ios;net10.0-maccatalyst \
+            "-p:TargetFrameworks=net10.0-ios;net10.0-maccatalyst" \
             -o artifacts/maccatalyst
 
       - name: Zip artifacts (iOS/MacCatalyst)
