@@ -9,8 +9,8 @@ namespace ChoreoApp.Scenes.Behaviors;
 
 public sealed class OpenChoreoBehavior(
     Global.GlobalStateModel globalState,
-    IAsyncPublisher<OpenAudioFileCommand> openAudioPublisher,
-    IAsyncPublisher<CloseAudioFileCommand> closeAudioPublisher) : IBehavior<ScenesPaneViewModel>
+    IPublisher<OpenAudioFileCommand> openAudioPublisher,
+    IPublisher<CloseAudioFileCommand> closeAudioPublisher) : IBehavior<ScenesPaneViewModel>
 {
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
     {
@@ -87,11 +87,11 @@ public sealed class OpenChoreoBehavior(
         await TryLoadAudioAsync(path, choreography.Settings);
     }
 
-    private async Task TryLoadAudioAsync(string choreographyFilePath, ChoreoMasterMobile.Json.Settings? settings)
+    private Task TryLoadAudioAsync(string choreographyFilePath, ChoreoMasterMobile.Json.Settings? settings)
     {
         if (settings is null)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         var candidates = new List<string>();
@@ -109,10 +109,11 @@ public sealed class OpenChoreoBehavior(
 
         foreach (var candidate in candidates.Where(File.Exists))
         {
-            await openAudioPublisher.PublishAsync(new OpenAudioFileCommand(candidate));
-            return;
+            openAudioPublisher.Publish(new OpenAudioFileCommand(candidate));
+            return Task.CompletedTask;
         }
 
-        await closeAudioPublisher.PublishAsync(new CloseAudioFileCommand());
+        closeAudioPublisher.Publish(new CloseAudioFileCommand());
+        return Task.CompletedTask;
     }
 }

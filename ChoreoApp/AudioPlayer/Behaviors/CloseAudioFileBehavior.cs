@@ -5,23 +5,20 @@ using MessagePipe;
 namespace ChoreoApp.AudioPlayer.Behaviors;
 
 public sealed class CloseAudioFileBehavior(
-    IAsyncSubscriber<CloseAudioFileCommand> subscriber):
+    ISubscriber<CloseAudioFileCommand> subscriber):
     IBehavior<AudioPlayerViewModel>
 {
     public void Activate(AudioPlayerViewModel viewModel, CompositeDisposable disposables)
     {
         subscriber
-            .Subscribe((message, ct) => HandleCloseAsync(viewModel, message, ct))
+            .Subscribe(message => HandleClose(viewModel, message))
             .DisposeWith(disposables);
     }
 
-    private static async ValueTask HandleCloseAsync(
+    private static void HandleClose(
         AudioPlayerViewModel viewModel,
-        CloseAudioFileCommand command,
-        CancellationToken cancellationToken)
+        CloseAudioFileCommand command)
     {
-        await Task.CompletedTask;
-
         if (viewModel.Player is IDisposable disposablePlayer)
         {
             disposablePlayer.Dispose();

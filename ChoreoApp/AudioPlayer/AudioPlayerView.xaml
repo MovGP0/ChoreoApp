@@ -6,6 +6,7 @@
                           xmlns:styling="clr-namespace:ChoreoApp.Styling;assembly=ChoreoApp.Styling"
                           xmlns:audio="clr-namespace:ChoreoApp.AudioPlayer"
                           xmlns:conv="clr-namespace:ChoreoApp.AudioPlayer.Converters"
+                          x:DataType="audio:AudioPlayerViewModel"
                           x:Class="ChoreoApp.AudioPlayer.AudioPlayerView"
                           Background="Transparent">
     <maui:ReactiveContentView.Resources>

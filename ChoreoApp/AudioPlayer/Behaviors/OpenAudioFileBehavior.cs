@@ -5,20 +5,19 @@ using MessagePipe;
 namespace ChoreoApp.AudioPlayer.Behaviors;
 
 public sealed class OpenAudioFileBehavior(
-    IAsyncSubscriber<OpenAudioFileCommand> subscriber):
+    ISubscriber<OpenAudioFileCommand> subscriber):
     IBehavior<AudioPlayerViewModel>
 {
     public void Activate(AudioPlayerViewModel viewModel, CompositeDisposable disposables)
     {
         subscriber
-            .Subscribe((message, ct) => HandleOpenAsync(viewModel, message, ct))
+            .Subscribe(message => HandleOpen(viewModel, message))
             .DisposeWith(disposables);
     }
 
-    private static async ValueTask HandleOpenAsync(
+    private static void HandleOpen(
         AudioPlayerViewModel viewModel,
-        OpenAudioFileCommand command,
-        CancellationToken cancellationToken)
+        OpenAudioFileCommand command)
     {
         if (string.IsNullOrWhiteSpace(command.FilePath))
         {
@@ -28,10 +27,6 @@ public sealed class OpenAudioFileBehavior(
         var filePath = command.FilePath;
         viewModel.Title = Path.GetFileName(filePath);
 
-        viewModel.StreamFactory = async () =>
-        {
-            await Task.CompletedTask;
-            return File.OpenRead(filePath);
-        };
+        viewModel.StreamFactory = () => Task.FromResult<Stream>(File.OpenRead(filePath));
     }
 }

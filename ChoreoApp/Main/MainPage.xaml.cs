@@ -1,6 +1,5 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
-using ChoreoApp.AudioPlayer;
 using ChoreoApp.Floor;
 using ChoreoApp.Scenes;
 using ChoreoApp.Styling;
@@ -15,8 +14,7 @@ public partial class MainPage: IDisposable
     public MainPage(
         MainViewModel viewModel,
         ScenesPaneViewModel scenesVm,
-        FloorCanvasViewModel floorVm,
-        AudioPlayerViewModel audioPlayerViewModel)
+        FloorCanvasViewModel floorVm)
     {
         InitializeComponent();
 
@@ -30,8 +28,8 @@ public partial class MainPage: IDisposable
         MainFloor.ViewModel = floorVm;
         MainFloor.BindingContext = floorVm;
 
-        BottomAudioPlayer.ViewModel = audioPlayerViewModel;
-        BottomAudioPlayer.BindingContext = audioPlayerViewModel;
+        BottomAudioPlayer.ViewModel = viewModel.AudioPlayerViewModel;
+        BottomAudioPlayer.BindingContext = viewModel.AudioPlayerViewModel;
 
         Drawer.DrawerOpened += OnDrawerOpened;
         Disposable.Create(() => Drawer.DrawerOpened -= OnDrawerOpened).DisposeWith(Disposables);

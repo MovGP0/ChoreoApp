@@ -6,6 +6,17 @@ public sealed partial class AudioPlayerViewModel : ReactiveObject, IActivatableV
 {
     private const double DefaultPreparationSeconds = 4d;
 
+    public AudioPlayerViewModel(IEnumerable<IBehavior<AudioPlayerViewModel>> behaviors)
+    {
+        this.WhenActivated(disposables =>
+        {
+            foreach (var behavior in behaviors)
+            {
+                behavior.Activate(this, disposables);
+            }
+        });
+    }
+
     public ViewModelActivator Activator { get; } = new();
 
     [Reactive]
