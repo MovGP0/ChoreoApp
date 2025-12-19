@@ -6,72 +6,46 @@
                           xmlns:styling="clr-namespace:ChoreoApp.Styling;assembly=ChoreoApp.Styling"
                           xmlns:audio="clr-namespace:ChoreoApp.AudioPlayer"
                           xmlns:conv="clr-namespace:ChoreoApp.AudioPlayer.Converters"
-                          x:Class="ChoreoApp.AudioPlayer.AudioPlayerView">
+                          x:Class="ChoreoApp.AudioPlayer.AudioPlayerView"
+                          Background="Transparent">
     <maui:ReactiveContentView.Resources>
         <conv:PlayPauseGlyphConverter x:Key="PlayPauseGlyphConverter" />
     </maui:ReactiveContentView.Resources>
-
     <Border StrokeThickness="1"
             Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
             BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainer}}"
             Padding="12"
-            StrokeShape="RoundRectangle 8">
-        <Grid RowDefinitions="Auto,Auto"
-              ColumnDefinitions="*,*,*,Auto"
+            StrokeShape="Rectangle">
+        <Grid RowDefinitions="Auto"
+              ColumnDefinitions="Auto,*,Auto,Auto"
               ColumnSpacing="12"
               RowSpacing="12"
               x:DataType="audio:AudioPlayerViewModel">
 
-            <VerticalStackLayout Grid.Row="0"
-                                 Grid.Column="0"
-                                 Spacing="4">
-                <Label Text="Speed"
-                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                       FontAttributes="Bold" />
-                <Slider Minimum="{Binding MinimumSpeed}"
-                        Maximum="{Binding MaximumSpeed}"
-                        Value="{Binding Speed, Mode=TwoWay}" />
-                <Label Text="{Binding Speed, StringFormat='{}{0:0.0}x'}"
-                       FontSize="12"
-                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-            </VerticalStackLayout>
+            <Slider Minimum="{Binding MinimumSpeed}"
+                    Maximum="{Binding MaximumSpeed}"
+                    VerticalOptions="Center"
+                    Value="{Binding Speed, Mode=TwoWay}"
+                    WidthRequest="240" />
 
-            <VerticalStackLayout Grid.Row="0"
-                                 Grid.Column="1"
-                                 Spacing="4">
-                <Label Text="Prep (s)"
-                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                       FontAttributes="Bold" />
-                <Slider Minimum="0"
-                        Maximum="10"
-                        Value="{Binding PreparationSeconds, Mode=TwoWay}" />
-                <Label Text="{Binding PreparationSeconds, StringFormat='{}{0:0.0}s'}"
-                       FontSize="12"
-                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-            </VerticalStackLayout>
+            <Slider Grid.Column="1"
+                    VerticalOptions="Center"
+                    Value="{Binding Position, Mode=TwoWay}"
+                    Maximum="{Binding Duration}"
+                    ValueChanged="OnPositionChanged"
+                    IsEnabled="{Binding CanSeek}" />
 
-            <VerticalStackLayout Grid.Row="0"
-                                 Grid.Column="2"
-                                 Spacing="4">
-                <Label Text="Pause (s)"
-                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                       FontAttributes="Bold" />
-                <Slider Minimum="0"
-                        Maximum="10"
-                        Value="{Binding PauseSeconds, Mode=TwoWay}" />
-                <Label Text="{Binding PauseSeconds, StringFormat='{}{0:0.0}s'}"
-                       FontSize="12"
+                <Label Grid.Column="2"
+                       VerticalOptions="Center"
+                       WidthRequest="64"
+                       Text="{Binding Duration, StringFormat='{}{0:0.0}s'}"
                        TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-            </VerticalStackLayout>
 
-            <VerticalStackLayout Grid.Row="0"
-                                 Grid.Column="3"
-                                 Spacing="6"
-                                 HorizontalOptions="Center"
-                                 VerticalOptions="Center">
-                <styling:ContentButton WidthRequest="64"
+                <styling:ContentButton Grid.Column="3" 
+                                       WidthRequest="64"
                                        HeightRequest="48"
                                        Command="{Binding TogglePlayPauseCommand}"
+                                       VerticalOptions="Center"
                                        Style="{StaticResource MaterialDesignFlatDarkButton}">
                     <styling:PackIcon Kind="{Binding IsPlaying, Converter={StaticResource PlayPauseGlyphConverter}}"
                                       Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}"
@@ -79,39 +53,6 @@
                                       WidthRequest="28"
                                       HeightRequest="28" />
                 </styling:ContentButton>
-
-                <styling:ContentButton WidthRequest="64"
-                                       HeightRequest="32"
-                                       Command="{Binding StopCommand}"
-                                       Style="{StaticResource MaterialDesignFlatButton}">
-                    <styling:PackIcon Kind="Stop"
-                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                                      BackgroundColor="Transparent"
-                                      WidthRequest="20"
-                                      HeightRequest="20" />
-                </styling:ContentButton>
-            </VerticalStackLayout>
-
-            <Grid Grid.Row="1"
-                  Grid.Column="0"
-                  Grid.ColumnSpan="4"
-                  ColumnDefinitions="Auto,*,Auto"
-                  ColumnSpacing="8"
-                  VerticalOptions="Center">
-                <Label Grid.Column="0"
-                       Text="{Binding Position, StringFormat='{}{0:0.0}s'}"
-                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-
-                <Slider Grid.Column="1"
-                        Value="{Binding Position, Mode=TwoWay}"
-                        Maximum="{Binding Duration}"
-                        ValueChanged="OnPositionChanged"
-                        IsEnabled="{Binding CanSeek}" />
-
-                <Label Grid.Column="2"
-                       Text="{Binding Duration, StringFormat='{}{0:0.0}s'}"
-                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-            </Grid>
         </Grid>
     </Border>
 </maui:ReactiveContentView>

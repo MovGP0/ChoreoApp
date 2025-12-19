@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using ChoreoApp.Settings;
-using ChoreoApp.AudioPlayer;
 
 namespace ChoreoApp.Scenes;
 
@@ -66,18 +65,6 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
         if (Shell.Current is { } shell)
         {
             await shell.GoToAsync(nameof(SettingsPage));
-        }
-    }
-
-    [Reactive]
-    private bool _canNavigateToAudioPlayer = true;
-
-    [ReactiveCommand(CanExecute = nameof(CanNavigateToAudioPlayer))]
-    private async Task NavigateToAudioPlayerAsync()
-    {
-        if (Shell.Current is { } shell)
-        {
-            await shell.GoToAsync(nameof(AudioPlayerPage));
         }
     }
 

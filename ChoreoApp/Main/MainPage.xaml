@@ -6,12 +6,13 @@
                           xmlns:styling="clr-namespace:ChoreoApp.Styling;assembly=ChoreoApp.Styling"
                           xmlns:floor="clr-namespace:ChoreoApp.Floor"
                           xmlns:scenes="clr-namespace:ChoreoApp.Scenes"
+                          xmlns:audio="clr-namespace:ChoreoApp.AudioPlayer"
                           xmlns:main="clr-namespace:ChoreoApp.Main"
                           x:DataType="main:MainViewModel"
                           x:Class="ChoreoApp.Main.MainPage">
     <Grid RowDefinitions="Auto,*">
         <Grid Padding="12,8"
-              ColumnDefinitions="Auto,*"
+              ColumnDefinitions="Auto,*,Auto"
               BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
             <styling:HamburgerToggleButton x:Name="HamburgerButton"
                                            Grid.Column="0"
@@ -23,17 +24,28 @@
                    FontSize="20"
                    VerticalTextAlignment="Center"
                    HorizontalTextAlignment="Center" />
+            <styling:ContentButton Grid.Column="2"
+                                   Style="{StaticResource MaterialDesignFlatDarkButton}"
+                                   Command="{Binding ToggleAudioPlayerCommand}">
+                <styling:PackIcon Kind="PlayCircle"
+                                  Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                  BackgroundColor="Transparent" />
+            </styling:ContentButton>
         </Grid>
         <styling:DrawerHost x:Name="Drawer"
                             Grid.Row="1"
                             ResponsiveBreakpoint="900"
-                            OpenMode="Default">
+                            OpenMode="Default"
+                            IsBottomDrawerOpen="{Binding IsAudioPlayerOpen, Mode=TwoWay}" BottomDrawerHeight="60">
             <styling:DrawerHost.LeftDrawerContent>
                 <Border BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                         MaximumWidthRequest="600">
                     <scenes:ScenesPaneView x:Name="LeftDrawerScenes" />
                 </Border>
             </styling:DrawerHost.LeftDrawerContent>
+            <styling:DrawerHost.BottomDrawerContent>
+                <audio:AudioPlayerView x:Name="BottomAudioPlayer" />
+            </styling:DrawerHost.BottomDrawerContent>
             <styling:DrawerHost.MainContent>
                 <Grid>
                     <floor:FloorCanvasView x:Name="MainFloor" />

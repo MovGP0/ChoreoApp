@@ -29,6 +29,15 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
     [Reactive]
     private string _title = Translations.AppTitle;
 
+    [Reactive]
+    private bool _isAudioPlayerOpen;
+
+    [ReactiveCommand]
+    private void ToggleAudioPlayer()
+    {
+        IsAudioPlayerOpen = !IsAudioPlayerOpen;
+    }
+
     public void ToggleNavigation()
     {
         IsNavOpen = !IsNavOpen;
