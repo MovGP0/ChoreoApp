@@ -6,7 +6,8 @@ using Colors = Microsoft.Maui.Graphics.Colors;
 namespace ChoreoApp.Scenes.Behaviors;
 
 public sealed class InsertSceneBehavior(
-    GlobalStateModel globalState) :
+    GlobalStateModel globalState,
+    IServiceProvider serviceProvider) :
     IBehavior<ScenesPaneViewModel>
 {
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
@@ -28,7 +29,10 @@ public sealed class InsertSceneBehavior(
         var insertIndex = CalculateInsertIndex(viewModel, insertAfter);
         var name = BuildSceneName(viewModel);
         var color = selectedScene?.Color ?? Colors.Transparent;
-        var newSceneViewModel = new SceneViewModel(name, color);
+
+        var newSceneViewModel = serviceProvider.GetRequiredService<SceneViewModel>();
+        newSceneViewModel.Name = name;
+        newSceneViewModel.Color = color;
 
         viewModel.Scenes.Insert(insertIndex, newSceneViewModel);
         viewModel.SelectedScene = newSceneViewModel;

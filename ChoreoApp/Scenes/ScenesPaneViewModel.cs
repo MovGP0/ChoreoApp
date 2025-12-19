@@ -29,12 +29,6 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     private SceneViewModel? _selectedScene;
 
     [ReactiveCommand]
-    private void SelectScene(SceneViewModel scene)
-    {
-        SelectedScene = scene;
-    }
-
-    [ReactiveCommand]
     private void AddSceneBefore()
     {
     }

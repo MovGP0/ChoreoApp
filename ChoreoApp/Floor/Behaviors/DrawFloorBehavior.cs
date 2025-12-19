@@ -15,7 +15,7 @@ public sealed class DrawFloorBehavior(
     ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber) : IBehavior<FloorCanvasViewModel>
 {
     private readonly Dictionary<int, SKColor> _roleBorderColors = new();
-    private SceneViewModel? _selectedScene;
+    private Scenes.SceneViewModel? _selectedScene;
 
     private static SKColor GetColor(string resourceKey)
     {

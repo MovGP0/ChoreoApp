@@ -1,14 +1,21 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
+using ChoreoApp.Scenes.Events;
 using MessagePipe;
 
 namespace ChoreoApp.Scenes.Behaviors;
 
 public sealed class SelectSceneBehavior(
-    IPublisher<SelectedSceneChangedEvent> selectedSceneChangedPublisher) : IBehavior<ScenesPaneViewModel>
+    ISubscriber<SceneSelectedEvent> sceneSelectedSubscriber,
+    IPublisher<SelectedSceneChangedEvent> selectedSceneChangedPublisher):
+    IBehavior<ScenesPaneViewModel>
 {
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
     {
+        sceneSelectedSubscriber
+            .Subscribe(evnt => viewModel.SelectedScene = evnt.SelectedScene)
+            .DisposeWith(disposables);
+
         SceneViewModel? previous = null;
 
         viewModel
@@ -37,4 +44,3 @@ public sealed class SelectSceneBehavior(
             .DisposeWith(disposables);
     }
 }
-

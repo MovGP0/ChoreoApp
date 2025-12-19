@@ -24,7 +24,7 @@
                                        Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="choreoApp:SceneViewModel">
+                    <DataTemplate x:DataType="scenes:SceneViewModel">
                         <Border x:Name="SceneCard"
                                 StrokeThickness="1"
                                 Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
@@ -56,8 +56,7 @@
                                        BackgroundColor="Transparent" />
                             </Grid>
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding BindingContext.SelectSceneCommand, Source={x:Reference Root}}"
-                                                      CommandParameter="{Binding .}" />
+                                <TapGestureRecognizer Command="{Binding SelectSceneCommand}"/>
                                 <DragGestureRecognizer CanDrag="True"
                                                        DragStarting="OnNavItemDragStarting" />
                                 <DropGestureRecognizer AllowDrop="True"
