@@ -37,10 +37,12 @@ jobs:
           dotnet workload install maui
           dotnet workload restore ${{ env.SOLUTION_PATH }} -p:TargetFrameworks="net10.0-windows10.0.19041.0;net10.0-android"
 
+      # Note: Restore task needs to be called in a separate step, because "TargetFrameworks" is not supported
       - name: Restore
         shell: pwsh
         run: |
-          dotnet restore "${{ env.SOLUTION_PATH }}" -p:TargetFrameworks="net10.0-windows10.0.19041.0;net10.0-android"
+          dotnet restore "${{ env.SOLUTION_PATH }}" -p:TargetFramework="net10.0-windows10.0.19041.0;net10.0-android"
+          dotnet restore "${{ env.SOLUTION_PATH }}" -p:TargetFramework="net10.0-android"
 
       # Windows (folder output; if you want MSIX packaging, you'd add Windows-specific MSIX properties)
       - name: Publish Windows
@@ -85,9 +87,11 @@ jobs:
           dotnet workload install maui
           dotnet restore "${{ env.SOLUTION_PATH }}" -p:TargetFrameworks="net10.0-ios;net10.0-maccatalyst"
 
+      # Note: Restore task needs to be called in a separate step, because "TargetFrameworks" is not supported
       - name: Restore
         run: |
-          dotnet restore "${{ env.SOLUTION_PATH }}" -p:TargetFrameworks="net10.0-ios;net10.0-maccatalyst"
+          dotnet restore "${{ env.SOLUTION_PATH }}" -p:TargetFramework="net10.0-maccatalyst"
+          dotnet restore "${{ env.SOLUTION_PATH }}" -p:TargetFramework="net10.0-ios"
 
       # iOS: builds simulator output (no device signing required).
       # For a signed .ipa (device/AppStore), you'd add signing secrets and follow MS guidance.
