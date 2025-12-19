@@ -16,6 +16,8 @@ public static class DependencyInjection
         services.AddTransient<IBehavior<AudioPlayerViewModel>, AudioPlayerBehavior>();
         services.AddTransient<IBehavior<AudioPlayerViewModel>, OpenAudioFileBehavior>();
         services.AddTransient<IBehavior<AudioPlayerViewModel>, CloseAudioFileBehavior>();
+        services.AddTransient<IBehavior<AudioPlayerViewModel>, AudioPlayerTicksBehavior>();
+        services.AddTransient<IBehavior<AudioPlayerViewModel>, AudioPlayerLinkSceneBehavior>();
 
         return services;
     }

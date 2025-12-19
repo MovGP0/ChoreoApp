@@ -49,6 +49,7 @@ public sealed class LoadScenesBehavior(
                     sceneVm.SceneId = scene.SceneId;
                     sceneVm.Name = scene.Name;
                     sceneVm.Color = scene.Color;
+                    sceneVm.Timestamp = scene.Timestamp;
                     sceneVm.Activator.Activate();
                     globalState.Scenes.Add(sceneVm);
                 }

@@ -10,7 +10,7 @@
                           xmlns:main="clr-namespace:ChoreoApp.Main"
                           x:DataType="main:MainViewModel"
                           x:Class="ChoreoApp.Main.MainPage">
-    <Grid RowDefinitions="Auto,*">
+    <Grid RowDefinitions="Auto,*,Auto">
         <Grid Padding="12,8"
               ColumnDefinitions="Auto,*,Auto"
               BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
@@ -19,11 +19,21 @@
                                            Style="{StaticResource MaterialDesignHamburgerToggleButton}"
                                            Checked="OnBurgerClicked"
                                            Unchecked="OnBurgerClicked" />
-            <Label Grid.Column="1"
-                   Text="{Binding Title}"
-                   FontSize="20"
-                   VerticalTextAlignment="Center"
-                   HorizontalTextAlignment="Center" />
+            <HorizontalStackLayout Grid.Column="1"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Spacing="8">
+                <Label Text="{Binding Title}"
+                       FontSize="24"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Start"
+                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                <Label Text="{Binding SelectedSceneName}"
+                       FontSize="24"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Start"
+                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+            </HorizontalStackLayout>
             <styling:ContentButton Grid.Column="2"
                                    Style="{StaticResource MaterialDesignFlatDarkButton}"
                                    Command="{Binding ToggleAudioPlayerCommand}">
@@ -36,21 +46,21 @@
                             Grid.Row="1"
                             ResponsiveBreakpoint="900"
                             OpenMode="Default"
-                            IsBottomDrawerOpen="{Binding IsAudioPlayerOpen, Mode=TwoWay}" BottomDrawerHeight="60">
+                            BottomDrawerHeight="60">
             <styling:DrawerHost.LeftDrawerContent>
                 <Border BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                         MaximumWidthRequest="600">
                     <scenes:ScenesPaneView x:Name="LeftDrawerScenes" />
                 </Border>
             </styling:DrawerHost.LeftDrawerContent>
-            <styling:DrawerHost.BottomDrawerContent>
-                <audio:AudioPlayerView x:Name="BottomAudioPlayer" />
-            </styling:DrawerHost.BottomDrawerContent>
             <styling:DrawerHost.MainContent>
                 <Grid>
                     <floor:FloorCanvasView x:Name="MainFloor" />
                 </Grid>
             </styling:DrawerHost.MainContent>
         </styling:DrawerHost>
+        <audio:AudioPlayerView Grid.Row="2"
+                               x:Name="BottomAudioPlayer"
+                               IsVisible="{Binding IsAudioPlayerOpen}" />
     </Grid>
 </maui:ReactiveContentPage>

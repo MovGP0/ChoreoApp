@@ -1,5 +1,6 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
+using ChoreoApp.Settings;
 using MessagePipe;
 
 namespace ChoreoApp.AudioPlayer.Behaviors;
@@ -28,5 +29,6 @@ public sealed class OpenAudioFileBehavior(
         viewModel.Title = Path.GetFileName(filePath);
 
         viewModel.StreamFactory = () => Task.FromResult<Stream>(File.OpenRead(filePath));
+        Preferences.Default.Set(SettingsPreferenceKeys.LastOpenedAudioFile, filePath);
     }
 }

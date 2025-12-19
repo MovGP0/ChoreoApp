@@ -30,6 +30,7 @@ public sealed class InsertSceneBehavior(
         var insertIndex = CalculateInsertIndex(allScenes, selectedScene, insertAfter);
         var name = BuildSceneName(allScenes);
         var color = selectedScene?.Color ?? Colors.Transparent;
+        var viewModelTimestamp = CalculateTimestampBetweenViewModels(allScenes, insertIndex);
 
         var newSceneViewModel = serviceProvider.GetRequiredService<SceneViewModel>();
         newSceneViewModel.Name = name;
@@ -40,11 +41,12 @@ public sealed class InsertSceneBehavior(
 
         if (globalState.Choreography is not { } choreography)
         {
+            newSceneViewModel.Timestamp = viewModelTimestamp;
             ReindexScenes(allScenes);
             return;
         }
 
-        InsertModelScene(choreography, newSceneViewModel, selectedScene, insertIndex);
+        newSceneViewModel.Timestamp = InsertModelScene(choreography, newSceneViewModel, selectedScene, insertIndex);
         ReindexScenes(allScenes, choreography.Scenes);
     }
 
@@ -106,7 +108,7 @@ public sealed class InsertSceneBehavior(
         }
     }
 
-    private static void InsertModelScene(
+    private static TimeSpan? InsertModelScene(
         Choreography choreography,
         SceneViewModel newSceneViewModel,
         SceneViewModel? selectedScene,
@@ -120,7 +122,7 @@ public sealed class InsertSceneBehavior(
             : scenes.FirstOrDefault(scene => scene.SceneId == selectedScene.SceneId)
               ?? scenes.FirstOrDefault(scene => string.Equals(scene.Name, selectedScene.Name, StringComparison.Ordinal));
 
-        var timestamp = selectedModelScene?.Timestamp;
+        var timestamp = CalculateTimestampBetweenScenes(scenes, insertIndex, selectedModelScene);
         var color = selectedModelScene?.Color ?? newSceneViewModel.Color;
 
         scenes.Insert(insertIndex, new Scene
@@ -130,5 +132,48 @@ public sealed class InsertSceneBehavior(
             Color = color,
             Timestamp = timestamp
         });
+
+        return timestamp;
+    }
+
+    private static TimeSpan? CalculateTimestampBetweenViewModels(
+        IList<SceneViewModel> scenes,
+        int insertIndex)
+    {
+        if (insertIndex > 0 && insertIndex < scenes.Count)
+        {
+            var before = scenes[insertIndex - 1].Timestamp;
+            var after = scenes[insertIndex].Timestamp;
+
+            if (before.HasValue && after.HasValue)
+            {
+                var delta = after.Value - before.Value;
+                var midpoint = before.Value + TimeSpan.FromTicks(delta.Ticks / 2);
+                return midpoint;
+            }
+        }
+
+        return null;
+    }
+
+    private static TimeSpan? CalculateTimestampBetweenScenes(
+        IList<Scene> scenes,
+        int insertIndex,
+        Scene? selectedScene)
+    {
+        if (insertIndex > 0 && insertIndex < scenes.Count)
+        {
+            var before = scenes[insertIndex - 1].Timestamp;
+            var after = scenes[insertIndex].Timestamp;
+
+            if (before.HasValue && after.HasValue)
+            {
+                var delta = after.Value - before.Value;
+                var midpoint = before.Value + TimeSpan.FromTicks(delta.Ticks / 2);
+                return midpoint;
+            }
+        }
+
+        return selectedScene?.Timestamp;
     }
 }

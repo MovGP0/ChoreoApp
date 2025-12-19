@@ -14,4 +14,5 @@ public static class SettingsPreferenceKeys
     public const string TertiaryColor = "TertiaryColor";
 
     public const string LastOpenedChoreoFile = "LastOpenedChoreoFile";
+    public const string LastOpenedAudioFile = "LastOpenedAudioFile";
 }

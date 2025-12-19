@@ -15,6 +15,7 @@ public sealed partial class SceneViewModel: ReactiveObject, IActivatableViewMode
 
     [Reactive] private ChoreoMasterMobile.Json.SceneId _sceneId;
     [Reactive] private string _name = "";
+    [Reactive] private TimeSpan? _timestamp = null;
     [Reactive] private Color _color = Colors.Transparent;
     [Reactive] private bool _isSelected;
 

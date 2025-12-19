@@ -107,6 +107,15 @@ public sealed class OpenChoreoBehavior(
             candidates.Add(Path.Combine(baseDir, settings.MusicPathRelative));
         }
 
+        if (!candidates.Any())
+        {
+            var storedAudioPath = Preferences.Default.Get(SettingsPreferenceKeys.LastOpenedAudioFile, string.Empty);
+            if (!string.IsNullOrWhiteSpace(storedAudioPath))
+            {
+                candidates.Add(storedAudioPath);
+            }
+        }
+
         foreach (var candidate in candidates.Where(File.Exists))
         {
             openAudioPublisher.Publish(new OpenAudioFileCommand(candidate));

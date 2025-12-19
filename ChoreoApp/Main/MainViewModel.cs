@@ -41,6 +41,9 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
     private string _title = Translations.AppTitle;
 
     [Reactive]
+    private string _selectedSceneName = string.Empty;
+
+    [Reactive]
     private bool _isAudioPlayerOpen;
 
     [ReactiveCommand]

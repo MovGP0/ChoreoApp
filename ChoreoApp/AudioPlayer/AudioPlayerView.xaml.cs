@@ -1,3 +1,5 @@
+using ChoreoApp.Styling;
+
 namespace ChoreoApp.AudioPlayer;
 
 public partial class AudioPlayerView
@@ -48,7 +50,7 @@ public partial class AudioPlayerView
             return;
         }
 
-        if (sender is not Slider slider)
+        if (sender is not SliderWithTicks slider)
         {
             return;
         }

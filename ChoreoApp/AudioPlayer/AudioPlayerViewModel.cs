@@ -41,6 +41,12 @@ public sealed partial class AudioPlayerViewModel : ReactiveObject, IActivatableV
     private double _position;
 
     [Reactive]
+    private string _tickValues = string.Empty;
+
+    [Reactive]
+    private bool _canLinkSceneToPosition;
+
+    [Reactive]
     private bool _isPlaying;
 
     [Reactive]
@@ -126,6 +132,13 @@ public sealed partial class AudioPlayerViewModel : ReactiveObject, IActivatableV
     private Task ReloadAsync()
     {
         // Handled by the behavior when the StreamFactory is set.
+        return Task.CompletedTask;
+    }
+
+    [ReactiveCommand(CanExecute = nameof(CanLinkSceneToPosition))]
+    private Task LinkSceneToPositionAsync()
+    {
+        // Handled by the link behavior.
         return Task.CompletedTask;
     }
 }
