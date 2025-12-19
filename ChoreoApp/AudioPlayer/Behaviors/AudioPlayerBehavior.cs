@@ -49,13 +49,14 @@ public sealed class AudioPlayerBehavior(IAudioManager audioManager) : IBehavior<
                     .ObserveOn(RxApp.MainThreadScheduler)
                     .Subscribe(_ =>
                     {
+                        viewModel.Duration = player.Duration;
+
                         if (!player.IsPlaying)
                         {
                             return;
                         }
 
                         viewModel.Position = player.CurrentPosition;
-                        viewModel.Duration = player.Duration;
                     });
             })
             .DisposeWith(disposables);
@@ -113,8 +114,6 @@ public sealed class AudioPlayerBehavior(IAudioManager audioManager) : IBehavior<
     {
         viewModel.CanSeek = player.CanSeek;
         viewModel.CanSetSpeed = player.CanSetSpeed;
-        viewModel.MinimumSpeed = player.MinimumSpeed;
-        viewModel.MaximumSpeed = player.MaximumSpeed;
         viewModel.Duration = player.Duration;
     }
 

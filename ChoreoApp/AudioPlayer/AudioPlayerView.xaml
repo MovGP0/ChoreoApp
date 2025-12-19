@@ -11,6 +11,8 @@
                           Background="Transparent">
     <maui:ReactiveContentView.Resources>
         <conv:PlayPauseGlyphConverter x:Key="PlayPauseGlyphConverter" />
+        <conv:DurationToTimeTextConverter x:Key="DurationToTimeTextConverter" />
+        <conv:SpeedToPercentTextConverter x:Key="SpeedToPercentTextConverter" />
     </maui:ReactiveContentView.Resources>
     <Border StrokeThickness="1"
             Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
@@ -18,7 +20,7 @@
             Padding="12"
             StrokeShape="Rectangle">
         <Grid RowDefinitions="Auto"
-              ColumnDefinitions="Auto,*,Auto,Auto"
+              ColumnDefinitions="Auto,Auto,*,Auto,Auto"
               ColumnSpacing="12"
               RowSpacing="12"
               x:DataType="audio:AudioPlayerViewModel">
@@ -27,33 +29,42 @@
                     Maximum="{Binding MaximumSpeed}"
                     VerticalOptions="Center"
                     Value="{Binding Speed, Mode=TwoWay}"
+                    ValueChanged="OnSpeedChanged"
                     WidthRequest="240" />
 
-            <Slider Grid.Column="1"
+            <Label Grid.Column="1"
+                   VerticalOptions="Center"
+                   HorizontalTextAlignment="End"
+                   Text="{Binding Speed, Converter={StaticResource SpeedToPercentTextConverter}}"
+                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+
+            <Slider Grid.Column="2"
                     VerticalOptions="Center"
                     Value="{Binding Position, Mode=TwoWay}"
                     Maximum="{Binding Duration}"
                     ValueChanged="OnPositionChanged"
+                    DragStarted="OnPositionDragStarted"
+                    DragCompleted="OnPositionDragCompleted"
                     IsEnabled="{Binding CanSeek}" />
 
-                <Label Grid.Column="2"
-                       VerticalOptions="Center"
-                       WidthRequest="64"
-                       Text="{Binding Duration, StringFormat='{}{0:0.0}s'}"
-                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+            <Label Grid.Column="3"
+                   VerticalOptions="Center"
+                   WidthRequest="64"
+                   Text="{Binding Duration, Converter={StaticResource DurationToTimeTextConverter}}"
+                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
 
-                <styling:ContentButton Grid.Column="3" 
-                                       WidthRequest="64"
-                                       HeightRequest="48"
-                                       Command="{Binding TogglePlayPauseCommand}"
-                                       VerticalOptions="Center"
-                                       Style="{StaticResource MaterialDesignFlatDarkButton}">
-                    <styling:PackIcon Kind="{Binding IsPlaying, Converter={StaticResource PlayPauseGlyphConverter}}"
-                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}"
-                                      BackgroundColor="Transparent"
-                                      WidthRequest="28"
-                                      HeightRequest="28" />
-                </styling:ContentButton>
+            <styling:ContentButton Grid.Column="4" 
+                                   WidthRequest="64"
+                                   HeightRequest="48"
+                                   Command="{Binding TogglePlayPauseCommand}"
+                                   VerticalOptions="Center"
+                                   Style="{StaticResource MaterialDesignFlatDarkButton}">
+                <styling:PackIcon Kind="{Binding IsPlaying, Converter={StaticResource PlayPauseGlyphConverter}}"
+                                  Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}"
+                                  BackgroundColor="Transparent"
+                                  WidthRequest="28"
+                                  HeightRequest="28" />
+            </styling:ContentButton>
         </Grid>
     </Border>
 </maui:ReactiveContentView>

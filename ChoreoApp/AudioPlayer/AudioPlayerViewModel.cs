@@ -23,10 +23,10 @@ public sealed partial class AudioPlayerViewModel : ReactiveObject, IActivatableV
     private double _speed = 1d;
 
     [Reactive]
-    private double _minimumSpeed = 0.5d;
+    private double _minimumSpeed = 0.8d;
 
     [Reactive]
-    private double _maximumSpeed = 2d;
+    private double _maximumSpeed = 1.1d;
 
     [Reactive]
     private double _volume = 1d;
