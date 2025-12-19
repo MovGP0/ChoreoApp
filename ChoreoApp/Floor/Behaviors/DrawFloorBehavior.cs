@@ -11,7 +11,7 @@ using SkiaSharp.Views.Maui;
 namespace ChoreoApp.Floor.Behaviors;
 
 public sealed class DrawFloorBehavior(
-    GlobalStateModel globalState,
+    Global.GlobalStateModel globalState,
     ISubscriber<DrawFloorCommand> drawFloorCommandSubscriber,
     ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber) : IBehavior<FloorCanvasViewModel>
 {

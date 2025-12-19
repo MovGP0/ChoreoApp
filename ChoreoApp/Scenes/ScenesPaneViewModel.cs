@@ -1,5 +1,8 @@
 ﻿using System.Collections.ObjectModel;
+using System.Reactive.Disposables.Fluent;
+using ChoreoApp.Global;
 using ChoreoApp.Settings;
+using DynamicData;
 
 namespace ChoreoApp.Scenes;
 
@@ -7,10 +10,34 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
 {
     public ViewModelActivator Activator { get; } = new();
 
-    public ScenesPaneViewModel(IEnumerable<IBehavior<ScenesPaneViewModel>> behaviors)
+    private readonly GlobalStateModel _globalState;
+
+    public ScenesPaneViewModel(
+        GlobalStateModel globalState,
+        IEnumerable<IBehavior<ScenesPaneViewModel>> behaviors)
     {
+        _globalState = globalState;
+
         this.WhenActivated(disposables =>
         {
+            _globalState
+                .WhenAnyValue(gs => gs.SelectedScene)
+                .Subscribe(_ => this.RaisePropertyChanged(nameof(SelectedScene)))
+                .DisposeWith(disposables);
+
+            _globalState
+                .Scenes
+                .AsObservableChangeSet()
+                .Subscribe(_ => RefreshScenes())
+                .DisposeWith(disposables);
+
+            this
+                .WhenAnyValue(vm => vm.SearchText)
+                .Subscribe(_ => RefreshScenes())
+                .DisposeWith(disposables);
+
+            RefreshScenes();
+
             foreach (var behavior in behaviors)
             {
                 behavior.Activate(this, disposables);
@@ -24,8 +51,11 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     [ReactiveCollection]
     private ObservableCollection<SceneViewModel> _scenes = [];
 
-    [Reactive]
-    private SceneViewModel? _selectedScene;
+    public SceneViewModel? SelectedScene
+    {
+        get => _globalState.SelectedScene;
+        set => _globalState.SelectedScene = value;
+    }
 
     [ReactiveCommand]
     private void AddSceneBefore()
@@ -44,16 +74,41 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
             return;
         }
 
-        var oldIndex = Scenes.IndexOf(item);
-        var newIndex = Scenes.IndexOf(target);
+        var scenes = _globalState.Scenes;
+        var oldIndex = scenes.IndexOf(item);
+        var newIndex = scenes.IndexOf(target);
 
         if (oldIndex < 0 || newIndex < 0 || oldIndex == newIndex)
         {
             return;
         }
 
-        Scenes.RemoveAt(oldIndex);
-        Scenes.Insert(newIndex, item);
+        scenes.RemoveAt(oldIndex);
+        scenes.Insert(newIndex, item);
+        RefreshScenes();
+    }
+
+    private void RefreshScenes()
+    {
+        _scenes.Clear();
+
+        if (string.IsNullOrWhiteSpace(SearchText))
+        {
+            foreach (var scene in _globalState.Scenes)
+            {
+                _scenes.Add(scene);
+            }
+
+            return;
+        }
+
+        foreach (var scene in _globalState.Scenes)
+        {
+            if (scene.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+            {
+                _scenes.Add(scene);
+            }
+        }
     }
 
     [Reactive]

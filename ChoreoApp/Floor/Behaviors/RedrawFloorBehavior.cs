@@ -8,7 +8,7 @@ using Microsoft.Maui.ApplicationModel;
 namespace ChoreoApp.Floor.Behaviors;
 
 public sealed class RedrawFloorBehavior(
-    GlobalStateModel globalState,
+    Global.GlobalStateModel globalState,
     ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber) : IBehavior<FloorCanvasViewModel>
 {
     public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)

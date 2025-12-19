@@ -6,6 +6,9 @@ namespace ChoreoMasterMobile.Json;
 
 public sealed class Dancer
 {
+    [JsonIgnore]
+    public int DancerId { get; set; }
+
     [JsonPropertyName("Role")]
     public Role Role { get; set; } = null!;
 

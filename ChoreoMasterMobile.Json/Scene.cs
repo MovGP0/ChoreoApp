@@ -6,6 +6,9 @@ namespace ChoreoMasterMobile.Json;
 
 public sealed class Scene
 {
+    [JsonIgnore]
+    public int SceneId { get; set; }
+
     [JsonPropertyName("Positions")]
     public IList<Position>? Positions { get; set; }
 

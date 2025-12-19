@@ -7,7 +7,7 @@ using MessagePipe;
 namespace ChoreoApp.Scenes.Behaviors;
 
 public sealed class OpenChoreoBehavior(
-    GlobalStateModel globalState,
+    Global.GlobalStateModel globalState,
     IAsyncPublisher<OpenAudioFileCommand> openAudioPublisher,
     IAsyncPublisher<CloseAudioFileCommand> closeAudioPublisher) : IBehavior<ScenesPaneViewModel>
 {

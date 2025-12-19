@@ -6,7 +6,7 @@ using Colors = Microsoft.Maui.Graphics.Colors;
 namespace ChoreoApp.Scenes.Behaviors;
 
 public sealed class InsertSceneBehavior(
-    GlobalStateModel globalState,
+    Global.GlobalStateModel globalState,
     IServiceProvider serviceProvider) :
     IBehavior<ScenesPaneViewModel>
 {
@@ -25,17 +25,19 @@ public sealed class InsertSceneBehavior(
 
     private void InsertScene(ScenesPaneViewModel viewModel, bool insertAfter)
     {
-        var selectedScene = viewModel.SelectedScene;
-        var insertIndex = CalculateInsertIndex(viewModel, insertAfter);
-        var name = BuildSceneName(viewModel);
+        var allScenes = globalState.Scenes;
+        var selectedScene = globalState.SelectedScene;
+        var insertIndex = CalculateInsertIndex(allScenes, selectedScene, insertAfter);
+        var name = BuildSceneName(allScenes);
         var color = selectedScene?.Color ?? Colors.Transparent;
 
         var newSceneViewModel = serviceProvider.GetRequiredService<SceneViewModel>();
+        newSceneViewModel.SceneId = GetNextSceneId(allScenes);
         newSceneViewModel.Name = name;
         newSceneViewModel.Color = color;
 
-        viewModel.Scenes.Insert(insertIndex, newSceneViewModel);
-        viewModel.SelectedScene = newSceneViewModel;
+        allScenes.Insert(insertIndex, newSceneViewModel);
+        globalState.SelectedScene = newSceneViewModel;
 
         if (globalState.Choreography is not { } choreography)
         {
@@ -45,17 +47,20 @@ public sealed class InsertSceneBehavior(
         InsertModelScene(choreography, newSceneViewModel, selectedScene, insertIndex);
     }
 
-    private static int CalculateInsertIndex(ScenesPaneViewModel viewModel, bool insertAfter)
+    private static int CalculateInsertIndex(
+        IList<SceneViewModel> scenes,
+        SceneViewModel? selectedScene,
+        bool insertAfter)
     {
-        if (viewModel.SelectedScene is null)
+        if (selectedScene is null)
         {
-            return viewModel.Scenes.Count;
+            return scenes.Count;
         }
 
-        int selectedIndex = viewModel.Scenes.IndexOf(viewModel.SelectedScene);
+        int selectedIndex = scenes.IndexOf(selectedScene);
         if (selectedIndex < 0)
         {
-            return viewModel.Scenes.Count;
+            return scenes.Count;
         }
 
         return insertAfter
@@ -63,22 +68,33 @@ public sealed class InsertSceneBehavior(
             : selectedIndex;
     }
 
-    private static string BuildSceneName(ScenesPaneViewModel viewModel)
+    private static string BuildSceneName(IList<SceneViewModel> scenes)
     {
         const string baseName = "New Scene";
 
-        if (!viewModel.Scenes.Any(scene => string.Equals(scene.Name, baseName, StringComparison.Ordinal)))
+        if (!scenes.Any(scene => string.Equals(scene.Name, baseName, StringComparison.Ordinal)))
         {
             return baseName;
         }
 
         int suffix = 2;
-        while (viewModel.Scenes.Any(scene => string.Equals($"{baseName} {suffix}", scene.Name, StringComparison.Ordinal)))
+        while (scenes.Any(scene => string.Equals($"{baseName} {suffix}", scene.Name, StringComparison.Ordinal)))
         {
             suffix++;
         }
 
         return $"{baseName} {suffix}";
+    }
+
+    private static int GetNextSceneId(IList<SceneViewModel> scenes)
+    {
+        if (scenes.Count == 0)
+        {
+            return 1;
+        }
+
+        var maxId = scenes.Max(scene => scene.SceneId);
+        return Math.Max(maxId, 0) + 1;
     }
 
     private static void InsertModelScene(
@@ -92,13 +108,15 @@ public sealed class InsertSceneBehavior(
 
         var selectedModelScene = selectedScene is null
             ? null
-            : scenes.FirstOrDefault(scene => string.Equals(scene.Name, selectedScene.Name, StringComparison.Ordinal));
+            : scenes.FirstOrDefault(scene => scene.SceneId == selectedScene.SceneId)
+              ?? scenes.FirstOrDefault(scene => string.Equals(scene.Name, selectedScene.Name, StringComparison.Ordinal));
 
         var timestamp = selectedModelScene?.Timestamp;
         var color = selectedModelScene?.Color ?? newSceneViewModel.Color;
 
         scenes.Insert(insertIndex, new Scene
         {
+            SceneId = newSceneViewModel.SceneId,
             Name = newSceneViewModel.Name,
             Color = color,
             Timestamp = timestamp

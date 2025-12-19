@@ -21,7 +21,7 @@ public sealed class FloorCanvasViewModel : ReactiveObject, IActivatableViewModel
 
     public FloorCanvasViewModel(
         IPublisher<DrawFloorCommand> drawFloorCommandPublisher,
-        GlobalStateModel globalState,
+        Global.GlobalStateModel globalState,
         IEnumerable<IBehavior<FloorCanvasViewModel>> behaviors)
     {
         GlobalState = globalState;
@@ -38,7 +38,7 @@ public sealed class FloorCanvasViewModel : ReactiveObject, IActivatableViewModel
 
     public ViewModelActivator Activator { get; } = new();
 
-    public GlobalStateModel GlobalState { get; }
+    public Global.GlobalStateModel GlobalState { get; }
     public IPublisher<DrawFloorCommand> DrawFloorCommandPublisher { get; }
     public SKCanvasView? CanvasView { get; set; }
 

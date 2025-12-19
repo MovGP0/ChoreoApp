@@ -4,7 +4,7 @@ using System.Reactive.Disposables.Fluent;
 namespace ChoreoApp.Scenes.Behaviors;
 
 public sealed class LoadScenesBehavior(
-    GlobalStateModel globalState,
+    Global.GlobalStateModel globalState,
     IServiceProvider serviceProvider) :
     IBehavior<ScenesPaneViewModel>
 {
@@ -18,35 +18,52 @@ public sealed class LoadScenesBehavior(
                 if (choreography is null)
                 {
                     ClearScenes();
-                    viewModel.SelectedScene = null;
+                    globalState.SelectedScene = null;
                     return;
                 }
 
                 var scenes = choreography.Scenes
-                    .OrderBy(e => e.Timestamp);
+                    .OrderBy(e => e.Timestamp)
+                    .ToList();
+
+                var nextSceneId = scenes
+                    .Select(scene => scene.SceneId)
+                    .DefaultIfEmpty(0)
+                    .Max();
 
                 ClearScenes();
                 foreach (var scene in scenes)
                 {
+                    if (scene.SceneId <= 0)
+                    {
+                        nextSceneId++;
+                        scene.SceneId = nextSceneId;
+                    }
+                    else
+                    {
+                        nextSceneId = Math.Max(nextSceneId, scene.SceneId);
+                    }
+
                     var sceneVm = serviceProvider.GetRequiredService<SceneViewModel>();
+                    sceneVm.SceneId = scene.SceneId;
                     sceneVm.Name = scene.Name;
                     sceneVm.Color = scene.Color;
                     sceneVm.Activator.Activate();
-                    viewModel.Scenes.Add(sceneVm);
+                    globalState.Scenes.Add(sceneVm);
                 }
 
-                viewModel.SelectedScene = viewModel.Scenes.FirstOrDefault();
+                globalState.SelectedScene = globalState.Scenes.FirstOrDefault();
             })
             .DisposeWith(disposables);
 
         void ClearScenes()
         {
-            foreach (var sceneVm in viewModel.Scenes)
+            foreach (var sceneVm in globalState.Scenes)
             {
                 sceneVm.Activator.Deactivate();
             }
 
-            viewModel.Scenes.Clear();
+            globalState.Scenes.Clear();
         }
     }
 }

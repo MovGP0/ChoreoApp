@@ -26,7 +26,7 @@ public static class MauiProgram
         //! returns the MessagePipeBuilder which we do not need here
         _ = builder.Services.AddMessagePipe();
 
-        builder.Services.AddSingleton<GlobalStateModel>();
+        builder.Services.AddSingleton<Global.GlobalStateModel>();
 
         builder.Services
             .AddFloor()

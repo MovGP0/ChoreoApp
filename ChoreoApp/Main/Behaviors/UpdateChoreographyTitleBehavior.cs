@@ -1,5 +1,6 @@
 ﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
+using ChoreoApp.Global;
 using ChoreoApp.i18n;
 
 namespace ChoreoApp.Main.Behaviors;
