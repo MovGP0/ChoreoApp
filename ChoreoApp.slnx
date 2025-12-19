@@ -1,6 +1,7 @@
 <Solution>
     <Folder Name="/SolutionItems/">
         <File Path=".editorconfig" />
+        <File Path=".github/workflows/github_build.yaml" />
         <File Path=".gitignore" />
         <File Path="AGENTS.md" />
         <File Path="Directory.Build.props" />

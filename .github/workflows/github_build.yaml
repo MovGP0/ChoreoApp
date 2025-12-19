@@ -1,0 +1,160 @@
+name: maui-build-all-targets
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Release tag to create/update (e.g. v1.2.3). If empty, uses run number."
+        required: false
+        default: ""
+
+permissions:
+  contents: write   # required to create/upload release assets
+
+env:
+  DOTNET_VERSION: "10.0.x"
+  CONFIGURATION: "Release"
+  PROJECT_PATH: "ChoreoApp/ChoreoApp.csproj"
+
+jobs:
+  build_windows_android:
+    name: Build (Windows + Android)
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install MAUI workloads
+        shell: pwsh
+        run: |
+          dotnet workload install maui
+          dotnet workload restore
+
+      - name: Restore
+        shell: pwsh
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+
+      # Windows (folder output; if you want MSIX packaging, you'd add Windows-specific MSIX properties)
+      - name: Publish Windows
+        shell: pwsh
+        run: |
+          dotnet publish ${{ env.PROJECT_PATH }} `
+            -c ${{ env.CONFIGURATION }} `
+            -f net10.0-windows10.0.19041.0 `
+            -p:GenerateAppxPackageOnBuild=false `
+            -o artifacts/windows
+
+      # Android (APK example). For Play Store you likely want AAB: -p:AndroidPackageFormat=aab
+      - name: Publish Android (APK)
+        shell: pwsh
+        run: |
+          dotnet publish ${{ env.PROJECT_PATH }} `
+            -c ${{ env.CONFIGURATION }} `
+            -f net10.0-android `
+            -p:AndroidPackageFormat=apk `
+            -o artifacts/android
+
+      - name: Zip artifacts (Windows/Android)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path out | Out-Null
+          Compress-Archive -Path artifacts/windows/* -DestinationPath out/windows.zip -Force
+          Compress-Archive -Path artifacts/android/* -DestinationPath out/android.zip -Force
+
+      - name: Upload workflow artifacts (Windows/Android)
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-windows-android
+          path: out/*.zip
+
+  build_macos_ios_maccatalyst:
+    name: Build (iOS + MacCatalyst)
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install MAUI workloads
+        run: |
+          dotnet workload install maui
+          dotnet workload restore
+
+      - name: Restore
+        run: dotnet restore ${{ env.PROJECT_PATH }}
+
+      # iOS: builds simulator output (no device signing required).
+      # For a signed .ipa (device/AppStore), you'd add signing secrets and follow MS guidance.
+      - name: Publish iOS (Simulator)
+        run: |
+          dotnet publish ${{ env.PROJECT_PATH }} \
+            -c ${{ env.CONFIGURATION }} \
+            -f net10.0-ios \
+            -p:RuntimeIdentifier=iossimulator-x64 \
+            -p:BuildIpa=false \
+            -o artifacts/ios-sim
+
+      - name: Publish MacCatalyst
+        run: |
+          dotnet publish ${{ env.PROJECT_PATH }} \
+            -c ${{ env.CONFIGURATION }} \
+            -f net10.0-maccatalyst \
+            -o artifacts/maccatalyst
+
+      - name: Zip artifacts (iOS/MacCatalyst)
+        run: |
+          mkdir -p out
+          ditto -c -k --sequesterRsrc --keepParent artifacts/ios-sim out/ios-simulator.zip
+          ditto -c -k --sequesterRsrc --keepParent artifacts/maccatalyst out/maccatalyst.zip
+
+      - name: Upload workflow artifacts (iOS/MacCatalyst)
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-macos
+          path: out/*.zip
+
+  release:
+    name: Create/Update GitHub Release (download assets)
+    needs: [build_windows_android, build_macos_ios_maccatalyst]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: downloaded
+
+      - name: Determine tag
+        id: tag
+        shell: bash
+        run: |
+          if [ -n "${{ github.event.inputs.release_tag }}" ]; then
+            echo "tag=${{ github.event.inputs.release_tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=manual-${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Creates a release and uploads the zips as assets.
+      - name: Publish Release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: ${{ steps.tag.outputs.tag }}
+          draft: true
+          prerelease: false
+          files: |
+            downloaded/**/windows.zip
+            downloaded/**/android.zip
+            downloaded/**/ios-simulator.zip
+            downloaded/**/maccatalyst.zip
