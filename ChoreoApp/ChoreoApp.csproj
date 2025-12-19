@@ -58,6 +58,8 @@
     <PackageReference Include="nor0x.Maui.ColorPicker" />
     <PackageReference Include="Plugin.Maui.Audio" />
     <PackageReference Include="Riok.Mapperly" />
+    <PackageReference Include="SkiaSharp.Extended" />
+    <PackageReference Include="Svg.Skia" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChoreoApp.i18n\ChoreoApp.i18n.csproj" />

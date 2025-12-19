@@ -9,6 +9,12 @@ public sealed partial class GlobalStateModel : ReactiveObject
     [Reactive]
     private Choreography? _choreography;
 
+    [Reactive]
+    private SvgDocument? _svgDocument;
+
+    [Reactive]
+    private string? _svgFilePath;
+
     [ReactiveCollection]
     private ObservableCollectionExtended<SceneViewModel> _scenes = [];
 

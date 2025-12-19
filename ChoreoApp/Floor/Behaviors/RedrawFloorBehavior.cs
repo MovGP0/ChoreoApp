@@ -19,6 +19,12 @@ public sealed class RedrawFloorBehavior(
             .Subscribe(_ => InvalidateCanvas(viewModel))
             .DisposeWith(disposables);
 
+        globalState
+            .WhenAnyValue(gs => gs.SvgDocument)
+            .ObserveOn(RxApp.MainThreadScheduler)
+            .Subscribe(_ => InvalidateCanvas(viewModel))
+            .DisposeWith(disposables);
+
         selectedSceneChangedSubscriber
             .Subscribe(_ => InvalidateCanvas(viewModel))
             .DisposeWith(disposables);

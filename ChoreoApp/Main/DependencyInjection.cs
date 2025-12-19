@@ -9,6 +9,7 @@ public static class DependencyInjection
         services.AddTransient<MainViewModel>();
         services.AddTransient<IBehavior<MainViewModel>, Behaviors.UpdateChoreographyTitleBehavior>();
         services.AddTransient<IBehavior<MainViewModel>, Behaviors.UpdateSceneNameBehavior>();
+        services.AddTransient<IBehavior<MainViewModel>, Behaviors.OpenSvgFileBehavior>();
         return services;
     }
 }

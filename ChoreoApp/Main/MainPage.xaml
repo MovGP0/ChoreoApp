@@ -34,13 +34,23 @@
                        HorizontalTextAlignment="Start"
                        TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
             </HorizontalStackLayout>
-            <styling:ContentButton Grid.Column="2"
-                                   Style="{StaticResource MaterialDesignFlatDarkButton}"
-                                   Command="{Binding ToggleAudioPlayerCommand}">
-                <styling:PackIcon Kind="PlayCircle"
-                                  Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                                  BackgroundColor="Transparent" />
-            </styling:ContentButton>
+            <HorizontalStackLayout Grid.Column="2"
+                                   HorizontalOptions="End"
+                                   VerticalOptions="Center"
+                                   Spacing="8">
+                <styling:ContentButton Style="{StaticResource MaterialDesignFlatDarkButton}"
+                                       Command="{Binding OpenImageCommand}">
+                    <styling:PackIcon Kind="Svg"
+                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                      BackgroundColor="Transparent" />
+                </styling:ContentButton>
+                <styling:ContentButton Style="{StaticResource MaterialDesignFlatDarkButton}"
+                                       Command="{Binding ToggleAudioPlayerCommand}">
+                    <styling:PackIcon Kind="PlayCircle"
+                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                      BackgroundColor="Transparent" />
+                </styling:ContentButton>
+            </HorizontalStackLayout>
         </Grid>
         <styling:DrawerHost x:Name="Drawer"
                             Grid.Row="1"

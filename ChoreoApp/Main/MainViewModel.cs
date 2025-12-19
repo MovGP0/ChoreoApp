@@ -10,10 +10,12 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
     public MainViewModel(
         IEnumerable<IBehavior<MainViewModel>> behaviors,
         AudioPlayerViewModel audioPlayerViewModel,
-        IPublisher<OpenAudioFileCommand> openAudioPublisher)
+        IPublisher<OpenAudioFileCommand> openAudioPublisher,
+        IPublisher<OpenSvgFileCommand> openSvgPublisher)
     {
         AudioPlayerViewModel = audioPlayerViewModel;
         _openAudioPublisher = openAudioPublisher;
+        _openSvgPublisher = openSvgPublisher;
 
         this.WhenActivated(disposables =>
         {
@@ -27,6 +29,7 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
 
     private const double DefaultNavWidth = 280d;
     private readonly IPublisher<OpenAudioFileCommand> _openAudioPublisher;
+    private readonly IPublisher<OpenSvgFileCommand> _openSvgPublisher;
 
     public ViewModelActivator Activator { get; } = new();
     public AudioPlayerViewModel AudioPlayerViewModel { get; }
@@ -96,6 +99,44 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
 
         _openAudioPublisher.Publish(new OpenAudioFileCommand(path));
         IsAudioPlayerOpen = true;
+    }
+
+    [ReactiveCommand]
+    private async Task OpenImageAsync()
+    {
+        var result = await FilePicker.Default.PickAsync(new PickOptions
+        {
+            PickerTitle = "Open SVG image",
+            FileTypes = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
+            {
+                [DevicePlatform.WinUI] = [".svg"],
+                [DevicePlatform.MacCatalyst] = ["svg"],
+                [DevicePlatform.iOS] = ["svg"],
+                [DevicePlatform.Android] = ["image/svg+xml", "image/*", "*/*"],
+            })
+        });
+
+        if (result is null)
+        {
+            return;
+        }
+
+        if (!string.Equals(Path.GetExtension(result.FileName), ".svg", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException($"Unsupported file type: {result.FileName}");
+        }
+
+        var path = result.FullPath;
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            await using var pickedStream = await result.OpenReadAsync();
+            var tempPath = Path.Combine(FileSystem.CacheDirectory, $"{Path.GetFileNameWithoutExtension(result.FileName)}.svg");
+            await using var tempFile = File.Open(tempPath, FileMode.Create, FileAccess.Write);
+            await pickedStream.CopyToAsync(tempFile);
+            path = tempPath;
+        }
+
+        _openSvgPublisher.Publish(new OpenSvgFileCommand(path));
     }
 
     public void ToggleNavigation()

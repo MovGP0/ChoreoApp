@@ -17,7 +17,7 @@ public sealed class DrawFloorBehavior(
 {
     private readonly Dictionary<int, SKColor> _roleBorderColors = new();
     private FloorCanvasViewModel? _viewModel;
-    private Scenes.SceneViewModel? _selectedScene;
+    private SceneViewModel? _selectedScene;
 
     private static SKColor GetColor(string resourceKey)
     {
@@ -86,6 +86,7 @@ public sealed class DrawFloorBehavior(
         canvas.SetMatrix(in transformationMatrix);
 
         DrawFloorRectangle();
+        DrawSvgOverlay();
         if (settings.GridLines)
         {
             DrawGridLines();
@@ -248,6 +249,39 @@ public sealed class DrawFloorBehavior(
             floorPaint.Style = SKPaintStyle.Fill;
             floorPaint.IsAntialias = true;
             canvas.DrawRect(floorRect, floorPaint);
+        }
+
+        void DrawSvgOverlay()
+        {
+            var svgDocument = globalState.SvgDocument;
+            if (svgDocument is null)
+            {
+                return;
+            }
+
+            var bounds = svgDocument.Bounds;
+            if (bounds.Width <= 0 || bounds.Height <= 0)
+            {
+                return;
+            }
+
+            var scaleX = floorRect.Width / bounds.Width;
+            var scaleY = floorRect.Height / bounds.Height;
+            var svgScale = Math.Min(scaleX, scaleY);
+            if (svgScale <= 0f || float.IsNaN(svgScale) || float.IsInfinity(svgScale))
+            {
+                return;
+            }
+
+            var svgCenterX = bounds.Left + bounds.Width / 2f;
+            var svgCenterY = bounds.Top + bounds.Height / 2f;
+
+            canvas.Save();
+            canvas.Translate(centerX, centerY);
+            canvas.Scale(svgScale, svgScale);
+            canvas.Translate(-svgCenterX, -svgCenterY);
+            canvas.DrawPicture(svgDocument.Picture);
+            canvas.Restore();
         }
 
         void DrawPositions(IReadOnlyList<Position>? positions)
