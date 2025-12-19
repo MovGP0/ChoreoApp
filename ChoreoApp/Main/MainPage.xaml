@@ -26,7 +26,7 @@
                       BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
                     <styling:HamburgerToggleButton x:Name="HamburgerButton"
                                                    Grid.Column="0"
-                                                   Style="{StaticResource Key={x:Static styling:MaterialDesignButtonKey.MaterialDesignHamburgerToggleButton}}"
+                                                   Style="{StaticResource MaterialDesignHamburgerToggleButton}"
                                                    Checked="OnBurgerClicked"
                                                    Unchecked="OnBurgerClicked" />
                     <Label Grid.Column="1"

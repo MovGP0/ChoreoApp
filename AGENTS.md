@@ -230,6 +230,16 @@ public partial class SomeControl: IDisposable
 }
 ```
 
+## Bindings
+- Example for dynamic bindings:
+```xaml
+BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
+```
+- Example for static bindings:
+```xaml
+Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+```
+
 ## Remember
 - use Rider tools when possible. Avoid `pwsh` and `python` where possible.
 - do not use namespaces that are already implicit

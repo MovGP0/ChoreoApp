@@ -1,10 +1,13 @@
 <Solution>
-    <Folder Name="/SolutionItems/">
-        <File Path=".editorconfig" />
-        <File Path=".github/workflows/build-windows.yaml" />
+    <Folder Name="/GitHub/" />
+    <Folder Name="/GitHub/Workflows/">
         <File Path=".github/workflows/build-android.yaml" />
         <File Path=".github/workflows/build-ios.yaml" />
         <File Path=".github/workflows/build-macos.yaml" />
+        <File Path=".github/workflows/build-windows.yaml" />
+    </Folder>
+    <Folder Name="/SolutionItems/">
+        <File Path=".editorconfig" />
         <File Path=".gitignore" />
         <File Path="AGENTS.md" />
         <File Path="Directory.Build.props" />
