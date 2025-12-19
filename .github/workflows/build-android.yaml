@@ -20,6 +20,7 @@ env:
   CONFIGURATION: "Release"
   SOLUTION_PATH: "ChoreoApp.slnx"
   PROJECT_PATH: "ChoreoApp/ChoreoApp.csproj"
+  TARGET_FRAMEWORK: "net10.0-android"
 
 jobs:
   build:
@@ -41,16 +42,12 @@ jobs:
       - name: Restore
         shell: pwsh
         run: |
-          dotnet restore "${{ env.SOLUTION_PATH }}"
+          dotnet restore "${{ env.SOLUTION_PATH }}" -p:TargetFramework="${{ env.TARGET_FRAMEWORK }}"
 
       - name: Publish Android (APK; unsigned)
         shell: pwsh
         run: |
-          dotnet publish "${{ env.PROJECT_PATH }}" `
-            -c "${{ env.CONFIGURATION }}" `
-            -f net10.0-android `
-            -p:AndroidPackageFormat=apk `
-            -o artifacts/android
+          dotnet publish "${{ env.PROJECT_PATH }}" -c "${{ env.CONFIGURATION }}" -p:TargetFramework="${{ env.TARGET_FRAMEWORK }}" -p:AndroidPackageFormat=apk -o artifacts/android
 
       - name: Zip
         shell: pwsh

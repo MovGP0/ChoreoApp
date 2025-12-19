@@ -20,6 +20,7 @@ env:
   CONFIGURATION: "Release"
   SOLUTION_PATH: "ChoreoApp.slnx"
   PROJECT_PATH: "ChoreoApp/ChoreoApp.csproj"
+  TARGET_FRAMEWORK: "net10.0-maccatalyst"
 
 jobs:
   build:
@@ -35,18 +36,15 @@ jobs:
       - name: Install MAUI workloads
         run: |
           dotnet workload install maui
-          dotnet workload restore "${{ env.SOLUTION_PATH }}"
+          dotnet workload restore "${{ env.SOLUTION_PATH }}" -p:TargetFramework="${{ env.TARGET_FRAMEWORK }}"
 
       - name: Restore
         run: |
-          dotnet restore "${{ env.SOLUTION_PATH }}"
+          dotnet restore "${{ env.SOLUTION_PATH }}" -p:TargetFramework="${{ env.TARGET_FRAMEWORK }}"
 
       - name: Publish MacCatalyst
         run: |
-          dotnet publish "${{ env.PROJECT_PATH }}" \
-            -c "${{ env.CONFIGURATION }}" \
-            -f net10.0-maccatalyst \
-            -o artifacts/maccatalyst
+          dotnet publish "${{ env.PROJECT_PATH }}" -c "${{ env.CONFIGURATION }}" -p:TargetFramework="${{ env.TARGET_FRAMEWORK }}" -o artifacts/maccatalyst
 
       - name: Zip
         run: |
