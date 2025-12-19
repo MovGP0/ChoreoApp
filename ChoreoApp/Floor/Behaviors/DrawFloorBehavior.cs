@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Scenes;
@@ -89,9 +90,15 @@ public sealed class DrawFloorBehavior(
         {
             DrawGridLines();
         }
+        var scenePositions = GetScenePositions();
+
         DrawCenter();
         DrawFloorBorder();
-        DrawPositions();
+        if (scenePositions is not null)
+        {
+            DrawAxisLabels(scenePositions);
+        }
+        DrawPositions(scenePositions);
 
         canvas.Restore();
 
@@ -182,6 +189,55 @@ public sealed class DrawFloorBehavior(
             canvas.DrawRect(floorRect, borderPaint);
         }
 
+        void DrawAxisLabels(IReadOnlyList<Position> positions)
+        {
+            SKColor labelColor = GetColor(MaterialDesignColorKey.SurfaceBright);
+            using var labelPaint = new SKPaint();
+            labelPaint.Color = labelColor;
+            labelPaint.IsAntialias = true;
+
+            using var font = new SKFont();
+            font.Size = 16f;
+            font.Edging = SKFontEdging.Antialias;
+
+            const float labelOffset = 12f;
+            float topLabelY = top - labelOffset;
+            float bottomLabelY = bottom + labelOffset;
+            float leftLabelX = left - labelOffset;
+            float rightLabelX = right + labelOffset;
+
+            var xValues = new HashSet<double>();
+            var yValues = new HashSet<double>();
+
+            foreach (var position in positions)
+            {
+                xValues.Add(position.X);
+                yValues.Add(position.Y);
+            }
+
+            foreach (var x in xValues.OrderBy(value => value))
+            {
+                float labelX = centerX + (float)x * scale;
+                var text = x.ToString("0.##", CultureInfo.CurrentUICulture);
+                DrawLabel(text, labelX, topLabelY, SKTextAlign.Center);
+                DrawLabel(text, labelX, bottomLabelY, SKTextAlign.Center);
+            }
+
+            foreach (var y in yValues.OrderBy(value => value))
+            {
+                float labelY = centerY - (float)y * scale;
+                var text = y.ToString("0.##", CultureInfo.CurrentUICulture);
+                DrawLabel(text, leftLabelX, labelY, SKTextAlign.Right);
+                DrawLabel(text, rightLabelX, labelY, SKTextAlign.Left);
+            }
+
+            void DrawLabel(string text, float x, float y, SKTextAlign align)
+            {
+                float textY = y + font.Metrics.CapHeight / 2f;
+                canvas.DrawText(text, x, textY, align, font, labelPaint);
+            }
+        }
+
         void DrawFloorRectangle()
         {
             SKColor floorColor = settings.FloorColor.ToSKColor();
@@ -192,16 +248,9 @@ public sealed class DrawFloorBehavior(
             canvas.DrawRect(floorRect, floorPaint);
         }
 
-        void DrawPositions()
+        void DrawPositions(IReadOnlyList<Position>? positions)
         {
-            if (_selectedScene is null
-                || choreography.Scenes is not { } scenes)
-            {
-                return;
-            }
-
-            var scene = scenes.FirstOrDefault(s => string.Equals(s.Name, _selectedScene.Name, StringComparison.Ordinal));
-            if (scene?.Positions is null)
+            if (positions is null)
             {
                 return;
             }
@@ -226,7 +275,7 @@ public sealed class DrawFloorBehavior(
             font.Size = 24f;
             font.Edging = SKFontEdging.Antialias;
 
-            foreach (var position in scene.Positions)
+            foreach (var position in positions)
             {
                 DrawPosition(position);
             }
@@ -257,6 +306,23 @@ public sealed class DrawFloorBehavior(
                 var textY = y + font.Metrics.CapHeight / 2f;
                 canvas.DrawText(shortcut, x, textY, SKTextAlign.Center, font, textPaint);
             }
+        }
+
+        IReadOnlyList<Position>? GetScenePositions()
+        {
+            if (_selectedScene is null
+                || choreography.Scenes is not { } scenes)
+            {
+                return null;
+            }
+
+            var scene = scenes.FirstOrDefault(s => string.Equals(s.Name, _selectedScene.Name, StringComparison.Ordinal));
+            if (scene?.Positions is null)
+            {
+                return [];
+            }
+
+            return scene.Positions.ToList();
         }
 
         SKColor GetRoleBorderColor(Role role)
