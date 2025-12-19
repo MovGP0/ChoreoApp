@@ -1,0 +1,76 @@
+name: build-ios
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Release tag to create/update (e.g. v1.2.3). If empty, uses run number."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.event.inputs.release_tag || format('manual-{0}', github.run_number) }}
+  cancel-in-progress: false
+
+env:
+  DOTNET_VERSION: "10.0.x"
+  CONFIGURATION: "Release"
+  SOLUTION_PATH: "ChoreoApp.slnx"
+  PROJECT_PATH: "ChoreoApp/ChoreoApp.csproj"
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install MAUI workloads
+        run: |
+          dotnet workload install maui
+          dotnet workload restore "${{ env.SOLUTION_PATH }}"
+
+      - name: Restore
+        run: |
+          dotnet restore "${{ env.SOLUTION_PATH }}"
+
+      - name: Publish iOS (Simulator)
+        run: |
+          dotnet publish "${{ env.PROJECT_PATH }}" \
+            -c "${{ env.CONFIGURATION }}" \
+            -f net10.0-ios \
+            -r iossimulator-arm64 \
+            -p:BuildIpa=false \
+            -o artifacts/ios-sim
+
+      - name: Zip
+        run: |
+          mkdir -p out
+          ditto -c -k --sequesterRsrc --keepParent artifacts/ios-sim out/ios-simulator.zip
+
+      - name: Determine tag
+        id: tag
+        shell: bash
+        run: |
+          if [ -n "${{ github.event.inputs.release_tag }}" ]; then
+            echo "tag=${{ github.event.inputs.release_tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=manual-${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish Release asset (iOS Simulator)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: ${{ steps.tag.outputs.tag }}
+          draft: true
+          prerelease: false
+          files: |
+            out/ios-simulator.zip

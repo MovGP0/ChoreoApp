@@ -1,0 +1,79 @@
+name: build-android
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Release tag to create/update (e.g. v1.2.3). If empty, uses run number."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.event.inputs.release_tag || format('manual-{0}', github.run_number) }}
+  cancel-in-progress: false
+
+env:
+  DOTNET_VERSION: "10.0.x"
+  CONFIGURATION: "Release"
+  SOLUTION_PATH: "ChoreoApp.slnx"
+  PROJECT_PATH: "ChoreoApp/ChoreoApp.csproj"
+
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install MAUI workloads
+        shell: pwsh
+        run: |
+          dotnet workload install maui
+          dotnet workload restore "${{ env.SOLUTION_PATH }}"
+
+      - name: Restore
+        shell: pwsh
+        run: |
+          dotnet restore "${{ env.SOLUTION_PATH }}"
+
+      - name: Publish Android (APK; unsigned)
+        shell: pwsh
+        run: |
+          dotnet publish "${{ env.PROJECT_PATH }}" `
+            -c "${{ env.CONFIGURATION }}" `
+            -f net10.0-android `
+            -p:AndroidPackageFormat=apk `
+            -o artifacts/android
+
+      - name: Zip
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path out | Out-Null
+          Compress-Archive -Path 'artifacts/android/*' -DestinationPath 'out/android.zip' -Force
+
+      - name: Determine tag
+        id: tag
+        shell: pwsh
+        run: |
+          if ('${{ github.event.inputs.release_tag }}' -ne '') {
+            "tag=${{ github.event.inputs.release_tag }}" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          } else {
+            "tag=manual-${{ github.run_number }}" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          }
+
+      - name: Publish Release asset (Android)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: ${{ steps.tag.outputs.tag }}
+          draft: true
+          prerelease: false
+          files: |
+            out/android.zip
