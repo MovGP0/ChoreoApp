@@ -57,6 +57,7 @@
     <PackageReference Include="MessagePipe" />
     <PackageReference Include="nor0x.Maui.ColorPicker" />
     <PackageReference Include="Plugin.Maui.Audio" />
+    <PackageReference Include="Riok.Mapperly" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChoreoApp.i18n\ChoreoApp.i18n.csproj" />

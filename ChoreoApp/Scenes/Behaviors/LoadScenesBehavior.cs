@@ -9,6 +9,8 @@ public sealed class LoadScenesBehavior(
     IServiceProvider serviceProvider) :
     IBehavior<ScenesPaneViewModel>
 {
+    private static readonly SceneMapper Mapper = new();
+
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
     {
         // when a new choreography is loaded, refresh the scenes list
@@ -46,10 +48,7 @@ public sealed class LoadScenesBehavior(
                     }
 
                     var sceneVm = serviceProvider.GetRequiredService<SceneViewModel>();
-                    sceneVm.SceneId = scene.SceneId;
-                    sceneVm.Name = scene.Name;
-                    sceneVm.Color = scene.Color;
-                    sceneVm.Timestamp = scene.Timestamp;
+                    Mapper.Map(scene, sceneVm);
                     sceneVm.Activator.Activate();
                     globalState.Scenes.Add(sceneVm);
                 }

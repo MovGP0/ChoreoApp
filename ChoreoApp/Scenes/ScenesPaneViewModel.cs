@@ -24,6 +24,11 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
                 .Subscribe(_ => this.RaisePropertyChanged(nameof(SelectedScene)))
                 .DisposeWith(disposables);
 
+            _globalState
+                .WhenAnyValue(gs => gs.Choreography)
+                .Subscribe(_ => UpdateCanSave())
+                .DisposeWith(disposables);
+
             foreach (var behavior in behaviors)
             {
                 behavior.Activate(this, disposables);
@@ -36,6 +41,9 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
 
     [ReactiveCollection]
     private ObservableCollection<SceneViewModel> _scenes = [];
+
+    [Reactive]
+    private bool _canSaveChoreo;
 
     public bool CanDragScenes => string.IsNullOrWhiteSpace(SearchText);
 
@@ -139,6 +147,17 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
 
     [ReactiveCommand]
     private Task OpenChoreoAsync() => Task.CompletedTask;
+
+    [ReactiveCommand(CanExecute = nameof(CanSaveChoreo))]
+    private Task SaveChoreoAsync() => Task.CompletedTask;
+
+    private void UpdateCanSave()
+    {
+        var path = Preferences.Default.Get(SettingsPreferenceKeys.LastOpenedChoreoFile, string.Empty);
+        CanSaveChoreo = _globalState.Choreography is not null
+            && !string.IsNullOrWhiteSpace(path)
+            && File.Exists(path);
+    }
 }
 
 

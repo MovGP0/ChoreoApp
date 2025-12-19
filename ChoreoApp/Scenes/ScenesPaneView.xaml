@@ -76,7 +76,7 @@
                            Text="{Binding SearchText, Mode=TwoWay}" />
             </Grid>
             <Grid Grid.Row="2"
-                  ColumnDefinitions="*,Auto,Auto,Auto,Auto"
+                  ColumnDefinitions="*,Auto,Auto,Auto,Auto,Auto"
                   Margin="0,12,0,0"
                   ColumnSpacing="8">
                 <styling:ContentButton Grid.Column="1"
@@ -101,6 +101,14 @@
                                       BackgroundColor="Transparent" />
                 </styling:ContentButton>
                 <styling:ContentButton Grid.Column="4"
+                                       Style="{StaticResource MaterialDesignFlatButton}"
+                                       Command="{Binding SaveChoreoCommand}"
+                                       IsEnabled="{Binding CanSaveChoreo}">
+                    <styling:PackIcon Kind="ContentSave"
+                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                      BackgroundColor="Transparent" />
+                </styling:ContentButton>
+                <styling:ContentButton Grid.Column="5"
                                        Style="{StaticResource MaterialDesignFlatDarkButton}"
                                        Command="{Binding NavigateToSettingsCommand}">
                     <styling:PackIcon Kind="Settings"
