@@ -2,7 +2,6 @@
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Global;
 using ChoreoApp.Settings;
-using DynamicData;
 
 namespace ChoreoApp.Scenes;
 
@@ -25,19 +24,6 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
                 .Subscribe(_ => this.RaisePropertyChanged(nameof(SelectedScene)))
                 .DisposeWith(disposables);
 
-            _globalState
-                .Scenes
-                .AsObservableChangeSet()
-                .Subscribe(_ => RefreshScenes())
-                .DisposeWith(disposables);
-
-            this
-                .WhenAnyValue(vm => vm.SearchText)
-                .Subscribe(_ => RefreshScenes())
-                .DisposeWith(disposables);
-
-            RefreshScenes();
-
             foreach (var behavior in behaviors)
             {
                 behavior.Activate(this, disposables);
@@ -50,6 +36,8 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
 
     [ReactiveCollection]
     private ObservableCollection<SceneViewModel> _scenes = [];
+
+    public bool CanDragScenes => string.IsNullOrWhiteSpace(SearchText);
 
     public SceneViewModel? SelectedScene
     {
@@ -74,6 +62,11 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
             return;
         }
 
+        if (!string.IsNullOrWhiteSpace(SearchText))
+        {
+            return;
+        }
+
         var scenes = _globalState.Scenes;
         var oldIndex = scenes.IndexOf(item);
         var newIndex = scenes.IndexOf(target);
@@ -85,10 +78,31 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
 
         scenes.RemoveAt(oldIndex);
         scenes.Insert(newIndex, item);
+
+        ReindexScenes(scenes, _globalState.Choreography?.Scenes);
         RefreshScenes();
     }
 
-    private void RefreshScenes()
+    private static void ReindexScenes(IList<SceneViewModel> viewModels, IList<ChoreoMasterMobile.Json.Scene>? scenes)
+    {
+        for (int index = 0; index < viewModels.Count; index++)
+        {
+            viewModels[index].SceneId = new(index + 1);
+        }
+
+        if (scenes is null)
+        {
+            return;
+        }
+
+        int count = Math.Min(viewModels.Count, scenes.Count);
+        for (int index = 0; index < count; index++)
+        {
+            scenes[index].SceneId = new(index + 1);
+        }
+    }
+
+    internal void RefreshScenes()
     {
         _scenes.Clear();
 

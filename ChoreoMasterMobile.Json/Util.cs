@@ -84,7 +84,7 @@ public static class Util
 
             if (sceneId > 0)
             {
-                choreography.Scenes[i].SceneId = sceneId;
+                choreography.Scenes[i].SceneId = new(sceneId);
             }
         }
     }
@@ -126,7 +126,7 @@ public static class Util
 
             if (dancerId > 0)
             {
-                choreography.Dancers[i].DancerId = dancerId;
+                choreography.Dancers[i].DancerId = new(dancerId);
             }
         }
     }

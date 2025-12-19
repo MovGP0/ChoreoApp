@@ -7,5 +7,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Graphics" />
+    <PackageReference Include="StronglyTypedId" />
   </ItemGroup>
 </Project>

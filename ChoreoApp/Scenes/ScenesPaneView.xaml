@@ -57,9 +57,9 @@
                             </Grid>
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SelectSceneCommand}"/>
-                                <DragGestureRecognizer CanDrag="True"
+                                <DragGestureRecognizer CanDrag="{Binding Source={x:Reference Root}, Path=BindingContext.CanDragScenes}"
                                                        DragStarting="OnNavItemDragStarting" />
-                                <DropGestureRecognizer AllowDrop="True"
+                                <DropGestureRecognizer AllowDrop="{Binding Source={x:Reference Root}, Path=BindingContext.CanDragScenes}"
                                                        DragOver="OnNavItemDragOver"
                                                        Drop="OnNavItemDrop" />
                             </Border.GestureRecognizers>

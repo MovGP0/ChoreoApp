@@ -32,7 +32,6 @@ public sealed class InsertSceneBehavior(
         var color = selectedScene?.Color ?? Colors.Transparent;
 
         var newSceneViewModel = serviceProvider.GetRequiredService<SceneViewModel>();
-        newSceneViewModel.SceneId = GetNextSceneId(allScenes);
         newSceneViewModel.Name = name;
         newSceneViewModel.Color = color;
 
@@ -41,10 +40,12 @@ public sealed class InsertSceneBehavior(
 
         if (globalState.Choreography is not { } choreography)
         {
+            ReindexScenes(allScenes);
             return;
         }
 
         InsertModelScene(choreography, newSceneViewModel, selectedScene, insertIndex);
+        ReindexScenes(allScenes, choreography.Scenes);
     }
 
     private static int CalculateInsertIndex(
@@ -86,15 +87,23 @@ public sealed class InsertSceneBehavior(
         return $"{baseName} {suffix}";
     }
 
-    private static int GetNextSceneId(IList<SceneViewModel> scenes)
+    private static void ReindexScenes(IList<SceneViewModel> scenes)
     {
-        if (scenes.Count == 0)
+        for (int index = 0; index < scenes.Count; index++)
         {
-            return 1;
+            scenes[index].SceneId = new(index + 1);
         }
+    }
 
-        var maxId = scenes.Max(scene => scene.SceneId);
-        return Math.Max(maxId, 0) + 1;
+    private static void ReindexScenes(IList<SceneViewModel> viewModels, IList<Scene> scenes)
+    {
+        ReindexScenes(viewModels);
+
+        int count = Math.Min(viewModels.Count, scenes.Count);
+        for (int index = 0; index < count; index++)
+        {
+            scenes[index].SceneId = new(index + 1);
+        }
     }
 
     private static void InsertModelScene(

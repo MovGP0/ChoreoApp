@@ -1,5 +1,6 @@
 ﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
+using ChoreoMasterMobile.Json;
 
 namespace ChoreoApp.Scenes.Behaviors;
 
@@ -26,22 +27,22 @@ public sealed class LoadScenesBehavior(
                     .OrderBy(e => e.Timestamp)
                     .ToList();
 
-                var nextSceneId = scenes
+                SceneId nextSceneId = scenes
                     .Select(scene => scene.SceneId)
-                    .DefaultIfEmpty(0)
+                    .DefaultIfEmpty(SceneId.Empty)
                     .Max();
 
                 ClearScenes();
-                foreach (var scene in scenes)
+                foreach (Scene scene in scenes)
                 {
-                    if (scene.SceneId <= 0)
+                    if (scene.SceneId.Value <= 0)
                     {
-                        nextSceneId++;
+                        nextSceneId = new(nextSceneId.Value + 1);
                         scene.SceneId = nextSceneId;
                     }
                     else
                     {
-                        nextSceneId = Math.Max(nextSceneId, scene.SceneId);
+                        nextSceneId = new(Math.Max(nextSceneId.Value, scene.SceneId.Value));
                     }
 
                     var sceneVm = serviceProvider.GetRequiredService<SceneViewModel>();

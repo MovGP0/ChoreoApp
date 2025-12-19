@@ -9,6 +9,7 @@ public static class DependencyInjection
         services.AddTransient<ScenesPaneViewModel>();
         services.AddTransient<IBehavior<ScenesPaneViewModel>, Behaviors.OpenChoreoBehavior>();
         services.AddTransient<IBehavior<ScenesPaneViewModel>, Behaviors.LoadScenesBehavior>();
+        services.AddTransient<IBehavior<ScenesPaneViewModel>, Behaviors.FilterScenesBehavior>();
         services.AddTransient<IBehavior<ScenesPaneViewModel>, Behaviors.InsertSceneBehavior>();
         services.AddTransient<IBehavior<ScenesPaneViewModel>, Behaviors.SelectSceneBehavior>();
 
