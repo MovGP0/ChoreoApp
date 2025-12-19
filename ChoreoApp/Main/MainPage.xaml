@@ -7,39 +7,38 @@
                           xmlns:floor="clr-namespace:ChoreoApp.Floor"
                           xmlns:scenes="clr-namespace:ChoreoApp.Scenes"
                           xmlns:main="clr-namespace:ChoreoApp.Main"
+                          x:DataType="main:MainViewModel"
                           x:Class="ChoreoApp.Main.MainPage">
-    <styling:DrawerHost x:Name="Drawer"
-                        x:DataType="main:MainViewModel"
-                        ResponsiveBreakpoint="900"
-                        OpenMode="Default">
-        <styling:DrawerHost.LeftDrawerContent>
-            <Border BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
-                    MaximumWidthRequest="600">
-                <scenes:ScenesPaneView x:Name="LeftDrawerScenes" />
-            </Border>
-        </styling:DrawerHost.LeftDrawerContent>
-
-        <styling:DrawerHost.MainContent>
-            <Grid RowDefinitions="Auto,*">
-                <Grid Padding="12,8"
-                      ColumnDefinitions="Auto,*"
-                      BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
-                    <styling:HamburgerToggleButton x:Name="HamburgerButton"
-                                                   Grid.Column="0"
-                                                   Style="{StaticResource MaterialDesignHamburgerToggleButton}"
-                                                   Checked="OnBurgerClicked"
-                                                   Unchecked="OnBurgerClicked" />
-                    <Label Grid.Column="1"
-                           Text="{Binding Title}"
-                           FontSize="20"
-                           VerticalTextAlignment="Center"
-                           HorizontalTextAlignment="Center" />
-                </Grid>
-
-                <Grid Grid.Row="1">
+    <Grid RowDefinitions="Auto,*">
+        <Grid Padding="12,8"
+              ColumnDefinitions="Auto,*"
+              BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
+            <styling:HamburgerToggleButton x:Name="HamburgerButton"
+                                           Grid.Column="0"
+                                           Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                                           Checked="OnBurgerClicked"
+                                           Unchecked="OnBurgerClicked" />
+            <Label Grid.Column="1"
+                   Text="{Binding Title}"
+                   FontSize="20"
+                   VerticalTextAlignment="Center"
+                   HorizontalTextAlignment="Center" />
+        </Grid>
+        <styling:DrawerHost x:Name="Drawer"
+                            Grid.Row="1"
+                            ResponsiveBreakpoint="900"
+                            OpenMode="Default">
+            <styling:DrawerHost.LeftDrawerContent>
+                <Border BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+                        MaximumWidthRequest="600">
+                    <scenes:ScenesPaneView x:Name="LeftDrawerScenes" />
+                </Border>
+            </styling:DrawerHost.LeftDrawerContent>
+            <styling:DrawerHost.MainContent>
+                <Grid>
                     <floor:FloorCanvasView x:Name="MainFloor" />
                 </Grid>
-            </Grid>
-        </styling:DrawerHost.MainContent>
-    </styling:DrawerHost>
+            </styling:DrawerHost.MainContent>
+        </styling:DrawerHost>
+    </Grid>
 </maui:ReactiveContentPage>
