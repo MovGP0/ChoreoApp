@@ -169,4 +169,14 @@ public partial class FloorCanvasView
 
         viewModel.HandlePointerReleased(e);
     }
+
+    private void OnCanvasViewTouch(object? sender, SKTouchEventArgs e)
+    {
+        if (ViewModel is not { } viewModel)
+        {
+            return;
+        }
+
+        viewModel.HandleTouch(CanvasView, e);
+    }
 }

@@ -1,6 +1,9 @@
 using MessagePipe;
 using SkiaSharp;
+using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
+using static System.MathF;
+using static System.Math;
 
 namespace ChoreoApp.Floor;
 
@@ -9,11 +12,16 @@ public sealed class FloorCanvasViewModel : ReactiveObject, IActivatableViewModel
     private const float MaxZoomFactor = 5f;
     private const float MinZoomFactor = 0.2f;
     private const float PanMargin = 20f;
+    private const float TouchPanFactor = 0.5f;
+
+    private readonly Dictionary<long, SKPoint> _activeTouches = new();
 
     private Point? _lastHoverPosition;
     private Point? _lastPanPosition;
     private Point? _lastPointerPosition;
+    private SKPoint? _lastTouchCenter;
     private float _lastPinchScale = 1f;
+    private float? _lastTouchDistance;
 
     private bool _hasFloorBounds;
     private SKRect _floorBounds;
@@ -21,10 +29,8 @@ public sealed class FloorCanvasViewModel : ReactiveObject, IActivatableViewModel
 
     public FloorCanvasViewModel(
         IPublisher<DrawFloorCommand> drawFloorCommandPublisher,
-        Global.GlobalStateModel globalState,
         IEnumerable<IBehavior<FloorCanvasViewModel>> behaviors)
     {
-        GlobalState = globalState;
         DrawFloorCommandPublisher = drawFloorCommandPublisher;
 
         this.WhenActivated(disposables =>
@@ -37,8 +43,6 @@ public sealed class FloorCanvasViewModel : ReactiveObject, IActivatableViewModel
     }
 
     public ViewModelActivator Activator { get; } = new();
-
-    public Global.GlobalStateModel GlobalState { get; }
     public IPublisher<DrawFloorCommand> DrawFloorCommandPublisher { get; }
     public SKCanvasView? CanvasView { get; set; }
 
@@ -53,6 +57,11 @@ public sealed class FloorCanvasViewModel : ReactiveObject, IActivatableViewModel
 
     public void HandlePanUpdated(SKCanvasView canvasView, PanUpdatedEventArgs args)
     {
+        if (_activeTouches.Count >= 2)
+        {
+            return;
+        }
+
         switch (args.StatusType)
         {
             case GestureStatus.Started:
@@ -84,6 +93,11 @@ public sealed class FloorCanvasViewModel : ReactiveObject, IActivatableViewModel
 
     public void HandlePinchUpdated(SKCanvasView canvasView, PinchGestureUpdatedEventArgs args)
     {
+        if (_activeTouches.Count >= 2)
+        {
+            return;
+        }
+
         switch (args.Status)
         {
             case GestureStatus.Started:
@@ -151,6 +165,62 @@ public sealed class FloorCanvasViewModel : ReactiveObject, IActivatableViewModel
     public void HandlePointerReleased(PointerEventArgs args)
     {
         _lastPointerPosition = null;
+    }
+
+    public void HandleTouch(SKCanvasView canvasView, SKTouchEventArgs args)
+    {
+        if (args.InContact)
+        {
+            _activeTouches[args.Id] = args.Location;
+        }
+        else
+        {
+            _activeTouches.Remove(args.Id);
+        }
+
+        if (_activeTouches.Count < 2)
+        {
+            _lastTouchCenter = null;
+            _lastTouchDistance = null;
+            return;
+        }
+
+        var touchPoints = _activeTouches.Values.Take(2).ToArray();
+        var (dpiScaleX, dpiScaleY) = GetCanvasScale(canvasView);
+
+        var first = new Point(touchPoints[0].X / dpiScaleX, touchPoints[0].Y / dpiScaleY);
+        var second = new Point(touchPoints[1].X / dpiScaleX, touchPoints[1].Y / dpiScaleY);
+
+        var center = new Point(
+            (first.X + second.X) / 2f,
+            (first.Y + second.Y) / 2f);
+
+        var dx = (float)(second.X - first.X);
+        var dy = (float)(second.Y - first.Y);
+        var distance = Sqrt(Pow(dx, 2f) + Pow(dy, 2f));
+
+        if (_lastTouchCenter is { } lastCenterPoint
+            && _lastTouchDistance is { } lastDistance and > 0f)
+        {
+            var deltaX = (float)((center.X - lastCenterPoint.X) * TouchPanFactor);
+            var deltaY = (float)((center.Y - lastCenterPoint.Y) * TouchPanFactor);
+            ApplyTranslation(canvasView, deltaX, deltaY);
+
+            var scale = distance / lastDistance;
+            if (scale is > 0f and < float.PositiveInfinity)
+            {
+                var originX = (float)(center.X * dpiScaleX);
+                var originY = (float)(center.Y * dpiScaleY);
+                var scaleMatrix = SKMatrix.CreateScale(scale, scale, originX, originY);
+                ApplyTransformation(scaleMatrix);
+            }
+
+            InvalidateCanvas();
+        }
+
+        _lastTouchCenter = new SKPoint((float)center.X, (float)center.Y);
+        _lastTouchDistance = distance;
+        args.Handled = true;
     }
 
     public void HandlePointerWheelChanged(SKCanvasView canvasView, double delta, Point? position)
@@ -222,8 +292,8 @@ public sealed class FloorCanvasViewModel : ReactiveObject, IActivatableViewModel
         var minTransY = -_floorBounds.Bottom * scaleY + marginY;
         var maxTransY = _canvasSize.Height - _floorBounds.Top * scaleY - marginY;
 
-        var clampedTransX = Math.Clamp(matrix.TransX, minTransX, maxTransX);
-        var clampedTransY = Math.Clamp(matrix.TransY, minTransY, maxTransY);
+        var clampedTransX = Clamp(matrix.TransX, minTransX, maxTransX);
+        var clampedTransY = Clamp(matrix.TransY, minTransY, maxTransY);
 
         matrix.TransX = clampedTransX;
         matrix.TransY = clampedTransY;

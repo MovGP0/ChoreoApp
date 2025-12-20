@@ -9,7 +9,8 @@
     <Grid>
         <skia:SKCanvasView x:Name="CanvasView"
                            PaintSurface="OnCanvasViewPaintSurface"
-                           EnableTouchEvents="True">
+                           EnableTouchEvents="True"
+                           Touch="OnCanvasViewTouch">
             <skia:SKCanvasView.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="OnCanvasViewPanUpdated" />
                 <PinchGestureRecognizer PinchUpdated="OnCanvasViewPinchUpdated" />
