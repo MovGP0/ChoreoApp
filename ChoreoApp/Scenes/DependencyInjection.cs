@@ -13,6 +13,7 @@ public static class DependencyInjection
         services.AddTransient<IBehavior<ScenesPaneViewModel>, Behaviors.FilterScenesBehavior>();
         services.AddTransient<IBehavior<ScenesPaneViewModel>, Behaviors.InsertSceneBehavior>();
         services.AddTransient<IBehavior<ScenesPaneViewModel>, Behaviors.SelectSceneBehavior>();
+        services.AddTransient<IBehavior<ScenesPaneViewModel>, Behaviors.SelectSceneFromAudioPositionBehavior>();
 
         services.AddTransient<SceneViewModel>();
         services.AddTransient<IBehavior<SceneViewModel>, Behaviors.PublishSceneSelectedBehavior>();
