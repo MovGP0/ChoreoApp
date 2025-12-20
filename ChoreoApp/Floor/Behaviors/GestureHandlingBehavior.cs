@@ -1,0 +1,319 @@
+using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
+using ChoreoApp.Floor.Commands;
+using SkiaSharp;
+using SkiaSharp.Views.Maui.Controls;
+
+namespace ChoreoApp.Floor.Behaviors;
+
+public sealed class GestureHandlingBehavior : IBehavior<FloorCanvasViewModel>
+{
+    private const float TouchPanFactor = 0.5f;
+
+    private readonly Dictionary<long, SKPoint> _activeTouches = new();
+
+    private Point? _lastHoverPosition;
+    private Point? _lastPanPosition;
+    private Point? _lastPointerPosition;
+    private SKPoint? _lastTouchCenter;
+    private float _lastPinchScale = 1f;
+    private float? _lastTouchDistance;
+
+    public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)
+    {
+        viewModel.PanUpdatedCommand
+            .Subscribe(command => HandlePanUpdated(viewModel, command))
+            .DisposeWith(disposables);
+
+        viewModel.PinchUpdatedCommand
+            .Subscribe(command => HandlePinchUpdated(viewModel, command))
+            .DisposeWith(disposables);
+
+        viewModel.PointerPressedCommand
+            .Subscribe(HandlePointerPressed)
+            .DisposeWith(disposables);
+
+        viewModel.PointerMovedCommand
+            .Subscribe(command => HandlePointerMoved(viewModel, command))
+            .DisposeWith(disposables);
+
+        viewModel.PointerReleasedCommand
+            .Subscribe(HandlePointerReleased)
+            .DisposeWith(disposables);
+
+        viewModel.PointerWheelChangedCommand
+            .Subscribe(command => HandlePointerWheelChanged(viewModel, command))
+            .DisposeWith(disposables);
+
+        viewModel.TouchCommand
+            .Subscribe(command => HandleTouch(viewModel, command))
+            .DisposeWith(disposables);
+    }
+
+    private void HandlePanUpdated(FloorCanvasViewModel viewModel, PanUpdatedCommand command)
+    {
+        if (_activeTouches.Count >= 2)
+        {
+            return;
+        }
+
+        var args = command.EventArgs;
+        switch (args.StatusType)
+        {
+            case GestureStatus.Started:
+                _lastPanPosition = new Point(args.TotalX, args.TotalY);
+                break;
+            case GestureStatus.Running:
+            {
+                if (_lastPanPosition is null)
+                {
+                    _lastPanPosition = new Point(args.TotalX, args.TotalY);
+                    break;
+                }
+
+                var currentPosition = new Point(args.TotalX, args.TotalY);
+                var deltaX = currentPosition.X - _lastPanPosition.Value.X;
+                var deltaY = currentPosition.Y - _lastPanPosition.Value.Y;
+
+                ApplyTranslation(viewModel, command.CanvasView, deltaX, deltaY);
+                _lastPanPosition = currentPosition;
+                InvalidateCanvas(viewModel);
+                break;
+            }
+            case GestureStatus.Canceled:
+            case GestureStatus.Completed:
+                _lastPanPosition = null;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void HandlePinchUpdated(FloorCanvasViewModel viewModel, PinchUpdatedCommand command)
+    {
+        if (_activeTouches.Count >= 2)
+        {
+            return;
+        }
+
+        var args = command.EventArgs;
+        switch (args.Status)
+        {
+            case GestureStatus.Started:
+                _lastPinchScale = 1f;
+                break;
+            case GestureStatus.Running:
+            {
+                var scale = (float)(args.Scale / _lastPinchScale);
+                _lastPinchScale = (float)args.Scale;
+
+                var (dpiScaleX, dpiScaleY) = GetCanvasScale(command.CanvasView);
+                var originX = (float)(args.ScaleOrigin.X * command.CanvasView.Width * dpiScaleX);
+                var originY = (float)(args.ScaleOrigin.Y * command.CanvasView.Height * dpiScaleY);
+
+                var scaleMatrix = SKMatrix.CreateScale(scale, scale, originX, originY);
+                ApplyTransformation(viewModel, scaleMatrix);
+                InvalidateCanvas(viewModel);
+                break;
+            }
+            case GestureStatus.Canceled:
+            case GestureStatus.Completed:
+                _lastPinchScale = 1f;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void HandlePointerPressed(PointerPressedCommand command)
+    {
+        var position = command.EventArgs.GetPosition(command.CanvasView);
+        _lastHoverPosition = position;
+
+        if (command.EventArgs.Button != ButtonsMask.Primary || position is null)
+        {
+            _lastPointerPosition = null;
+            return;
+        }
+
+        _lastPointerPosition = position.Value;
+    }
+
+    private void HandlePointerMoved(FloorCanvasViewModel viewModel, PointerMovedCommand command)
+    {
+        var position = command.EventArgs.GetPosition(command.CanvasView);
+        if (position is null)
+        {
+            return;
+        }
+
+        _lastHoverPosition = position.Value;
+
+        if (_lastPointerPosition is null || command.EventArgs.Button != ButtonsMask.Primary)
+        {
+            return;
+        }
+
+        var deltaX = position.Value.X - _lastPointerPosition.Value.X;
+        var deltaY = position.Value.Y - _lastPointerPosition.Value.Y;
+
+        ApplyTranslation(viewModel, command.CanvasView, deltaX, deltaY);
+        _lastPointerPosition = position.Value;
+        InvalidateCanvas(viewModel);
+    }
+
+    private void HandlePointerReleased(PointerReleasedCommand _)
+    {
+        _lastPointerPosition = null;
+    }
+
+    private void HandlePointerWheelChanged(FloorCanvasViewModel viewModel, PointerWheelChangedCommand command)
+    {
+        var zoomFactor = command.Delta > 0 ? 1.1f : 0.9f;
+        var zoomCenter = command.Position ?? _lastHoverPosition;
+        if (zoomCenter is null)
+        {
+            return;
+        }
+
+        var (dpiScaleX, dpiScaleY) = GetCanvasScale(command.CanvasView);
+        var originX = (float)(zoomCenter.Value.X * dpiScaleX);
+        var originY = (float)(zoomCenter.Value.Y * dpiScaleY);
+
+        var scaleMatrix = SKMatrix.CreateScale(zoomFactor, zoomFactor, originX, originY);
+        ApplyTransformation(viewModel, scaleMatrix);
+        InvalidateCanvas(viewModel);
+    }
+
+    private void HandleTouch(FloorCanvasViewModel viewModel, TouchCommand command)
+    {
+        var args = command.EventArgs;
+        if (args.InContact)
+        {
+            _activeTouches[args.Id] = args.Location;
+        }
+        else
+        {
+            _activeTouches.Remove(args.Id);
+        }
+
+        if (_activeTouches.Count < 2)
+        {
+            _lastTouchCenter = null;
+            _lastTouchDistance = null;
+            return;
+        }
+
+        var touchPoints = _activeTouches.Values.Take(2).ToArray();
+        var (dpiScaleX, dpiScaleY) = GetCanvasScale(command.CanvasView);
+
+        var first = new Point(touchPoints[0].X / dpiScaleX, touchPoints[0].Y / dpiScaleY);
+        var second = new Point(touchPoints[1].X / dpiScaleX, touchPoints[1].Y / dpiScaleY);
+
+        var center = new Point(
+            (first.X + second.X) / 2f,
+            (first.Y + second.Y) / 2f);
+
+        var dx = (float)(second.X - first.X);
+        var dy = (float)(second.Y - first.Y);
+        var distance = MathF.Sqrt(MathF.Pow(dx, 2f) + MathF.Pow(dy, 2f));
+
+        if (_lastTouchCenter is { } lastCenterPoint
+            && _lastTouchDistance is { } lastDistance
+            && lastDistance > 0f)
+        {
+            var deltaX = (float)((center.X - lastCenterPoint.X) * TouchPanFactor);
+            var deltaY = (float)((center.Y - lastCenterPoint.Y) * TouchPanFactor);
+            ApplyTranslation(viewModel, command.CanvasView, deltaX, deltaY);
+
+            var scale = distance / lastDistance;
+            if (scale is > 0f and < float.PositiveInfinity)
+            {
+                var originX = (float)(center.X * dpiScaleX);
+                var originY = (float)(center.Y * dpiScaleY);
+                var scaleMatrix = SKMatrix.CreateScale(scale, scale, originX, originY);
+                ApplyTransformation(viewModel, scaleMatrix);
+            }
+
+            InvalidateCanvas(viewModel);
+        }
+
+        _lastTouchCenter = new SKPoint((float)center.X, (float)center.Y);
+        _lastTouchDistance = distance;
+        args.Handled = true;
+    }
+
+    private static void InvalidateCanvas(FloorCanvasViewModel viewModel)
+    {
+        viewModel.CanvasView?.InvalidateSurface();
+    }
+
+    private static void ApplyTranslation(FloorCanvasViewModel viewModel, SKCanvasView canvasView, double deltaX, double deltaY)
+    {
+        var (dpiScaleX, dpiScaleY) = GetCanvasScale(canvasView);
+        var sx = viewModel.TransformationMatrix.ScaleX;
+        var sy = viewModel.TransformationMatrix.ScaleY;
+
+        var translationMatrix = SKMatrix.CreateTranslation(
+            (float)(deltaX * dpiScaleX) / sx,
+            (float)(deltaY * dpiScaleY) / sy);
+
+        ApplyTransformation(viewModel, translationMatrix);
+    }
+
+    private static void ApplyTransformation(FloorCanvasViewModel viewModel, SKMatrix newMatrix)
+    {
+        var newTransformationMatrix = SKMatrix.Concat(viewModel.TransformationMatrix, newMatrix);
+        var scaleX = newTransformationMatrix.ScaleX;
+        var scaleY = newTransformationMatrix.ScaleY;
+
+        if (scaleX <= FloorCanvasViewModel.MaxZoomFactor
+            && scaleY <= FloorCanvasViewModel.MaxZoomFactor
+            && scaleX >= FloorCanvasViewModel.MinZoomFactor
+            && scaleY >= FloorCanvasViewModel.MinZoomFactor)
+        {
+            viewModel.TransformationMatrix = ClampTranslation(viewModel, newTransformationMatrix);
+        }
+    }
+
+    private static SKMatrix ClampTranslation(FloorCanvasViewModel viewModel, SKMatrix matrix)
+    {
+        if (!viewModel.HasFloorBounds || viewModel.CanvasSize.Width <= 0 || viewModel.CanvasSize.Height <= 0)
+        {
+            return matrix;
+        }
+
+        var scaleX = matrix.ScaleX;
+        var scaleY = matrix.ScaleY;
+
+        var marginX = FloorCanvasViewModel.PanMargin * scaleX;
+        var marginY = FloorCanvasViewModel.PanMargin * scaleY;
+
+        var minTransX = -viewModel.FloorBounds.Right * scaleX + marginX;
+        var maxTransX = viewModel.CanvasSize.Width - viewModel.FloorBounds.Left * scaleX - marginX;
+        var minTransY = -viewModel.FloorBounds.Bottom * scaleY + marginY;
+        var maxTransY = viewModel.CanvasSize.Height - viewModel.FloorBounds.Top * scaleY - marginY;
+
+        var clampedTransX = Math.Clamp(matrix.TransX, minTransX, maxTransX);
+        var clampedTransY = Math.Clamp(matrix.TransY, minTransY, maxTransY);
+
+        matrix.TransX = clampedTransX;
+        matrix.TransY = clampedTransY;
+        return matrix;
+    }
+
+    private static (float ScaleX, float ScaleY) GetCanvasScale(SKCanvasView canvasView)
+    {
+        var width = canvasView.Width;
+        var height = canvasView.Height;
+
+        if (width <= 0 || height <= 0)
+        {
+            return (1f, 1f);
+        }
+
+        var scaleX = canvasView.CanvasSize.Width / (float)width;
+        var scaleY = canvasView.CanvasSize.Height / (float)height;
+        return (scaleX, scaleY);
+    }
+}

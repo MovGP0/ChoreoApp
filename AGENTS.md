@@ -102,6 +102,21 @@ private async Task NavigateToSettingsAsync()
 ```
 Important: make sure the binding context of the control points to the view model, where the method is located, instead of to the control itself.
 
+To crate a command that returns a value that can be subscribed to, you need to use the following pattern:
+```csharp
+[ReactiveCommand]
+private Task<TResult> SomeCommandAsync(TArgument argument)
+{
+    TResult result = ...;
+    return Task.FromResult(result);
+}
+
+// subscription (e.g. in a Behavior)
+viewModel.SomeCommand
+    .Subscribe(result => ...)
+    .DisposeWith(disposables);
+```
+
 - All Views (e.g. Pages, Controls) should either have the `[IViewFor<TViewModel>]` attribute, or derive from a `Reactive*` control type (e.g. `ReactiveContentPage`).
 - All ViewModels should derive from `ReactiveObject` and implement `IActivatableViewModel`.
 - Make sure the set the `TypeArguments`, `Class` and `DataType` on the control as needed:

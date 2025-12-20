@@ -1,5 +1,6 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
+using ChoreoApp.Floor.Commands;
 using ChoreoApp.Styling;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
@@ -77,7 +78,10 @@ public partial class FloorCanvasView
 
                     var point = eventArgs.GetCurrentPoint(platformView);
                     var position = new Point(point.Position.X, point.Position.Y);
-                    viewModel.HandlePointerWheelChanged(CanvasView, point.Properties.MouseWheelDelta, position);
+                    viewModel
+                        .PointerWheelChangedCommand
+                        .Execute(new PointerWheelChangedCommand(CanvasView, point.Properties.MouseWheelDelta, position))
+                        .Subscribe();
                 }
 
                 platformView.PointerWheelChanged += OnPointerWheelChanged;
@@ -127,7 +131,10 @@ public partial class FloorCanvasView
             return;
         }
 
-        viewModel.HandlePanUpdated(CanvasView, e);
+        viewModel
+            .PanUpdatedCommand
+            .Execute(new PanUpdatedCommand(CanvasView, e))
+            .Subscribe();
     }
 
     private void OnCanvasViewPinchUpdated(object? sender, PinchGestureUpdatedEventArgs e)
@@ -137,7 +144,10 @@ public partial class FloorCanvasView
             return;
         }
 
-        viewModel.HandlePinchUpdated(CanvasView, e);
+        viewModel
+            .PinchUpdatedCommand
+            .Execute(new PinchUpdatedCommand(CanvasView, e))
+            .Subscribe();
     }
 
     private void OnCanvasViewPointerPressed(object? sender, PointerEventArgs e)
@@ -147,7 +157,10 @@ public partial class FloorCanvasView
             return;
         }
 
-        viewModel.HandlePointerPressed(CanvasView, e);
+        viewModel
+            .PointerPressedCommand
+            .Execute(new PointerPressedCommand(CanvasView, e))
+            .Subscribe();
     }
 
     private void OnCanvasViewPointerMoved(object? sender, PointerEventArgs e)
@@ -157,7 +170,10 @@ public partial class FloorCanvasView
             return;
         }
 
-        viewModel.HandlePointerMoved(CanvasView, e);
+        viewModel
+            .PointerMovedCommand
+            .Execute(new PointerMovedCommand(CanvasView, e))
+            .Subscribe();
     }
 
     private void OnCanvasViewPointerReleased(object? sender, PointerEventArgs e)
@@ -167,7 +183,10 @@ public partial class FloorCanvasView
             return;
         }
 
-        viewModel.HandlePointerReleased(e);
+        viewModel
+            .PointerReleasedCommand
+            .Execute(new PointerReleasedCommand(e))
+            .Subscribe();
     }
 
     private void OnCanvasViewTouch(object? sender, SKTouchEventArgs e)
@@ -177,6 +196,9 @@ public partial class FloorCanvasView
             return;
         }
 
-        viewModel.HandleTouch(CanvasView, e);
+        viewModel
+            .TouchCommand
+            .Execute(new TouchCommand(CanvasView, e))
+            .Subscribe();
     }
 }
