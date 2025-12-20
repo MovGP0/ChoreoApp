@@ -19,7 +19,7 @@
             BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainer}}"
             Padding="12"
             StrokeShape="Rectangle">
-        <Grid RowDefinitions="Auto"
+        <Grid RowDefinitions="Auto,Auto"
               ColumnDefinitions="Auto,Auto,*,Auto,Auto,Auto"
               ColumnSpacing="12"
               RowSpacing="12"
@@ -39,6 +39,7 @@
                    TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
 
             <styling:SliderWithTicks
+                x:Name="PositionSlider"
                 Grid.Column="2"
                 VerticalOptions="Center"
                 Value="{Binding Position, Mode=TwoWay}"
@@ -82,6 +83,31 @@
                                   WidthRequest="28"
                                   HeightRequest="28" />
             </styling:ContentButton>
+
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="WidthStates">
+                    <VisualState x:Name="Wide">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="700" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter TargetName="PositionSlider" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="PositionSlider" Property="Grid.Column" Value="2" />
+                            <Setter TargetName="PositionSlider" Property="Grid.ColumnSpan" Value="1" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Narrow">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="0" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter TargetName="PositionSlider" Property="Grid.Row" Value="1" />
+                            <Setter TargetName="PositionSlider" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="PositionSlider" Property="Grid.ColumnSpan" Value="6" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
         </Grid>
     </Border>
 </maui:ReactiveContentView>
