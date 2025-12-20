@@ -7,6 +7,7 @@
                           xmlns:floor="clr-namespace:ChoreoApp.Floor"
                           xmlns:scenes="clr-namespace:ChoreoApp.Scenes"
                           xmlns:audio="clr-namespace:ChoreoApp.AudioPlayer"
+                          xmlns:settings="clr-namespace:ChoreoApp.ChoreographySettings"
                           xmlns:main="clr-namespace:ChoreoApp.Main"
                           x:DataType="main:MainViewModel"
                           x:Class="ChoreoApp.Main.MainPage">
@@ -39,6 +40,12 @@
                                    VerticalOptions="Center"
                                    Spacing="8">
                 <styling:ContentButton Style="{StaticResource MaterialDesignFlatDarkButton}"
+                                       Command="{Binding OpenChoreographySettingsCommand}">
+                    <styling:PackIcon Kind="Pen"
+                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                      BackgroundColor="Transparent" />
+                </styling:ContentButton>
+                <styling:ContentButton Style="{StaticResource MaterialDesignFlatDarkButton}"
                                        Command="{Binding OpenImageCommand}">
                     <styling:PackIcon Kind="Svg"
                                       Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
@@ -56,13 +63,20 @@
                             Grid.Row="1"
                             ResponsiveBreakpoint="900"
                             OpenMode="Default"
-                            BottomDrawerHeight="60">
+                            BottomDrawerHeight="60"
+                            IsRightDrawerOpen="{Binding IsChoreographySettingsOpen, Mode=TwoWay}">
             <styling:DrawerHost.LeftDrawerContent>
                 <Border BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                         MaximumWidthRequest="600">
                     <scenes:ScenesPaneView x:Name="LeftDrawerScenes" />
                 </Border>
             </styling:DrawerHost.LeftDrawerContent>
+            <styling:DrawerHost.RightDrawerContent>
+                <Border BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+                        MaximumWidthRequest="480">
+                    <settings:ChoreographySettingsView x:Name="RightDrawerChoreographySettings" />
+                </Border>
+            </styling:DrawerHost.RightDrawerContent>
             <styling:DrawerHost.MainContent>
                 <Grid>
                     <floor:FloorCanvasView x:Name="MainFloor" />

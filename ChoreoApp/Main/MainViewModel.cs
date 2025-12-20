@@ -49,6 +49,9 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
     [Reactive]
     private bool _isAudioPlayerOpen;
 
+    [Reactive]
+    private bool _isChoreographySettingsOpen;
+
     [ReactiveCommand]
     private async Task ToggleAudioPlayer()
     {
@@ -137,6 +140,12 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
         }
 
         _openSvgPublisher.Publish(new OpenSvgFileCommand(path));
+    }
+
+    [ReactiveCommand]
+    private void OpenChoreographySettings()
+    {
+        IsChoreographySettingsOpen = true;
     }
 
     public void ToggleNavigation()

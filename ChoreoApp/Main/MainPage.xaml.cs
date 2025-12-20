@@ -14,7 +14,8 @@ public partial class MainPage: IDisposable
     public MainPage(
         MainViewModel viewModel,
         ScenesPaneViewModel scenesVm,
-        FloorCanvasViewModel floorVm)
+        FloorCanvasViewModel floorVm,
+        ChoreographySettings.ChoreographySettingsViewModel choreographySettingsViewModel)
     {
         InitializeComponent();
 
@@ -27,6 +28,9 @@ public partial class MainPage: IDisposable
 
         MainFloor.ViewModel = floorVm;
         MainFloor.BindingContext = floorVm;
+
+        RightDrawerChoreographySettings.ViewModel = choreographySettingsViewModel;
+        RightDrawerChoreographySettings.BindingContext = choreographySettingsViewModel;
 
         BottomAudioPlayer.ViewModel = viewModel.AudioPlayerViewModel;
         BottomAudioPlayer.BindingContext = viewModel.AudioPlayerViewModel;
