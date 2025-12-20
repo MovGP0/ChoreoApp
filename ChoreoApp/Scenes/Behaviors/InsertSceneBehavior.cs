@@ -35,6 +35,7 @@ public sealed class InsertSceneBehavior(
         var newSceneViewModel = serviceProvider.GetRequiredService<SceneViewModel>();
         newSceneViewModel.Name = name;
         newSceneViewModel.Color = color;
+        newSceneViewModel.Activator.Activate();
 
         allScenes.Insert(insertIndex, newSceneViewModel);
         globalState.SelectedScene = newSceneViewModel;
