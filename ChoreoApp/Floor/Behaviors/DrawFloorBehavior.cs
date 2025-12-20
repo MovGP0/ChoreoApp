@@ -398,29 +398,28 @@ public sealed class DrawFloorBehavior(
             var start = ToCanvasPoint(fromPosition.X, fromPosition.Y);
             var end = ToCanvasPoint(toPosition.X, toPosition.Y);
 
-            var curveX = fromPosition.Curve1X;
-            var curveY = fromPosition.Curve1Y;
-            if (curveX is null || curveY is null)
+            var curve1X = fromPosition.Curve1X;
+            var curve1Y = fromPosition.Curve1Y;
+            if (curve1X is null || curve1Y is null)
             {
                 canvas.DrawLine(start, end, paint);
                 return;
             }
 
-            var endCurveX = toPosition.Curve1X;
-            var endCurveY = toPosition.Curve1Y;
+            var curve2X = fromPosition.Curve2X;
+            var curve2Y = fromPosition.Curve2Y;
 
-            const double hermiteScale = 1.0 / 3.0;
-            var control1 = ToCanvasPoint(
-                fromPosition.X - curveX.Value * hermiteScale,
-                fromPosition.Y - curveY.Value * hermiteScale);
+            var control1 = ToCanvasPoint(curve1X.Value, curve1Y.Value);
+            if (curve2X is null || curve2Y is null)
+            {
+                using var quadraticPath = new SKPath();
+                quadraticPath.MoveTo(start);
+                quadraticPath.QuadTo(control1, end);
+                canvas.DrawPath(quadraticPath, paint);
+                return;
+            }
 
-            var control2 = endCurveX is not null && endCurveY is not null
-                ? ToCanvasPoint(
-                    toPosition.X + endCurveX.Value * hermiteScale,
-                    toPosition.Y - endCurveY.Value * hermiteScale)
-                : ToCanvasPoint(
-                    toPosition.X + curveX.Value * hermiteScale,
-                    toPosition.Y - curveY.Value * hermiteScale);
+            var control2 = ToCanvasPoint(curve2X.Value, curve2Y.Value);
 
             using var path = new SKPath();
             path.MoveTo(start);
