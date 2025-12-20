@@ -1,15 +1,17 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
+using ChoreoApp.AudioPlayer.Messages;
 using ChoreoApp.Scenes;
 using MessagePipe;
-using Microsoft.Maui.ApplicationModel;
 
 namespace ChoreoApp.Floor.Behaviors;
 
 public sealed class RedrawFloorBehavior(
     Global.GlobalStateModel globalState,
-    ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber) : IBehavior<FloorCanvasViewModel>
+    ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber,
+    ISubscriber<AudioPlayerPositionChangedEvent> audioPositionChangedSubscriber)
+    : IBehavior<FloorCanvasViewModel>
 {
     public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)
     {
@@ -26,6 +28,10 @@ public sealed class RedrawFloorBehavior(
             .DisposeWith(disposables);
 
         selectedSceneChangedSubscriber
+            .Subscribe(_ => InvalidateCanvas(viewModel))
+            .DisposeWith(disposables);
+
+        audioPositionChangedSubscriber
             .Subscribe(_ => InvalidateCanvas(viewModel))
             .DisposeWith(disposables);
     }

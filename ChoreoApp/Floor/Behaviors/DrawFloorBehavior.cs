@@ -3,6 +3,7 @@ using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Scenes;
 using ChoreoApp.Styling;
+using ChoreoApp.AudioPlayer.Messages;
 using ChoreoMasterMobile.Json;
 using MessagePipe;
 using SkiaSharp;
@@ -13,11 +14,13 @@ namespace ChoreoApp.Floor.Behaviors;
 public sealed class DrawFloorBehavior(
     Global.GlobalStateModel globalState,
     ISubscriber<DrawFloorCommand> drawFloorCommandSubscriber,
-    ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber) : IBehavior<FloorCanvasViewModel>
+    ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber,
+    ISubscriber<AudioPlayerPositionChangedEvent> audioPositionSubscriber) : IBehavior<FloorCanvasViewModel>
 {
     private readonly Dictionary<int, SKColor> _roleBorderColors = new();
     private FloorCanvasViewModel? _viewModel;
     private SceneViewModel? _selectedScene;
+    private double? _currentAudioSeconds;
 
     private static SKColor GetColor(string resourceKey)
     {
@@ -45,6 +48,10 @@ public sealed class DrawFloorBehavior(
 
         selectedSceneChangedSubscriber
             .Subscribe(evt => _selectedScene = evt.SelectedScene)
+            .DisposeWith(disposables);
+
+        audioPositionSubscriber
+            .Subscribe(evt => _currentAudioSeconds = evt.PositionSeconds)
             .DisposeWith(disposables);
     }
 
@@ -101,7 +108,7 @@ public sealed class DrawFloorBehavior(
             DrawAxisLabels(scenePositions);
         }
         DrawSceneCurves(previousScene, currentScene, nextScene);
-        DrawPositions(scenePositions);
+        DrawPositions(scenePositions, currentScene, nextScene, _currentAudioSeconds);
 
         canvas.Restore();
 
@@ -284,11 +291,37 @@ public sealed class DrawFloorBehavior(
             canvas.Restore();
         }
 
-        void DrawPositions(IReadOnlyList<Position>? positions)
+        void DrawPositions(
+            IReadOnlyList<Position>? positions,
+            Scene? currentScene,
+            Scene? nextScene,
+            double? currentAudioSeconds)
         {
             if (positions is null)
             {
                 return;
+            }
+
+            double? interpolationT = null;
+            Dictionary<int, Position>? nextPositionsByDancer = null;
+
+            if (currentAudioSeconds.HasValue
+                && currentScene?.Timestamp is { } currentTimestamp
+                && nextScene?.Timestamp is { } nextTimestamp
+                && nextScene.Positions is not null)
+            {
+                double startSeconds = currentTimestamp.TotalSeconds;
+                double endSeconds = nextTimestamp.TotalSeconds;
+                double duration = endSeconds - startSeconds;
+                if (duration > 0d)
+                {
+                    double rawT = (currentAudioSeconds.Value - startSeconds) / duration;
+                    if (rawT >= 0d && rawT <= 1d)
+                    {
+                        interpolationT = rawT;
+                        nextPositionsByDancer = BuildPositionsByDancerId(nextScene);
+                    }
+                }
             }
 
             var diameter = (float)settings.DancerSize;
@@ -318,8 +351,37 @@ public sealed class DrawFloorBehavior(
 
             void DrawPosition(Position position)
             {
-                var x = centerX + (float)position.X * scale;
-                var y = centerY - (float)position.Y * scale;
+                double drawX = position.X;
+                double drawY = position.Y;
+
+                if (interpolationT is { } t
+                    && nextPositionsByDancer is not null
+                    && nextPositionsByDancer.TryGetValue(position.Dancer.DancerId.Value, out var nextPosition))
+                {
+                    var curve1X = position.Curve1X;
+                    var curve1Y = position.Curve1Y;
+                    var curve2X = position.Curve2X;
+                    var curve2Y = position.Curve2Y;
+
+                    if (curve1X is null || curve1Y is null)
+                    {
+                        drawX = Lerp(position.X, nextPosition.X, t);
+                        drawY = Lerp(position.Y, nextPosition.Y, t);
+                    }
+                    else if (curve2X is null || curve2Y is null)
+                    {
+                        drawX = QuadraticBezier(position.X, curve1X.Value, nextPosition.X, t);
+                        drawY = QuadraticBezier(position.Y, curve1Y.Value, nextPosition.Y, t);
+                    }
+                    else
+                    {
+                        drawX = CubicBezier(position.X, curve1X.Value, curve2X.Value, nextPosition.X, t);
+                        drawY = CubicBezier(position.Y, curve1Y.Value, curve2Y.Value, nextPosition.Y, t);
+                    }
+                }
+
+                var x = centerX + (float)drawX * scale;
+                var y = centerY - (float)drawY * scale;
 
                 fillPaint.Color = position.Dancer.Color.ToSKColor();
                 textPaint.Color = PickBlackOrWhite(fillPaint.Color) switch
@@ -432,6 +494,23 @@ public sealed class DrawFloorBehavior(
             return new SKPoint(
                 centerX + (float)x * scale,
                 centerY - (float)y * scale);
+        }
+
+        static double Lerp(double start, double end, double t)
+            => start + (end - start) * t;
+
+        static double QuadraticBezier(double p0, double p1, double p2, double t)
+        {
+            double u = 1d - t;
+            return u * u * p0 + 2d * u * t * p1 + t * t * p2;
+        }
+
+        static double CubicBezier(double p0, double p1, double p2, double p3, double t)
+        {
+            double u = 1d - t;
+            double uu = u * u;
+            double tt = t * t;
+            return uu * u * p0 + 3d * uu * t * p1 + 3d * u * tt * p2 + tt * t * p3;
         }
 
         SKColor DarkenColor(SKColor color, float lightnessScale)
