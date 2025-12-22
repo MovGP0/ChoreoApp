@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:ChoreoApp.Styling;assembly=ChoreoApp.Styling">
+
+  <Style x:Key="MaterialDesignBadge"
+         TargetType="styling:Badged">
+    <Setter Property="BadgeColorZoneMode" Value="PrimaryLight" />
+    <Setter Property="BadgePlacementMode" Value="TopRight" />
+    <Setter Property="VerticalOptions" Value="Start" />
+    <Setter Property="HorizontalOptions" Value="Start" />
+    <Setter Property="CornerRadius" Value="9" />
+    <Setter Property="ControlTemplate">
+      <ControlTemplate>
+        <Grid>
+          <Border BackgroundColor="{TemplateBinding BackgroundColor}"
+                  Stroke="{TemplateBinding Stroke}"
+                  StrokeThickness="{TemplateBinding StrokeThickness}">
+            <ContentPresenter Margin="{TemplateBinding Padding}"
+                              HorizontalOptions="{TemplateBinding HorizontalOptions}"
+                              VerticalOptions="{TemplateBinding VerticalOptions}"
+                              Content="{TemplateBinding Content}" />
+          </Border>
+
+          <Border x:Name="PART_BadgeContainer"
+                  MinimumWidthRequest="18"
+                  MinimumHeightRequest="18"
+                  Padding="2"
+                  HorizontalOptions="Start"
+                  VerticalOptions="Start"
+                  BackgroundColor="{TemplateBinding BadgeBackground}"
+                  IsVisible="{TemplateBinding IsBadgeSet}">
+            <Border.Resources>
+              <Style TargetType="Label">
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="{TemplateBinding BadgeForeground}" />
+              </Style>
+              <Style TargetType="styling:PackIcon">
+                <Setter Property="HeightRequest" Value="12" />
+                <Setter Property="WidthRequest" Value="12" />
+                <Setter Property="Foreground">
+                  <SolidColorBrush Color="{TemplateBinding BadgeForeground}" />
+                </Setter>
+              </Style>
+            </Border.Resources>
+            <Border.StrokeShape>
+              <RoundRectangle CornerRadius="{TemplateBinding CornerRadius}" />
+            </Border.StrokeShape>
+            <ContentPresenter Margin="1,0,1,0"
+                              HorizontalOptions="Center"
+                              VerticalOptions="Center"
+                              Content="{TemplateBinding Badge}" />
+          </Border>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style.Triggers>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgePlacementMode, Source={RelativeSource Self}}"
+                   Value="TopLeft">
+        <Setter TargetName="PART_BadgeContainer" Property="HorizontalOptions" Value="Start" />
+        <Setter TargetName="PART_BadgeContainer" Property="VerticalOptions" Value="Start" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgePlacementMode, Source={RelativeSource Self}}"
+                   Value="Top">
+        <Setter TargetName="PART_BadgeContainer" Property="HorizontalOptions" Value="Center" />
+        <Setter TargetName="PART_BadgeContainer" Property="VerticalOptions" Value="Start" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgePlacementMode, Source={RelativeSource Self}}"
+                   Value="TopRight">
+        <Setter TargetName="PART_BadgeContainer" Property="HorizontalOptions" Value="End" />
+        <Setter TargetName="PART_BadgeContainer" Property="VerticalOptions" Value="Start" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgePlacementMode, Source={RelativeSource Self}}"
+                   Value="Right">
+        <Setter TargetName="PART_BadgeContainer" Property="HorizontalOptions" Value="End" />
+        <Setter TargetName="PART_BadgeContainer" Property="VerticalOptions" Value="Center" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgePlacementMode, Source={RelativeSource Self}}"
+                   Value="BottomRight">
+        <Setter TargetName="PART_BadgeContainer" Property="HorizontalOptions" Value="End" />
+        <Setter TargetName="PART_BadgeContainer" Property="VerticalOptions" Value="End" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgePlacementMode, Source={RelativeSource Self}}"
+                   Value="Bottom">
+        <Setter TargetName="PART_BadgeContainer" Property="HorizontalOptions" Value="Center" />
+        <Setter TargetName="PART_BadgeContainer" Property="VerticalOptions" Value="End" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgePlacementMode, Source={RelativeSource Self}}"
+                   Value="BottomLeft">
+        <Setter TargetName="PART_BadgeContainer" Property="HorizontalOptions" Value="Start" />
+        <Setter TargetName="PART_BadgeContainer" Property="VerticalOptions" Value="End" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgePlacementMode, Source={RelativeSource Self}}"
+                   Value="Left">
+        <Setter TargetName="PART_BadgeContainer" Property="HorizontalOptions" Value="Start" />
+        <Setter TargetName="PART_BadgeContainer" Property="VerticalOptions" Value="Center" />
+      </DataTrigger>
+
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgeColorZoneMode, Source={RelativeSource Self}}"
+                   Value="Standard">
+        <Setter Property="BadgeBackground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
+        <Setter Property="BadgeForeground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgeColorZoneMode, Source={RelativeSource Self}}"
+                   Value="Inverted">
+        <Setter Property="BadgeBackground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="BadgeForeground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgeColorZoneMode, Source={RelativeSource Self}}"
+                   Value="PrimaryLight">
+        <Setter Property="BadgeBackground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.PrimaryContainer}}" />
+        <Setter Property="BadgeForeground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimaryContainer}}" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgeColorZoneMode, Source={RelativeSource Self}}"
+                   Value="PrimaryMid">
+        <Setter Property="BadgeBackground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="BadgeForeground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgeColorZoneMode, Source={RelativeSource Self}}"
+                   Value="PrimaryDark">
+        <Setter Property="BadgeBackground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.PrimaryFixed}}" />
+        <Setter Property="BadgeForeground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimaryFixed}}" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgeColorZoneMode, Source={RelativeSource Self}}"
+                   Value="SecondaryLight">
+        <Setter Property="BadgeBackground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SecondaryContainer}}" />
+        <Setter Property="BadgeForeground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSecondaryContainer}}" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgeColorZoneMode, Source={RelativeSource Self}}"
+                   Value="SecondaryMid">
+        <Setter Property="BadgeBackground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}" />
+        <Setter Property="BadgeForeground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSecondary}}" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgeColorZoneMode, Source={RelativeSource Self}}"
+                   Value="SecondaryDark">
+        <Setter Property="BadgeBackground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SecondaryFixed}}" />
+        <Setter Property="BadgeForeground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSecondaryFixed}}" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgeColorZoneMode, Source={RelativeSource Self}}"
+                   Value="TertiaryLight">
+        <Setter Property="BadgeBackground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.TertiaryContainer}}" />
+        <Setter Property="BadgeForeground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnTertiaryContainer}}" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgeColorZoneMode, Source={RelativeSource Self}}"
+                   Value="TertiaryMid">
+        <Setter Property="BadgeBackground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Tertiary}}" />
+        <Setter Property="BadgeForeground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnTertiary}}" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgeColorZoneMode, Source={RelativeSource Self}}"
+                   Value="TertiaryDark">
+        <Setter Property="BadgeBackground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.TertiaryFixed}}" />
+        <Setter Property="BadgeForeground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnTertiaryFixed}}" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgeColorZoneMode, Source={RelativeSource Self}}"
+                   Value="Light">
+        <Setter Property="BadgeBackground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
+        <Setter Property="BadgeForeground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+      </DataTrigger>
+      <DataTrigger TargetType="styling:Badged"
+                   Binding="{Binding BadgeColorZoneMode, Source={RelativeSource Self}}"
+                   Value="Dark">
+        <Setter Property="BadgeBackground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+        <Setter Property="BadgeForeground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
+  <Style x:Key="MaterialDesignMiniBadge"
+         TargetType="styling:Badged"
+         BasedOn="{StaticResource MaterialDesignBadge}">
+    <Setter Property="ControlTemplate">
+      <ControlTemplate>
+        <Grid>
+          <Border BackgroundColor="{TemplateBinding BackgroundColor}"
+                  Stroke="{TemplateBinding Stroke}"
+                  StrokeThickness="{TemplateBinding StrokeThickness}">
+            <ContentPresenter Margin="{TemplateBinding Padding}"
+                              HorizontalOptions="{TemplateBinding HorizontalOptions}"
+                              VerticalOptions="{TemplateBinding VerticalOptions}"
+                              Content="{TemplateBinding Content}" />
+          </Border>
+
+          <Border x:Name="PART_BadgeContainer"
+                  WidthRequest="6"
+                  HeightRequest="6"
+                  Padding="2"
+                  HorizontalOptions="Start"
+                  VerticalOptions="Start"
+                  BackgroundColor="{TemplateBinding BadgeBackground}"
+                  IsVisible="{TemplateBinding IsBadgeSet}">
+            <Border.StrokeShape>
+              <RoundRectangle CornerRadius="{TemplateBinding CornerRadius}" />
+            </Border.StrokeShape>
+          </Border>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+</ResourceDictionary>

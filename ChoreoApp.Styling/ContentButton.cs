@@ -1,6 +1,5 @@
 using System.Windows.Input;
 using Microsoft.Maui.Controls.Shapes;
-using Microsoft.Maui.Graphics;
 using ContentPropertyAttribute = Microsoft.Maui.Controls.ContentPropertyAttribute;
 
 namespace ChoreoApp.Styling;

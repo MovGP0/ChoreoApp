@@ -95,12 +95,19 @@ public sealed class ColorZone : Border
         {
             ColorZoneMode.Standard => (TryResource(MaterialDesignColorKey.Surface), TryResource(MaterialDesignColorKey.OnSurface)),
             ColorZoneMode.Inverted => (TryResource(MaterialDesignColorKey.OnSurface), TryResource(MaterialDesignColorKey.Surface)),
+
             ColorZoneMode.PrimaryLight => (TryResource(MaterialDesignColorKey.PrimaryContainer), TryResource(MaterialDesignColorKey.OnPrimaryContainer)),
             ColorZoneMode.PrimaryMid => (TryResource(MaterialDesignColorKey.Primary), TryResource(MaterialDesignColorKey.OnPrimary)),
             ColorZoneMode.PrimaryDark => (TryResource(MaterialDesignColorKey.PrimaryFixed), TryResource(MaterialDesignColorKey.OnPrimaryFixed)),
+
             ColorZoneMode.SecondaryLight => (TryResource(MaterialDesignColorKey.SecondaryContainer), TryResource(MaterialDesignColorKey.OnSecondaryContainer)),
             ColorZoneMode.SecondaryMid => (TryResource(MaterialDesignColorKey.Secondary), TryResource(MaterialDesignColorKey.OnSecondary)),
             ColorZoneMode.SecondaryDark => (TryResource(MaterialDesignColorKey.SecondaryFixed), TryResource(MaterialDesignColorKey.OnSecondaryFixed)),
+
+            ColorZoneMode.TertiaryLight => (TryResource(MaterialDesignColorKey.TertiaryContainer), TryResource(MaterialDesignColorKey.OnTertiaryContainer)),
+            ColorZoneMode.TertiaryMid => (TryResource(MaterialDesignColorKey.Tertiary), TryResource(MaterialDesignColorKey.OnTertiary)),
+            ColorZoneMode.TertiaryDark => (TryResource(MaterialDesignColorKey.TertiaryFixed), TryResource(MaterialDesignColorKey.OnTertiaryFixed)),
+
             ColorZoneMode.Light => (TryResource(MaterialDesignColorKey.Surface), TryResource(MaterialDesignColorKey.OnSurface)),
             ColorZoneMode.Dark => (TryResource(MaterialDesignColorKey.SurfaceVariant), TryResource(MaterialDesignColorKey.OnSurfaceVariant)),
             ColorZoneMode.Custom => (null, null),

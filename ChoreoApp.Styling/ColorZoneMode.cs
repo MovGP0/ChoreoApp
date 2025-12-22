@@ -10,6 +10,9 @@ public enum ColorZoneMode
     SecondaryLight,
     SecondaryMid,
     SecondaryDark,
+    TertiaryLight,
+    TertiaryMid,
+    TertiaryDark,
     Light,
     Dark,
     Custom
