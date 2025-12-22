@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:converters="clr-namespace:ChoreoApp.Styling.Converters;assembly=ChoreoApp.Styling"
+                    xmlns:styling="clr-namespace:ChoreoApp.Styling;assembly=ChoreoApp.Styling">
+
+  <Style x:Key="MaterialDesignChip"
+         TargetType="styling:Chip">
+    <Setter Property="BackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}" />
+    <Setter Property="Foreground"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+    <Setter Property="FontSize" Value="13" />
+    <Setter Property="HeightRequest" Value="32" />
+    <Setter Property="HorizontalOptions" Value="Start" />
+    <Setter Property="IconBackground"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+    <Setter Property="IconForeground"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}" />
+    <Setter Property="Margin" Value="4" />
+    <Setter Property="Padding" Value="8,0,12,0" />
+    <Setter Property="StrokeThickness" Value="0" />
+    <Setter Property="ControlTemplate">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="Auto,*,Auto">
+          <Border Grid.ColumnSpan="3"
+                  BackgroundColor="{TemplateBinding BackgroundColor}"
+                  Stroke="{TemplateBinding Stroke}"
+                  StrokeThickness="{TemplateBinding StrokeThickness}">
+            <Border.StrokeShape>
+              <RoundRectangle CornerRadius="16" />
+            </Border.StrokeShape>
+          </Border>
+
+          <Border x:Name="IconContainer"
+                  WidthRequest="32"
+                  HeightRequest="32"
+                  VerticalOptions="Center"
+                  HorizontalOptions="Center"
+                  BackgroundColor="{TemplateBinding IconBackground}"
+                  IsVisible="{Binding Path=Icon, Source={RelativeSource TemplatedParent}, Converter={x:Static converters:NullableToVisibilityConverter.CollapsedInstance}}">
+            <Border.StrokeShape>
+              <RoundRectangle CornerRadius="16" />
+            </Border.StrokeShape>
+            <Border.Resources>
+              <Style TargetType="styling:PackIcon">
+                <Setter Property="Foreground">
+                  <SolidColorBrush Color="{TemplateBinding IconForeground}" />
+                </Setter>
+              </Style>
+            </Border.Resources>
+            <ContentPresenter HorizontalOptions="Center"
+                              VerticalOptions="Center"
+                              Content="{TemplateBinding Icon}" />
+          </Border>
+
+          <Grid Grid.Column="1"
+                Margin="{TemplateBinding Padding}"
+                VerticalOptions="Center">
+            <Grid.Resources>
+              <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{TemplateBinding Foreground}" />
+                <Setter Property="FontSize" Value="{TemplateBinding FontSize}" />
+              </Style>
+              <Style TargetType="styling:PackIcon">
+                <Setter Property="Foreground">
+                  <SolidColorBrush Color="{TemplateBinding Foreground}" />
+                </Setter>
+              </Style>
+            </Grid.Resources>
+            <ContentPresenter Content="{TemplateBinding Content}" />
+          </Grid>
+
+          <styling:ContentButton x:Name="PART_DeleteButton"
+                                 Grid.Column="2"
+                                 HeightRequest="16"
+                                 WidthRequest="16"
+                                 Margin="-6,0,8,0"
+                                 VerticalOptions="Center"
+                                 CornerRadius="8"
+                                 Padding="0"
+                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+                                 Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}"
+                                 StrokeThickness="0"
+                                 IsVisible="{Binding Path=IsDeletable, Source={RelativeSource TemplatedParent}, Converter={x:Static converters:BooleanToVisibilityConverter.CollapsedInstance}}">
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                  <VisualState x:Name="Normal" />
+                  <VisualState x:Name="PointerOver">
+                    <VisualState.Setters>
+                      <Setter Property="StrokeThickness" Value="1" />
+                    </VisualState.Setters>
+                  </VisualState>
+                </VisualStateGroup>
+              </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+            <styling:PackIcon WidthRequest="12"
+                              HeightRequest="12"
+                              Kind="Close"
+                              Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+          </styling:ContentButton>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+    <Style.Triggers>
+      <DataTrigger TargetType="styling:Chip"
+                   Binding="{Binding Path=Icon, Source={RelativeSource Self}}"
+                   Value="{x:Null}">
+        <Setter Property="Padding" Value="12,0" />
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
+  <Style x:Key="MaterialDesignOutlineChip"
+         TargetType="styling:Chip"
+         BasedOn="{StaticResource MaterialDesignChip}">
+    <Setter Property="BackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
+    <Setter Property="Stroke"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}" />
+    <Setter Property="StrokeThickness" Value="1" />
+    <Setter Property="ControlTemplate">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="Auto,*,Auto">
+          <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CommonStates">
+              <VisualState x:Name="Normal" />
+              <VisualState x:Name="PointerOver">
+                <VisualState.Setters>
+                  <Setter TargetName="MouseOverOverlay" Property="Opacity" Value="0.1" />
+                </VisualState.Setters>
+              </VisualState>
+              <VisualState x:Name="Disabled" />
+            </VisualStateGroup>
+          </VisualStateManager.VisualStateGroups>
+
+          <Border x:Name="Border"
+                  Grid.ColumnSpan="3"
+                  BackgroundColor="{TemplateBinding BackgroundColor}"
+                  Stroke="{TemplateBinding Stroke}"
+                  StrokeThickness="{TemplateBinding StrokeThickness}">
+            <Border.StrokeShape>
+              <RoundRectangle CornerRadius="16" />
+            </Border.StrokeShape>
+          </Border>
+
+          <Border x:Name="MouseOverOverlay"
+                  Grid.ColumnSpan="2"
+                  BackgroundColor="{Binding Path=Foreground, Source={RelativeSource TemplatedParent}, Converter={x:Static converters:BrushRoundConverter.Instance}}"
+                  Stroke="{TemplateBinding Stroke}"
+                  StrokeThickness="{TemplateBinding StrokeThickness}"
+                  Opacity="0">
+            <Border.StrokeShape>
+              <RoundRectangle CornerRadius="16" />
+            </Border.StrokeShape>
+          </Border>
+
+          <Border x:Name="IconContainer"
+                  WidthRequest="32"
+                  HeightRequest="32"
+                  VerticalOptions="Center"
+                  HorizontalOptions="Center"
+                  BackgroundColor="{TemplateBinding IconBackground}"
+                  IsVisible="{Binding Path=Icon, Source={RelativeSource TemplatedParent}, Converter={x:Static converters:NullableToVisibilityConverter.CollapsedInstance}}">
+            <Border.StrokeShape>
+              <RoundRectangle CornerRadius="16" />
+            </Border.StrokeShape>
+            <Border.Resources>
+              <Style TargetType="styling:PackIcon">
+                <Setter Property="Foreground">
+                  <SolidColorBrush Color="{TemplateBinding IconForeground}" />
+                </Setter>
+              </Style>
+            </Border.Resources>
+            <ContentPresenter HorizontalOptions="Center"
+                              VerticalOptions="Center"
+                              Content="{TemplateBinding Icon}" />
+          </Border>
+
+          <Grid Grid.Column="1"
+                Margin="{TemplateBinding Padding}"
+                VerticalOptions="Center">
+            <Grid.Resources>
+              <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{TemplateBinding Foreground}" />
+                <Setter Property="FontSize" Value="{TemplateBinding FontSize}" />
+              </Style>
+              <Style TargetType="styling:PackIcon">
+                <Setter Property="Foreground">
+                  <SolidColorBrush Color="{TemplateBinding Foreground}" />
+                </Setter>
+              </Style>
+            </Grid.Resources>
+            <ContentPresenter Content="{TemplateBinding Content}" />
+          </Grid>
+
+          <styling:ContentButton x:Name="PART_DeleteButton"
+                                 Grid.Column="2"
+                                 HeightRequest="16"
+                                 WidthRequest="16"
+                                 Margin="-6,0,8,0"
+                                 VerticalOptions="Center"
+                                 CornerRadius="8"
+                                 Padding="0"
+                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+                                 Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}"
+                                 StrokeThickness="0"
+                                 IsVisible="{Binding Path=IsDeletable, Source={RelativeSource TemplatedParent}, Converter={x:Static converters:BooleanToVisibilityConverter.CollapsedInstance}}">
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                  <VisualState x:Name="Normal" />
+                  <VisualState x:Name="PointerOver">
+                    <VisualState.Setters>
+                      <Setter Property="StrokeThickness" Value="1" />
+                    </VisualState.Setters>
+                  </VisualState>
+                </VisualStateGroup>
+              </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+            <styling:PackIcon WidthRequest="12"
+                              HeightRequest="12"
+                              Kind="Close"
+                              Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+          </styling:ContentButton>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+</ResourceDictionary>

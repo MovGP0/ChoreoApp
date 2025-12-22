@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Typography.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesignTheme.Shadows.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesignTheme.Badged.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MaterialDesignTheme.Chip.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesignTheme.Button.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
