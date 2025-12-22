@@ -10,19 +10,43 @@
   <!-- Base ContentButton style -->
   <Style x:Key="MaterialDesignBaseButton"
          TargetType="styling:ContentButton">
-    <Setter Property="CornerRadius" Value="8" />
-    <Setter Property="Padding" Value="16,10" />
-    <Setter Property="MinimumHeightRequest" Value="44" />
-    <Setter Property="MinimumWidthRequest" Value="44" />
+    <Setter Property="CornerRadius" Value="2" />
+    <Setter Property="Padding" Value="16,4,16,4" />
+    <Setter Property="HeightRequest" Value="32" />
+    <Setter Property="MinimumHeightRequest" Value="32" />
+    <Setter Property="MinimumWidthRequest" Value="32" />
     <Setter Property="HorizontalOptions" Value="Start" />
     <Setter Property="VerticalOptions" Value="Center" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="FontSize" Value="14" />
     <Setter Property="Shadow" Value="{x:Null}" />
     <Setter Property="styling:ContentButton.PressedOpacity" Value="0.9" />
+    <Setter Property="Resources">
+      <ResourceDictionary>
+        <Style TargetType="Label">
+          <Setter Property="TextColor"
+                  Value="{Binding Path=Foreground, Source={RelativeSource AncestorType={x:Type styling:ContentButton}}}" />
+          <Setter Property="FontSize"
+                  Value="{Binding Path=FontSize, Source={RelativeSource AncestorType={x:Type styling:ContentButton}}}" />
+          <Setter Property="FontAttributes"
+                  Value="{Binding Path=FontAttributes, Source={RelativeSource AncestorType={x:Type styling:ContentButton}}}" />
+          <Setter Property="FontFamily"
+                  Value="{Binding Path=FontFamily, Source={RelativeSource AncestorType={x:Type styling:ContentButton}}}" />
+        </Style>
+        <Style TargetType="styling:PackIcon">
+          <Setter Property="Foreground">
+            <SolidColorBrush Color="{Binding Path=Foreground, Source={RelativeSource AncestorType={x:Type styling:ContentButton}}}" />
+          </Setter>
+        </Style>
+      </ResourceDictionary>
+    </Setter>
     <Setter Property="VisualStateManager.VisualStateGroups">
       <VisualStateGroupList>
         <VisualStateGroup x:Name="CommonStates">
           <VisualState x:Name="Normal" />
           <VisualState x:Name="Pressed" />
+          <VisualState x:Name="PointerOver" />
           <VisualState x:Name="Disabled">
             <VisualState.Setters>
               <Setter Property="Opacity" Value="0.38" />
@@ -38,14 +62,22 @@
   <Style x:Key="MaterialDesignRaisedButton"
          TargetType="styling:ContentButton"
          BasedOn="{StaticResource MaterialDesignBaseButton}">
+    <Setter Property="Foreground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}" />
     <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
     <Setter Property="Stroke" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
     <Setter Property="StrokeThickness" Value="1" />
     <Setter Property="Shadow" Value="{StaticResource MaterialDesignElevationShadow2}" />
+    <Setter Property="styling:RippleAssist.Feedback"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}" />
     <Setter Property="VisualStateManager.VisualStateGroups">
       <VisualStateGroupList>
         <VisualStateGroup x:Name="CommonStates">
           <VisualState x:Name="Normal" />
+          <VisualState x:Name="PointerOver">
+            <VisualState.Setters>
+              <Setter Property="Shadow" Value="{StaticResource MaterialDesignElevationShadow3}" />
+            </VisualState.Setters>
+          </VisualState>
           <VisualState x:Name="Pressed">
             <VisualState.Setters>
               <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.PrimaryContainer}}" />
@@ -68,6 +100,9 @@
          BasedOn="{StaticResource MaterialDesignRaisedButton}">
     <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.PrimaryContainer}}" />
     <Setter Property="Stroke" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.PrimaryContainer}}" />
+    <Setter Property="Foreground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimaryContainer}}" />
+    <Setter Property="styling:RippleAssist.Feedback"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimaryContainer}}" />
   </Style>
 
   <Style x:Key="MaterialDesignRaisedDarkButton"
@@ -82,6 +117,9 @@
          BasedOn="{StaticResource MaterialDesignRaisedButton}">
     <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}" />
     <Setter Property="Stroke" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}" />
+    <Setter Property="Foreground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSecondary}}" />
+    <Setter Property="styling:RippleAssist.Feedback"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSecondary}}" />
   </Style>
 
   <Style x:Key="MaterialDesignRaisedSecondaryLightButton"
@@ -89,6 +127,9 @@
          BasedOn="{StaticResource MaterialDesignRaisedSecondaryButton}">
     <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SecondaryContainer}}" />
     <Setter Property="Stroke" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SecondaryContainer}}" />
+    <Setter Property="Foreground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSecondaryContainer}}" />
+    <Setter Property="styling:RippleAssist.Feedback"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSecondaryContainer}}" />
   </Style>
 
   <Style x:Key="MaterialDesignRaisedSecondaryDarkButton"
@@ -106,10 +147,18 @@
     <Setter Property="Stroke" Value="Transparent" />
     <Setter Property="StrokeThickness" Value="0" />
     <Setter Property="Shadow" Value="{x:Null}" />
+    <Setter Property="Foreground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+    <Setter Property="styling:RippleAssist.Feedback"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
     <Setter Property="VisualStateManager.VisualStateGroups">
       <VisualStateGroupList>
         <VisualStateGroup x:Name="CommonStates">
           <VisualState x:Name="Normal" />
+          <VisualState x:Name="PointerOver">
+            <VisualState.Setters>
+              <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+            </VisualState.Setters>
+          </VisualState>
           <VisualState x:Name="Pressed">
             <VisualState.Setters>
               <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
@@ -127,12 +176,19 @@
 
   <Style x:Key="MaterialDesignFlatLightButton"
          TargetType="styling:ContentButton"
-         BasedOn="{StaticResource MaterialDesignFlatButton}" />
+         BasedOn="{StaticResource MaterialDesignFlatButton}">
+    <Setter Property="Foreground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.PrimaryContainer}}" />
+    <Setter Property="styling:RippleAssist.Feedback"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.PrimaryContainer}}" />
+  </Style>
 
   <Style x:Key="MaterialDesignFlatDarkButton"
          TargetType="styling:ContentButton"
          BasedOn="{StaticResource MaterialDesignFlatButton}">
     <Setter Property="Stroke" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+    <Setter Property="Foreground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+    <Setter Property="styling:RippleAssist.Feedback"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
   </Style>
 
   <Style x:Key="MaterialDesignFlatSecondaryButton"
@@ -140,15 +196,26 @@
          BasedOn="{StaticResource MaterialDesignFlatButton}">
     <Setter Property="Stroke" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}" />
     <Setter Property="StrokeThickness" Value="1" />
+    <Setter Property="Foreground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}" />
+    <Setter Property="styling:RippleAssist.Feedback"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}" />
   </Style>
 
   <Style x:Key="MaterialDesignFlatSecondaryLightButton"
          TargetType="styling:ContentButton"
-         BasedOn="{StaticResource MaterialDesignFlatSecondaryButton}" />
+         BasedOn="{StaticResource MaterialDesignFlatSecondaryButton}">
+    <Setter Property="Foreground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SecondaryContainer}}" />
+    <Setter Property="styling:RippleAssist.Feedback"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SecondaryContainer}}" />
+  </Style>
 
   <Style x:Key="MaterialDesignFlatSecondaryDarkButton"
          TargetType="styling:ContentButton"
-         BasedOn="{StaticResource MaterialDesignFlatSecondaryButton}" />
+         BasedOn="{StaticResource MaterialDesignFlatSecondaryButton}">
+    <Setter Property="Foreground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}" />
+    <Setter Property="styling:RippleAssist.Feedback"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}" />
+  </Style>
 
   <!-- Flat background variants -->
   <Style x:Key="MaterialDesignFlatLightBgButton"
@@ -194,6 +261,9 @@
     <Setter Property="Stroke" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
     <Setter Property="StrokeThickness" Value="1" />
     <Setter Property="BackgroundColor" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+    <Setter Property="styling:RippleAssist.Feedback"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
   </Style>
 
   <Style x:Key="MaterialDesignOutlinedLightButton"
@@ -208,6 +278,9 @@
          TargetType="styling:ContentButton"
          BasedOn="{StaticResource MaterialDesignOutlinedButton}">
     <Setter Property="Stroke" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}" />
+    <Setter Property="Foreground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}" />
+    <Setter Property="styling:RippleAssist.Feedback"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}" />
   </Style>
 
   <Style x:Key="MaterialDesignOutlinedSecondaryLightButton"
@@ -332,15 +405,22 @@
     <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
     <Setter Property="Stroke" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
     <Setter Property="Shadow" Value="{StaticResource MaterialDesignElevationShadow2}" />
+    <Setter Property="Foreground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+    <Setter Property="styling:RippleAssist.Feedback"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
   </Style>
 
   <Style x:Key="MaterialDesignPaperLightButton"
          TargetType="styling:ContentButton"
-         BasedOn="{StaticResource MaterialDesignPaperButton}" />
+         BasedOn="{StaticResource MaterialDesignPaperButton}">
+    <Setter Property="Stroke" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.PrimaryContainer}}" />
+  </Style>
 
   <Style x:Key="MaterialDesignPaperDarkButton"
          TargetType="styling:ContentButton"
-         BasedOn="{StaticResource MaterialDesignPaperButton}" />
+         BasedOn="{StaticResource MaterialDesignPaperButton}">
+    <Setter Property="Stroke" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+  </Style>
 
   <Style x:Key="MaterialDesignPaperSecondaryLightButton"
          TargetType="styling:ContentButton"
@@ -361,5 +441,6 @@
          BasedOn="{StaticResource MaterialDesignPaperSecondaryLightButton}">
     <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SecondaryContainer}}" />
     <Setter Property="Stroke" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SecondaryContainer}}" />
+    <Setter Property="styling:RippleAssist.Feedback" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SecondaryContainer}}" />
   </Style>
 </ResourceDictionary>

@@ -1,5 +1,6 @@
 using System.Windows.Input;
 using Microsoft.Maui.Controls.Shapes;
+using Microsoft.Maui.Graphics;
 
 namespace ChoreoApp.Styling;
 
@@ -13,6 +14,8 @@ public sealed class ContentButton : ContentView
     private readonly Border _border;
     private readonly TapGestureRecognizer _tap;
     private readonly PointerGestureRecognizer _pointer;
+    private readonly ContentPresenter _contentPresenter;
+    private readonly Ripple _ripple;
 
     public ContentButton()
     {
@@ -24,7 +27,18 @@ public sealed class ContentButton : ContentView
             StrokeThickness = 0
         };
 
-        _border.SetBinding(Border.ContentProperty, new Binding(nameof(ButtonContent), source: this));
+        _contentPresenter = new ContentPresenter();
+        _contentPresenter.SetBinding(ContentPresenter.ContentProperty, new Binding(nameof(ButtonContent), source: this));
+        _contentPresenter.SetBinding(HorizontalOptionsProperty, new Binding(nameof(HorizontalContentAlignment), source: this));
+        _contentPresenter.SetBinding(VerticalOptionsProperty, new Binding(nameof(VerticalContentAlignment), source: this));
+
+        _ripple = new Ripple();
+        _ripple.RippleContent = _contentPresenter;
+        _ripple.SetBinding(RippleAssist.FeedbackProperty, new Binding("(styling:RippleAssist.Feedback)", source: this));
+        _ripple.SetBinding(RippleAssist.IsCenteredProperty, new Binding("(styling:RippleAssist.IsCentered)", source: this));
+        _ripple.SetBinding(RippleAssist.RippleSizeMultiplierProperty, new Binding("(styling:RippleAssist.RippleSizeMultiplier)", source: this));
+
+        _border.Content = _ripple;
         _border.SetBinding(Border.BackgroundColorProperty, new Binding(nameof(BackgroundColor), source: this));
         _border.SetBinding(Border.PaddingProperty, new Binding(nameof(Padding), source: this));
         _border.SetBinding(Border.StrokeProperty, new Binding(nameof(Stroke), source: this));
@@ -43,6 +57,7 @@ public sealed class ContentButton : ContentView
 
         UpdateCornerRadius();
         UpdateEnabledState();
+        UpdateRippleDisabledState();
     }
 
     public event EventHandler? Clicked;
@@ -84,6 +99,84 @@ public sealed class ContentButton : ContentView
     {
         get => (View?)GetValue(ButtonContentProperty);
         set => SetValue(ButtonContentProperty, value);
+    }
+
+    public static readonly BindableProperty HorizontalContentAlignmentProperty =
+        BindableProperty.Create(
+            nameof(HorizontalContentAlignment),
+            typeof(LayoutOptions),
+            typeof(ContentButton),
+            LayoutOptions.Center);
+
+    public LayoutOptions HorizontalContentAlignment
+    {
+        get => (LayoutOptions)GetValue(HorizontalContentAlignmentProperty);
+        set => SetValue(HorizontalContentAlignmentProperty, value);
+    }
+
+    public static readonly BindableProperty VerticalContentAlignmentProperty =
+        BindableProperty.Create(
+            nameof(VerticalContentAlignment),
+            typeof(LayoutOptions),
+            typeof(ContentButton),
+            LayoutOptions.Center);
+
+    public LayoutOptions VerticalContentAlignment
+    {
+        get => (LayoutOptions)GetValue(VerticalContentAlignmentProperty);
+        set => SetValue(VerticalContentAlignmentProperty, value);
+    }
+
+    public static readonly BindableProperty ForegroundProperty =
+        BindableProperty.Create(
+            nameof(Foreground),
+            typeof(Color),
+            typeof(ContentButton),
+            null);
+
+    public Color? Foreground
+    {
+        get => (Color?)GetValue(ForegroundProperty);
+        set => SetValue(ForegroundProperty, value);
+    }
+
+    public static readonly BindableProperty FontSizeProperty =
+        BindableProperty.Create(
+            nameof(FontSize),
+            typeof(double),
+            typeof(ContentButton),
+            14d);
+
+    public double FontSize
+    {
+        get => (double)GetValue(FontSizeProperty);
+        set => SetValue(FontSizeProperty, value);
+    }
+
+    public static readonly BindableProperty FontAttributesProperty =
+        BindableProperty.Create(
+            nameof(FontAttributes),
+            typeof(FontAttributes),
+            typeof(ContentButton),
+            FontAttributes.None);
+
+    public FontAttributes FontAttributes
+    {
+        get => (FontAttributes)GetValue(FontAttributesProperty);
+        set => SetValue(FontAttributesProperty, value);
+    }
+
+    public static readonly BindableProperty FontFamilyProperty =
+        BindableProperty.Create(
+            nameof(FontFamily),
+            typeof(string),
+            typeof(ContentButton),
+            null);
+
+    public string? FontFamily
+    {
+        get => (string?)GetValue(FontFamilyProperty);
+        set => SetValue(FontFamilyProperty, value);
     }
 
     public static readonly BindableProperty StrokeProperty =
@@ -146,6 +239,7 @@ public sealed class ContentButton : ContentView
         if (propertyName == IsEnabledProperty.PropertyName)
         {
             UpdateEnabledState();
+            UpdateRippleDisabledState();
         }
     }
 
@@ -168,6 +262,11 @@ public sealed class ContentButton : ContentView
     private void UpdateEnabledState()
     {
         VisualStateManager.GoToState(this, IsEnabled ? "Normal" : "Disabled");
+    }
+
+    private void UpdateRippleDisabledState()
+    {
+        RippleAssist.SetIsDisabled(_ripple, !IsEnabled);
     }
 
     private void OnPointerEntered(object? sender, PointerEventArgs e)
