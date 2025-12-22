@@ -6,6 +6,7 @@ using ChoreoApp.Floor;
 using ChoreoApp.Main;
 using ChoreoApp.Scenes;
 using ChoreoApp.Settings;
+using Sharpnado.Shades;
 
 namespace ChoreoApp;
 
@@ -23,6 +24,8 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
+
+        builder.UseSharpnadoShadows(enableLogging: false);
 
         //! returns the MessagePipeBuilder which we do not need here
         _ = builder.Services.AddMessagePipe();

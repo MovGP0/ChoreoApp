@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:converters="clr-namespace:ChoreoApp.Styling.Converters;assembly=ChoreoApp.Styling"
+                    xmlns:convertersInternal="clr-namespace:ChoreoApp.Styling.Converters.Internal;assembly=ChoreoApp.Styling"
+                    xmlns:shades="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Maui.Shadows"
+                    xmlns:styling="clr-namespace:ChoreoApp.Styling;assembly=ChoreoApp.Styling">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="MaterialDesignTheme.Shadows.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <Style x:Key="MaterialDesignCardBase"
+         TargetType="styling:Card">
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="BackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
+    <Setter Property="Stroke"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}" />
+    <Setter Property="StrokeThickness" Value="0" />
+    <Setter Property="UniformCornerRadius" Value="4" />
+    <Setter Property="ClipContent" Value="False" />
+    <Setter Property="Elevation" Value="Dp0" />
+    <Setter Property="ControlTemplate">
+      <ControlTemplate>
+        <shades:Shadows CornerRadius="{TemplateBinding UniformCornerRadius}"
+                        Shades="{Binding Path=Elevation,
+                                        Source={RelativeSource TemplatedParent},
+                                        Converter={x:Static converters:ShadowConverter.Instance}}">
+          <Border x:Name="PART_ClipBorder"
+                  Padding="{TemplateBinding Padding}"
+                  BackgroundColor="{TemplateBinding BackgroundColor}"
+                  Stroke="{TemplateBinding Stroke}"
+                  StrokeThickness="{TemplateBinding StrokeThickness}"
+                  StrokeShape="RoundRectangle {Binding Path=UniformCornerRadius,
+                                                       Source={RelativeSource TemplatedParent},
+                                                       Converter={x:Static convertersInternal:DoubleToCornerRadiusConverter.Instance}}"
+                  Clip="{TemplateBinding ContentClip}">
+            <ContentPresenter Content="{TemplateBinding Content}" />
+          </Border>
+        </shades:Shadows>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style x:Key="MaterialDesignElevatedCard"
+         TargetType="styling:Card"
+         BasedOn="{StaticResource MaterialDesignCardBase}">
+    <Setter Property="BackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}" />
+    <Setter Property="Elevation" Value="Dp1" />
+  </Style>
+
+  <Style x:Key="MaterialDesignOutlinedCard"
+         TargetType="styling:Card"
+         BasedOn="{StaticResource MaterialDesignCardBase}">
+    <Setter Property="StrokeThickness" Value="1" />
+    <Setter Property="Elevation" Value="Dp0" />
+  </Style>
+
+</ResourceDictionary>

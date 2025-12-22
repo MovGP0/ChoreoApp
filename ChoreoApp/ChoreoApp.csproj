@@ -66,6 +66,7 @@
     <ProjectReference Include="..\ChoreoApp.Algorithms\ChoreoApp.Algorithms.csproj" />
     <ProjectReference Include="..\ChoreoApp.Styling\ChoreoApp.Styling.csproj" />
     <ProjectReference Include="..\ChoreoMasterMobile.Json\ChoreoMasterMobile.Json.csproj" />
+    <ProjectReference Include="..\Maui.Shadows\Maui.Shadows.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images\" />
