@@ -1,24 +1,29 @@
 ﻿using System.Windows.Input;
 using Microsoft.Maui.Controls.Shapes;
+using Microsoft.Maui.Layouts;
 
 namespace MaterialDesignThemes.Maui;
 
 /// <summary>
-/// Minimal toggle button for MAUI (Border-based) with hamburger-to-X animation akin to MaterialDesign.
+/// Minimal toggle button for MAUI (Border-based) with hamburger-to-arrow animation akin to MaterialDesign.
 /// Exposes IsChecked, Checked/Unchecked, Command, and palette properties.
 /// </summary>
 public sealed class HamburgerToggleButton : Border
 {
-    private readonly TapGestureRecognizer _tap = new();
-    private readonly BoxView _bar1 = CreateBar();
-    private readonly BoxView _bar2 = CreateBar();
-    private readonly BoxView _bar3 = CreateBar();
-    private readonly Grid _visualRoot = CreateVisualRootGrid();
+    private const uint DefaultAnimationDuration = 1600;
+    private const double MinBarThickness = 1;
+    private const double MinBarInset = 1;
 
-    private const uint AnimationDuration = 160;
-    private const double BarHeightDefault = 2.5;
-    private const double BarWidthDefault = 22;
-    private const double BarSpacing = 6; // distance between bars (center to center)
+    private readonly TapGestureRecognizer _tap = new();
+    private readonly Line _bar1 = CreateBar();
+    private readonly Line _bar2 = CreateBar();
+    private readonly Line _bar3 = CreateBar();
+    private readonly AbsoluteLayout _visualRoot = CreateVisualRootLayout();
+
+    private double _barThickness = 2.5;
+    private double _barSpacing = 6;
+    private double _contentWidth;
+    private double _contentHeight;
 
     public HamburgerToggleButton()
     {
@@ -28,8 +33,8 @@ public sealed class HamburgerToggleButton : Border
         StrokeThickness = 0;
 
         _visualRoot.Add(_bar1);
-        _visualRoot.Add(_bar2, 0, 1);
-        _visualRoot.Add(_bar3, 0, 2);
+        _visualRoot.Add(_bar2);
+        _visualRoot.Add(_bar3);
 
         Content = _visualRoot;
 
@@ -37,20 +42,13 @@ public sealed class HamburgerToggleButton : Border
         GestureRecognizers.Add(_tap);
 
         ApplyPalette();
-        ResetTransforms();
+        UpdateBarLayout(false);
     }
 
-    private static Grid CreateVisualRootGrid()
+    private static AbsoluteLayout CreateVisualRootLayout()
     {
-        return new Grid
+        return new AbsoluteLayout
         {
-            RowDefinitions =
-            {
-                new RowDefinition(GridLength.Auto),
-                new RowDefinition(GridLength.Auto),
-                new RowDefinition(GridLength.Auto)
-            },
-            RowSpacing = 4,
             HorizontalOptions = LayoutOptions.Center,
             VerticalOptions = LayoutOptions.Center
         };
@@ -60,6 +58,19 @@ public sealed class HamburgerToggleButton : Border
     public event EventHandler? Unchecked;
 
     #region Bindable properties
+
+    public static readonly BindableProperty AnimationDurationProperty =
+        BindableProperty.Create(
+            nameof(AnimationDuration),
+            typeof(uint),
+            typeof(HamburgerToggleButton),
+            DefaultAnimationDuration);
+
+    public uint AnimationDuration
+    {
+        get => (uint)GetValue(AnimationDurationProperty);
+        set => SetValue(AnimationDurationProperty, value);
+    }
 
     public static readonly BindableProperty IsCheckedProperty =
         BindableProperty.Create(
@@ -206,15 +217,14 @@ public sealed class HamburgerToggleButton : Border
         }
     }
 
-    private static BoxView CreateBar()
+    private static Line CreateBar()
     {
-        return new BoxView
+        return new Line
         {
-            HeightRequest = BarHeightDefault,
-            WidthRequest = BarWidthDefault,
-            HorizontalOptions = LayoutOptions.Center,
-            VerticalOptions = LayoutOptions.Center,
-            CornerRadius = new CornerRadius(1.25)
+            StrokeLineCap = PenLineCap.Round,
+            StrokeLineJoin = PenLineJoin.Round,
+            HorizontalOptions = LayoutOptions.Fill,
+            VerticalOptions = LayoutOptions.Fill
         };
     }
 
@@ -233,7 +243,7 @@ public sealed class HamburgerToggleButton : Border
 
             VisualStateManager.GoToState(button, isChecked ? "Checked" : "Unchecked");
             button.ApplyPalette();
-            button.RunHamburgerAnimation(isChecked);
+            button.UpdateBarLayout(true);
         }
     }
 
@@ -265,52 +275,128 @@ public sealed class HamburgerToggleButton : Border
             ? (IsChecked ? CheckedBarColor : BarColor)
             : DisabledBarColor;
 
-        _bar1.Color = barColor;
-        _bar2.Color = barColor;
-        _bar3.Color = barColor;
+        _bar1.Stroke = barColor;
+        _bar2.Stroke = barColor;
+        _bar3.Stroke = barColor;
 
         BackgroundColor = IsChecked ? BackgroundCheckedColor : Colors.Transparent;
         Opacity = IsEnabled ? 1d : 0.38;
     }
 
-    private void ResetTransforms()
+    protected override void OnSizeAllocated(double width, double height)
     {
-        _bar1.Rotation = 0;
-        _bar3.Rotation = 0;
-        _bar2.Opacity = 1;
-        _bar1.TranslationY = -BarSpacing;
-        _bar2.TranslationY = 0;
-        _bar3.TranslationY = BarSpacing;
+        base.OnSizeAllocated(width, height);
+
+        var contentWidth = Math.Max(0, width - Padding.HorizontalThickness);
+        var contentHeight = Math.Max(0, height - Padding.VerticalThickness);
+
+        if (Math.Abs(_contentWidth - contentWidth) < 0.5 && Math.Abs(_contentHeight - contentHeight) < 0.5)
+        {
+            return;
+        }
+
+        _contentWidth = contentWidth;
+        _contentHeight = contentHeight;
+        UpdateBarLayout(false);
     }
 
-    private void RunHamburgerAnimation(bool isChecked)
+    private void UpdateBarLayout(bool animate)
     {
         _bar1.AbortAnimation("HamburgerAnim");
         _bar2.AbortAnimation("HamburgerAnim");
         _bar3.AbortAnimation("HamburgerAnim");
 
-        var translateUp = -BarSpacing;
-        var translateDown = BarSpacing;
-
-        if (isChecked)
+        if (_contentWidth <= 0 || _contentHeight <= 0)
         {
-            var anim = new Animation();
-            anim.Add(0, 1, new Animation(v => _bar1.TranslationY = v, _bar1.TranslationY, 0, Easing.CubicOut));
-            anim.Add(0, 1, new Animation(v => _bar3.TranslationY = v, _bar3.TranslationY, 0, Easing.CubicOut));
-            anim.Add(0, 1, new Animation(v => _bar1.Rotation = v, _bar1.Rotation, 45, Easing.CubicOut));
-            anim.Add(0, 1, new Animation(v => _bar3.Rotation = v, _bar3.Rotation, -45, Easing.CubicOut));
-            anim.Add(0, 1, new Animation(v => _bar2.Opacity = v, _bar2.Opacity, 0, Easing.CubicOut));
-            anim.Commit(this, "HamburgerAnim", 16, AnimationDuration, Easing.CubicOut);
+            return;
+        }
+
+        var size = Math.Min(_contentWidth, _contentHeight);
+        _barThickness = Math.Max(MinBarThickness, size * 0.08);
+        var inset = Math.Max(MinBarInset, _barThickness);
+        _barSpacing = Math.Min((_contentHeight - 2 * inset) / 4, _contentHeight * 0.2);
+
+        var xLeft = inset;
+        var xRight = _contentWidth - inset;
+        var xMid = _contentWidth / 2;
+        var yTop = inset;
+        var yBottom = _contentHeight - inset;
+        var yMid = _contentHeight / 2;
+
+        _bar1.StrokeThickness = _barThickness;
+        _bar2.StrokeThickness = _barThickness;
+        _bar3.StrokeThickness = _barThickness;
+
+        SetLineBounds(_bar1);
+        SetLineBounds(_bar2);
+        SetLineBounds(_bar3);
+
+        if (IsChecked)
+        {
+            var topTarget = new LinePoints(xLeft, yMid, xMid, yTop);
+            var midTarget = new LinePoints(xLeft, yMid, xRight, yMid);
+            var bottomTarget = new LinePoints(xLeft, yMid, xMid, yBottom);
+
+            if (animate)
+            {
+                AnimateLines(topTarget, midTarget, bottomTarget);
+            }
+            else
+            {
+                ApplyLinePoints(_bar1, topTarget);
+                ApplyLinePoints(_bar2, midTarget);
+                ApplyLinePoints(_bar3, bottomTarget);
+            }
         }
         else
         {
-            var anim = new Animation();
-            anim.Add(0, 1, new Animation(v => _bar1.TranslationY = v, _bar1.TranslationY, translateUp, Easing.CubicOut));
-            anim.Add(0, 1, new Animation(v => _bar3.TranslationY = v, _bar3.TranslationY, translateDown, Easing.CubicOut));
-            anim.Add(0, 1, new Animation(v => _bar1.Rotation = v, _bar1.Rotation, 0, Easing.CubicOut));
-            anim.Add(0, 1, new Animation(v => _bar3.Rotation = v, _bar3.Rotation, 0, Easing.CubicOut));
-            anim.Add(0, 1, new Animation(v => _bar2.Opacity = v, _bar2.Opacity, 1, Easing.CubicOut));
-            anim.Commit(this, "HamburgerAnim", 16, AnimationDuration, Easing.CubicOut);
+            var topTarget = new LinePoints(xLeft, yMid - _barSpacing, xRight, yMid - _barSpacing);
+            var midTarget = new LinePoints(xLeft, yMid, xRight, yMid);
+            var bottomTarget = new LinePoints(xLeft, yMid + _barSpacing, xRight, yMid + _barSpacing);
+
+            if (animate)
+            {
+                AnimateLines(topTarget, midTarget, bottomTarget);
+            }
+            else
+            {
+                ApplyLinePoints(_bar1, topTarget);
+                ApplyLinePoints(_bar2, midTarget);
+                ApplyLinePoints(_bar3, bottomTarget);
+            }
         }
     }
+
+    private void SetLineBounds(Line line)
+    {
+        AbsoluteLayout.SetLayoutBounds(line, new Rect(0, 0, _contentWidth, _contentHeight));
+        AbsoluteLayout.SetLayoutFlags(line, AbsoluteLayoutFlags.None);
+    }
+
+    private void AnimateLines(LinePoints topTarget, LinePoints midTarget, LinePoints bottomTarget)
+    {
+        var anim = new Animation();
+        AddLineAnimation(anim, _bar1, topTarget);
+        AddLineAnimation(anim, _bar2, midTarget);
+        AddLineAnimation(anim, _bar3, bottomTarget);
+        anim.Commit(this, "HamburgerAnim", 16, AnimationDuration, Easing.CubicOut);
+    }
+
+    private static void AddLineAnimation(Animation anim, Line line, LinePoints target)
+    {
+        anim.Add(0, 1, new Animation(v => line.X1 = v, line.X1, target.X1, Easing.CubicOut));
+        anim.Add(0, 1, new Animation(v => line.Y1 = v, line.Y1, target.Y1, Easing.CubicOut));
+        anim.Add(0, 1, new Animation(v => line.X2 = v, line.X2, target.X2, Easing.CubicOut));
+        anim.Add(0, 1, new Animation(v => line.Y2 = v, line.Y2, target.Y2, Easing.CubicOut));
+    }
+
+    private static void ApplyLinePoints(Line line, LinePoints points)
+    {
+        line.X1 = points.X1;
+        line.Y1 = points.Y1;
+        line.X2 = points.X2;
+        line.Y2 = points.Y2;
+    }
+
+    private readonly record struct LinePoints(double X1, double Y1, double X2, double Y2);
 }
