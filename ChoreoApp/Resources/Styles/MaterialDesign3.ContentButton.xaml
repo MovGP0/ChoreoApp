@@ -24,18 +24,13 @@
     <Setter Property="Resources">
       <ResourceDictionary>
         <Style TargetType="Label">
-          <Setter Property="TextColor"
-                  Value="{Binding Path=Foreground, Source={RelativeSource AncestorType={x:Type styling:ContentButton}}}" />
-          <Setter Property="FontSize"
-                  Value="{Binding Path=FontSize, Source={RelativeSource AncestorType={x:Type styling:ContentButton}}}" />
-          <Setter Property="FontAttributes"
-                  Value="{Binding Path=FontAttributes, Source={RelativeSource AncestorType={x:Type styling:ContentButton}}}" />
-          <Setter Property="FontFamily"
-                  Value="{Binding Path=FontFamily, Source={RelativeSource AncestorType={x:Type styling:ContentButton}}}" />
+          <Setter Property="TextColor" Value="{DynamicResource ContentButton.Foreground}" />
+          <Setter Property="FontSize" Value="{DynamicResource ContentButton.FontSize}" />
+          <Setter Property="FontAttributes" Value="{DynamicResource ContentButton.FontAttributes}" />
+          <Setter Property="FontFamily" Value="{DynamicResource ContentButton.FontFamily}" />
         </Style>
         <Style TargetType="styling:PackIcon">
-          <Setter Property="ForegroundColor"
-                  Value="{Binding Path=Foreground, Source={RelativeSource AncestorType={x:Type styling:ContentButton}}}" />
+          <Setter Property="Foreground" Value="{DynamicResource ContentButton.ForegroundBrush}" />
         </Style>
       </ResourceDictionary>
     </Setter>

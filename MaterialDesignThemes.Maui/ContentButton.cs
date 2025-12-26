@@ -8,12 +8,20 @@ namespace MaterialDesignThemes.Maui;
 /// Implements Command/CommandParameter and Clicked event. Uses a <see cref="Border"/> host.
 /// </summary>
 [ContentProperty(nameof(ButtonContent))]
-public sealed class ContentButton : ContentView
+public sealed partial class ContentButton : ContentView
 {
+    private const string ForegroundResourceKey = "ContentButton.Foreground";
+    private const string ForegroundBrushResourceKey = "ContentButton.ForegroundBrush";
+    private const string FontSizeResourceKey = "ContentButton.FontSize";
+    private const string FontAttributesResourceKey = "ContentButton.FontAttributes";
+    private const string FontFamilyResourceKey = "ContentButton.FontFamily";
+
     private readonly Border _border;
     private readonly TapGestureRecognizer _tap;
     private readonly PointerGestureRecognizer _pointer;
     private readonly Grid _contentHost;
+    private readonly ResourceDictionary _instanceResources = new();
+    private readonly ContentPresenter _contentPresenter;
 
     public ContentButton()
     {
@@ -25,16 +33,16 @@ public sealed class ContentButton : ContentView
             StrokeThickness = 0
         };
 
-        var contentPresenter = new ContentPresenter();
-        contentPresenter.SetBinding(ContentPresenter.ContentProperty, new Binding(nameof(ButtonContent), source: this));
-        contentPresenter.SetBinding(HorizontalOptionsProperty, new Binding(nameof(HorizontalContentAlignment), source: this));
-        contentPresenter.SetBinding(VerticalOptionsProperty, new Binding(nameof(VerticalContentAlignment), source: this));
+        _contentPresenter = new ContentPresenter();
+        _contentPresenter.SetBinding(HorizontalOptionsProperty, new Binding(nameof(HorizontalContentAlignment), source: this));
+        _contentPresenter.SetBinding(VerticalOptionsProperty, new Binding(nameof(VerticalContentAlignment), source: this));
 
         _contentHost = new Grid();
         ApplyContentResources(null);
-        _contentHost.Children.Add(contentPresenter);
+        _contentHost.Children.Add(_contentPresenter);
 
         _border.Content = _contentHost;
+        _border.SetBinding(Border.BackgroundProperty, new Binding(nameof(Background), source: this));
         _border.SetBinding(Border.BackgroundColorProperty, new Binding(nameof(BackgroundColor), source: this));
         _border.SetBinding(Border.PaddingProperty, new Binding(nameof(Padding), source: this));
         _border.SetBinding(Border.StrokeProperty, new Binding(nameof(Stroke), source: this));
@@ -53,6 +61,7 @@ public sealed class ContentButton : ContentView
 
         UpdateCornerRadius();
         UpdateEnabledState();
+        UpdateForegroundBrush();
     }
 
     public event EventHandler? Clicked;
@@ -61,8 +70,7 @@ public sealed class ContentButton : ContentView
         BindableProperty.Create(
             nameof(Command),
             typeof(ICommand),
-            typeof(ContentButton),
-            default(ICommand));
+            typeof(ContentButton));
 
     public ICommand? Command
     {
@@ -74,8 +82,7 @@ public sealed class ContentButton : ContentView
         BindableProperty.Create(
             nameof(CommandParameter),
             typeof(object),
-            typeof(ContentButton),
-            null);
+            typeof(ContentButton));
 
     public object? CommandParameter
     {
@@ -88,7 +95,7 @@ public sealed class ContentButton : ContentView
             nameof(ButtonContent),
             typeof(View),
             typeof(ContentButton),
-            null);
+            propertyChanged: OnButtonContentChanged);
 
     public View? ButtonContent
     {
@@ -121,7 +128,6 @@ public sealed class ContentButton : ContentView
             nameof(Resources),
             typeof(ResourceDictionary),
             typeof(ContentButton),
-            null,
             propertyChanged: OnResourcesChanged);
 
     public new ResourceDictionary? Resources
@@ -140,13 +146,24 @@ public sealed class ContentButton : ContentView
         BindableProperty.Create(
             nameof(Foreground),
             typeof(Color),
-            typeof(ContentButton),
-            null);
+            typeof(ContentButton));
 
     public Color? Foreground
     {
         get => (Color?)GetValue(ForegroundProperty);
         set => SetValue(ForegroundProperty, value);
+    }
+
+    public static readonly BindableProperty ForegroundBrushProperty =
+        BindableProperty.Create(
+            nameof(ForegroundBrush),
+            typeof(Brush),
+            typeof(ContentButton));
+
+    public Brush? ForegroundBrush
+    {
+        get => (Brush?)GetValue(ForegroundBrushProperty);
+        set => SetValue(ForegroundBrushProperty, value);
     }
 
     public static readonly BindableProperty FontSizeProperty =
@@ -179,8 +196,7 @@ public sealed class ContentButton : ContentView
         BindableProperty.Create(
             nameof(FontFamily),
             typeof(string),
-            typeof(ContentButton),
-            null);
+            typeof(ContentButton));
 
     public string? FontFamily
     {
@@ -192,8 +208,7 @@ public sealed class ContentButton : ContentView
         BindableProperty.Create(
             nameof(Stroke),
             typeof(Brush),
-            typeof(ContentButton),
-            null);
+            typeof(ContentButton));
 
     public Brush? Stroke
     {
@@ -249,6 +264,19 @@ public sealed class ContentButton : ContentView
         {
             UpdateEnabledState();
         }
+
+        if (propertyName == ForegroundProperty.PropertyName)
+        {
+            UpdateForegroundBrush();
+        }
+
+        if (propertyName == ForegroundBrushProperty.PropertyName
+            || propertyName == FontSizeProperty.PropertyName
+            || propertyName == FontAttributesProperty.PropertyName
+            || propertyName == FontFamilyProperty.PropertyName)
+        {
+            UpdateContentResourceValues();
+        }
     }
 
     private static void OnCornerRadiusChanged(BindableObject bindable, object oldValue, object newValue)
@@ -256,6 +284,14 @@ public sealed class ContentButton : ContentView
         if (bindable is ContentButton button && newValue is float radius)
         {
             button.UpdateCornerRadius();
+        }
+    }
+
+    private static void OnButtonContentChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (bindable is ContentButton button)
+        {
+            button.UpdateContent(newValue as View);
         }
     }
 
@@ -267,9 +303,43 @@ public sealed class ContentButton : ContentView
         };
     }
 
+    private void UpdateContent(View? content)
+    {
+        if (content is null)
+        {
+            _contentPresenter.Content = null;
+            return;
+        }
+
+        if (content.Parent is Layout layout)
+        {
+            layout.Children.Remove(content);
+        }
+        else if (content.Parent is ContentView contentView)
+        {
+            contentView.Content = null;
+        }
+        else if (content.Parent is Border border)
+        {
+            border.Content = null;
+        }
+        else if (content.Parent is ContentPresenter presenter)
+        {
+            presenter.Content = null;
+        }
+
+        _contentPresenter.Content = content;
+    }
+
     private void UpdateEnabledState()
     {
         VisualStateManager.GoToState(this, IsEnabled ? "Normal" : "Disabled");
+    }
+
+    private void UpdateForegroundBrush()
+    {
+        ForegroundBrush = Foreground is null ? null : new SolidColorBrush(Foreground);
+        UpdateContentResourceValues();
     }
 
     private static void OnResourcesChanged(BindableObject bindable, object oldValue, object newValue)
@@ -282,7 +352,28 @@ public sealed class ContentButton : ContentView
 
     private void ApplyContentResources(ResourceDictionary? resources)
     {
-        _contentHost.Resources = resources ?? new ResourceDictionary();
+        var resolvedResources = new ResourceDictionary();
+
+        if (resources is not null)
+        {
+            resolvedResources.MergedDictionaries.Add(resources);
+        }
+
+        resolvedResources.MergedDictionaries.Add(_instanceResources);
+        UpdateContentResourceValues();
+
+        _contentHost.Resources = resolvedResources;
+        _border.Resources = resolvedResources;
+        base.Resources = resolvedResources;
+    }
+
+    private void UpdateContentResourceValues()
+    {
+        _instanceResources[ForegroundResourceKey] = Foreground ?? Colors.Transparent;
+        _instanceResources[ForegroundBrushResourceKey] = ForegroundBrush ?? new SolidColorBrush(Colors.Transparent);
+        _instanceResources[FontSizeResourceKey] = FontSize;
+        _instanceResources[FontAttributesResourceKey] = FontAttributes;
+        _instanceResources[FontFamilyResourceKey] = FontFamily;
     }
 
     private void OnPointerEntered(object? sender, PointerEventArgs e)

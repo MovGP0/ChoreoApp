@@ -52,6 +52,9 @@
     <Compile Update="DrawerHost.BottomDrawer.cs">
       <DependentUpon>DrawerHost.cs</DependentUpon>
     </Compile>
+    <Compile Update="ContentButton.IBorderElement.cs">
+      <DependentUpon>ContentButton.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

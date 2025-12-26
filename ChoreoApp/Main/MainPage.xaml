@@ -49,8 +49,10 @@
                 </styling:ContentButton>
                 <styling:ContentButton Style="{StaticResource MaterialDesignFlatDarkButton}"
                                        Command="{Binding ToggleAudioPlayerCommand}">
-                    <styling:PackIcon Kind="PlayCircle" />
+                    <Label Text="Play" />
+                    <!--styling:PackIcon Kind="PlayCircle" /-->
                 </styling:ContentButton>
+                <Label Text="Play" />
             </HorizontalStackLayout>
         </Grid>
         <styling:DrawerHost x:Name="Drawer"

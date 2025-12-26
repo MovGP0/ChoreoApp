@@ -107,6 +107,6 @@ public class PackIcon : ContentView
 
     private void UpdateForeground()
     {
-        _path.Fill = Foreground ?? DefaultBrush;
+        _path?.Fill = Foreground ?? DefaultBrush;
     }
 }
