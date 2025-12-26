@@ -3,8 +3,11 @@
   xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
   xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="MaterialDesign3.Label.xaml" />
+  </ResourceDictionary.MergedDictionaries>
 
-  <Style x:Key="MaterialDesignHelperSearchBar"
+  <Style x:Key="MaterialDesignHelperEntry"
          TargetType="Label"
          BasedOn="{StaticResource MaterialDesignLabel}">
     <Setter Property="FontSize" Value="12" />
@@ -14,7 +17,7 @@
     <Setter Property="Margin" Value="12,4,12,0" />
   </Style>
 
-  <Style x:Key="MaterialDesignCharacterCounterSearchBar"
+  <Style x:Key="MaterialDesignCharacterCounterEntry"
          TargetType="Label"
          BasedOn="{StaticResource MaterialDesignLabel}">
     <Setter Property="FontSize" Value="11" />
@@ -25,15 +28,11 @@
     <Setter Property="Margin" Value="12,4,12,0" />
   </Style>
 
-  <Style x:Key="MaterialDesignSearchBarBase"
-         TargetType="SearchBar">
+  <Style x:Key="MaterialDesignEntryBase"
+         TargetType="Entry">
     <Setter Property="TextColor"
             Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
     <Setter Property="PlaceholderColor"
-            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-    <Setter Property="SearchIconColor"
-            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-    <Setter Property="CancelButtonColor"
             Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
     <Setter Property="BackgroundColor"
             Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}" />
@@ -42,6 +41,9 @@
     <Setter Property="HeightRequest" Value="48" />
     <Setter Property="MinimumHeightRequest" Value="48" />
     <Setter Property="MinimumWidthRequest" Value="44" />
+    <Setter Property="ClearButtonVisibility" Value="WhileEditing" />
+    <Setter Property="HorizontalTextAlignment" Value="Start" />
+    <Setter Property="VerticalTextAlignment" Value="Center" />
     <Setter Property="styling:TextFieldAssist.HasFilledTextField" Value="True" />
     <Setter Property="styling:TextFieldAssist.TextFieldCornerRadius" Value="12" />
     <Setter Property="styling:TextFieldAssist.UnderlineBrush"
@@ -49,9 +51,9 @@
     <Setter Property="styling:HintAssist.Foreground"
             Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
     <Setter Property="styling:HintAssist.HelperTextStyle"
-            Value="{StaticResource MaterialDesignHelperSearchBar}" />
+            Value="{StaticResource MaterialDesignHelperEntry}" />
     <Setter Property="styling:TextFieldAssist.CharacterCounterStyle"
-            Value="{StaticResource MaterialDesignCharacterCounterSearchBar}" />
+            Value="{StaticResource MaterialDesignCharacterCounterEntry}" />
     <Setter Property="styling:TextFieldAssist.CharacterCounterVisibility" Value="True" />
     <Setter Property="VisualStateManager.VisualStateGroups">
       <VisualStateGroupList>
@@ -62,10 +64,6 @@
               <Setter Property="TextColor"
                       Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
               <Setter Property="PlaceholderColor"
-                      Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-              <Setter Property="SearchIconColor"
-                      Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-              <Setter Property="CancelButtonColor"
                       Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
               <Setter Property="BackgroundColor"
                       Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLowest}}" />
@@ -78,9 +76,7 @@
             <VisualState.Setters>
               <Setter Property="BackgroundColor"
                       Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerHigh}}" />
-              <Setter Property="SearchIconColor"
-                      Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
-              <Setter Property="CancelButtonColor"
+              <Setter Property="styling:TextFieldAssist.UnderlineBrush"
                       Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
             </VisualState.Setters>
           </VisualState>
@@ -95,19 +91,19 @@
     </Setter>
   </Style>
 
-  <Style x:Key="MaterialDesignSearchBar"
-         TargetType="SearchBar"
-         BasedOn="{StaticResource MaterialDesignSearchBarBase}" />
+  <Style x:Key="MaterialDesignEntry"
+         TargetType="Entry"
+         BasedOn="{StaticResource MaterialDesignEntryBase}" />
 
-  <Style x:Key="MaterialDesignFloatingHintSearchBar"
-         TargetType="SearchBar"
-         BasedOn="{StaticResource MaterialDesignSearchBar}">
+  <Style x:Key="MaterialDesignFloatingHintEntry"
+         TargetType="Entry"
+         BasedOn="{StaticResource MaterialDesignEntry}">
     <Setter Property="styling:HintAssist.IsFloating" Value="True" />
   </Style>
 
-  <Style x:Key="MaterialDesignFilledSearchBar"
-         TargetType="SearchBar"
-         BasedOn="{StaticResource MaterialDesignFloatingHintSearchBar}">
+  <Style x:Key="MaterialDesignFilledEntry"
+         TargetType="Entry"
+         BasedOn="{StaticResource MaterialDesignFloatingHintEntry}">
     <Setter Property="BackgroundColor"
             Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}" />
     <Setter Property="styling:TextFieldAssist.HasFilledTextField" Value="True" />
@@ -115,9 +111,9 @@
     <Setter Property="styling:TextFieldAssist.UnderlineCornerRadius" Value="0" />
   </Style>
 
-  <Style x:Key="MaterialDesignOutlinedSearchBar"
-         TargetType="SearchBar"
-         BasedOn="{StaticResource MaterialDesignFloatingHintSearchBar}">
+  <Style x:Key="MaterialDesignOutlinedEntry"
+         TargetType="Entry"
+         BasedOn="{StaticResource MaterialDesignFloatingHintEntry}">
     <Setter Property="BackgroundColor"
             Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
     <Setter Property="styling:TextFieldAssist.HasOutlinedTextField" Value="True" />
@@ -125,6 +121,6 @@
     <Setter Property="styling:TextFieldAssist.OutlinedBorderActiveThickness" Value="1" />
   </Style>
 
-  <Style TargetType="SearchBar"
-         BasedOn="{StaticResource MaterialDesignSearchBar}" />
+  <Style TargetType="Entry"
+         BasedOn="{StaticResource MaterialDesignEntry}" />
 </ResourceDictionary>

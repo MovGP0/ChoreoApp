@@ -1,29 +1,15 @@
-﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<?xml version = "1.0" encoding = "UTF-8" ?>
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ChoreoApp"
              xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+             xmlns:themes="clr-namespace:MaterialDesignThemes.Maui.Themes;assembly=MaterialDesignThemes.Maui"
              x:Class="ChoreoApp.App">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <styling:MaterialDesignColorsDictionary />
-                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Badged.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Button.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Card.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.ContentButton.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Chip.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.HamburgerToggleButton.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Label.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Entry.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.SearchBar.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Shadows.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Slider.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Switch.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.ToggleButton.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Typography.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.PackIcon.xaml" />
+                <themes:MaterialDesign3 />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

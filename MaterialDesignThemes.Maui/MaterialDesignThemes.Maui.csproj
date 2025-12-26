@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>
       net10.0;
@@ -11,10 +11,6 @@
     <UseMaui>true</UseMaui>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-windows10.0.19041.0'">
-    <!-- Avoid WinUI XBF generation for MAUI resource dictionaries -->
-    <DisableXbfGeneration>true</DisableXbfGeneration>
   </PropertyGroup>
   <ItemGroup>
     <Using Include="Microsoft.Maui" />
@@ -57,10 +53,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Remove="Resources\Noto\OFL.txt" />
     <None Include="Resources\Noto\OFL.txt" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0-windows10.0.19041.0'">
+    <Page Remove="Themes\**\*.xaml" />
+    <ApplicationDefinition Remove="Themes\**\*.xaml" />
   </ItemGroup>
 </Project>
