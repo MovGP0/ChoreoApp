@@ -221,8 +221,8 @@
 
   <Style x:Key="MaterialDesignFlatMidBgButton"
          TargetType="styling:ContentButton"
-         BasedOn="{StaticResource MaterialDesignFlatButton}">
-    <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+         BasedOn="{StaticResource MaterialDesignRaisedButton}">
+    <Setter Property="Shadow" Value="{x:Null}" />
   </Style>
 
   <Style x:Key="MaterialDesignFlatDarkBgButton"
