@@ -7,8 +7,6 @@ public static class DependencyInjection
         services.AddTransient<IViewFor<MainViewModel>, MainPage>();
         services.AddTransient<MainPage>();
         services.AddTransient<MainViewModel>();
-        services.AddTransient<IBehavior<MainViewModel>, Behaviors.UpdateChoreographyTitleBehavior>();
-        services.AddTransient<IBehavior<MainViewModel>, Behaviors.UpdateSceneNameBehavior>();
         services.AddTransient<IBehavior<MainViewModel>, Behaviors.OpenSvgFileBehavior>();
         services.AddTransient<IBehavior<MainViewModel>, Behaviors.ShowDialogBehavior>();
         services.AddTransient<IBehavior<MainViewModel>, Behaviors.HideDialogBehavior>();

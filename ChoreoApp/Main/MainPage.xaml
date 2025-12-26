@@ -27,16 +27,6 @@
                                        HorizontalOptions="Center"
                                        VerticalOptions="Center"
                                        Spacing="8">
-                    <Label Text="{Binding Title}"
-                           FontSize="24"
-                           VerticalTextAlignment="Center"
-                           HorizontalTextAlignment="Start"
-                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
-                    <Label Text="{Binding SelectedSceneName}"
-                           FontSize="24"
-                           VerticalTextAlignment="Center"
-                           HorizontalTextAlignment="Start"
-                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Grid.Column="2"
                                        HorizontalOptions="End"

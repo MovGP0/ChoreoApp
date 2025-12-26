@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Scenes;
@@ -76,10 +76,17 @@ public sealed class DrawFloorBehavior(
 
         float canvasWidth = args.Info.Width;
         float canvasHeight = args.Info.Height;
-        var scale = CalculateScaleFactor();
+        float headerHeight = CalculateHeaderHeight();
+        float contentHeight = canvasHeight - headerHeight;
+        if (contentHeight <= 0f)
+        {
+            return;
+        }
+
+        var scale = CalculateScaleFactor(contentHeight);
 
         float centerX = canvasWidth / 2f;
-        float centerY = canvasHeight / 2f;
+        float centerY = headerHeight + contentHeight / 2f;
         float left = centerX - sizeFromCenterToLeft * scale;
         float right = centerX + sizeFromCenterToRight * scale;
         float top = centerY - sizeFromCenterToFront * scale;
@@ -92,17 +99,21 @@ public sealed class DrawFloorBehavior(
         canvas.Save();
         canvas.SetMatrix(in transformationMatrix);
 
+        // draw floor
+        DrawHeader();
         DrawFloorRectangle();
-        DrawSvgOverlay();
         if (settings.GridLines)
         {
             DrawGridLines();
         }
+        DrawCenter();
+        DrawFloorBorder();
+        DrawSvgOverlay();
+
+        // draw positions and labels
         var scenePositions = GetScenePositions();
         var (previousScene, currentScene, nextScene) = GetAdjacentScenes();
 
-        DrawCenter();
-        DrawFloorBorder();
         if (scenePositions is not null)
         {
             DrawAxisLabels(scenePositions);
@@ -164,16 +175,70 @@ public sealed class DrawFloorBehavior(
             canvas.Restore();
         }
 
-        float CalculateScaleFactor()
+        float CalculateScaleFactor(float availableHeight)
         {
             float padding = 46f; // pixels
             float scaleX = (canvasWidth - 2 * padding) /
                            (sizeFromCenterToLeft + sizeFromCenterToRight);
 
-            float scaleY = (canvasHeight - 2 * padding) /
+            float scaleY = (availableHeight - 2 * padding) /
                            (sizeFromCenterToFront + sizeFromCenterToBack);
 
             return Math.Min(scaleX, scaleY);
+        }
+
+        float CalculateHeaderHeight()
+        {
+            const float padding = 16f;
+            const float spacing = 4f;
+
+            var choreographyName = choreography.Name ?? string.Empty;
+            var sceneName = _selectedScene?.Name ?? string.Empty;
+
+            using var titleFont = new SKFont();
+            titleFont.Size = 20f;
+            titleFont.Edging = SKFontEdging.Antialias;
+
+            using var subtitleFont = new SKFont();
+            subtitleFont.Size = 14f;
+            subtitleFont.Edging = SKFontEdging.Antialias;
+
+            float titleHeight = titleFont.Metrics.Descent - titleFont.Metrics.Ascent;
+            float subtitleHeight = subtitleFont.Metrics.Descent - subtitleFont.Metrics.Ascent;
+
+            return padding + titleHeight + spacing + subtitleHeight + padding;
+        }
+
+        void DrawHeader()
+        {
+            const float padding = 16f;
+            const float spacing = 4f;
+
+            var choreographyName = choreography.Name ?? string.Empty;
+            var sceneName = _selectedScene?.Name ?? string.Empty;
+
+            using var titlePaint = new SKPaint();
+            titlePaint.Color = GetColor(MaterialDesignColorKey.OnSurface);
+            titlePaint.IsAntialias = true;
+
+            using var subtitlePaint = new SKPaint();
+            subtitlePaint.Color = GetColor(MaterialDesignColorKey.OnSurfaceVariant);
+            subtitlePaint.IsAntialias = true;
+
+            using var titleFont = new SKFont();
+            titleFont.Size = 20f;
+            titleFont.Edging = SKFontEdging.Antialias;
+
+            using var subtitleFont = new SKFont();
+            subtitleFont.Size = 14f;
+            subtitleFont.Edging = SKFontEdging.Antialias;
+
+            float titleHeight = titleFont.Metrics.Descent - titleFont.Metrics.Ascent;
+            float titleBaseline = padding - titleFont.Metrics.Ascent;
+            canvas.DrawText(choreographyName, centerX, titleBaseline, SKTextAlign.Center, titleFont, titlePaint);
+
+            float subtitleBaseline = padding + titleHeight + spacing - subtitleFont.Metrics.Ascent;
+            canvas.DrawText(sceneName, centerX, subtitleBaseline, SKTextAlign.Center, subtitleFont, subtitlePaint);
         }
 
         void DrawCenter()
@@ -201,7 +266,7 @@ public sealed class DrawFloorBehavior(
 
         void DrawAxisLabels(IReadOnlyList<Position> positions)
         {
-            SKColor labelColor = GetColor(MaterialDesignColorKey.SurfaceBright);
+            SKColor labelColor = GetColor(MaterialDesignColorKey.OnSurfaceVariant);
             using var labelPaint = new SKPaint();
             labelPaint.Color = labelColor;
             labelPaint.IsAntialias = true;
