@@ -22,6 +22,7 @@ public sealed partial class ContentButton : ContentView
     private readonly Grid _contentHost;
     private readonly ResourceDictionary _instanceResources = new();
     private readonly ContentPresenter _contentPresenter;
+    private bool _isContentBindingContextInherited;
 
     public ContentButton()
     {
@@ -279,6 +280,16 @@ public sealed partial class ContentButton : ContentView
         }
     }
 
+    protected override void OnBindingContextChanged()
+    {
+        base.OnBindingContextChanged();
+
+        if (_isContentBindingContextInherited && _contentPresenter.Content is View content)
+        {
+            content.BindingContext = BindingContext;
+        }
+    }
+
     private static void OnCornerRadiusChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (bindable is ContentButton button && newValue is float radius)
@@ -329,6 +340,15 @@ public sealed partial class ContentButton : ContentView
         }
 
         _contentPresenter.Content = content;
+
+        if (content.IsSet(BindingContextProperty))
+        {
+            _isContentBindingContextInherited = false;
+            return;
+        }
+
+        _isContentBindingContextInherited = true;
+        content.BindingContext = BindingContext;
     }
 
     private void UpdateEnabledState()
