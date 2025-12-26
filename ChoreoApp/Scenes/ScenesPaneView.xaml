@@ -83,21 +83,21 @@
                                        Style="{StaticResource MaterialDesignFlatButton}"
                                        Command="{Binding AddSceneBeforeCommand}">
                     <styling:PackIcon Kind="TableRowPlusBefore"
-                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                      ForegroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                       BackgroundColor="Transparent" />
                 </styling:ContentButton>
                 <styling:ContentButton Grid.Column="2"
                                        Style="{StaticResource MaterialDesignFlatButton}"
                                        Command="{Binding AddSceneAfterCommand}">
                     <styling:PackIcon Kind="TableRowPlusAfter"
-                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                      ForegroundColor="Red"
                                       BackgroundColor="Transparent" />
                 </styling:ContentButton>
                 <styling:ContentButton Grid.Column="3"
                                        Style="{StaticResource MaterialDesignFlatButton}"
                                        Command="{Binding OpenChoreoCommand}">
                     <styling:PackIcon Kind="FolderOpen"
-                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                      ForegroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                       BackgroundColor="Transparent" />
                 </styling:ContentButton>
                 <styling:ContentButton Grid.Column="4"
@@ -105,14 +105,14 @@
                                        Command="{Binding SaveChoreoCommand}"
                                        IsEnabled="{Binding CanSaveChoreo}">
                     <styling:PackIcon Kind="ContentSave"
-                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                      ForegroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                       BackgroundColor="Transparent" />
                 </styling:ContentButton>
                 <styling:ContentButton Grid.Column="5"
-                                       Style="{StaticResource MaterialDesignFlatDarkButton}"
+                                       Style="{StaticResource MaterialDesignFlatButton}"
                                        Command="{Binding NavigateToSettingsCommand}">
                     <styling:PackIcon Kind="Settings"
-                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                      ForegroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                       BackgroundColor="Transparent" />
                 </styling:ContentButton>
             </Grid>

@@ -9,16 +9,18 @@
             <ResourceDictionary.MergedDictionaries>
                 <styling:MaterialDesignColorsDictionary />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.HamburgerToggleButton.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Badged.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Button.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Card.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.ContentButton.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Chip.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.HamburgerToggleButton.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Label.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Shadows.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Slider.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Switch.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.ToggleButton.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Typography.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesignTheme.Shadows.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesignTheme.Badged.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesignTheme.Chip.xaml" />
-                <ResourceDictionary Source="Resources/Styles/MaterialDesignTheme.Button.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

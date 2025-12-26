@@ -1,0 +1,52 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:choreoApp="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+    <Style TargetType="Label">
+        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="FontFamily" Value="OpenSansRegular" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HorizontalTextAlignment" Value="Start" />
+        <Setter Property="VerticalTextAlignment" Value="Start" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="Opacity" Value="0.56" />
+                            <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MaterialDesignLabel"
+           TargetType="Label">
+        <Setter Property="TextColor"
+                Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="FontFamily" Value="OpenSansRegular" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HorizontalTextAlignment" Value="Start" />
+        <Setter Property="VerticalTextAlignment" Value="Start" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="Opacity" Value="0.56" />
+                            <Setter Property="TextColor"
+                                    Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+</ResourceDictionary>

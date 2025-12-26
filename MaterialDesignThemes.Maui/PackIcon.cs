@@ -1,4 +1,3 @@
-using Microsoft.Maui.Graphics;
 using Path = Microsoft.Maui.Controls.Shapes.Path;
 
 namespace MaterialDesignThemes.Maui;
@@ -63,6 +62,20 @@ public class PackIcon : ContentView
         set => SetValue(ForegroundProperty, value);
     }
 
+    public static readonly BindableProperty ForegroundColorProperty =
+        BindableProperty.Create(
+            nameof(ForegroundColor),
+            typeof(Color),
+            typeof(PackIcon),
+            Colors.Black,
+            propertyChanged: OnForegroundColorChanged);
+
+    public Color ForegroundColor
+    {
+        get => (Color)GetValue(ForegroundColorProperty);
+        set => SetValue(ForegroundColorProperty, value);
+    }
+
     private static void OnKindChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (bindable is PackIcon control)
@@ -76,6 +89,14 @@ public class PackIcon : ContentView
         if (bindable is PackIcon control)
         {
             control.UpdateForeground();
+        }
+    }
+
+    private static void OnForegroundColorChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (bindable is PackIcon control && newValue is Color color)
+        {
+            control.Foreground = new SolidColorBrush(color);
         }
     }
 

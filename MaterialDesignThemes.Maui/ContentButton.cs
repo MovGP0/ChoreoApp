@@ -1,6 +1,5 @@
 using System.Windows.Input;
 using Microsoft.Maui.Controls.Shapes;
-using Microsoft.Maui.Graphics;
 
 namespace MaterialDesignThemes.Maui;
 
@@ -14,8 +13,7 @@ public sealed class ContentButton : ContentView
     private readonly Border _border;
     private readonly TapGestureRecognizer _tap;
     private readonly PointerGestureRecognizer _pointer;
-    private readonly ContentPresenter _contentPresenter;
-    private readonly Ripple _ripple;
+    private readonly Grid _contentHost;
 
     public ContentButton()
     {
@@ -27,18 +25,16 @@ public sealed class ContentButton : ContentView
             StrokeThickness = 0
         };
 
-        _contentPresenter = new ContentPresenter();
-        _contentPresenter.SetBinding(ContentPresenter.ContentProperty, new Binding(nameof(ButtonContent), source: this));
-        _contentPresenter.SetBinding(HorizontalOptionsProperty, new Binding(nameof(HorizontalContentAlignment), source: this));
-        _contentPresenter.SetBinding(VerticalOptionsProperty, new Binding(nameof(VerticalContentAlignment), source: this));
+        var contentPresenter = new ContentPresenter();
+        contentPresenter.SetBinding(ContentPresenter.ContentProperty, new Binding(nameof(ButtonContent), source: this));
+        contentPresenter.SetBinding(HorizontalOptionsProperty, new Binding(nameof(HorizontalContentAlignment), source: this));
+        contentPresenter.SetBinding(VerticalOptionsProperty, new Binding(nameof(VerticalContentAlignment), source: this));
 
-        _ripple = new Ripple();
-        _ripple.RippleContent = _contentPresenter;
-        _ripple.SetBinding(RippleAssist.FeedbackProperty, new Binding("(styling:RippleAssist.Feedback)", source: this));
-        _ripple.SetBinding(RippleAssist.IsCenteredProperty, new Binding("(styling:RippleAssist.IsCentered)", source: this));
-        _ripple.SetBinding(RippleAssist.RippleSizeMultiplierProperty, new Binding("(styling:RippleAssist.RippleSizeMultiplier)", source: this));
+        _contentHost = new Grid();
+        ApplyContentResources(null);
+        _contentHost.Children.Add(contentPresenter);
 
-        _border.Content = _ripple;
+        _border.Content = _contentHost;
         _border.SetBinding(Border.BackgroundColorProperty, new Binding(nameof(BackgroundColor), source: this));
         _border.SetBinding(Border.PaddingProperty, new Binding(nameof(Padding), source: this));
         _border.SetBinding(Border.StrokeProperty, new Binding(nameof(Stroke), source: this));
@@ -57,7 +53,6 @@ public sealed class ContentButton : ContentView
 
         UpdateCornerRadius();
         UpdateEnabledState();
-        UpdateRippleDisabledState();
     }
 
     public event EventHandler? Clicked;
@@ -120,6 +115,20 @@ public sealed class ContentButton : ContentView
             typeof(LayoutOptions),
             typeof(ContentButton),
             LayoutOptions.Center);
+
+    public static readonly BindableProperty ResourcesProperty =
+        BindableProperty.Create(
+            nameof(Resources),
+            typeof(ResourceDictionary),
+            typeof(ContentButton),
+            null,
+            propertyChanged: OnResourcesChanged);
+
+    public new ResourceDictionary? Resources
+    {
+        get => (ResourceDictionary?)GetValue(ResourcesProperty);
+        set => SetValue(ResourcesProperty, value);
+    }
 
     public LayoutOptions VerticalContentAlignment
     {
@@ -239,7 +248,6 @@ public sealed class ContentButton : ContentView
         if (propertyName == IsEnabledProperty.PropertyName)
         {
             UpdateEnabledState();
-            UpdateRippleDisabledState();
         }
     }
 
@@ -264,9 +272,17 @@ public sealed class ContentButton : ContentView
         VisualStateManager.GoToState(this, IsEnabled ? "Normal" : "Disabled");
     }
 
-    private void UpdateRippleDisabledState()
+    private static void OnResourcesChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        RippleAssist.SetIsDisabled(_ripple, !IsEnabled);
+        if (bindable is ContentButton button)
+        {
+            button.ApplyContentResources(newValue as ResourceDictionary);
+        }
+    }
+
+    private void ApplyContentResources(ResourceDictionary? resources)
+    {
+        _contentHost.Resources = resources ?? new ResourceDictionary();
     }
 
     private void OnPointerEntered(object? sender, PointerEventArgs e)
@@ -285,7 +301,12 @@ public sealed class ContentButton : ContentView
         }
     }
 
-    private async void OnTapped(object? sender, TappedEventArgs e)
+    private void OnTapped(object? sender, TappedEventArgs e)
+    {
+        _ = OnTappedAsync();
+    }
+
+    private async Task OnTappedAsync()
     {
         if (!IsEnabled)
         {
@@ -300,7 +321,7 @@ public sealed class ContentButton : ContentView
         // brief visual feedback
         var originalOpacity = Opacity;
         Opacity = PressedOpacity;
-        await this.FadeTo(originalOpacity, 90, Easing.CubicOut);
+        await this.FadeToAsync(originalOpacity, 90, Easing.CubicOut);
 
         if (cmd?.CanExecute(param) == true)
         {

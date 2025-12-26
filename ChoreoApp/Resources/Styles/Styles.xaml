@@ -23,32 +23,6 @@
         <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
     </Style>
 
-    <Style TargetType="Button">
-        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnPrimary}}" />
-        <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
-        <Setter Property="FontFamily" Value="OpenSansRegular"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="BorderWidth" Value="0"/>
-        <Setter Property="CornerRadius" Value="8"/>
-        <Setter Property="Padding" Value="14,10"/>
-        <Setter Property="MinimumHeightRequest" Value="44"/>
-        <Setter Property="MinimumWidthRequest" Value="44"/>
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" />
-                    <VisualState x:Name="Disabled">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.SurfaceVariant}}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState x:Name="PointerOver" />
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
     <Style TargetType="CheckBox">
         <Setter Property="Color" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
         <Setter Property="MinimumHeightRequest" Value="44"/>
@@ -152,39 +126,6 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
-    </Style>
-
-    <Style TargetType="Label">
-        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurface}}" />
-        <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="FontFamily" Value="OpenSansRegular" />
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
-                <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal" />
-                    <VisualState x:Name="Disabled">
-                        <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                        </VisualState.Setters>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateGroupList>
-        </Setter>
-    </Style>
-
-    <Style TargetType="Label" x:Key="Headline">
-        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
-        <Setter Property="FontSize" Value="32" />
-        <Setter Property="HorizontalOptions" Value="Center" />
-        <Setter Property="HorizontalTextAlignment" Value="Center" />
-    </Style>
-
-    <Style TargetType="Label" x:Key="SubHeadline">
-        <Setter Property="TextColor" Value="{DynamicResource Key={x:Static choreoApp:MaterialDesignColorKey.Primary}}" />
-        <Setter Property="FontSize" Value="24" />
-        <Setter Property="HorizontalOptions" Value="Center" />
-        <Setter Property="HorizontalTextAlignment" Value="Center" />
     </Style>
 
     <Style TargetType="Picker">

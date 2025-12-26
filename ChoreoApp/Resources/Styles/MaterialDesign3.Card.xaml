@@ -7,7 +7,7 @@
                     xmlns:convertersInternal="clr-namespace:MaterialDesignThemes.Maui.Converters.Internal;assembly=MaterialDesignThemes.Maui">
 
   <ResourceDictionary.MergedDictionaries>
-    <ResourceDictionary Source="MaterialDesignTheme.Shadows.xaml" />
+    <ResourceDictionary Source="MaterialDesign3.Shadows.xaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <Style x:Key="MaterialDesignCardBase"

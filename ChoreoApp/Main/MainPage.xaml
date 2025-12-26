@@ -41,20 +41,18 @@
                                    Spacing="8">
                 <styling:ContentButton Style="{StaticResource MaterialDesignFlatDarkButton}"
                                        Command="{Binding OpenChoreographySettingsCommand}">
-                    <styling:PackIcon Kind="Pen"
-                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                                      BackgroundColor="Transparent" />
+                    <styling:PackIcon Kind="Pen" />
                 </styling:ContentButton>
                 <styling:ContentButton Style="{StaticResource MaterialDesignFlatDarkButton}"
                                        Command="{Binding OpenImageCommand}">
                     <styling:PackIcon Kind="Svg"
-                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                      ForegroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                       BackgroundColor="Transparent" />
                 </styling:ContentButton>
                 <styling:ContentButton Style="{StaticResource MaterialDesignFlatDarkButton}"
                                        Command="{Binding ToggleAudioPlayerCommand}">
                     <styling:PackIcon Kind="PlayCircle"
-                                      Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                      ForegroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                       BackgroundColor="Transparent" />
                 </styling:ContentButton>
             </HorizontalStackLayout>

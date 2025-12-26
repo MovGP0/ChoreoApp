@@ -98,7 +98,7 @@
             <styling:PackIcon WidthRequest="12"
                               HeightRequest="12"
                               Kind="Close"
-                              Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                              ForegroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
           </styling:ContentButton>
         </Grid>
       </ControlTemplate>
@@ -222,7 +222,7 @@
             <styling:PackIcon WidthRequest="12"
                               HeightRequest="12"
                               Kind="Close"
-                              Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                              ForegroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
           </styling:ContentButton>
         </Grid>
       </ControlTemplate>
