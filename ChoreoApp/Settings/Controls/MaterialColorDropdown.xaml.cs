@@ -1,4 +1,6 @@
-﻿using ChoreoApp.Settings.Models;
+﻿using System.Collections.ObjectModel;
+
+using ChoreoApp.Settings.Models;
 
 namespace ChoreoApp.Settings.Controls;
 
@@ -10,6 +12,8 @@ public partial class MaterialColorDropdown : ContentView
     {
         InitializeComponent();
     }
+
+    public ObservableCollection<MaterialColorOption> FlatItems { get; } = new();
 
     public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(
         nameof(ItemsSource),
@@ -83,6 +87,7 @@ public partial class MaterialColorDropdown : ContentView
     {
         if (bindable is MaterialColorDropdown dropdown)
         {
+            dropdown.RebuildFlatItems();
             dropdown.UpdateSelectedOptionFromColor();
         }
     }
@@ -158,8 +163,25 @@ public partial class MaterialColorDropdown : ContentView
         return null;
     }
 
-    private void OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    private void RebuildFlatItems()
     {
+        FlatItems.Clear();
+        foreach (var group in ItemsSource)
+        {
+            foreach (var option in group)
+            {
+                FlatItems.Add(option);
+            }
+        }
+    }
+
+    private void OnColorTapped(object? sender, TappedEventArgs e)
+    {
+        if (sender is BindableObject bindable && bindable.BindingContext is MaterialColorOption option)
+        {
+            SelectedOption = option;
+        }
+
         IsExpanded = false;
     }
 }
