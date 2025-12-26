@@ -53,4 +53,11 @@
       <DependentUpon>DrawerHost.cs</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Remove="Resources\Noto\OFL.txt" />
+    <None Include="Resources\Noto\OFL.txt" />
+  </ItemGroup>
 </Project>
