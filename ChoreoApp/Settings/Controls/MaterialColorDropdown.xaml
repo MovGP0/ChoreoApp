@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView x:Name="Root"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:settings="clr-namespace:ChoreoApp.Settings.Models"
+             xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="ChoreoApp.Settings.Controls.MaterialColorDropdown">
+    <toolkit:Expander IsExpanded="{Binding IsExpanded, Source={x:Reference Root}, Mode=TwoWay}">
+        <toolkit:Expander.Header>
+            <Border Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Outline}}"
+                    StrokeThickness="1"
+                    BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}"
+                    Padding="12,8">
+                <Grid ColumnDefinitions="Auto,*,Auto"
+                      ColumnSpacing="8"
+                      VerticalOptions="Center">
+                    <BoxView WidthRequest="16"
+                             HeightRequest="16"
+                             CornerRadius="4"
+                             Color="{Binding SelectedColor, Source={x:Reference Root}}"
+                             VerticalOptions="Center" />
+                    <Label Grid.Column="1"
+                           Text="{Binding SelectedDisplayName, Source={x:Reference Root}}"
+                           VerticalOptions="Center"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                    <Label Grid.Column="2"
+                           Text="v"
+                           FontSize="12"
+                           VerticalOptions="Center"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                </Grid>
+            </Border>
+        </toolkit:Expander.Header>
+        <toolkit:Expander.Content>
+            <Border Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Outline}}"
+                    StrokeThickness="1"
+                    BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}"
+                    Padding="8">
+                <CollectionView ItemsSource="{Binding ItemsSource, Source={x:Reference Root}}"
+                                IsGrouped="True"
+                                SelectionMode="Single"
+                                SelectedItem="{Binding SelectedOption, Source={x:Reference Root}, Mode=TwoWay}"
+                                SelectionChanged="OnSelectionChanged">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="6" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate x:DataType="settings:MaterialColorGroup">
+                            <Label Text="{Binding Name}"
+                                   FontAttributes="Bold"
+                                   Margin="4,6,0,2"
+                                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="settings:MaterialColorOption">
+                            <Grid ColumnDefinitions="Auto,*"
+                                  ColumnSpacing="8"
+                                  Padding="4,2">
+                                <BoxView WidthRequest="16"
+                                         HeightRequest="16"
+                                         CornerRadius="4"
+                                         Color="{Binding Color}"
+                                         VerticalOptions="Center" />
+                                <Label Grid.Column="1"
+                                       Text="{Binding DisplayName}"
+                                       VerticalOptions="Center"
+                                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+        </toolkit:Expander.Content>
+    </toolkit:Expander>
+</ContentView>

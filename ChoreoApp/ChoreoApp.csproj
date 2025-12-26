@@ -61,6 +61,7 @@
     <PackageReference Include="SkiaSharp.Extended" />
     <PackageReference Include="Svg.Skia" />
     <PackageReference Include="Sharpnado.Maui.Shadows" />
+    <PackageReference Include="CommunityToolkit.Maui" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChoreoApp.i18n\ChoreoApp.i18n.csproj" />

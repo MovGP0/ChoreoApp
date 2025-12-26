@@ -4,8 +4,8 @@
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                           xmlns:maui="using:ReactiveUI.Maui"
                           xmlns:settings="clr-namespace:ChoreoApp.Settings"
-                          xmlns:controls="clr-namespace:Maui.ColorPicker;assembly=Maui.ColorPicker"
                           xmlns:conv="clr-namespace:ChoreoApp.Settings.Converters"
+                          xmlns:settingsControls="clr-namespace:ChoreoApp.Settings.Controls"
                           xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
                           x:Class="ChoreoApp.Settings.SettingsPage">
     <maui:ReactiveContentPage.Resources>
@@ -62,13 +62,9 @@
                         Style="{StaticResource MaterialDesign3ToggleSwitchStyle}"
                         IsToggled="{Binding UsePrimaryColor, Mode=TwoWay}" />
             </Grid>
-            <controls:ColorPicker HeightRequest="220"
-                                  ColorFlowDirection="Horizontal"
-                                  ColorSpectrumStyle="ShadeToHueStyle"
-                                  PointerRingDiameterUnits="0.6"
-                                  PointerRingBorderUnits="0.3"
-                                  IsEnabled="{Binding UsePrimaryColor}"
-                                  PickedColor="{Binding PrimaryColor, Mode=TwoWay}" />
+            <settingsControls:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
+                                                    IsEnabled="{Binding UsePrimaryColor}"
+                                                    SelectedColor="{Binding PrimaryColor, Mode=TwoWay}" />
 
             <Grid ColumnDefinitions="*,Auto"
                   RowDefinitions="Auto"
@@ -84,13 +80,9 @@
                         Style="{StaticResource MaterialDesign3ToggleSwitchStyle}"
                         IsToggled="{Binding UseSecondaryColor, Mode=TwoWay}" />
             </Grid>
-            <controls:ColorPicker HeightRequest="220"
-                                  ColorFlowDirection="Horizontal"
-                                  ColorSpectrumStyle="ShadeToHueStyle"
-                                  PointerRingDiameterUnits="0.6"
-                                  PointerRingBorderUnits="0.3"
-                                  IsEnabled="{Binding UseSecondaryColor}"
-                                  PickedColor="{Binding SecondaryColor, Mode=TwoWay}" />
+            <settingsControls:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
+                                                    IsEnabled="{Binding UseSecondaryColor}"
+                                                    SelectedColor="{Binding SecondaryColor, Mode=TwoWay}" />
 
             <Grid ColumnDefinitions="*,Auto"
                   RowDefinitions="Auto"
@@ -106,13 +98,9 @@
                         Style="{StaticResource MaterialDesign3ToggleSwitchStyle}"
                         IsToggled="{Binding UseTertiaryColor, Mode=TwoWay}" />
             </Grid>
-            <controls:ColorPicker HeightRequest="220"
-                                  ColorFlowDirection="Horizontal"
-                                  ColorSpectrumStyle="ShadeToHueStyle"
-                                  PointerRingDiameterUnits="0.6"
-                                  PointerRingBorderUnits="0.3"
-                                  IsEnabled="{Binding UseTertiaryColor}"
-                                  PickedColor="{Binding TertiaryColor, Mode=TwoWay}" />
+            <settingsControls:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
+                                                    IsEnabled="{Binding UseTertiaryColor}"
+                                                    SelectedColor="{Binding TertiaryColor, Mode=TwoWay}" />
         </VerticalStackLayout>
     </ScrollView>
 </maui:ReactiveContentPage>

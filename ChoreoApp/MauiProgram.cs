@@ -1,4 +1,6 @@
+#if DEBUG
 using Microsoft.Extensions.Logging;
+#endif
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using ChoreoApp.AudioPlayer;
 using ChoreoApp.ChoreographySettings;
@@ -6,6 +8,7 @@ using ChoreoApp.Floor;
 using ChoreoApp.Main;
 using ChoreoApp.Scenes;
 using ChoreoApp.Settings;
+using CommunityToolkit.Maui;
 using Sharpnado.Shades;
 
 namespace ChoreoApp;
@@ -17,6 +20,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
             .UseSkiaSharp()
             .ConfigureFonts(fonts =>
             {
