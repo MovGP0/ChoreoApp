@@ -12,7 +12,6 @@ public static class DependencyInjection
         services.AddTransient<IViewFor<AudioPlayerViewModel>, AudioPlayerView>();
         services.AddTransient<AudioPlayerView>();
         services.AddTransient<AudioPlayerViewModel>();
-        services.AddTransient<AudioPlayerPage>();
         services.AddTransient<IBehavior<AudioPlayerViewModel>, AudioPlayerBehavior>();
         services.AddTransient<IBehavior<AudioPlayerViewModel>, OpenAudioFileBehavior>();
         services.AddTransient<IBehavior<AudioPlayerViewModel>, CloseAudioFileBehavior>();
