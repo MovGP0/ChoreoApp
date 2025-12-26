@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Scenes;
-using ChoreoApp.Styling;
+using MaterialDesignThemes.Maui;
 using ChoreoApp.AudioPlayer.Messages;
 using ChoreoMasterMobile.Json;
 using MessagePipe;

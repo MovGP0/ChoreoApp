@@ -3,7 +3,7 @@
                           xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                           xmlns:maui="using:ReactiveUI.Maui"
-                          xmlns:styling="clr-namespace:ChoreoApp.Styling;assembly=ChoreoApp.Styling"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
                           xmlns:audio="clr-namespace:ChoreoApp.AudioPlayer"
                           xmlns:conv="clr-namespace:ChoreoApp.AudioPlayer.Converters"
                           x:DataType="audio:AudioPlayerViewModel"

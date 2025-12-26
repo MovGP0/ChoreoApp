@@ -1,7 +1,7 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Floor.Commands;
-using ChoreoApp.Styling;
+using MaterialDesignThemes.Maui;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 

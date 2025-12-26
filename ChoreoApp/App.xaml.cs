@@ -1,5 +1,5 @@
 using ChoreoApp.Settings;
-using ChoreoApp.Styling;
+using MaterialDesignThemes.Maui;
 using MaterialColorUtilities;
 using Platform = MaterialColorUtilities.Platform;
 

@@ -1,5 +1,5 @@
 using System.Globalization;
-using ChoreoApp.Styling;
+using MaterialDesignThemes.Maui;
 
 namespace ChoreoApp.AudioPlayer.Converters;
 

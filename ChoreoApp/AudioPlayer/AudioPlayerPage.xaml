@@ -4,7 +4,7 @@
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                           xmlns:maui="using:ReactiveUI.Maui"
                           xmlns:audio="clr-namespace:ChoreoApp.AudioPlayer"
-                          xmlns:styling="clr-namespace:ChoreoApp.Styling;assembly=ChoreoApp.Styling"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
                           x:Class="ChoreoApp.AudioPlayer.AudioPlayerPage">
     <ScrollView>
         <VerticalStackLayout Padding="16"

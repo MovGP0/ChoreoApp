@@ -1,4 +1,4 @@
-using ChoreoApp.Styling;
+using MaterialDesignThemes.Maui;
 
 namespace ChoreoApp.AudioPlayer;
 
