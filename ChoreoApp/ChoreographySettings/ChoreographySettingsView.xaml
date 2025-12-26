@@ -6,21 +6,18 @@
                           xmlns:maui="using:ReactiveUI.Maui"
                           xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
                           xmlns:settings="clr-namespace:ChoreoApp.ChoreographySettings"
+                          BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                           x:DataType="settings:ChoreographySettingsViewModel"
                           x:Class="ChoreoApp.ChoreographySettings.ChoreographySettingsView">
     <ScrollView>
-        <VerticalStackLayout Spacing="16"
-                             Padding="12">
-            <Label Text="Choreography"
-                   FontAttributes="Bold"
-                   FontSize="18"
-                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
-            <Border StrokeThickness="1"
-                    Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
-                    BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}"
-                    StrokeShape="RoundRectangle 8"
-                    Padding="12">
-                <VerticalStackLayout Spacing="10">
+        <VerticalStackLayout Spacing="4"
+                             Padding="4">
+            <styling:Card Padding="4" Style="{StaticResource MaterialDesignElevatedCard}">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Choreography"
+                           FontAttributes="Bold"
+                           FontSize="18"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
                     <Entry Placeholder="Comment"
                            Text="{Binding Comment}"
                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
@@ -56,70 +53,68 @@
                             BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                             PlaceholderColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
                 </VerticalStackLayout>
-            </Border>
+            </styling:Card>
 
-            <Label Text="Floor"
-                   FontAttributes="Bold"
-                   FontSize="18"
-                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
-            <Border StrokeThickness="1"
-                    Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
-                    BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}"
-                    StrokeShape="RoundRectangle 8"
-                    Padding="12">
-                <Grid ColumnDefinitions="*,*"
-                      RowDefinitions="Auto,Auto,Auto,Auto"
-                      ColumnSpacing="12"
-                      RowSpacing="8">
-                    <Label Text="Front"
-                           Grid.Row="0"
-                           Grid.Column="0"
-                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                    <Picker Grid.Row="0"
-                            Grid.Column="1"
-                            ItemsSource="{Binding FloorSizeOptions}"
-                            SelectedItem="{Binding FloorFront}"
-                            ItemDisplayBinding="{Binding .}"
-                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                            BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+            <styling:Card Padding="4" Style="{StaticResource MaterialDesignElevatedCard}">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Floor"
+                           FontAttributes="Bold"
+                           FontSize="18"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                    <Grid ColumnDefinitions="*,*"
+                          RowDefinitions="Auto,Auto,Auto,Auto"
+                          ColumnSpacing="12"
+                          RowSpacing="8">
+                        <Label Text="Front"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <Picker Grid.Row="0"
+                                Grid.Column="1"
+                                ItemsSource="{Binding FloorSizeOptions}"
+                                SelectedItem="{Binding FloorFront}"
+                                ItemDisplayBinding="{Binding .}"
+                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
 
-                    <Label Text="Back"
-                           Grid.Row="1"
-                           Grid.Column="0"
-                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                    <Picker Grid.Row="1"
-                            Grid.Column="1"
-                            ItemsSource="{Binding FloorSizeOptions}"
-                            SelectedItem="{Binding FloorBack}"
-                            ItemDisplayBinding="{Binding .}"
-                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                            BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+                        <Label Text="Back"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <Picker Grid.Row="1"
+                                Grid.Column="1"
+                                ItemsSource="{Binding FloorSizeOptions}"
+                                SelectedItem="{Binding FloorBack}"
+                                ItemDisplayBinding="{Binding .}"
+                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
 
-                    <Label Text="Left"
-                           Grid.Row="2"
-                           Grid.Column="0"
-                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                    <Picker Grid.Row="2"
-                            Grid.Column="1"
-                            ItemsSource="{Binding FloorSizeOptions}"
-                            SelectedItem="{Binding FloorLeft}"
-                            ItemDisplayBinding="{Binding .}"
-                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                            BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+                        <Label Text="Left"
+                               Grid.Row="2"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <Picker Grid.Row="2"
+                                Grid.Column="1"
+                                ItemsSource="{Binding FloorSizeOptions}"
+                                SelectedItem="{Binding FloorLeft}"
+                                ItemDisplayBinding="{Binding .}"
+                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
 
-                    <Label Text="Right"
-                           Grid.Row="3"
-                           Grid.Column="0"
-                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                    <Picker Grid.Row="3"
-                            Grid.Column="1"
-                            ItemsSource="{Binding FloorSizeOptions}"
-                            SelectedItem="{Binding FloorRight}"
-                            ItemDisplayBinding="{Binding .}"
-                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                            BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
-                </Grid>
-            </Border>
+                        <Label Text="Right"
+                               Grid.Row="3"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <Picker Grid.Row="3"
+                                Grid.Column="1"
+                                ItemsSource="{Binding FloorSizeOptions}"
+                                SelectedItem="{Binding FloorRight}"
+                                ItemDisplayBinding="{Binding .}"
+                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </styling:Card>
         </VerticalStackLayout>
     </ScrollView>
 </maui:ReactiveContentView>
