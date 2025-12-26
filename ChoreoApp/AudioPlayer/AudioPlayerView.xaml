@@ -63,7 +63,7 @@
                                    Command="{Binding LinkSceneToPositionCommand}"
                                    IsEnabled="{Binding CanLinkSceneToPosition}"
                                    VerticalOptions="Center"
-                                   Style="{StaticResource MaterialDesignFlatButton}">
+                                   Style="{StaticResource MaterialDesignIconButton}">
                 <styling:PackIcon Kind="Link" />
             </styling:ContentButton>
 
@@ -72,7 +72,7 @@
                                    HeightRequest="48"
                                    Command="{Binding TogglePlayPauseCommand}"
                                    VerticalOptions="Center"
-                                   Style="{StaticResource MaterialDesignFlatDarkButton}">
+                                   Style="{StaticResource MaterialDesignIconButton}">
                 <styling:PackIcon Kind="{Binding IsPlaying, Converter={StaticResource PlayPauseGlyphConverter}}" />
             </styling:ContentButton>
 
