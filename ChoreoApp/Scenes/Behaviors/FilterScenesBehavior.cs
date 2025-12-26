@@ -21,7 +21,6 @@ public sealed class FilterScenesBehavior(Global.GlobalStateModel globalState)
             .WhenAnyValue(vm => vm.SearchText)
             .Subscribe(_ =>
             {
-                viewModel.RaisePropertyChanged(nameof(viewModel.CanDragScenes));
                 viewModel.RefreshScenes();
             })
             .DisposeWith(disposables);

@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <maui:ReactiveContentView x:TypeArguments="scenes:ScenesPaneViewModel"
                           x:Name="Root"
                           xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                           xmlns:maui="using:ReactiveUI.Maui"
                           xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
                           xmlns:choreoApp="using:ChoreoApp"
                           xmlns:scenes="clr-namespace:ChoreoApp.Scenes"
                           x:Class="ChoreoApp.Scenes.ScenesPaneView">
@@ -57,11 +58,6 @@
                             </Grid>
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SelectSceneCommand}"/>
-                                <DragGestureRecognizer CanDrag="{Binding Source={x:Reference Root}, Path=BindingContext.CanDragScenes}"
-                                                       DragStarting="OnNavItemDragStarting" />
-                                <DropGestureRecognizer AllowDrop="{Binding Source={x:Reference Root}, Path=BindingContext.CanDragScenes}"
-                                                       DragOver="OnNavItemDragOver"
-                                                       Drop="OnNavItemDrop" />
                             </Border.GestureRecognizers>
                         </Border>
                     </DataTemplate>
@@ -72,7 +68,7 @@
                   Margin="0,12,0,0"
                   ColumnSpacing="8">
                 <SearchBar Grid.Column="0"
-                           Placeholder="Search"
+                           Placeholder="{x:Static i18n:Translations.SearchPlaceholder}"
                            Style="{StaticResource MaterialDesignSearchBar}"
                            Text="{Binding SearchText, Mode=TwoWay}" />
             </Grid>

@@ -45,8 +45,6 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     [Reactive]
     private bool _canSaveChoreo;
 
-    public bool CanDragScenes => string.IsNullOrWhiteSpace(SearchText);
-
     public SceneViewModel? SelectedScene
     {
         get => _globalState.SelectedScene;
@@ -61,53 +59,6 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     [ReactiveCommand]
     private void AddSceneAfter()
     {
-    }
-
-    public void MoveScenes(SceneViewModel? item, SceneViewModel? target)
-    {
-        if (item is null || target is null || item == target)
-        {
-            return;
-        }
-
-        if (!string.IsNullOrWhiteSpace(SearchText))
-        {
-            return;
-        }
-
-        var scenes = _globalState.Scenes;
-        var oldIndex = scenes.IndexOf(item);
-        var newIndex = scenes.IndexOf(target);
-
-        if (oldIndex < 0 || newIndex < 0 || oldIndex == newIndex)
-        {
-            return;
-        }
-
-        scenes.RemoveAt(oldIndex);
-        scenes.Insert(newIndex, item);
-
-        ReindexScenes(scenes, _globalState.Choreography?.Scenes);
-        RefreshScenes();
-    }
-
-    private static void ReindexScenes(IList<SceneViewModel> viewModels, IList<ChoreoMasterMobile.Json.Scene>? scenes)
-    {
-        for (int index = 0; index < viewModels.Count; index++)
-        {
-            viewModels[index].SceneId = new(index + 1);
-        }
-
-        if (scenes is null)
-        {
-            return;
-        }
-
-        int count = Math.Min(viewModels.Count, scenes.Count);
-        for (int index = 0; index < count; index++)
-        {
-            scenes[index].SceneId = new(index + 1);
-        }
     }
 
     internal void RefreshScenes()
