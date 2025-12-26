@@ -23,7 +23,7 @@ public sealed class TextFieldClearButtonVisibilityConverter : IMultiValueConvert
             return false;
         }
 
-        return isContentNullOrEmpty ? ContentEmptyVisibility : true;
+        return !isContentNullOrEmpty || ContentEmptyVisibility;
     }
 
     public object[] ConvertBack(object value, Type[] targetTypes, object? parameter, CultureInfo culture)

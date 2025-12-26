@@ -16,7 +16,7 @@ public sealed class Card : ContentView
             nameof(ContentClip),
             typeof(Geometry),
             typeof(Card),
-            default(Geometry));
+            null);
     public static readonly BindableProperty ContentClipProperty =
         ContentClipPropertyKey.BindableProperty;
 

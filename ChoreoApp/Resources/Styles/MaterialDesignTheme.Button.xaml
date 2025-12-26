@@ -22,25 +22,6 @@
     <Setter Property="FontSize" Value="14" />
     <Setter Property="Shadow" Value="{x:Null}" />
     <Setter Property="styling:ContentButton.PressedOpacity" Value="0.9" />
-    <Setter Property="Resources">
-      <ResourceDictionary>
-        <Style TargetType="Label">
-          <Setter Property="TextColor"
-                  Value="{Binding Path=Foreground, Source={RelativeSource AncestorType={x:Type styling:ContentButton}}}" />
-          <Setter Property="FontSize"
-                  Value="{Binding Path=FontSize, Source={RelativeSource AncestorType={x:Type styling:ContentButton}}}" />
-          <Setter Property="FontAttributes"
-                  Value="{Binding Path=FontAttributes, Source={RelativeSource AncestorType={x:Type styling:ContentButton}}}" />
-          <Setter Property="FontFamily"
-                  Value="{Binding Path=FontFamily, Source={RelativeSource AncestorType={x:Type styling:ContentButton}}}" />
-        </Style>
-        <Style TargetType="styling:PackIcon">
-          <Setter Property="Foreground">
-            <SolidColorBrush Color="{Binding Path=Foreground, Source={RelativeSource AncestorType={x:Type styling:ContentButton}}}" />
-          </Setter>
-        </Style>
-      </ResourceDictionary>
-    </Setter>
     <Setter Property="VisualStateManager.VisualStateGroups">
       <VisualStateGroupList>
         <VisualStateGroup x:Name="CommonStates">

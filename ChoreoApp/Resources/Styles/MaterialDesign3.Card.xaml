@@ -3,7 +3,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:converters="clr-namespace:MaterialDesignThemes.Maui.Converters;assembly=MaterialDesignThemes.Maui"
                     xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
-                    xmlns:shades="http://sharpnado.com">
+                    xmlns:shades="http://sharpnado.com"
+                    xmlns:convertersInternal="clr-namespace:MaterialDesignThemes.Maui.Converters.Internal;assembly=MaterialDesignThemes.Maui">
 
   <ResourceDictionary.MergedDictionaries>
     <ResourceDictionary Source="MaterialDesignTheme.Shadows.xaml" />
@@ -22,7 +23,9 @@
     <Setter Property="Elevation" Value="Dp0" />
     <Setter Property="ControlTemplate">
       <ControlTemplate>
-        <shades:Shadows CornerRadius="{TemplateBinding UniformCornerRadius}"
+        <shades:Shadows CornerRadius="{Binding Path=UniformCornerRadius,
+                                                Source={RelativeSource TemplatedParent},
+                                                Converter={x:Static converters:DoubleToIntConverter.Instance}}"
                         Shades="{Binding Path=Elevation,
                                         Source={RelativeSource TemplatedParent},
                                         Converter={x:Static converters:ShadowConverter.Instance}}">
@@ -31,9 +34,9 @@
                   BackgroundColor="{TemplateBinding BackgroundColor}"
                   Stroke="{TemplateBinding Stroke}"
                   StrokeThickness="{TemplateBinding StrokeThickness}"
-                  StrokeShape="RoundRectangle {Binding Path=UniformCornerRadius,
-                                                       Source={RelativeSource TemplatedParent},
-                                                       Converter={x:Static convertersInternal:DoubleToCornerRadiusConverter.Instance}}"
+                  StrokeShape="{Binding Path=UniformCornerRadius,
+                                        Source={RelativeSource TemplatedParent},
+                                        Converter={x:Static convertersInternal:DoubleToRoundRectangleConverter.Instance}}"
                   Clip="{TemplateBinding ContentClip}">
             <ContentPresenter Content="{TemplateBinding Content}" />
           </Border>
