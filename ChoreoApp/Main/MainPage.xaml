@@ -39,20 +39,18 @@
                                    HorizontalOptions="End"
                                    VerticalOptions="Center"
                                    Spacing="8">
-                <styling:ContentButton Style="{StaticResource MaterialDesignFlatDarkButton}"
+                <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
                                        Command="{Binding OpenChoreographySettingsCommand}">
                     <styling:PackIcon Kind="Pen" />
                 </styling:ContentButton>
-                <styling:ContentButton Style="{StaticResource MaterialDesignFlatDarkButton}"
+                <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
                                        Command="{Binding OpenImageCommand}">
                     <styling:PackIcon Kind="Svg" />
                 </styling:ContentButton>
-                <styling:ContentButton Style="{StaticResource MaterialDesignFlatDarkButton}"
+                <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
                                        Command="{Binding ToggleAudioPlayerCommand}">
-                    <Label Text="Play" />
-                    <!--styling:PackIcon Kind="PlayCircle" /-->
+                    <styling:PackIcon Kind="PlayCircle" />
                 </styling:ContentButton>
-                <Label Text="Play" />
             </HorizontalStackLayout>
         </Grid>
         <styling:DrawerHost x:Name="Drawer"
