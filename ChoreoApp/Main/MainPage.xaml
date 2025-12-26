@@ -45,15 +45,11 @@
                 </styling:ContentButton>
                 <styling:ContentButton Style="{StaticResource MaterialDesignFlatDarkButton}"
                                        Command="{Binding OpenImageCommand}">
-                    <styling:PackIcon Kind="Svg"
-                                      ForegroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                                      BackgroundColor="Transparent" />
+                    <styling:PackIcon Kind="Svg" />
                 </styling:ContentButton>
                 <styling:ContentButton Style="{StaticResource MaterialDesignFlatDarkButton}"
                                        Command="{Binding ToggleAudioPlayerCommand}">
-                    <styling:PackIcon Kind="PlayCircle"
-                                      ForegroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                                      BackgroundColor="Transparent" />
+                    <styling:PackIcon Kind="PlayCircle" />
                 </styling:ContentButton>
             </HorizontalStackLayout>
         </Grid>

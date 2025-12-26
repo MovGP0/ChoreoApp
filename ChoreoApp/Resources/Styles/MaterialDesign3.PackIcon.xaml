@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+
+  <Style TargetType="styling:PackIcon">
+    <Setter Property="ForegroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+    <Setter Property="WidthRequest" Value="24" />
+    <Setter Property="HeightRequest" Value="24" />
+    <Setter Property="BackgroundColor" Value="Transparent" />
+  </Style>
+
+</ResourceDictionary>

@@ -64,24 +64,16 @@
                                    IsEnabled="{Binding CanLinkSceneToPosition}"
                                    VerticalOptions="Center"
                                    Style="{StaticResource MaterialDesignFlatButton}">
-                <styling:PackIcon Kind="Link"
-                                  ForegroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                                  BackgroundColor="Transparent"
-                                  WidthRequest="24"
-                                  HeightRequest="24" />
+                <styling:PackIcon Kind="Link" />
             </styling:ContentButton>
 
             <styling:ContentButton Grid.Column="5" 
-                                   WidthRequest="64"
+                                   WidthRequest="48"
                                    HeightRequest="48"
                                    Command="{Binding TogglePlayPauseCommand}"
                                    VerticalOptions="Center"
                                    Style="{StaticResource MaterialDesignFlatDarkButton}">
-                <styling:PackIcon Kind="{Binding IsPlaying, Converter={StaticResource PlayPauseGlyphConverter}}"
-                                  ForegroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                                  BackgroundColor="Transparent"
-                                  WidthRequest="28"
-                                  HeightRequest="28" />
+                <styling:PackIcon Kind="{Binding IsPlaying, Converter={StaticResource PlayPauseGlyphConverter}}" />
             </styling:ContentButton>
 
             <VisualStateManager.VisualStateGroups>

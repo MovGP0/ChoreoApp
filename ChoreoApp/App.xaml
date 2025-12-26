@@ -21,6 +21,7 @@
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Switch.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.ToggleButton.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Typography.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.PackIcon.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
