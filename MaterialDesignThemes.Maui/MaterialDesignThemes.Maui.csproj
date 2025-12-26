@@ -25,10 +25,10 @@
     <PackageReference Include="Microsoft.Maui.Controls.Core" />
     <PackageReference Include="PolySharp" />
     <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" />
+    <PackageReference Include="Sharpnado.Maui.Shadows" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MaterialColorUtilities\MaterialColorUtilities.csproj" />
-    <ProjectReference Include="..\Maui.Shadows\Maui.Shadows.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="MaterialDesignColorsDictionary.*.cs">

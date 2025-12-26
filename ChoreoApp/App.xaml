@@ -16,6 +16,8 @@
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Chip.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.HamburgerToggleButton.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Label.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Entry.xaml" />
+                <ResourceDictionary Source="Resources/Styles/MaterialDesign3.SearchBar.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Shadows.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Slider.xaml" />
                 <ResourceDictionary Source="Resources/Styles/MaterialDesign3.Switch.xaml" />

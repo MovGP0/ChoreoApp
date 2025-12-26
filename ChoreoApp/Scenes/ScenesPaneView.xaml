@@ -73,6 +73,7 @@
                   ColumnSpacing="8">
                 <SearchBar Grid.Column="0"
                            Placeholder="Search"
+                           Style="{StaticResource MaterialDesignSearchBar}"
                            Text="{Binding SearchText, Mode=TwoWay}" />
             </Grid>
             <Grid Grid.Row="2"

@@ -24,5 +24,4 @@
     <Project Path="ChoreoMasterMobile.Json/ChoreoMasterMobile.Json.csproj" />
     <Project Path="MaterialColorUtilities/MaterialColorUtilities.csproj" />
     <Project Path="MaterialDesignThemes.Maui/MaterialDesignThemes.Maui.csproj" />
-    <Project Path="Maui.Shadows/Maui.Shadows.csproj" />
 </Solution>

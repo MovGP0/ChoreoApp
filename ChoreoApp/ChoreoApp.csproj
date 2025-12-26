@@ -60,13 +60,13 @@
     <PackageReference Include="Riok.Mapperly" />
     <PackageReference Include="SkiaSharp.Extended" />
     <PackageReference Include="Svg.Skia" />
+    <PackageReference Include="Sharpnado.Maui.Shadows" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChoreoApp.i18n\ChoreoApp.i18n.csproj" />
     <ProjectReference Include="..\ChoreoApp.Algorithms\ChoreoApp.Algorithms.csproj" />
     <ProjectReference Include="..\MaterialDesignThemes.Maui\MaterialDesignThemes.Maui.csproj" />
     <ProjectReference Include="..\ChoreoMasterMobile.Json\ChoreoMasterMobile.Json.csproj" />
-    <ProjectReference Include="..\Maui.Shadows\Maui.Shadows.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images\" />
