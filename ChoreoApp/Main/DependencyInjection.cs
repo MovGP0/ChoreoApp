@@ -1,4 +1,4 @@
-namespace ChoreoApp.Main;
+﻿namespace ChoreoApp.Main;
 
 public static class DependencyInjection
 {
@@ -10,6 +10,8 @@ public static class DependencyInjection
         services.AddTransient<IBehavior<MainViewModel>, Behaviors.UpdateChoreographyTitleBehavior>();
         services.AddTransient<IBehavior<MainViewModel>, Behaviors.UpdateSceneNameBehavior>();
         services.AddTransient<IBehavior<MainViewModel>, Behaviors.OpenSvgFileBehavior>();
+        services.AddTransient<IBehavior<MainViewModel>, Behaviors.ShowDialogBehavior>();
+        services.AddTransient<IBehavior<MainViewModel>, Behaviors.HideDialogBehavior>();
         return services;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Global;
+using ChoreoApp.Main.Messages;
 using ChoreoApp.Settings;
 using MessagePipe;
 using Svg.Skia;

@@ -11,74 +11,78 @@
                           xmlns:main="clr-namespace:ChoreoApp.Main"
                           x:DataType="main:MainViewModel"
                           x:Class="ChoreoApp.Main.MainPage">
-    <Grid RowDefinitions="Auto,*,Auto">
-        <Grid Padding="12,8"
-              ColumnDefinitions="Auto,*,Auto"
-              BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
-            <styling:HamburgerToggleButton x:Name="HamburgerButton"
-                                           Grid.Column="0"
-                                           Style="{StaticResource MaterialDesignHamburgerToggleButton}"
-                                           Checked="OnBurgerClicked"
-                                           Unchecked="OnBurgerClicked" />
-            <HorizontalStackLayout Grid.Column="1"
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center"
-                                   Spacing="8">
-                <Label Text="{Binding Title}"
-                       FontSize="24"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="Start"
-                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
-                <Label Text="{Binding SelectedSceneName}"
-                       FontSize="24"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="Start"
-                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-            </HorizontalStackLayout>
-            <HorizontalStackLayout Grid.Column="2"
-                                   HorizontalOptions="End"
-                                   VerticalOptions="Center"
-                                   Spacing="8">
-                <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
-                                       Command="{Binding OpenChoreographySettingsCommand}">
-                    <styling:PackIcon Kind="Pen" />
-                </styling:ContentButton>
-                <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
-                                       Command="{Binding OpenImageCommand}">
-                    <styling:PackIcon Kind="Svg" />
-                </styling:ContentButton>
-                <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
-                                       Command="{Binding ToggleAudioPlayerCommand}">
-                    <styling:PackIcon Kind="PlayCircle" />
-                </styling:ContentButton>
-            </HorizontalStackLayout>
+    <styling:DialogHost x:Name="MainDialogHost"
+                        IsOpen="{Binding IsDialogOpen, Mode=TwoWay}"
+                        DialogContent="{Binding DialogContentView}">
+        <Grid RowDefinitions="Auto,*,Auto">
+            <Grid Padding="12,8"
+                  ColumnDefinitions="Auto,*,Auto"
+                  BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
+                <styling:HamburgerToggleButton x:Name="HamburgerButton"
+                                               Grid.Column="0"
+                                               Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                                               Checked="OnBurgerClicked"
+                                               Unchecked="OnBurgerClicked" />
+                <HorizontalStackLayout Grid.Column="1"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       Spacing="8">
+                    <Label Text="{Binding Title}"
+                           FontSize="24"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Start"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                    <Label Text="{Binding SelectedSceneName}"
+                           FontSize="24"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Start"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Grid.Column="2"
+                                       HorizontalOptions="End"
+                                       VerticalOptions="Center"
+                                       Spacing="8">
+                    <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                                           Command="{Binding OpenChoreographySettingsCommand}">
+                        <styling:PackIcon Kind="Pen" />
+                    </styling:ContentButton>
+                    <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                                           Command="{Binding OpenImageCommand}">
+                        <styling:PackIcon Kind="Svg" />
+                    </styling:ContentButton>
+                    <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                                           Command="{Binding ToggleAudioPlayerCommand}">
+                        <styling:PackIcon Kind="PlayCircle" />
+                    </styling:ContentButton>
+                </HorizontalStackLayout>
+            </Grid>
+            <styling:DrawerHost x:Name="Drawer"
+                                Grid.Row="1"
+                                ResponsiveBreakpoint="900"
+                                OpenMode="Default"
+                                BottomDrawerHeight="60"
+                                IsRightDrawerOpen="{Binding IsChoreographySettingsOpen, Mode=TwoWay}">
+                <styling:DrawerHost.LeftDrawerContent>
+                    <Border BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+                            MaximumWidthRequest="600">
+                        <scenes:ScenesPaneView x:Name="LeftDrawerScenes" />
+                    </Border>
+                </styling:DrawerHost.LeftDrawerContent>
+                <styling:DrawerHost.RightDrawerContent>
+                    <Border BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+                            MaximumWidthRequest="480">
+                        <settings:ChoreographySettingsView x:Name="RightDrawerChoreographySettings" />
+                    </Border>
+                </styling:DrawerHost.RightDrawerContent>
+                <styling:DrawerHost.MainContent>
+                    <Grid>
+                        <floor:FloorCanvasView x:Name="MainFloor" />
+                    </Grid>
+                </styling:DrawerHost.MainContent>
+            </styling:DrawerHost>
+            <audio:AudioPlayerView Grid.Row="2"
+                                   x:Name="BottomAudioPlayer"
+                                   IsVisible="{Binding IsAudioPlayerOpen}" />
         </Grid>
-        <styling:DrawerHost x:Name="Drawer"
-                            Grid.Row="1"
-                            ResponsiveBreakpoint="900"
-                            OpenMode="Default"
-                            BottomDrawerHeight="60"
-                            IsRightDrawerOpen="{Binding IsChoreographySettingsOpen, Mode=TwoWay}">
-            <styling:DrawerHost.LeftDrawerContent>
-                <Border BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
-                        MaximumWidthRequest="600">
-                    <scenes:ScenesPaneView x:Name="LeftDrawerScenes" />
-                </Border>
-            </styling:DrawerHost.LeftDrawerContent>
-            <styling:DrawerHost.RightDrawerContent>
-                <Border BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
-                        MaximumWidthRequest="480">
-                    <settings:ChoreographySettingsView x:Name="RightDrawerChoreographySettings" />
-                </Border>
-            </styling:DrawerHost.RightDrawerContent>
-            <styling:DrawerHost.MainContent>
-                <Grid>
-                    <floor:FloorCanvasView x:Name="MainFloor" />
-                </Grid>
-            </styling:DrawerHost.MainContent>
-        </styling:DrawerHost>
-        <audio:AudioPlayerView Grid.Row="2"
-                               x:Name="BottomAudioPlayer"
-                               IsVisible="{Binding IsAudioPlayerOpen}" />
-    </Grid>
+    </styling:DialogHost>
 </maui:ReactiveContentPage>

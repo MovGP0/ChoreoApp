@@ -1,6 +1,7 @@
-using System.Reactive.Disposables.Fluent;
+﻿using System.Reactive.Disposables.Fluent;
 using ChoreoApp.AudioPlayer;
 using ChoreoApp.i18n;
+using ChoreoApp.Main.Messages;
 using MessagePipe;
 
 namespace ChoreoApp.Main;
@@ -51,6 +52,12 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
 
     [Reactive]
     private bool _isChoreographySettingsOpen;
+
+    [Reactive]
+    private bool _isDialogOpen;
+
+    [Reactive]
+    private View? _dialogContentView;
 
     [ReactiveCommand]
     private async Task ToggleAudioPlayer()
