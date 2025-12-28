@@ -1,12 +1,16 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
+using ChoreoApp.Floor.Messages;
 using ChoreoApp.Global;
+using MessagePipe;
 
 namespace ChoreoApp.ChoreographySettings.Behaviors;
 
-public sealed class UpdateSubtitleBehavior(GlobalStateModel globalState)
-    : IBehavior<ChoreographySettingsViewModel>
+public sealed class UpdateSubtitleBehavior(
+    GlobalStateModel globalState,
+    IPublisher<RedrawFloorCommand> redrawFloorPublisher):
+    IBehavior<ChoreographySettingsViewModel>
 {
     public void Activate(ChoreographySettingsViewModel viewModel, CompositeDisposable disposables)
     {
@@ -21,6 +25,7 @@ public sealed class UpdateSubtitleBehavior(GlobalStateModel globalState)
                 }
 
                 choreography.Subtitle = NormalizeText(value);
+                redrawFloorPublisher.Publish(new());
             })
             .DisposeWith(disposables);
     }

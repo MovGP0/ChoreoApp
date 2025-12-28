@@ -2,6 +2,7 @@ using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.AudioPlayer.Messages;
+using ChoreoApp.Floor.Messages;
 using ChoreoApp.Scenes;
 using MessagePipe;
 
@@ -10,7 +11,8 @@ namespace ChoreoApp.Floor.Behaviors;
 public sealed class RedrawFloorBehavior(
     Global.GlobalStateModel globalState,
     ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber,
-    ISubscriber<AudioPlayerPositionChangedEvent> audioPositionChangedSubscriber)
+    ISubscriber<AudioPlayerPositionChangedEvent> audioPositionChangedSubscriber,
+    ISubscriber<RedrawFloorCommand> redrawFloorSubscriber)
     : IBehavior<FloorCanvasViewModel>
 {
     public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)
@@ -32,6 +34,10 @@ public sealed class RedrawFloorBehavior(
             .DisposeWith(disposables);
 
         audioPositionChangedSubscriber
+            .Subscribe(_ => InvalidateCanvas(viewModel))
+            .DisposeWith(disposables);
+
+        redrawFloorSubscriber
             .Subscribe(_ => InvalidateCanvas(viewModel))
             .DisposeWith(disposables);
     }

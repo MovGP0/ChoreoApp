@@ -7,7 +7,7 @@ namespace ChoreoApp.Global;
 public sealed partial class GlobalStateModel : ReactiveObject
 {
     [Reactive]
-    private Choreography? _choreography;
+    private Choreography _choreography = new();
 
     [Reactive]
     private SvgDocument? _svgDocument;

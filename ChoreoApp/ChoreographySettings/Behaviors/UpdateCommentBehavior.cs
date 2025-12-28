@@ -1,12 +1,16 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
+using ChoreoApp.Floor.Messages;
 using ChoreoApp.Global;
+using MessagePipe;
 
 namespace ChoreoApp.ChoreographySettings.Behaviors;
 
-public sealed class UpdateCommentBehavior(GlobalStateModel globalState)
-    : IBehavior<ChoreographySettingsViewModel>
+public sealed class UpdateCommentBehavior(
+    GlobalStateModel globalState,
+    IPublisher<RedrawFloorCommand> redrawFloorPublisher):
+    IBehavior<ChoreographySettingsViewModel>
 {
     public void Activate(ChoreographySettingsViewModel viewModel, CompositeDisposable disposables)
     {
@@ -21,6 +25,7 @@ public sealed class UpdateCommentBehavior(GlobalStateModel globalState)
                 }
 
                 choreography.Comment = NormalizeText(value);
+                redrawFloorPublisher.Publish(new());
             })
             .DisposeWith(disposables);
     }

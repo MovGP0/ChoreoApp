@@ -1,11 +1,15 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
+using ChoreoApp.Floor.Messages;
 using ChoreoApp.Settings;
+using MessagePipe;
 
 namespace ChoreoApp.ChoreographySettings.Behaviors;
 
-public sealed class UpdateDrawPathToBehavior : IBehavior<ChoreographySettingsViewModel>
+public sealed class UpdateDrawPathToBehavior(
+    IPublisher<RedrawFloorCommand> redrawFloorPublisher):
+    IBehavior<ChoreographySettingsViewModel>
 {
     public void Activate(ChoreographySettingsViewModel viewModel, CompositeDisposable disposables)
     {
@@ -17,6 +21,7 @@ public sealed class UpdateDrawPathToBehavior : IBehavior<ChoreographySettingsVie
             .Subscribe(value =>
             {
                 Preferences.Default.Set(SettingsPreferenceKeys.DrawPathTo, value);
+                redrawFloorPublisher.Publish(new());
             })
             .DisposeWith(disposables);
     }

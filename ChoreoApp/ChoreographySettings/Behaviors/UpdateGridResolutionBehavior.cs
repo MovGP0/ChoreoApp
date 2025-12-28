@@ -1,12 +1,16 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
+using ChoreoApp.Floor.Messages;
 using ChoreoApp.Global;
+using MessagePipe;
 
 namespace ChoreoApp.ChoreographySettings.Behaviors;
 
-public sealed class UpdateGridResolutionBehavior(GlobalStateModel globalState)
-    : IBehavior<ChoreographySettingsViewModel>
+public sealed class UpdateGridResolutionBehavior(
+    GlobalStateModel globalState,
+    IPublisher<RedrawFloorCommand> redrawFloorPublisher):
+    IBehavior<ChoreographySettingsViewModel>
 {
     public void Activate(ChoreographySettingsViewModel viewModel, CompositeDisposable disposables)
     {
@@ -20,8 +24,8 @@ public sealed class UpdateGridResolutionBehavior(GlobalStateModel globalState)
                     return;
                 }
 
-                choreography.Settings ??= new();
                 choreography.Settings.Resolution = Math.Clamp(option.Value, 1, 16);
+                redrawFloorPublisher.Publish(new());
             })
             .DisposeWith(disposables);
     }
