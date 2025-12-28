@@ -15,7 +15,7 @@ using SkiaSharp.Views.Maui;
 
 namespace ChoreoApp.Floor.Behaviors;
 
-public sealed class DrawFloorInViewSceneStateBehavior(
+public sealed class DrawFloorBehavior(
     Global.GlobalStateModel globalState,
     ApplicationStateMachine stateMachine,
     ISubscriber<DrawFloorCommand> drawFloorCommandSubscriber,
@@ -63,7 +63,8 @@ public sealed class DrawFloorInViewSceneStateBehavior(
 
     private void DrawFloor(SKPaintSurfaceEventArgs args)
     {
-        if (stateMachine.State is not ViewSceneState)
+        if (stateMachine.State is not ViewSceneState
+            && stateMachine.State is not PlacePositionsState)
         {
             return;
         }
@@ -124,6 +125,9 @@ public sealed class DrawFloorInViewSceneStateBehavior(
         // draw positions and labels
         var scenePositions = GetScenePositions();
         var (previousScene, currentScene, nextScene) = GetAdjacentScenes();
+        var remainingPositions = stateMachine.State is PlacePositionsState
+            ? GetRemainingPositions(currentScene)
+            : 0;
 
         if (scenePositions is not null && settings.PositionsAtSide)
         {
@@ -133,6 +137,13 @@ public sealed class DrawFloorInViewSceneStateBehavior(
         DrawPositions(scenePositions, currentScene, nextScene, _currentAudioSeconds);
 
         canvas.Restore();
+
+        if (stateMachine.State is PlacePositionsState
+            && globalState.IsPlaceMode
+            && remainingPositions > 0)
+        {
+            DrawPlacementOverlay(remainingPositions);
+        }
 
         void DrawGridLines()
         {
@@ -424,6 +435,19 @@ public sealed class DrawFloorInViewSceneStateBehavior(
 
             void DrawPosition(Position position)
             {
+                if (position.Dancer is null)
+                {
+                    fillPaint.Color = ApplyTransparency(GetColor(MaterialDesignColorKey.SurfaceVariant), settings.Transparency);
+                    borderPaint.Color = ApplyTransparency(GetColor(MaterialDesignColorKey.OutlineVariant), settings.Transparency);
+
+                    var x = centerX + (float)position.X * scale;
+                    var y = centerY - (float)position.Y * scale;
+
+                    canvas.DrawCircle(x, y, radius, fillPaint);
+                    canvas.DrawCircle(x, y, radius, borderPaint);
+                    return;
+                }
+
                 double drawX = position.X;
                 double drawY = position.Y;
 
@@ -453,8 +477,8 @@ public sealed class DrawFloorInViewSceneStateBehavior(
                     }
                 }
 
-                var x = centerX + (float)drawX * scale;
-                var y = centerY - (float)drawY * scale;
+                var cx = centerX + (float)drawX * scale;
+                var cy = centerY - (float)drawY * scale;
 
                 fillPaint.Color = ApplyTransparency(position.Dancer.Color.ToSKColor(), settings.Transparency);
                 textPaint.Color = PickBlackOrWhite(fillPaint.Color) switch
@@ -465,8 +489,8 @@ public sealed class DrawFloorInViewSceneStateBehavior(
                 };
                 borderPaint.Color = ApplyTransparency(GetRoleBorderColor(position.Dancer.Role), settings.Transparency);
 
-                canvas.DrawCircle(x, y, radius, fillPaint);
-                canvas.DrawCircle(x, y, radius, borderPaint);
+                canvas.DrawCircle(cx, cy, radius, fillPaint);
+                canvas.DrawCircle(cx, cy, radius, borderPaint);
 
                 var shortcut = position.Dancer.Shortcut;
                 if (string.IsNullOrWhiteSpace(shortcut))
@@ -474,8 +498,8 @@ public sealed class DrawFloorInViewSceneStateBehavior(
                     return;
                 }
 
-                var textY = y + font.Metrics.CapHeight / 2f;
-                canvas.DrawText(shortcut, x, textY, SKTextAlign.Center, font, textPaint);
+                var textY = cy + font.Metrics.CapHeight / 2f;
+                canvas.DrawText(shortcut, cx, textY, SKTextAlign.Center, font, textPaint);
             }
         }
 
@@ -516,13 +540,18 @@ public sealed class DrawFloorInViewSceneStateBehavior(
 
             foreach (var toPosition in toScene.Positions)
             {
-                int dancerId = toPosition.Dancer.DancerId.Value;
+                if (toPosition.Dancer is not { } dancer)
+                {
+                    continue;
+                }
+
+                int dancerId = dancer.DancerId.Value;
                 if (dancerId <= 0 || !fromByDancer.TryGetValue(dancerId, out var fromPosition))
                 {
                     continue;
                 }
 
-                var dancerColor = toPosition.Dancer.Color.ToSKColor();
+                var dancerColor = dancer.Color.ToSKColor();
                 paint.Color = useDarkerColor
                     ? DarkenColor(dancerColor, 0.7f)
                     : dancerColor;
@@ -613,7 +642,12 @@ public sealed class DrawFloorInViewSceneStateBehavior(
 
             foreach (var position in scene.Positions)
             {
-                int dancerId = position.Dancer.DancerId.Value;
+                if (position.Dancer is not { } dancer)
+                {
+                    continue;
+                }
+
+                int dancerId = dancer.DancerId.Value;
                 if (dancerId > 0)
                 {
                     lookup[dancerId] = position;
@@ -681,6 +715,82 @@ public sealed class DrawFloorInViewSceneStateBehavior(
             var color = role.Color.ToSKColor();
             _roleBorderColors[role.ZIndex] = color;
             return color;
+        }
+
+        int GetRemainingPositions(Scene? scene)
+        {
+            if (scene is null || choreography.Dancers.Count == 0)
+            {
+                return 0;
+            }
+
+            var positions = scene.Positions ?? [];
+            return Math.Max(0, choreography.Dancers.Count - positions.Count);
+        }
+
+        void DrawPlacementOverlay(int remainingPositions)
+        {
+            if (remainingPositions <= 0)
+            {
+                return;
+            }
+
+            const float padding = 12f;
+            const float spacing = 4f;
+            const float cornerRadius = 8f;
+
+            using var titlePaint = new SKPaint();
+            titlePaint.Color = GetColor(MaterialDesignColorKey.OnSurface);
+            titlePaint.IsAntialias = true;
+
+            using var bodyPaint = new SKPaint();
+            bodyPaint.Color = GetColor(MaterialDesignColorKey.OnSurfaceVariant);
+            bodyPaint.IsAntialias = true;
+
+            using var titleFont = new SKFont();
+            titleFont.Size = 16f;
+            titleFont.Edging = SKFontEdging.Antialias;
+
+            using var bodyFont = new SKFont();
+            bodyFont.Size = 14f;
+            bodyFont.Edging = SKFontEdging.Antialias;
+
+            string title = "Placement mode";
+            string line1 = "Tap to place a position";
+            string line2 = $"Remaining: {remainingPositions}";
+
+            float titleWidth = titleFont.MeasureText(title);
+            float line1Width = bodyFont.MeasureText(line1);
+            float line2Width = bodyFont.MeasureText(line2);
+
+            float maxWidth = Math.Max(titleWidth, Math.Max(line1Width, line2Width));
+            float titleHeight = titleFont.Metrics.Descent - titleFont.Metrics.Ascent;
+            float bodyHeight = bodyFont.Metrics.Descent - bodyFont.Metrics.Ascent;
+
+            float rectWidth = maxWidth + padding * 2f;
+            float rectHeight = padding * 2f + titleHeight + bodyHeight * 2f + spacing * 2f;
+
+            float rectX = padding;
+            float rectY = padding;
+
+            using var backgroundPaint = new SKPaint();
+            backgroundPaint.Color = GetColor(MaterialDesignColorKey.SurfaceVariant).WithAlpha(230);
+            backgroundPaint.IsAntialias = true;
+
+            var rect = new SKRect(rectX, rectY, rectX + rectWidth, rectY + rectHeight);
+            var roundedRect = new SKRoundRect(rect, cornerRadius, cornerRadius);
+            canvas.DrawRoundRect(roundedRect, backgroundPaint);
+
+            float textX = rectX + padding;
+            float titleBaseline = rectY + padding - titleFont.Metrics.Ascent;
+            canvas.DrawText(title, textX, titleBaseline, titleFont, titlePaint);
+
+            float line1Baseline = titleBaseline + titleHeight + spacing;
+            canvas.DrawText(line1, textX, line1Baseline, bodyFont, bodyPaint);
+
+            float line2Baseline = line1Baseline + bodyHeight + spacing;
+            canvas.DrawText(line2, textX, line2Baseline, bodyFont, bodyPaint);
+
         }
     }
 

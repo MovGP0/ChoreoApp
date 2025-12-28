@@ -64,9 +64,6 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
                 .Subscribe(isPlaceMode =>
                 {
                     IsModeSelectionEnabled = !isPlaceMode;
-                    _stateMachine.TryApply(isPlaceMode
-                        ? new PlacePositionsStartedTrigger()
-                        : new PlacePositionsCompletedTrigger());
                 })
                 .DisposeWith(disposables);
 
