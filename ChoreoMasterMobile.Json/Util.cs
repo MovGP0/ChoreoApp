@@ -55,7 +55,7 @@ public static class Util
         }
 
         var root = JsonNode.Parse(json) as JsonObject;
-        var scenesNode = root?["Scenes"] as JsonArray;
+        var scenesNode = root?["Scenes"]?[1] as JsonArray;
         if (scenesNode is null)
         {
             return;
@@ -103,8 +103,6 @@ public static class Util
             return;
         }
 
-        var dancerIdsByKey = new Dictionary<string, DancerId>(StringComparer.Ordinal);
-
         int count = Math.Min(choreography.Dancers.Count, dancersNode.Count);
         for (int i = 0; i < count; i++)
         {
@@ -129,40 +127,7 @@ public static class Util
             if (dancerId > 0)
             {
                 choreography.Dancers[i].DancerId = dancerId;
-                var key = BuildDancerKey(choreography.Dancers[i]);
-                dancerIdsByKey.TryAdd(key, choreography.Dancers[i].DancerId);
-            }
-        }
-
-        if (dancerIdsByKey.Count == 0)
-        {
-            return;
-        }
-
-        foreach (var scene in choreography.Scenes)
-        {
-            if (scene.Positions is null)
-            {
-                continue;
-            }
-
-            foreach (var position in scene.Positions)
-            {
-                var dancer = position.Dancer;
-                if (dancer is null || dancer.DancerId.Value > 0)
-                {
-                    continue;
-                }
-
-                var key = BuildDancerKey(dancer);
-                if (dancerIdsByKey.TryGetValue(key, out var resolvedId))
-                {
-                    dancer.DancerId = resolvedId;
-                }
             }
         }
     }
-
-    private static string BuildDancerKey(Dancer dancer)
-        => $"{dancer.Name}|{dancer.Shortcut}";
 }
