@@ -6,6 +6,7 @@ using MaterialDesignThemes.Maui;
 using ChoreoApp.AudioPlayer.Messages;
 using ChoreoApp.Floor.Messages;
 using ChoreoMasterMobile.Json;
+using ChoreoApp.Settings;
 using MessagePipe;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
@@ -115,7 +116,7 @@ public sealed class DrawFloorBehavior(
         var scenePositions = GetScenePositions();
         var (previousScene, currentScene, nextScene) = GetAdjacentScenes();
 
-        if (scenePositions is not null)
+        if (scenePositions is not null && settings.PositionsAtSide)
         {
             DrawAxisLabels(scenePositions);
         }
@@ -446,14 +447,14 @@ public sealed class DrawFloorBehavior(
                 var x = centerX + (float)drawX * scale;
                 var y = centerY - (float)drawY * scale;
 
-                fillPaint.Color = position.Dancer.Color.ToSKColor();
+                fillPaint.Color = ApplyTransparency(position.Dancer.Color.ToSKColor(), settings.Transparency);
                 textPaint.Color = PickBlackOrWhite(fillPaint.Color) switch
                 {
                     BlackOrWhite.White => GetColor(MaterialDesignColorKey.White),
                     BlackOrWhite.Black => GetColor(MaterialDesignColorKey.Black),
                     _ => throw new ArgumentOutOfRangeException()
                 };
-                borderPaint.Color = GetRoleBorderColor(position.Dancer.Role);
+                borderPaint.Color = ApplyTransparency(GetRoleBorderColor(position.Dancer.Role), settings.Transparency);
 
                 canvas.DrawCircle(x, y, radius, fillPaint);
                 canvas.DrawCircle(x, y, radius, borderPaint);
@@ -481,13 +482,15 @@ public sealed class DrawFloorBehavior(
             paint.IsAntialias = true;
             paint.StrokeWidth = 2f;
 
-            if (previous?.Positions is not null)
+            if (previous?.Positions is not null
+                && Preferences.Default.Get(SettingsPreferenceKeys.DrawPathFrom, true))
             {
                 paint.PathEffect = SKPathEffect.CreateDash([6f, 6f], 0f);
                 DrawCurvesBetweenScenes(previous, current, paint, useDarkerColor: true);
             }
 
-            if (next?.Positions is not null)
+            if (next?.Positions is not null
+                && Preferences.Default.Get(SettingsPreferenceKeys.DrawPathTo, true))
             {
                 paint.PathEffect = null;
                 DrawCurvesBetweenScenes(current, next, paint, useDarkerColor: false);
@@ -581,6 +584,14 @@ public sealed class DrawFloorBehavior(
             color.ToHsl(out float h, out float s, out float l);
             float newLightness = Math.Clamp(l * lightnessScale, 0f, 100f);
             return SKColor.FromHsl(h, s, newLightness, color.Alpha);
+        }
+
+        static SKColor ApplyTransparency(SKColor color, decimal transparency)
+        {
+            var clamped = Math.Clamp(transparency, 0m, 1m);
+            var opacity = 1m - clamped;
+            var alpha = (byte)Math.Clamp((int)Math.Round(opacity * 255m), 0, 255);
+            return color.WithAlpha(alpha);
         }
 
         Dictionary<int, Position> BuildPositionsByDancerId(Scene scene)

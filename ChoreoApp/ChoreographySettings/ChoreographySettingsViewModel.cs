@@ -49,13 +49,13 @@ public sealed partial class ChoreographySettingsViewModel : ReactiveObject, IAct
     private GridSizeOption? _selectedGridSizeOption;
 
     [Reactive]
-    private bool _drawPathFrom;
+    private bool _drawPathFrom = true;
 
     [Reactive]
-    private bool _drawPathTo;
+    private bool _drawPathTo = true;
 
     [Reactive]
-    private bool _gridLines;
+    private bool _gridLines = true;
 
     [Reactive]
     private Color _floorColor = Colors.Transparent;
@@ -64,7 +64,7 @@ public sealed partial class ChoreographySettingsViewModel : ReactiveObject, IAct
     private bool _showTimestamps;
 
     [Reactive]
-    private bool _positionsAtSide;
+    private bool _positionsAtSide = true;
 
     [Reactive]
     private decimal _transparency;
