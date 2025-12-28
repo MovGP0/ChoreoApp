@@ -45,15 +45,34 @@
                                     <Setter TargetName="SceneName"
                                             Property="Label.TextColor"
                                             Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimaryContainer}}" />
+                                    <Setter TargetName="SceneTimestamp"
+                                            Property="Label.TextColor"
+                                            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimaryContainer}}" />
                                 </DataTrigger>
                             </Border.Triggers>
-                            <Grid ColumnDefinitions="*"
+                            <Grid x:Name="SceneContent"
+                                  RowDefinitions="Auto,0"
                                   Padding="4">
+                                <Grid.Triggers>
+                                    <DataTrigger TargetType="Grid"
+                                                 Binding="{Binding Source={x:Reference Root}, Path=BindingContext.ShowTimestamps}"
+                                                 Value="True">
+                                        <Setter Property="RowDefinitions"
+                                                Value="Auto,Auto" />
+                                    </DataTrigger>
+                                </Grid.Triggers>
                                 <Label x:Name="SceneName"
                                        Text="{Binding Name}"
                                        FontAttributes="Bold"
+                                       Grid.Row="0"
                                        VerticalOptions="Center"
                                        TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                       BackgroundColor="Transparent" />
+                                <Label x:Name="SceneTimestamp"
+                                       Grid.Row="1"
+                                       Text="{Binding Timestamp, StringFormat='{0:mm\\:ss\\.fff}'}"
+                                       IsVisible="{Binding Source={x:Reference Root}, Path=BindingContext.ShowTimestamps}"
+                                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}"
                                        BackgroundColor="Transparent" />
                             </Grid>
                             <Border.GestureRecognizers>

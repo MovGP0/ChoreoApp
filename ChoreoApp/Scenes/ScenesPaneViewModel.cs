@@ -45,6 +45,9 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     [Reactive]
     private bool _canSaveChoreo;
 
+    [Reactive]
+    private bool _showTimestamps;
+
     public SceneViewModel? SelectedScene
     {
         get => _globalState.SelectedScene;
