@@ -67,7 +67,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("AppTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Author.
         /// </summary>
@@ -76,7 +76,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyAuthorPlaceholder", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Comment.
         /// </summary>
@@ -85,7 +85,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyCommentPlaceholder", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
@@ -94,7 +94,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyDescriptionPlaceholder", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Display.
         /// </summary>
@@ -103,7 +103,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyDisplayTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Where from.
         /// </summary>
@@ -112,7 +112,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyDrawPathFromLabel", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Where to.
         /// </summary>
@@ -121,7 +121,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyDrawPathToLabel", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Back.
         /// </summary>
@@ -130,7 +130,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyFloorBackLabel", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Floor color.
         /// </summary>
@@ -139,7 +139,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyFloorColorLabel", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Front.
         /// </summary>
@@ -148,7 +148,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyFloorFrontLabel", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Left.
         /// </summary>
@@ -157,7 +157,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyFloorLeftLabel", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Right.
         /// </summary>
@@ -166,7 +166,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyFloorRightLabel", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Floor.
         /// </summary>
@@ -175,7 +175,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyFloorTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Grid lines.
         /// </summary>
@@ -184,7 +184,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyGridLinesLabel", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Grid size.
         /// </summary>
@@ -193,7 +193,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyGridSizeLabel", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
@@ -202,7 +202,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyNamePlaceholder", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Positions at side.
         /// </summary>
@@ -211,7 +211,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyPositionsAtSideLabel", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Choreography.
         /// </summary>
@@ -220,7 +220,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographySectionTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Show timestamps.
         /// </summary>
@@ -229,7 +229,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyShowTimestampsLabel", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Subtitle.
         /// </summary>
@@ -238,7 +238,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographySubtitlePlaceholder", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Transparency.
         /// </summary>
@@ -247,7 +247,7 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyTransparencyLabel", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Variation.
         /// </summary>
@@ -267,11 +267,65 @@ namespace ChoreoApp.i18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hello World.
+        ///   Looks up a localized string similar to Mode.
         /// </summary>
-        public static string HelloWorld {
+        public static string ModeLabel {
             get {
-                return ResourceManager.GetString("HelloWorld", resourceCulture);
+                return ResourceManager.GetString("ModeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line of sight.
+        /// </summary>
+        public static string ModeLineOfSight {
+            get {
+                return ResourceManager.GetString("ModeLineOfSight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move.
+        /// </summary>
+        public static string ModeMove {
+            get {
+                return ResourceManager.GetString("ModeMove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotate around center.
+        /// </summary>
+        public static string ModeRotateAroundCenter {
+            get {
+                return ResourceManager.GetString("ModeRotateAroundCenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotate around dancer.
+        /// </summary>
+        public static string ModeRotateAroundDancer {
+            get {
+                return ResourceManager.GetString("ModeRotateAroundDancer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scale.
+        /// </summary>
+        public static string ModeScale {
+            get {
+                return ResourceManager.GetString("ModeScale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View.
+        /// </summary>
+        public static string ModeView {
+            get {
+                return ResourceManager.GetString("ModeView", resourceCulture);
             }
         }
         

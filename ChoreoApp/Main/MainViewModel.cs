@@ -1,5 +1,7 @@
 ﻿using System.Reactive.Disposables.Fluent;
+using System.Reactive.Linq;
 using ChoreoApp.AudioPlayer;
+using ChoreoApp.Global;
 using ChoreoApp.i18n;
 using ChoreoApp.Main.Messages;
 using MessagePipe;
@@ -10,13 +12,19 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
 {
     public MainViewModel(
         IEnumerable<IBehavior<MainViewModel>> behaviors,
+        GlobalStateModel globalState,
         AudioPlayerViewModel audioPlayerViewModel,
         IPublisher<OpenAudioFileCommand> openAudioPublisher,
         IPublisher<OpenSvgFileCommand> openSvgPublisher)
     {
+        _globalState = globalState;
         AudioPlayerViewModel = audioPlayerViewModel;
         _openAudioPublisher = openAudioPublisher;
         _openSvgPublisher = openSvgPublisher;
+
+        ModeOptions = BuildModeOptions();
+        SelectedModeOption = ModeOptions.FirstOrDefault(option => option.Mode == _globalState.InteractionMode)
+            ?? ModeOptions[0];
 
         this.WhenActivated(disposables =>
         {
@@ -25,15 +33,29 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
             {
                 behavior.Activate(this, disposables);
             }
+
+            _globalState.WhenAnyValue(state => state.InteractionMode)
+                .Subscribe(mode => SelectedModeOption = ModeOptions.FirstOrDefault(option => option.Mode == mode) ?? ModeOptions[0])
+                .DisposeWith(disposables);
+
+            this.WhenAnyValue(viewModel => viewModel.SelectedModeOption)
+                .Where(option => option is not null)
+                .Subscribe(option => _globalState.InteractionMode = option!.Mode)
+                .DisposeWith(disposables);
         });
     }
 
     private const double DefaultNavWidth = 280d;
     private readonly IPublisher<OpenAudioFileCommand> _openAudioPublisher;
     private readonly IPublisher<OpenSvgFileCommand> _openSvgPublisher;
+    private readonly GlobalStateModel _globalState;
 
     public ViewModelActivator Activator { get; } = new();
     public AudioPlayerViewModel AudioPlayerViewModel { get; }
+    public IReadOnlyList<InteractionModeOption> ModeOptions { get; }
+
+    [Reactive]
+    private InteractionModeOption? _selectedModeOption;
 
     [Reactive]
     private GridLength _navColumnWidth = new(DefaultNavWidth);
@@ -148,6 +170,16 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
     {
         IsChoreographySettingsOpen = true;
     }
+
+    private static List<InteractionModeOption> BuildModeOptions() => new()
+    {
+        new(InteractionMode.View, Translations.ModeView),
+        new(InteractionMode.Move, Translations.ModeMove),
+        new(InteractionMode.RotateAroundCenter, Translations.ModeRotateAroundCenter),
+        new(InteractionMode.RotateAroundDancer, Translations.ModeRotateAroundDancer),
+        new(InteractionMode.Scale, Translations.ModeScale),
+        new(InteractionMode.LineOfSight, Translations.ModeLineOfSight)
+    };
 
     public void ToggleNavigation()
     {

@@ -20,4 +20,7 @@ public sealed partial class GlobalStateModel : ReactiveObject
 
     [Reactive]
     private SceneViewModel? _selectedScene;
+
+    [Reactive]
+    private InteractionMode _interactionMode = InteractionMode.View;
 }

@@ -9,6 +9,7 @@
                           xmlns:audio="clr-namespace:ChoreoApp.AudioPlayer"
                           xmlns:settings="clr-namespace:ChoreoApp.ChoreographySettings"
                           xmlns:main="clr-namespace:ChoreoApp.Main"
+                          xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
                           x:DataType="main:MainViewModel"
                           x:Class="ChoreoApp.Main.MainPage">
     <styling:DialogHost x:Name="MainDialogHost"
@@ -27,6 +28,18 @@
                                        HorizontalOptions="End"
                                        VerticalOptions="Center"
                                        Spacing="8">
+                    <HorizontalStackLayout Spacing="6"
+                                           VerticalOptions="Center">
+                        <Label Text="{x:Static i18n:Translations.ModeLabel}"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}"
+                               VerticalOptions="Center" />
+                        <Picker ItemsSource="{Binding ModeOptions}"
+                                SelectedItem="{Binding SelectedModeOption}"
+                                ItemDisplayBinding="{Binding Display}"
+                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+                                WidthRequest="180" />
+                    </HorizontalStackLayout>
                     <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
                                            Command="{Binding OpenChoreographySettingsCommand}">
                         <styling:PackIcon Kind="Pen" />
