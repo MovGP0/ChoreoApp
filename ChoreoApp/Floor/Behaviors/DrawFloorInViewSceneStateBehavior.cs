@@ -7,17 +7,21 @@ using ChoreoApp.AudioPlayer.Messages;
 using ChoreoApp.Floor.Messages;
 using ChoreoMasterMobile.Json;
 using ChoreoApp.Settings;
+using ChoreoApp.StateMachine;
+using ChoreoApp.StateMachine.States;
 using MessagePipe;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 
 namespace ChoreoApp.Floor.Behaviors;
 
-public sealed class DrawFloorBehavior(
+public sealed class DrawFloorInViewSceneStateBehavior(
     Global.GlobalStateModel globalState,
+    ApplicationStateMachine stateMachine,
     ISubscriber<DrawFloorCommand> drawFloorCommandSubscriber,
     ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber,
-    ISubscriber<AudioPlayerPositionChangedEvent> audioPositionSubscriber) : IBehavior<FloorCanvasViewModel>
+    ISubscriber<AudioPlayerPositionChangedEvent> audioPositionSubscriber):
+    IBehavior<FloorCanvasViewModel>
 {
     private readonly Dictionary<int, SKColor> _roleBorderColors = new();
     private FloorCanvasViewModel? _viewModel;
@@ -59,6 +63,11 @@ public sealed class DrawFloorBehavior(
 
     private void DrawFloor(SKPaintSurfaceEventArgs args)
     {
+        if (stateMachine.State is not ViewSceneState)
+        {
+            return;
+        }
+
         var canvas = args.Surface.Canvas;
         SKColor surfaceColor = GetColor(MaterialDesignColorKey.Surface);
         canvas.Clear(surfaceColor);

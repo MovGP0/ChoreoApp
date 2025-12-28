@@ -6,7 +6,7 @@ public static class DependencyInjection
     {
         services.AddTransient<IViewFor<FloorCanvasViewModel>, FloorCanvasView>();
         services.AddTransient<FloorCanvasViewModel>();
-        services.AddTransient<IBehavior<FloorCanvasViewModel>, Behaviors.DrawFloorBehavior>();
+        services.AddTransient<IBehavior<FloorCanvasViewModel>, Behaviors.DrawFloorInViewSceneStateBehavior>();
         services.AddTransient<IBehavior<FloorCanvasViewModel>, Behaviors.RedrawFloorBehavior>();
         services.AddTransient<IBehavior<FloorCanvasViewModel>, Behaviors.GestureHandlingBehavior>();
 
