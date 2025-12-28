@@ -9,7 +9,7 @@ public sealed class ApplicationStateMachine(
     GlobalStateModel globalState,
     IEnumerable<StateTransition> transitions)
 {
-    public ApplicationState State { get; private set; } = new InitialApplicationState();
+    public ApplicationState State { get; private set; } = new ViewSceneState();
 
     public bool TryApply(ApplicationTrigger trigger)
     {

@@ -1,12 +1,16 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Floor.Messages;
+using ChoreoApp.StateMachine;
+using ChoreoApp.StateMachine.Triggers;
 using SkiaSharp;
 using SkiaSharp.Views.Maui.Controls;
 
 namespace ChoreoApp.Floor.Behaviors;
 
-public sealed class GestureHandlingBehavior : IBehavior<FloorCanvasViewModel>
+public sealed class GestureHandlingBehavior(
+    ApplicationStateMachine stateMachine):
+    IBehavior<FloorCanvasViewModel>
 {
     private const float TouchPanFactor = 0.5f;
 
@@ -61,8 +65,10 @@ public sealed class GestureHandlingBehavior : IBehavior<FloorCanvasViewModel>
         switch (args.StatusType)
         {
             case GestureStatus.Started:
+                stateMachine.TryApply(new PanStartedTrigger());
                 _lastPanPosition = new Point(args.TotalX, args.TotalY);
                 break;
+
             case GestureStatus.Running:
             {
                 if (_lastPanPosition is null)
@@ -80,10 +86,13 @@ public sealed class GestureHandlingBehavior : IBehavior<FloorCanvasViewModel>
                 InvalidateCanvas(viewModel);
                 break;
             }
+
             case GestureStatus.Canceled:
             case GestureStatus.Completed:
+                stateMachine.TryApply(new PanCompletedTrigger());
                 _lastPanPosition = null;
                 break;
+
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -100,6 +109,7 @@ public sealed class GestureHandlingBehavior : IBehavior<FloorCanvasViewModel>
         switch (args.Status)
         {
             case GestureStatus.Started:
+                stateMachine.TryApply(new ZoomStartedTrigger());
                 _lastPinchScale = 1f;
                 break;
             case GestureStatus.Running:
@@ -118,6 +128,7 @@ public sealed class GestureHandlingBehavior : IBehavior<FloorCanvasViewModel>
             }
             case GestureStatus.Canceled:
             case GestureStatus.Completed:
+                stateMachine.TryApply(new ZoomCompletedTrigger());
                 _lastPinchScale = 1f;
                 break;
             default:
@@ -169,6 +180,7 @@ public sealed class GestureHandlingBehavior : IBehavior<FloorCanvasViewModel>
 
     private void HandlePointerWheelChanged(FloorCanvasViewModel viewModel, PointerWheelChangedCommand command)
     {
+        stateMachine.TryApply(new ZoomStartedTrigger());
         var zoomFactor = command.Delta > 0 ? 1.1f : 0.9f;
         var zoomCenter = command.Position ?? _lastHoverPosition;
         if (zoomCenter is null)
@@ -183,6 +195,7 @@ public sealed class GestureHandlingBehavior : IBehavior<FloorCanvasViewModel>
         var scaleMatrix = SKMatrix.CreateScale(zoomFactor, zoomFactor, originX, originY);
         ApplyTransformation(viewModel, scaleMatrix);
         InvalidateCanvas(viewModel);
+        stateMachine.TryApply(new ZoomCompletedTrigger());
     }
 
     private void HandleTouch(FloorCanvasViewModel viewModel, TouchCommand command)
