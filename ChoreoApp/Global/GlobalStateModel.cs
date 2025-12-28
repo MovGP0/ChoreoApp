@@ -1,7 +1,4 @@
 using ChoreoApp.Scenes;
-using ChoreoApp.StateMachine;
-using ChoreoApp.StateMachine.States;
-using ChoreoApp.StateMachine.Transitions;
 using ChoreoMasterMobile.Json;
 using DynamicData.Binding;
 
@@ -29,8 +26,4 @@ public sealed partial class GlobalStateModel : ReactiveObject
 
     [Reactive]
     private bool _isPlaceMode;
-
-    public ApplicationStateMachine StateMachine { get; } = new(
-        initialState: new InitialApplicationState(),
-        transitions: Array.Empty<StateTransition>());
 }

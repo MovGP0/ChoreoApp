@@ -8,6 +8,7 @@ using ChoreoApp.Floor;
 using ChoreoApp.Main;
 using ChoreoApp.Scenes;
 using ChoreoApp.Settings;
+using ChoreoApp.StateMachine;
 using CommunityToolkit.Maui;
 using Sharpnado.Shades;
 
@@ -37,6 +38,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<Global.GlobalStateModel>();
 
         builder.Services
+            .AddApplicationStateMachine()
             .AddFloor()
             .AddAudio()
             .AddScenes()
