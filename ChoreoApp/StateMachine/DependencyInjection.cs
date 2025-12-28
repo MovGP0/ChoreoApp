@@ -14,9 +14,9 @@ public static class DependencyInjection
                 FromState: typeof(ViewSceneState),
                 Trigger: typeof(PanStartedTrigger),
                 Preconditions: [],
-                Apply: (_, _, _) => new PanViewSceneState()))
+                Apply: (_, _, _) => new ViewScenePanState()))
             .AddSingleton<StateTransition>(_ => new(
-                FromState: typeof(PanViewSceneState),
+                FromState: typeof(ViewScenePanState),
                 Trigger: typeof(PanCompletedTrigger),
                 Preconditions: [],
                 Apply: (_, _, _) => new ViewSceneState()))
@@ -24,21 +24,96 @@ public static class DependencyInjection
                 FromState: typeof(ViewSceneState),
                 Trigger: typeof(ZoomStartedTrigger),
                 Preconditions: [],
-                Apply: (_, _, _) => new ZoomViewSceneState()))
+                Apply: (_, _, _) => new ViewSceneZoomState()))
             .AddSingleton<StateTransition>(_ => new(
-                FromState: typeof(ZoomViewSceneState),
+                FromState: typeof(ViewSceneZoomState),
                 Trigger: typeof(ZoomCompletedTrigger),
                 Preconditions: [],
                 Apply: (_, _, _) => new ViewSceneState()))
             .AddSingleton<StateTransition>(_ => new(
-                FromState: typeof(PanViewSceneState),
+                FromState: typeof(ViewScenePanState),
                 Trigger: typeof(ZoomStartedTrigger),
                 Preconditions: [],
-                Apply: (_, _, _) => new ZoomViewSceneState()))
+                Apply: (_, _, _) => new ViewSceneZoomState()))
             .AddSingleton<StateTransition>(_ => new(
-                FromState: typeof(ZoomViewSceneState),
+                FromState: typeof(ViewSceneZoomState),
                 Trigger: typeof(PanStartedTrigger),
                 Preconditions: [],
-                Apply: (_, _, _) => new PanViewSceneState()));
+                Apply: (_, _, _) => new ViewScenePanState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ViewSceneState),
+                Trigger: typeof(PlacePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new PlacePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ViewScenePanState),
+                Trigger: typeof(PlacePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new PlacePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ViewSceneZoomState),
+                Trigger: typeof(PlacePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new PlacePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(PlacePositionsState),
+                Trigger: typeof(PlacePositionsCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(PlacePositionsPanState),
+                Trigger: typeof(PlacePositionsCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(PlacePositionsZoomState),
+                Trigger: typeof(PlacePositionsCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(PlacePositionsState),
+                Trigger: typeof(PlacePositionsCanceledTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(PlacePositionsPanState),
+                Trigger: typeof(PlacePositionsCanceledTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(PlacePositionsZoomState),
+                Trigger: typeof(PlacePositionsCanceledTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(PlacePositionsState),
+                Trigger: typeof(PanStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new PlacePositionsPanState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(PlacePositionsPanState),
+                Trigger: typeof(PanCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new PlacePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(PlacePositionsState),
+                Trigger: typeof(ZoomStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new PlacePositionsZoomState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(PlacePositionsZoomState),
+                Trigger: typeof(ZoomCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new PlacePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(PlacePositionsPanState),
+                Trigger: typeof(ZoomStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new PlacePositionsZoomState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(PlacePositionsZoomState),
+                Trigger: typeof(PanStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new PlacePositionsPanState()));
     }
 }

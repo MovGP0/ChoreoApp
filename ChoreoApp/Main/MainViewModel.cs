@@ -7,6 +7,8 @@ using ChoreoApp.Global;
 using ChoreoApp.i18n;
 using ChoreoApp.Main.Messages;
 using ChoreoApp.Scenes;
+using ChoreoApp.StateMachine;
+using ChoreoApp.StateMachine.Triggers;
 using MessagePipe;
 
 namespace ChoreoApp.Main;
@@ -16,11 +18,13 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
     public MainViewModel(
         IEnumerable<IBehavior<MainViewModel>> behaviors,
         GlobalStateModel globalState,
+        ApplicationStateMachine stateMachine,
         AudioPlayerViewModel audioPlayerViewModel,
         IPublisher<OpenAudioFileCommand> openAudioPublisher,
         IPublisher<OpenSvgFileCommand> openSvgPublisher)
     {
         _globalState = globalState;
+        _stateMachine = stateMachine;
         AudioPlayerViewModel = audioPlayerViewModel;
         _openAudioPublisher = openAudioPublisher;
         _openSvgPublisher = openSvgPublisher;
@@ -57,7 +61,13 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
                 .DisposeWith(disposables);
 
             _globalState.WhenAnyValue(state => state.IsPlaceMode)
-                .Subscribe(isPlaceMode => IsModeSelectionEnabled = !isPlaceMode)
+                .Subscribe(isPlaceMode =>
+                {
+                    IsModeSelectionEnabled = !isPlaceMode;
+                    _stateMachine.TryApply(isPlaceMode
+                        ? new PlacePositionsStartedTrigger()
+                        : new PlacePositionsCompletedTrigger());
+                })
                 .DisposeWith(disposables);
 
             _globalState.WhenAnyValue(state => state.InteractionMode)
@@ -75,6 +85,7 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
     private readonly IPublisher<OpenAudioFileCommand> _openAudioPublisher;
     private readonly IPublisher<OpenSvgFileCommand> _openSvgPublisher;
     private readonly GlobalStateModel _globalState;
+    private readonly ApplicationStateMachine _stateMachine;
 
     public ViewModelActivator Activator { get; } = new();
     public AudioPlayerViewModel AudioPlayerViewModel { get; }
