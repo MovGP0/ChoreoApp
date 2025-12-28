@@ -30,6 +30,69 @@
   <data name="AppTitle" xml:space="preserve">
     <value>Choreographie Viewer</value>
   </data>
+  <data name="ChoreographyAuthorPlaceholder" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="ChoreographyCommentPlaceholder" xml:space="preserve">
+    <value>Kommentar</value>
+  </data>
+  <data name="ChoreographyDescriptionPlaceholder" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="ChoreographyDisplayTitle" xml:space="preserve">
+    <value>Anzeige</value>
+  </data>
+  <data name="ChoreographyDrawPathFromLabel" xml:space="preserve">
+    <value>Von wo</value>
+  </data>
+  <data name="ChoreographyDrawPathToLabel" xml:space="preserve">
+    <value>Wohin</value>
+  </data>
+  <data name="ChoreographyFloorBackLabel" xml:space="preserve">
+    <value>Hinten</value>
+  </data>
+  <data name="ChoreographyFloorColorLabel" xml:space="preserve">
+    <value>Bodenfarbe</value>
+  </data>
+  <data name="ChoreographyFloorFrontLabel" xml:space="preserve">
+    <value>Vorne</value>
+  </data>
+  <data name="ChoreographyFloorLeftLabel" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="ChoreographyFloorRightLabel" xml:space="preserve">
+    <value>Rechts</value>
+  </data>
+  <data name="ChoreographyFloorTitle" xml:space="preserve">
+    <value>Boden</value>
+  </data>
+  <data name="ChoreographyGridLinesLabel" xml:space="preserve">
+    <value>Rasterlinien</value>
+  </data>
+  <data name="ChoreographyGridSizeLabel" xml:space="preserve">
+    <value>Rastergroesse</value>
+  </data>
+  <data name="ChoreographyNamePlaceholder" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ChoreographyPositionsAtSideLabel" xml:space="preserve">
+    <value>Positionen am Rand</value>
+  </data>
+  <data name="ChoreographySectionTitle" xml:space="preserve">
+    <value>Choreografie</value>
+  </data>
+  <data name="ChoreographyShowTimestampsLabel" xml:space="preserve">
+    <value>Zeitstempel anzeigen</value>
+  </data>
+  <data name="ChoreographySubtitlePlaceholder" xml:space="preserve">
+    <value>Untertitel</value>
+  </data>
+  <data name="ChoreographyTransparencyLabel" xml:space="preserve">
+    <value>Transparenz</value>
+  </data>
+  <data name="ChoreographyVariationPlaceholder" xml:space="preserve">
+    <value>Variation</value>
+  </data>
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Suchen</value>
   </data>

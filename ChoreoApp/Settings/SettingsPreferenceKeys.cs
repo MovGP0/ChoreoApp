@@ -16,4 +16,7 @@ public static class SettingsPreferenceKeys
     public const string LastOpenedChoreoFile = "LastOpenedChoreoFile";
     public const string LastOpenedAudioFile = "LastOpenedAudioFile";
     public const string LastOpenedSvgFile = "LastOpenedSvgFile";
+
+    public const string DrawPathFrom = "DrawPathFrom";
+    public const string DrawPathTo = "DrawPathTo";
 }

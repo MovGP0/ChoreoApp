@@ -41,5 +41,11 @@ public sealed class LoadChoreographySettingsBehavior(GlobalStateModel globalStat
         viewModel.FloorBack = 0;
         viewModel.FloorLeft = 0;
         viewModel.FloorRight = 0;
+        viewModel.GridResolution = 1;
+        viewModel.Transparency = 0m;
+        viewModel.PositionsAtSide = false;
+        viewModel.GridLines = false;
+        viewModel.FloorColor = Colors.Transparent;
+        viewModel.ShowTimestamps = false;
     }
 }

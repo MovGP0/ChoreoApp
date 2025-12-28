@@ -67,6 +67,195 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("AppTitle", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Author.
+        /// </summary>
+        public static string ChoreographyAuthorPlaceholder {
+            get {
+                return ResourceManager.GetString("ChoreographyAuthorPlaceholder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        public static string ChoreographyCommentPlaceholder {
+            get {
+                return ResourceManager.GetString("ChoreographyCommentPlaceholder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string ChoreographyDescriptionPlaceholder {
+            get {
+                return ResourceManager.GetString("ChoreographyDescriptionPlaceholder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Display.
+        /// </summary>
+        public static string ChoreographyDisplayTitle {
+            get {
+                return ResourceManager.GetString("ChoreographyDisplayTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Where from.
+        /// </summary>
+        public static string ChoreographyDrawPathFromLabel {
+            get {
+                return ResourceManager.GetString("ChoreographyDrawPathFromLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Where to.
+        /// </summary>
+        public static string ChoreographyDrawPathToLabel {
+            get {
+                return ResourceManager.GetString("ChoreographyDrawPathToLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        public static string ChoreographyFloorBackLabel {
+            get {
+                return ResourceManager.GetString("ChoreographyFloorBackLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Floor color.
+        /// </summary>
+        public static string ChoreographyFloorColorLabel {
+            get {
+                return ResourceManager.GetString("ChoreographyFloorColorLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Front.
+        /// </summary>
+        public static string ChoreographyFloorFrontLabel {
+            get {
+                return ResourceManager.GetString("ChoreographyFloorFrontLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Left.
+        /// </summary>
+        public static string ChoreographyFloorLeftLabel {
+            get {
+                return ResourceManager.GetString("ChoreographyFloorLeftLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Right.
+        /// </summary>
+        public static string ChoreographyFloorRightLabel {
+            get {
+                return ResourceManager.GetString("ChoreographyFloorRightLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Floor.
+        /// </summary>
+        public static string ChoreographyFloorTitle {
+            get {
+                return ResourceManager.GetString("ChoreographyFloorTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Grid lines.
+        /// </summary>
+        public static string ChoreographyGridLinesLabel {
+            get {
+                return ResourceManager.GetString("ChoreographyGridLinesLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Grid size.
+        /// </summary>
+        public static string ChoreographyGridSizeLabel {
+            get {
+                return ResourceManager.GetString("ChoreographyGridSizeLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string ChoreographyNamePlaceholder {
+            get {
+                return ResourceManager.GetString("ChoreographyNamePlaceholder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Positions at side.
+        /// </summary>
+        public static string ChoreographyPositionsAtSideLabel {
+            get {
+                return ResourceManager.GetString("ChoreographyPositionsAtSideLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Choreography.
+        /// </summary>
+        public static string ChoreographySectionTitle {
+            get {
+                return ResourceManager.GetString("ChoreographySectionTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Show timestamps.
+        /// </summary>
+        public static string ChoreographyShowTimestampsLabel {
+            get {
+                return ResourceManager.GetString("ChoreographyShowTimestampsLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Subtitle.
+        /// </summary>
+        public static string ChoreographySubtitlePlaceholder {
+            get {
+                return ResourceManager.GetString("ChoreographySubtitlePlaceholder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Transparency.
+        /// </summary>
+        public static string ChoreographyTransparencyLabel {
+            get {
+                return ResourceManager.GetString("ChoreographyTransparencyLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Variation.
+        /// </summary>
+        public static string ChoreographyVariationPlaceholder {
+            get {
+                return ResourceManager.GetString("ChoreographyVariationPlaceholder", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Dark mode.

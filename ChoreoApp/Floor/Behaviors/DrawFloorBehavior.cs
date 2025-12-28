@@ -192,15 +192,12 @@ public sealed class DrawFloorBehavior(
             const float padding = 16f;
             const float spacing = 4f;
 
-            var choreographyName = choreography.Name ?? string.Empty;
-            var sceneName = _selectedScene?.Name ?? string.Empty;
-
             using var titleFont = new SKFont();
             titleFont.Size = 20f;
             titleFont.Edging = SKFontEdging.Antialias;
 
             using var subtitleFont = new SKFont();
-            subtitleFont.Size = 14f;
+            subtitleFont.Size = 16f;
             subtitleFont.Edging = SKFontEdging.Antialias;
 
             float titleHeight = titleFont.Metrics.Descent - titleFont.Metrics.Ascent;

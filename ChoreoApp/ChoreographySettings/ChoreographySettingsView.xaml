@@ -6,29 +6,37 @@
                           xmlns:maui="using:ReactiveUI.Maui"
                           xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
                           xmlns:settings="clr-namespace:ChoreoApp.ChoreographySettings"
+                          xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
+                          xmlns:colorPicker="clr-namespace:ChoreoApp.ColorPicker"
+                          xmlns:conv="clr-namespace:ChoreoApp.ChoreographySettings.Converters"
                           BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                           x:DataType="settings:ChoreographySettingsViewModel"
                           x:Class="ChoreoApp.ChoreographySettings.ChoreographySettingsView">
+    <maui:ReactiveContentView.Resources>
+        <ResourceDictionary>
+            <conv:DecimalDoubleConverter x:Key="DecimalDoubleConverter" />
+        </ResourceDictionary>
+    </maui:ReactiveContentView.Resources>
     <ScrollView>
         <VerticalStackLayout Spacing="4"
                              Padding="4">
             <styling:Card Padding="4" Style="{StaticResource MaterialDesignElevatedCard}">
                 <VerticalStackLayout Spacing="12">
-                    <Label Text="Choreography"
+                    <Label Text="{x:Static i18n:Translations.ChoreographySectionTitle}"
                            FontAttributes="Bold"
                            FontSize="18"
                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
-                    <Entry Placeholder="Comment"
+                    <Entry Placeholder="{x:Static i18n:Translations.ChoreographyCommentPlaceholder}"
                            Text="{Binding Comment}"
                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                            BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                            PlaceholderColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                    <Entry Placeholder="Name"
+                    <Entry Placeholder="{x:Static i18n:Translations.ChoreographyNamePlaceholder}"
                            Text="{Binding Name}"
                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                            BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                            PlaceholderColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                    <Entry Placeholder="Subtitle"
+                    <Entry Placeholder="{x:Static i18n:Translations.ChoreographySubtitlePlaceholder}"
                            Text="{Binding Subtitle}"
                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                            BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
@@ -36,17 +44,17 @@
                     <DatePicker Date="{Binding Date}"
                                 TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
-                    <Entry Placeholder="Variation"
+                    <Entry Placeholder="{x:Static i18n:Translations.ChoreographyVariationPlaceholder}"
                            Text="{Binding Variation}"
                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                            BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                            PlaceholderColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                    <Entry Placeholder="Autor"
+                    <Entry Placeholder="{x:Static i18n:Translations.ChoreographyAuthorPlaceholder}"
                            Text="{Binding Author}"
                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                            BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                            PlaceholderColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                    <Editor Placeholder="Description"
+                    <Editor Placeholder="{x:Static i18n:Translations.ChoreographyDescriptionPlaceholder}"
                             Text="{Binding Description}"
                             AutoSize="TextChanges"
                             TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
@@ -57,7 +65,7 @@
 
             <styling:Card Padding="4" Style="{StaticResource MaterialDesignElevatedCard}">
                 <VerticalStackLayout Spacing="12">
-                    <Label Text="Floor"
+                    <Label Text="{x:Static i18n:Translations.ChoreographyFloorTitle}"
                            FontAttributes="Bold"
                            FontSize="18"
                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
@@ -65,7 +73,7 @@
                           RowDefinitions="Auto,Auto,Auto,Auto"
                           ColumnSpacing="12"
                           RowSpacing="8">
-                        <Label Text="Front"
+                        <Label Text="{x:Static i18n:Translations.ChoreographyFloorFrontLabel}"
                                Grid.Row="0"
                                Grid.Column="0"
                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
@@ -77,7 +85,7 @@
                                 TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
 
-                        <Label Text="Back"
+                        <Label Text="{x:Static i18n:Translations.ChoreographyFloorBackLabel}"
                                Grid.Row="1"
                                Grid.Column="0"
                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
@@ -89,7 +97,7 @@
                                 TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
 
-                        <Label Text="Left"
+                        <Label Text="{x:Static i18n:Translations.ChoreographyFloorLeftLabel}"
                                Grid.Row="2"
                                Grid.Column="0"
                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
@@ -101,7 +109,7 @@
                                 TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
 
-                        <Label Text="Right"
+                        <Label Text="{x:Static i18n:Translations.ChoreographyFloorRightLabel}"
                                Grid.Row="3"
                                Grid.Column="0"
                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
@@ -112,6 +120,102 @@
                                 ItemDisplayBinding="{Binding .}"
                                 TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,Auto"
+                          RowDefinitions="Auto"
+                          ColumnSpacing="12"
+                          RowSpacing="8">
+                        <Label Text="{x:Static i18n:Translations.ChoreographyGridSizeLabel}"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <Picker Grid.Column="1"
+                                ItemsSource="{Binding GridSizeOptions}"
+                                SelectedItem="{Binding SelectedGridSizeOption}"
+                                ItemDisplayBinding="{Binding Display}"
+                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                                BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,Auto"
+                          RowDefinitions="Auto"
+                          ColumnSpacing="12"
+                          RowSpacing="8">
+                        <Label Text="{x:Static i18n:Translations.ChoreographyGridLinesLabel}"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <CheckBox Grid.Column="1"
+                                  IsChecked="{Binding GridLines}"
+                                  VerticalOptions="Center" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,Auto"
+                          RowDefinitions="Auto"
+                          ColumnSpacing="12"
+                          RowSpacing="8">
+                        <Label Text="{x:Static i18n:Translations.ChoreographyTransparencyLabel}"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <HorizontalStackLayout Grid.Column="1"
+                                               Spacing="8"
+                                               VerticalOptions="Center">
+                            <Label Text="{Binding Transparency, StringFormat='{0:F2}'}"
+                                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                            <Stepper Minimum="0"
+                                     Maximum="1"
+                                     Increment="0.01"
+                                     Value="{Binding Transparency, Converter={StaticResource DecimalDoubleConverter}}" />
+                        </HorizontalStackLayout>
+                    </Grid>
+                    <Label Text="{x:Static i18n:Translations.ChoreographyFloorColorLabel}"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                    <colorPicker:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
+                                                        SelectedColor="{Binding FloorColor}" />
+                </VerticalStackLayout>
+            </styling:Card>
+
+            <styling:Card Padding="4" Style="{StaticResource MaterialDesignElevatedCard}">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="{x:Static i18n:Translations.ChoreographyDisplayTitle}"
+                           FontAttributes="Bold"
+                           FontSize="18"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                    <Grid ColumnDefinitions="*,Auto"
+                          RowDefinitions="Auto,Auto,Auto,Auto"
+                          ColumnSpacing="12"
+                          RowSpacing="8">
+                        <Label Text="{x:Static i18n:Translations.ChoreographyDrawPathFromLabel}"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <CheckBox Grid.Row="0"
+                                  Grid.Column="1"
+                                  IsChecked="{Binding DrawPathFrom}"
+                                  VerticalOptions="Center" />
+
+                        <Label Text="{x:Static i18n:Translations.ChoreographyDrawPathToLabel}"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <CheckBox Grid.Row="1"
+                                  Grid.Column="1"
+                                  IsChecked="{Binding DrawPathTo}"
+                                  VerticalOptions="Center" />
+
+                        <Label Text="{x:Static i18n:Translations.ChoreographyShowTimestampsLabel}"
+                               Grid.Row="2"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <CheckBox Grid.Row="2"
+                                  Grid.Column="1"
+                                  IsChecked="{Binding ShowTimestamps}"
+                                  VerticalOptions="Center" />
+
+                        <Label Text="{x:Static i18n:Translations.ChoreographyPositionsAtSideLabel}"
+                               Grid.Row="3"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <CheckBox Grid.Row="3"
+                                  Grid.Column="1"
+                                  IsChecked="{Binding PositionsAtSide}"
+                                  VerticalOptions="Center" />
                     </Grid>
                 </VerticalStackLayout>
             </styling:Card>
