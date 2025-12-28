@@ -79,6 +79,9 @@
     <MauiXaml Update="Main\MainPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="ColorPicker\MaterialColorDropdown.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Settings\SettingsPage.xaml.cs">
@@ -87,6 +90,10 @@
     </Compile>
     <Compile Update="Main\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ColorPicker\MaterialColorDropdown.xaml.cs">
+      <DependentUpon>MaterialColorDropdown.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

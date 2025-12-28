@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace ChoreoApp.Settings.Models;
+namespace ChoreoApp.ColorPicker;
 
 public sealed class MaterialColorGroup(string name) : ObservableCollection<MaterialColorOption>
 {

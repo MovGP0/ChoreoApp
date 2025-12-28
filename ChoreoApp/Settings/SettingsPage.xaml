@@ -5,8 +5,8 @@
                           xmlns:maui="using:ReactiveUI.Maui"
                           xmlns:settings="clr-namespace:ChoreoApp.Settings"
                           xmlns:conv="clr-namespace:ChoreoApp.Settings.Converters"
-                          xmlns:settingsControls="clr-namespace:ChoreoApp.Settings.Controls"
                           xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
+                          xmlns:colorPicker="clr-namespace:ChoreoApp.ColorPicker"
                           x:Class="ChoreoApp.Settings.SettingsPage">
     <maui:ReactiveContentPage.Resources>
         <ResourceDictionary>
@@ -62,7 +62,7 @@
                         Style="{StaticResource MaterialDesign3ToggleSwitchStyle}"
                         IsToggled="{Binding UsePrimaryColor, Mode=TwoWay}" />
             </Grid>
-            <settingsControls:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
+            <colorPicker:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
                                                     IsEnabled="{Binding UsePrimaryColor}"
                                                     SelectedColor="{Binding PrimaryColor, Mode=TwoWay}" />
 
@@ -80,7 +80,7 @@
                         Style="{StaticResource MaterialDesign3ToggleSwitchStyle}"
                         IsToggled="{Binding UseSecondaryColor, Mode=TwoWay}" />
             </Grid>
-            <settingsControls:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
+            <colorPicker:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
                                                     IsEnabled="{Binding UseSecondaryColor}"
                                                     SelectedColor="{Binding SecondaryColor, Mode=TwoWay}" />
 
@@ -98,7 +98,7 @@
                         Style="{StaticResource MaterialDesign3ToggleSwitchStyle}"
                         IsToggled="{Binding UseTertiaryColor, Mode=TwoWay}" />
             </Grid>
-            <settingsControls:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
+            <colorPicker:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
                                                     IsEnabled="{Binding UseTertiaryColor}"
                                                     SelectedColor="{Binding TertiaryColor, Mode=TwoWay}" />
         </VerticalStackLayout>

@@ -1,5 +1,6 @@
 ﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
+using ChoreoApp.ColorPicker;
 
 namespace ChoreoApp.Settings;
 
@@ -13,7 +14,7 @@ public sealed partial class SettingsViewModel : ReactiveObject, IActivatableView
     public void Dispose() => Disposables.Dispose();
 
     public ViewModelActivator Activator { get; } = new();
-    public IReadOnlyList<Models.MaterialColorGroup> ColorGroups { get; } = Models.MaterialColorPalette.BuildGroups();
+    public IReadOnlyList<MaterialColorGroup> ColorGroups { get; } = MaterialColorPalette.BuildGroups();
 
     [Reactive]
     private bool _isDarkMode;

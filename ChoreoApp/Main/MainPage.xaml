@@ -16,7 +16,7 @@
                         DialogContent="{Binding DialogContentView}">
         <Grid RowDefinitions="Auto,*,Auto">
             <Grid Padding="12,8"
-                  ColumnDefinitions="Auto,*,Auto"
+                  ColumnDefinitions="Auto,*"
                   BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
                 <styling:HamburgerToggleButton x:Name="HamburgerButton"
                                                Grid.Column="0"
@@ -24,11 +24,6 @@
                                                Checked="OnBurgerClicked"
                                                Unchecked="OnBurgerClicked" />
                 <HorizontalStackLayout Grid.Column="1"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"
-                                       Spacing="8">
-                </HorizontalStackLayout>
-                <HorizontalStackLayout Grid.Column="2"
                                        HorizontalOptions="End"
                                        VerticalOptions="Center"
                                        Spacing="8">

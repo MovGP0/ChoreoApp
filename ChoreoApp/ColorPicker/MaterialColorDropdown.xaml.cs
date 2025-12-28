@@ -1,8 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+//using ChoreoApp.Settings.Models;
 
-using ChoreoApp.Settings.Models;
-
-namespace ChoreoApp.Settings.Controls;
+namespace ChoreoApp.ColorPicker;
 
 public partial class MaterialColorDropdown : ContentView
 {
