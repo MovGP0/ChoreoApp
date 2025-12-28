@@ -8,7 +8,7 @@ public sealed class Position
     /// Dancer this position belongs to.
     /// </summary>
     [JsonPropertyName("Dancer")]
-    public Dancer Dancer { get; set; } = null!;
+    public Dancer? Dancer { get; set; }
 
     /// <summary>
     /// Optional orientation angle at this position.

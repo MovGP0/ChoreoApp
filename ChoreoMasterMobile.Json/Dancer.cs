@@ -1,12 +1,8 @@
 using System.Text.Json.Serialization;
-using StronglyTypedIds;
 using Color = Microsoft.Maui.Graphics.Color;
 using Colors = Microsoft.Maui.Graphics.Colors;
 
 namespace ChoreoMasterMobile.Json;
-
-[StronglyTypedId(Template.Int)]
-public partial struct DancerId;
 
 public sealed class Dancer
 {
