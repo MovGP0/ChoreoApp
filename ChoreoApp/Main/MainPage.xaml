@@ -28,14 +28,11 @@
                                        HorizontalOptions="End"
                                        VerticalOptions="Center"
                                        Spacing="8">
-                    <HorizontalStackLayout Spacing="6"
-                                           VerticalOptions="Center">
-                        <Label Text="{x:Static i18n:Translations.ModeLabel}"
-                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}"
-                               VerticalOptions="Center" />
+                    <HorizontalStackLayout VerticalOptions="Center">
                         <Picker ItemsSource="{Binding ModeOptions}"
                                 SelectedItem="{Binding SelectedModeOption}"
                                 ItemDisplayBinding="{Binding Display}"
+                                IsEnabled="{Binding IsModeSelectionEnabled}"
                                 TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                                 WidthRequest="180" />

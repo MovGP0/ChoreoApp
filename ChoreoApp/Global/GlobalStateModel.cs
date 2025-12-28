@@ -23,4 +23,7 @@ public sealed partial class GlobalStateModel : ReactiveObject
 
     [Reactive]
     private InteractionMode _interactionMode = InteractionMode.View;
+
+    [Reactive]
+    private bool _isPlaceMode;
 }

@@ -1,9 +1,12 @@
-﻿using System.Reactive.Disposables.Fluent;
+﻿using System.Collections.Specialized;
+using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.AudioPlayer;
 using ChoreoApp.Global;
 using ChoreoApp.i18n;
 using ChoreoApp.Main.Messages;
+using ChoreoApp.Scenes;
 using MessagePipe;
 
 namespace ChoreoApp.Main;
@@ -34,6 +37,29 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
                 behavior.Activate(this, disposables);
             }
 
+            var placeModeSubscription = new SerialDisposable().DisposeWith(disposables);
+
+            _globalState.WhenAnyValue(state => state.SelectedScene)
+                .Subscribe(scene =>
+                {
+                    UpdatePlaceMode(scene);
+                    placeModeSubscription.Disposable = scene is null
+                        ? Disposable.Empty
+                        : Observable.FromEventPattern<NotifyCollectionChangedEventHandler, NotifyCollectionChangedEventArgs>(
+                                handler => scene.Positions.CollectionChanged += handler,
+                                handler => scene.Positions.CollectionChanged -= handler)
+                            .Subscribe(_ => UpdatePlaceMode(scene));
+                })
+                .DisposeWith(disposables);
+
+            _globalState.WhenAnyValue(state => state.Choreography)
+                .Subscribe(_ => UpdatePlaceMode(_globalState.SelectedScene))
+                .DisposeWith(disposables);
+
+            _globalState.WhenAnyValue(state => state.IsPlaceMode)
+                .Subscribe(isPlaceMode => IsModeSelectionEnabled = !isPlaceMode)
+                .DisposeWith(disposables);
+
             _globalState.WhenAnyValue(state => state.InteractionMode)
                 .Subscribe(mode => SelectedModeOption = ModeOptions.FirstOrDefault(option => option.Mode == mode) ?? ModeOptions[0])
                 .DisposeWith(disposables);
@@ -56,6 +82,9 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
 
     [Reactive]
     private InteractionModeOption? _selectedModeOption;
+
+    [Reactive]
+    private bool _isModeSelectionEnabled = true;
 
     [Reactive]
     private GridLength _navColumnWidth = new(DefaultNavWidth);
@@ -169,6 +198,19 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
     private void OpenChoreographySettings()
     {
         IsChoreographySettingsOpen = true;
+    }
+
+    private void UpdatePlaceMode(SceneViewModel? scene)
+    {
+        if (scene is null)
+        {
+            _globalState.IsPlaceMode = false;
+            return;
+        }
+
+        int dancerCount = _globalState.Choreography.Dancers.Count;
+        int positionCount = scene.Positions.Count;
+        _globalState.IsPlaceMode = dancerCount > 0 && positionCount < dancerCount;
     }
 
     private static List<InteractionModeOption> BuildModeOptions() => new()
