@@ -198,7 +198,7 @@ public sealed class SliderWithTicks : ContentView
         set => SetValue(TickColorProperty, value);
     }
 
-    private void OnSliderValueChanged(object? sender, ValueChangedEventArgs e)
+    private void OnSliderValueChanged(object? sender, ValueChangedEventArgs<double> e)
     {
         if (_isUpdatingFromSlider)
         {

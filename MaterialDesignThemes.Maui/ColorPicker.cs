@@ -174,7 +174,7 @@ public sealed class ColorPicker : TemplatedView
         }
     }
 
-    private void OnHueSliderValueChanged(object? sender, ValueChangedEventArgs e)
+    private void OnHueSliderValueChanged(object? sender, ValueChangedEventArgs<double> e)
     {
         if (_isUpdatingFromHue)
         {

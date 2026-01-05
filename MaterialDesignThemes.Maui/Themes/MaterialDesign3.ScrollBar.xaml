@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="MaterialDesign3.ContentButton.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <Style x:Key="MaterialDesignScrollBarButton"
+         TargetType="styling:ContentButton"
+         BasedOn="{StaticResource MaterialDesignFlatButton}">
+    <Setter Property="BackgroundColor" Value="Transparent" />
+    <Setter Property="Padding" Value="2" />
+    <Setter Property="HeightRequest" Value="16" />
+    <Setter Property="WidthRequest" Value="16" />
+    <Setter Property="Foreground"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+  </Style>
+
+  <ControlTemplate x:Key="MaterialDesignScrollBarVerticalTemplate">
+    <Grid RowDefinitions="Auto,*,Auto"
+          RowSpacing="2">
+      <styling:ContentButton x:Name="PART_DecreaseButton"
+                             Grid.Row="0"
+                             Style="{StaticResource MaterialDesignScrollBarButton}" />
+      <AbsoluteLayout x:Name="PART_TrackLayout"
+                      Grid.Row="1">
+        <Border x:Name="PART_Thumb"
+                BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}"
+                Opacity="0.5"
+                StrokeThickness="0">
+          <Border.StrokeShape>
+            <RoundRectangle CornerRadius="4" />
+          </Border.StrokeShape>
+        </Border>
+      </AbsoluteLayout>
+      <styling:ContentButton x:Name="PART_IncreaseButton"
+                             Grid.Row="2"
+                             Style="{StaticResource MaterialDesignScrollBarButton}" />
+    </Grid>
+  </ControlTemplate>
+
+  <ControlTemplate x:Key="MaterialDesignScrollBarHorizontalTemplate">
+    <Grid ColumnDefinitions="Auto,*,Auto"
+          ColumnSpacing="2">
+      <styling:ContentButton x:Name="PART_DecreaseButton"
+                             Grid.Column="0"
+                             Style="{StaticResource MaterialDesignScrollBarButton}" />
+      <AbsoluteLayout x:Name="PART_TrackLayout"
+                      Grid.Column="1">
+        <Border x:Name="PART_Thumb"
+                BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}"
+                Opacity="0.5"
+                StrokeThickness="0">
+          <Border.StrokeShape>
+            <RoundRectangle CornerRadius="4" />
+          </Border.StrokeShape>
+        </Border>
+      </AbsoluteLayout>
+      <styling:ContentButton x:Name="PART_IncreaseButton"
+                             Grid.Column="2"
+                             Style="{StaticResource MaterialDesignScrollBarButton}" />
+    </Grid>
+  </ControlTemplate>
+
+  <Style x:Key="MaterialDesignScrollBar"
+         TargetType="styling:ScrollBar">
+    <Setter Property="ControlTemplate" Value="{StaticResource MaterialDesignScrollBarVerticalTemplate}" />
+    <Setter Property="WidthRequest" Value="12" />
+    <Setter Property="HeightRequest" Value="120" />
+    <Style.Triggers>
+      <DataTrigger TargetType="styling:ScrollBar"
+                   Binding="{Binding Orientation, Source={RelativeSource Self}}"
+                   Value="Horizontal">
+        <Setter Property="ControlTemplate" Value="{StaticResource MaterialDesignScrollBarHorizontalTemplate}" />
+        <Setter Property="WidthRequest" Value="120" />
+        <Setter Property="HeightRequest" Value="12" />
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
+  <Style x:Key="MaterialDesignScrollBarMinimal"
+         TargetType="styling:ScrollBar"
+         BasedOn="{StaticResource MaterialDesignScrollBar}">
+    <Setter Property="WidthRequest" Value="8" />
+    <Setter Property="HeightRequest" Value="80" />
+  </Style>
+</ResourceDictionary>

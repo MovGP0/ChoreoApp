@@ -1,5 +1,3 @@
-using Microsoft.Maui.ApplicationModel;
-
 namespace MaterialDesignThemes.Maui;
 
 public sealed class SnackbarMessageQueue : ISnackbarMessageQueue, IDisposable

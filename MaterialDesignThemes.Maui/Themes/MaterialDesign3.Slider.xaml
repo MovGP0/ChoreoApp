@@ -1,15 +1,51 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
 
-    <Style TargetType="styling:SliderWithTicks">
-        <Setter Property="MinimumTrackColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
-        <Setter Property="MaximumTrackColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
-        <Setter Property="ThumbColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
-        <Setter Property="TickColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-        <Setter Property="Padding" Value="0" />
-    </Style>
+  <ControlTemplate x:Key="MaterialDesignSliderTemplate">
+    <AbsoluteLayout x:Name="PART_TrackLayout"
+                    HeightRequest="{TemplateBinding HeightRequest}">
+      <BoxView x:Name="PART_Track"
+               Color="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+               HeightRequest="{TemplateBinding TrackThickness}"
+               CornerRadius="{TemplateBinding TrackThickness}" />
+      <BoxView x:Name="PART_ActiveTrack"
+               Color="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}"
+               HeightRequest="{TemplateBinding TrackThickness}"
+               CornerRadius="{TemplateBinding TrackThickness}" />
+      <Border x:Name="PART_Thumb"
+              WidthRequest="{TemplateBinding ThumbSize}"
+              HeightRequest="{TemplateBinding ThumbSize}"
+              BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}"
+              StrokeThickness="0">
+        <Border.StrokeShape>
+          <RoundRectangle CornerRadius="{TemplateBinding ThumbSize}" />
+        </Border.StrokeShape>
+      </Border>
+      <Label x:Name="PART_ValueLabel"
+             IsVisible="{TemplateBinding ShowValueLabel}"
+             TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+             FontSize="12"
+             Opacity="0.9" />
+    </AbsoluteLayout>
+  </ControlTemplate>
 
+  <Style x:Key="MaterialDesignSlider"
+         TargetType="styling:Slider">
+    <Setter Property="ControlTemplate" Value="{StaticResource MaterialDesignSliderTemplate}" />
+    <Setter Property="HeightRequest" Value="32" />
+    <Setter Property="ThumbSize" Value="20" />
+    <Setter Property="TrackThickness" Value="4" />
+  </Style>
+
+  <Style x:Key="MaterialDesignDiscreteSlider"
+         TargetType="styling:Slider"
+         BasedOn="{StaticResource MaterialDesignSlider}">
+    <Setter Property="styling:SliderAssist.FocusSliderOnClick" Value="True" />
+    <Setter Property="ShowValueLabel" Value="True" />
+  </Style>
+
+  <Style TargetType="styling:Slider"
+         BasedOn="{StaticResource MaterialDesignSlider}" />
 </ResourceDictionary>

@@ -479,14 +479,8 @@ public class UpDownBase<T> : TemplatedView
     }
 }
 
-public sealed class ValueChangedEventArgs<TValue> : EventArgs
+public sealed class ValueChangedEventArgs<TValue>(TValue oldValue, TValue newValue) : EventArgs
 {
-    public ValueChangedEventArgs(TValue oldValue, TValue newValue)
-    {
-        OldValue = oldValue;
-        NewValue = newValue;
-    }
-
-    public TValue OldValue { get; }
-    public TValue NewValue { get; }
+    public TValue OldValue { get; } = oldValue;
+    public TValue NewValue { get; } = newValue;
 }

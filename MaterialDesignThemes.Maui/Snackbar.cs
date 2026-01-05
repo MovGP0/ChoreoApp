@@ -1,5 +1,3 @@
-using Microsoft.Maui.ApplicationModel;
-
 namespace MaterialDesignThemes.Maui;
 
 public enum SnackbarActionButtonPlacementMode
@@ -84,6 +82,18 @@ public class Snackbar : TemplatedView
     {
         get => (SnackbarActionButtonPlacementMode)GetValue(ActionButtonPlacementProperty);
         set => SetValue(ActionButtonPlacementProperty, value);
+    }
+
+    public static readonly BindableProperty TextColorProperty = BindableProperty.Create(
+        nameof(TextColor),
+        typeof(Color),
+        typeof(Snackbar),
+        null);
+
+    public Color? TextColor
+    {
+        get => (Color?)GetValue(TextColorProperty);
+        set => SetValue(TextColorProperty, value);
     }
 
     public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(

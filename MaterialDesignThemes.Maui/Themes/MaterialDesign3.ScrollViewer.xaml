@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="MaterialDesign3.ScrollBar.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <ControlTemplate x:Key="MaterialDesignScrollViewerTemplate">
+    <Grid ColumnDefinitions="*,Auto"
+          RowDefinitions="*,Auto"
+          BackgroundColor="{TemplateBinding BackgroundColor}">
+      <ScrollView x:Name="PART_ScrollView"
+                  Grid.Row="0"
+                  Grid.Column="0"
+                  HorizontalScrollBarVisibility="Never"
+                  VerticalScrollBarVisibility="Never" />
+      <styling:ScrollBar x:Name="PART_VerticalScrollBar"
+                                 Grid.Row="0"
+                                 Grid.Column="1"
+                                 Orientation="Vertical"
+                                 WidthRequest="12"
+                                 IsVisible="True" />
+      <styling:ScrollBar x:Name="PART_HorizontalScrollBar"
+                                 Grid.Row="1"
+                                 Grid.Column="0"
+                                 Orientation="Horizontal"
+                                 HeightRequest="12"
+                                 IsVisible="True" />
+    </Grid>
+  </ControlTemplate>
+
+  <Style x:Key="MaterialDesignScrollViewer"
+         TargetType="styling:ScrollViewer">
+    <Setter Property="ControlTemplate" Value="{StaticResource MaterialDesignScrollViewerTemplate}" />
+    <Setter Property="BackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
+  </Style>
+
+  <Style TargetType="styling:ScrollViewer"
+         BasedOn="{StaticResource MaterialDesignScrollViewer}" />
+</ResourceDictionary>
