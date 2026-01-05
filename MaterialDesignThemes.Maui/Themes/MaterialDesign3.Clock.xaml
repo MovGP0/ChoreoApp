@@ -4,9 +4,7 @@
                     xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
                     xmlns:converters="clr-namespace:MaterialDesignThemes.Maui.Converters;assembly=MaterialDesignThemes.Maui">
 
-  <ResourceDictionary.Resources>
-    <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
-  </ResourceDictionary.Resources>
+  <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
 
   <Style x:Key="MaterialDesignClockItemButton"
          TargetType="styling:ClockItemButton"
@@ -17,14 +15,14 @@
     <Setter Property="WidthRequest" Value="32" />
     <Setter Property="HeightRequest" Value="32" />
     <Style.Triggers>
-      <DataTrigger TargetType="styling:ClockItemButton"
-                   Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}}"
-                   Value="True">
+      <Trigger TargetType="styling:ClockItemButton"
+               Property="IsChecked"
+               Value="True">
         <Setter Property="BackgroundColor"
                 Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}" />
-      </DataTrigger>
+      </Trigger>
     </Style.Triggers>
   </Style>
 
