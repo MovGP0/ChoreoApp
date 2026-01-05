@@ -121,6 +121,40 @@
     <Setter Property="styling:TextFieldAssist.OutlinedBorderActiveThickness" Value="1" />
   </Style>
 
+  <Style x:Key="MaterialDesignPasswordEntry"
+         TargetType="Entry"
+         BasedOn="{StaticResource MaterialDesignEntryBase}">
+    <Setter Property="IsPassword" Value="True" />
+    <Setter Property="ClearButtonVisibility" Value="Never" />
+    <Setter Property="styling:TextFieldAssist.RippleOnFocusEnabled" Value="True" />
+  </Style>
+
+  <Style x:Key="MaterialDesignFloatingHintPasswordEntry"
+         TargetType="Entry"
+         BasedOn="{StaticResource MaterialDesignPasswordEntry}">
+    <Setter Property="styling:HintAssist.IsFloating" Value="True" />
+  </Style>
+
+  <Style x:Key="MaterialDesignFilledPasswordEntry"
+         TargetType="Entry"
+         BasedOn="{StaticResource MaterialDesignFloatingHintPasswordEntry}">
+    <Setter Property="BackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}" />
+    <Setter Property="styling:TextFieldAssist.HasFilledTextField" Value="True" />
+    <Setter Property="styling:TextFieldAssist.TextFieldCornerRadius" Value="12" />
+    <Setter Property="styling:TextFieldAssist.UnderlineCornerRadius" Value="0" />
+  </Style>
+
+  <Style x:Key="MaterialDesignOutlinedPasswordEntry"
+         TargetType="Entry"
+         BasedOn="{StaticResource MaterialDesignFloatingHintPasswordEntry}">
+    <Setter Property="BackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
+    <Setter Property="styling:TextFieldAssist.HasOutlinedTextField" Value="True" />
+    <Setter Property="styling:TextFieldAssist.TextFieldCornerRadius" Value="12" />
+    <Setter Property="styling:TextFieldAssist.OutlinedBorderActiveThickness" Value="1" />
+  </Style>
+
   <Style TargetType="Entry"
          BasedOn="{StaticResource MaterialDesignEntry}" />
 </ResourceDictionary>

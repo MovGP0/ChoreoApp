@@ -3,9 +3,9 @@
 ## Missing MAUI theme styles (WPF has these)
 
 ### Controls available in MAUI but different name
-- MaterialDesign3.ComboBox.xaml (use `Picker`)
-- MaterialDesign3.PasswordBox.xaml (use `Entry` with `IsPassword`)
-- MaterialDesign3.TabControl.xaml (use `TabbedPage` / `TabView` equivalent)
+- MaterialDesign3.Picker.xaml (ComboBox)
+- MaterialDesign3.Entry.xaml (PasswordBox)
+- MaterialDesign3.TabbedPage.xaml and MaterialDesign3.TabView.xaml (TabControl)
 
 ### Controls that need manual implementation if needed
 - MaterialDesign3.AutoSuggestBox.xaml
