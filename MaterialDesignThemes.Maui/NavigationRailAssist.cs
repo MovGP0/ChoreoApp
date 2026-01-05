@@ -61,7 +61,7 @@ public static class NavigationRailAssist
             "SelectionHeight",
             typeof(int),
             typeof(NavigationRailAssist),
-            default(int));
+            0);
 
     public static int GetSelectionHeight(BindableObject element) =>
         (int)element.GetValue(SelectionHeightProperty);
@@ -74,7 +74,7 @@ public static class NavigationRailAssist
             "SelectionWidth",
             typeof(int),
             typeof(NavigationRailAssist),
-            default(int));
+            0);
 
     public static int GetSelectionWidth(BindableObject element) =>
         (int)element.GetValue(SelectionWidthProperty);

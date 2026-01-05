@@ -8,7 +8,7 @@ public static class ButtonProgressAssist
         "Minimum",
         typeof(double),
         typeof(ButtonProgressAssist),
-        default(double));
+        0);
 
     public static double GetMinimum(BindableObject element) =>
         (double)element.GetValue(MinimumProperty);
@@ -32,7 +32,7 @@ public static class ButtonProgressAssist
         "Value",
         typeof(double),
         typeof(ButtonProgressAssist),
-        default(double));
+        0);
 
     public static double GetValue(BindableObject element) =>
         (double)element.GetValue(ValueProperty);
@@ -92,7 +92,7 @@ public static class ButtonProgressAssist
         "Opacity",
         typeof(double),
         typeof(ButtonProgressAssist),
-        default(double));
+        0);
 
     public static double GetOpacity(BindableObject element) =>
         (double)element.GetValue(OpacityProperty);

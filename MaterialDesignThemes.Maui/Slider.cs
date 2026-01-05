@@ -180,7 +180,7 @@ public sealed class Slider : TemplatedView
         nameof(ThumbImageSource),
         typeof(ImageSource),
         typeof(Slider),
-        default(ImageSource),
+        null,
         propertyChanged: OnAppearancePropertyChanged);
 
     public ImageSource? ThumbImageSource

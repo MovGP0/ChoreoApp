@@ -48,7 +48,7 @@ public static class NavigationBarAssist
             "SelectionHeight",
             typeof(int),
             typeof(NavigationBarAssist),
-            default(int));
+            0);
 
     public static int GetSelectionHeight(BindableObject element) =>
         (int)element.GetValue(SelectionHeightProperty);
@@ -61,7 +61,7 @@ public static class NavigationBarAssist
             "SelectionWidth",
             typeof(int),
             typeof(NavigationBarAssist),
-            default(int));
+            0);
 
     public static int GetSelectionWidth(BindableObject element) =>
         (int)element.GetValue(SelectionWidthProperty);

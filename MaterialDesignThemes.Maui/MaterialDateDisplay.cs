@@ -29,7 +29,7 @@ public sealed class MaterialDateDisplay : TemplatedView
             nameof(ComponentOneContent),
             typeof(string),
             typeof(MaterialDateDisplay),
-            default(string));
+            null);
 
     public static readonly BindableProperty ComponentOneContentProperty = ComponentOneContentPropertyKey.BindableProperty;
 
@@ -44,7 +44,7 @@ public sealed class MaterialDateDisplay : TemplatedView
             nameof(ComponentTwoContent),
             typeof(string),
             typeof(MaterialDateDisplay),
-            default(string));
+            null);
 
     public static readonly BindableProperty ComponentTwoContentProperty = ComponentTwoContentPropertyKey.BindableProperty;
 
@@ -59,7 +59,7 @@ public sealed class MaterialDateDisplay : TemplatedView
             nameof(ComponentThreeContent),
             typeof(string),
             typeof(MaterialDateDisplay),
-            default(string));
+            null);
 
     public static readonly BindableProperty ComponentThreeContentProperty = ComponentThreeContentPropertyKey.BindableProperty;
 
@@ -74,7 +74,7 @@ public sealed class MaterialDateDisplay : TemplatedView
             nameof(IsDayInFirstComponent),
             typeof(bool),
             typeof(MaterialDateDisplay),
-            default(bool));
+            false);
 
     public static readonly BindableProperty IsDayInFirstComponentProperty =
         IsDayInFirstComponentPropertyKey.BindableProperty;
