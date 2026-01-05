@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="MaterialDesign3.ContentButton.xaml" />
+    <ResourceDictionary Source="MaterialDesign3.PackIcon.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <ControlTemplate x:Key="MaterialDesignSplitButtonTemplate">
+    <Grid x:Name="OuterGrid"
+          ColumnDefinitions="*,Auto"
+          RowDefinitions="Auto,Auto"
+          ColumnSpacing="0"
+          RowSpacing="0">
+      <styling:ContentButton x:Name="PART_PrimaryButton"
+                             Grid.Row="0"
+                             Grid.Column="0"
+                             CornerRadius="2,0,0,2"
+                             Style="{TemplateBinding ButtonStyle}"
+                             HeightRequest="{TemplateBinding HeightRequest}"
+                             MinimumHeightRequest="{TemplateBinding MinimumHeightRequest}"
+                             IsEnabled="{TemplateBinding IsEnabled}" />
+      <styling:ContentButton x:Name="PART_RightButton"
+                             Grid.Row="0"
+                             Grid.Column="1"
+                             CornerRadius="0,2,2,0"
+                             Style="{TemplateBinding ButtonStyle}"
+                             HeightRequest="{TemplateBinding HeightRequest}"
+                             MinimumHeightRequest="{TemplateBinding MinimumHeightRequest}"
+                             IsEnabled="{TemplateBinding IsEnabled}" />
+      <Border x:Name="PART_PopupContentHost"
+              Grid.Row="1"
+              Grid.ColumnSpan="2"
+              Padding="8"
+              BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}"
+              IsVisible="{TemplateBinding IsPopupOpen}"
+              styling:ElevationAssist.Elevation="{TemplateBinding PopupElevation}" />
+    </Grid>
+  </ControlTemplate>
+
+  <Style x:Key="MaterialDesignSplitButton"
+         TargetType="styling:SplitButton">
+    <Setter Property="ControlTemplate" Value="{StaticResource MaterialDesignSplitButtonTemplate}" />
+    <Setter Property="HeightRequest" Value="32" />
+    <Setter Property="MinimumHeightRequest" Value="32" />
+    <Setter Property="HorizontalOptions" Value="Start" />
+  </Style>
+
+  <!-- Raised -->
+  <Style x:Key="MaterialDesignRaisedSplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignRaisedButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignRaisedLightSplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignRaisedSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignRaisedLightButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignRaisedDarkSplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignRaisedSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignRaisedDarkButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignRaisedSecondarySplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignRaisedSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignRaisedSecondaryButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignRaisedSecondaryLightSplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignRaisedSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignRaisedSecondaryLightButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignRaisedSecondaryDarkSplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignRaisedSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignRaisedSecondaryDarkButton}" />
+  </Style>
+
+  <!-- Outlined -->
+  <Style x:Key="MaterialDesignOutlinedSplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignOutlinedButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignOutlinedLightSplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignOutlinedSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignOutlinedLightButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignOutlinedDarkSplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignOutlinedSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignOutlinedDarkButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignOutlinedSecondarySplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignOutlinedSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignOutlinedSecondaryButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignOutlinedSecondaryLightSplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignOutlinedSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignOutlinedSecondaryLightButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignOutlinedSecondaryDarkSplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignOutlinedSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignOutlinedSecondaryDarkButton}" />
+  </Style>
+
+  <!-- Flat -->
+  <Style x:Key="MaterialDesignFlatSplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignFlatButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignFlatLightSplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignFlatSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignFlatLightButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignFlatDarkSplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignFlatSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignFlatDarkButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignFlatSecondarySplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignFlatSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignFlatSecondaryButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignFlatSecondaryLightSplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignFlatSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignFlatSecondaryLightButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignFlatSecondaryDarkSplitButton"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignFlatSplitButton}">
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignFlatSecondaryDarkButton}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignSplitButtonDefault"
+         TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignSplitButton}" />
+
+  <Style TargetType="styling:SplitButton"
+         BasedOn="{StaticResource MaterialDesignSplitButtonDefault}" />
+</ResourceDictionary>
