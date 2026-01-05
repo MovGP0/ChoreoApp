@@ -10,6 +10,31 @@
     <ResourceDictionary Source="MaterialDesign3.PackIcon.xaml" />
   </ResourceDictionary.MergedDictionaries>
 
+  <ControlTemplate x:Key="MaterialDesignUpDownTemplate">
+    <Grid BackgroundColor="{TemplateBinding BackgroundColor}"
+          ColumnDefinitions="*,Auto"
+          RowDefinitions="*,*"
+          ColumnSpacing="0"
+          RowSpacing="0">
+      <Entry x:Name="PART_Entry"
+             Grid.RowSpan="2"
+             Style="{TemplateBinding EntryStyle}"
+             IsEnabled="{TemplateBinding IsEnabled}" />
+      <styling:ContentButton x:Name="PART_IncreaseButton"
+                             Grid.Column="1"
+                             Grid.Row="0"
+                             Style="{TemplateBinding ButtonStyle}"
+                             IsEnabled="{TemplateBinding IsEnabled}"
+                             ButtonContent="{TemplateBinding IncreaseContent}" />
+      <styling:ContentButton x:Name="PART_DecreaseButton"
+                             Grid.Column="1"
+                             Grid.Row="1"
+                             Style="{TemplateBinding ButtonStyle}"
+                             IsEnabled="{TemplateBinding IsEnabled}"
+                             ButtonContent="{TemplateBinding DecreaseContent}" />
+    </Grid>
+  </ControlTemplate>
+
   <Style x:Key="MaterialDesignNumericUpDownButton"
          TargetType="styling:ContentButton"
          BasedOn="{StaticResource MaterialDesignFlatButton}">
@@ -24,6 +49,7 @@
 
   <Style x:Key="MaterialDesignNumericUpDownBase"
          TargetType="styling:NumericUpDown">
+    <Setter Property="ControlTemplate" Value="{StaticResource MaterialDesignUpDownTemplate}" />
     <Setter Property="MinimumWidthRequest" Value="100" />
     <Setter Property="HeightRequest" Value="48" />
     <Setter Property="BackgroundColor"
@@ -38,6 +64,7 @@
 
   <Style x:Key="MaterialDesignDecimalUpDownBase"
          TargetType="styling:DecimalUpDown">
+    <Setter Property="ControlTemplate" Value="{StaticResource MaterialDesignUpDownTemplate}" />
     <Setter Property="MinimumWidthRequest" Value="100" />
     <Setter Property="HeightRequest" Value="48" />
     <Setter Property="BackgroundColor"

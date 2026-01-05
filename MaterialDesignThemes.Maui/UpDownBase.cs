@@ -3,62 +3,22 @@ using System.Numerics;
 
 namespace MaterialDesignThemes.Maui;
 
-public class UpDownBase<T> : ContentView
+public class UpDownBase<T> : TemplatedView
     where T : INumber<T>, IMinMaxValue<T>
 {
-    private readonly Entry _entry = new();
-    private readonly ContentButton _increaseButton = new();
-    private readonly ContentButton _decreaseButton = new();
-    private readonly Grid _layout = [];
-    private readonly Grid _buttonLayout = [];
+    public const string EntryPartName = "PART_Entry";
+    public const string IncreaseButtonPartName = "PART_IncreaseButton";
+    public const string DecreaseButtonPartName = "PART_DecreaseButton";
+
+    private Entry? _entry;
+    private ContentButton? _increaseButton;
+    private ContentButton? _decreaseButton;
     private bool _isUpdatingText;
     private bool _isUpdatingFromText;
 
     public UpDownBase()
     {
-        _entry.HorizontalOptions = LayoutOptions.Fill;
-        _entry.VerticalOptions = LayoutOptions.Center;
-        _entry.Keyboard = Keyboard.Numeric;
-        _entry.TextChanged += OnEntryTextChanged;
-        _entry.Unfocused += OnEntryUnfocused;
-
-        _increaseButton.Clicked += OnIncreaseClicked;
-        _decreaseButton.Clicked += OnDecreaseClicked;
-
-        UpdateIncreaseContent();
-        UpdateDecreaseContent();
-        ApplyEntryStyle();
-        ApplyButtonStyle();
-
-        _buttonLayout.RowDefinitions =
-        [
-            new RowDefinition { Height = GridLength.Star },
-            new RowDefinition { Height = GridLength.Star }
-        ];
-
-        _buttonLayout.Children.Add(_increaseButton);
-        Grid.SetRow(_decreaseButton, 1);
-        _buttonLayout.Children.Add(_decreaseButton);
-
-        _layout.ColumnDefinitions =
-        [
-            new ColumnDefinition { Width = GridLength.Star },
-            new ColumnDefinition { Width = GridLength.Auto }
-        ];
-
-        _layout.RowDefinitions =
-        [
-            new RowDefinition { Height = GridLength.Auto }
-        ];
-
-        _layout.Children.Add(_entry);
-        Grid.SetColumn(_buttonLayout, 1);
-        _layout.Children.Add(_buttonLayout);
-
-        Content = _layout;
-
-        UpdateEntryText(Value);
-        UpdateButtonStates();
+        UpdateDefaultContent();
     }
 
     public event EventHandler<ValueChangedEventArgs<T>>? ValueChanged;
@@ -192,7 +152,7 @@ public class UpDownBase<T> : ContentView
 
     public void SelectAll()
     {
-        if (string.IsNullOrEmpty(_entry.Text))
+        if (_entry?.Text is null)
         {
             return;
         }
@@ -206,6 +166,56 @@ public class UpDownBase<T> : ContentView
 
     protected virtual bool TryParseText(string? text, out T value)
         => T.TryParse(text, CultureInfo.CurrentCulture, out value);
+
+    protected override void OnApplyTemplate()
+    {
+        base.OnApplyTemplate();
+
+        if (_entry is not null)
+        {
+            _entry.TextChanged -= OnEntryTextChanged;
+            _entry.Unfocused -= OnEntryUnfocused;
+        }
+
+        if (_increaseButton is not null)
+        {
+            _increaseButton.Clicked -= OnIncreaseClicked;
+        }
+
+        if (_decreaseButton is not null)
+        {
+            _decreaseButton.Clicked -= OnDecreaseClicked;
+        }
+
+        _entry = GetTemplateChild(EntryPartName) as Entry;
+        _increaseButton = GetTemplateChild(IncreaseButtonPartName) as ContentButton;
+        _decreaseButton = GetTemplateChild(DecreaseButtonPartName) as ContentButton;
+
+        if (_entry is not null)
+        {
+            _entry.Keyboard = Keyboard.Numeric;
+            _entry.TextChanged += OnEntryTextChanged;
+            _entry.Unfocused += OnEntryUnfocused;
+            ApplyEntryStyle();
+            UpdateEntryText(Value);
+        }
+
+        if (_increaseButton is not null)
+        {
+            _increaseButton.Clicked += OnIncreaseClicked;
+            ApplyButtonStyle();
+            UpdateIncreaseButtonContent();
+        }
+
+        if (_decreaseButton is not null)
+        {
+            _decreaseButton.Clicked += OnDecreaseClicked;
+            ApplyButtonStyle();
+            UpdateDecreaseButtonContent();
+        }
+
+        UpdateButtonStates();
+    }
 
     private static void OnMinimumChanged(BindableObject bindable, object oldValue, object newValue)
     {
@@ -267,7 +277,7 @@ public class UpDownBase<T> : ContentView
     {
         if (bindable is UpDownBase<T> upDown)
         {
-            upDown.UpdateIncreaseContent();
+            upDown.UpdateIncreaseButtonContent();
         }
     }
 
@@ -275,7 +285,7 @@ public class UpDownBase<T> : ContentView
     {
         if (bindable is UpDownBase<T> upDown)
         {
-            upDown.UpdateDecreaseContent();
+            upDown.UpdateDecreaseButtonContent();
         }
     }
 
@@ -299,19 +309,56 @@ public class UpDownBase<T> : ContentView
     {
         if (bindable is UpDownBase<T> upDown)
         {
-            upDown.UpdateIncreaseContent();
-            upDown.UpdateDecreaseContent();
+            upDown.UpdateDefaultIconForeground();
+            upDown.UpdateIncreaseButtonContent();
+            upDown.UpdateDecreaseButtonContent();
         }
     }
 
-    private void UpdateIncreaseContent()
+    private void UpdateDefaultContent()
     {
-        _increaseButton.ButtonContent = IncreaseContent ?? CreateDefaultIncreaseContent();
+        if (IncreaseContent is null)
+        {
+            IncreaseContent = CreateDefaultIncreaseContent();
+        }
+
+        if (DecreaseContent is null)
+        {
+            DecreaseContent = CreateDefaultDecreaseContent();
+        }
     }
 
-    private void UpdateDecreaseContent()
+    private void UpdateDefaultIconForeground()
     {
-        _decreaseButton.ButtonContent = DecreaseContent ?? CreateDefaultDecreaseContent();
+        if (IncreaseContent is PackIcon increaseIcon)
+        {
+            increaseIcon.ForegroundColor = IconForeground;
+        }
+
+        if (DecreaseContent is PackIcon decreaseIcon)
+        {
+            decreaseIcon.ForegroundColor = IconForeground;
+        }
+    }
+
+    private void UpdateIncreaseButtonContent()
+    {
+        UpdateDefaultContent();
+
+        if (_increaseButton is not null)
+        {
+            _increaseButton.ButtonContent = IncreaseContent;
+        }
+    }
+
+    private void UpdateDecreaseButtonContent()
+    {
+        UpdateDefaultContent();
+
+        if (_decreaseButton is not null)
+        {
+            _decreaseButton.ButtonContent = DecreaseContent;
+        }
     }
 
     private View CreateDefaultIncreaseContent()
@@ -330,7 +377,7 @@ public class UpDownBase<T> : ContentView
 
     private void ApplyEntryStyle()
     {
-        if (EntryStyle is not null)
+        if (_entry is not null && EntryStyle is not null)
         {
             _entry.Style = EntryStyle;
         }
@@ -340,8 +387,15 @@ public class UpDownBase<T> : ContentView
     {
         if (ButtonStyle is not null)
         {
-            _increaseButton.Style = ButtonStyle;
-            _decreaseButton.Style = ButtonStyle;
+            if (_increaseButton is not null)
+            {
+                _increaseButton.Style = ButtonStyle;
+            }
+
+            if (_decreaseButton is not null)
+            {
+                _decreaseButton.Style = ButtonStyle;
+            }
         }
     }
 
@@ -366,6 +420,11 @@ public class UpDownBase<T> : ContentView
 
     private void UpdateEntryText(T value)
     {
+        if (_entry is null)
+        {
+            return;
+        }
+
         _isUpdatingText = true;
         _entry.Text = FormatValue(value);
         _isUpdatingText = false;
@@ -408,13 +467,26 @@ public class UpDownBase<T> : ContentView
 
     private void UpdateButtonStates()
     {
-        _increaseButton.IsEnabled = Value.CompareTo(Maximum) < 0;
-        _decreaseButton.IsEnabled = Value.CompareTo(Minimum) > 0;
+        if (_increaseButton is not null)
+        {
+            _increaseButton.IsEnabled = Value.CompareTo(Maximum) < 0;
+        }
+
+        if (_decreaseButton is not null)
+        {
+            _decreaseButton.IsEnabled = Value.CompareTo(Minimum) > 0;
+        }
     }
 }
 
-public sealed class ValueChangedEventArgs<TValue>(TValue oldValue, TValue newValue) : EventArgs
+public sealed class ValueChangedEventArgs<TValue> : EventArgs
 {
-    public TValue OldValue { get; } = oldValue;
-    public TValue NewValue { get; } = newValue;
+    public ValueChangedEventArgs(TValue oldValue, TValue newValue)
+    {
+        OldValue = oldValue;
+        NewValue = newValue;
+    }
+
+    public TValue OldValue { get; }
+    public TValue NewValue { get; }
 }
