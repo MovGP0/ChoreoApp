@@ -38,7 +38,7 @@ public sealed partial class ContentButton : ContentView
         _contentPresenter.SetBinding(HorizontalOptionsProperty, new Binding(nameof(HorizontalContentAlignment), source: this));
         _contentPresenter.SetBinding(VerticalOptionsProperty, new Binding(nameof(VerticalContentAlignment), source: this));
 
-        _contentHost = new Grid();
+        _contentHost = [];
         ApplyContentResources(null);
         _contentHost.Children.Add(_contentPresenter);
 

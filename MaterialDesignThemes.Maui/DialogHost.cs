@@ -131,7 +131,6 @@ public sealed class DialogHost : ContentView
         nameof(DialogContent),
         typeof(object),
         typeof(DialogHost),
-        null,
         propertyChanged: OnDialogContentChanged);
 
     public object? DialogContent
@@ -343,11 +342,7 @@ public sealed class DialogHost : ContentView
         DialogClosingEventHandler? closingEventHandler,
         DialogClosedEventHandler? closedEventHandler)
     {
-        if (content is null)
-        {
-            throw new ArgumentNullException(nameof(content));
-        }
-
+        ArgumentNullException.ThrowIfNull(content);
         var dialogHost = GetInstance(dialogIdentifier);
         return await dialogHost.ShowInternal(content, openedEventHandler, closingEventHandler, closedEventHandler);
     }

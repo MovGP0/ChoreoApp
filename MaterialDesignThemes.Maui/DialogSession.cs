@@ -9,7 +9,8 @@ public sealed class DialogSession
 
     internal DialogSession(DialogHost owner)
     {
-        _owner = owner ?? throw new ArgumentNullException(nameof(owner));
+        ArgumentNullException.ThrowIfNull(owner);
+        _owner = owner;
     }
 
     /// <summary>

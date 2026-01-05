@@ -9,8 +9,8 @@ public class UpDownBase<T> : ContentView
     private readonly Entry _entry = new();
     private readonly ContentButton _increaseButton = new();
     private readonly ContentButton _decreaseButton = new();
-    private readonly Grid _layout = new();
-    private readonly Grid _buttonLayout = new();
+    private readonly Grid _layout = [];
+    private readonly Grid _buttonLayout = [];
     private bool _isUpdatingText;
     private bool _isUpdatingFromText;
 
@@ -133,7 +133,6 @@ public class UpDownBase<T> : ContentView
         nameof(EntryStyle),
         typeof(Style),
         typeof(UpDownBase<T>),
-        default(Style),
         propertyChanged: OnEntryStyleChanged);
 
     public Style? EntryStyle
@@ -146,7 +145,6 @@ public class UpDownBase<T> : ContentView
         nameof(ButtonStyle),
         typeof(Style),
         typeof(UpDownBase<T>),
-        default(Style),
         propertyChanged: OnButtonStyleChanged);
 
     public Style? ButtonStyle
@@ -172,7 +170,6 @@ public class UpDownBase<T> : ContentView
         nameof(IncreaseContent),
         typeof(View),
         typeof(UpDownBase<T>),
-        default(View),
         propertyChanged: OnIncreaseContentChanged);
 
     public View? IncreaseContent
@@ -185,7 +182,6 @@ public class UpDownBase<T> : ContentView
         nameof(DecreaseContent),
         typeof(View),
         typeof(UpDownBase<T>),
-        default(View),
         propertyChanged: OnDecreaseContentChanged);
 
     public View? DecreaseContent

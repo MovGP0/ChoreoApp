@@ -90,7 +90,6 @@ public sealed class AutoSuggestBox : ContentView
             nameof(Suggestions),
             typeof(IEnumerable),
             typeof(AutoSuggestBox),
-            null,
             propertyChanged: OnSuggestionsChanged);
 
     public string? ValueMember
@@ -103,8 +102,7 @@ public sealed class AutoSuggestBox : ContentView
         BindableProperty.Create(
             nameof(ValueMember),
             typeof(string),
-            typeof(AutoSuggestBox),
-            null);
+            typeof(AutoSuggestBox));
 
     public string? DisplayMember
     {
@@ -117,7 +115,6 @@ public sealed class AutoSuggestBox : ContentView
             nameof(DisplayMember),
             typeof(string),
             typeof(AutoSuggestBox),
-            null,
             propertyChanged: OnItemTemplateRelatedChanged);
 
     public Brush? DropDownBackground
@@ -131,7 +128,6 @@ public sealed class AutoSuggestBox : ContentView
             nameof(DropDownBackground),
             typeof(Brush),
             typeof(AutoSuggestBox),
-            null,
             propertyChanged: OnDropDownAppearanceChanged);
 
     public DataTemplate? ItemTemplate
@@ -145,7 +141,6 @@ public sealed class AutoSuggestBox : ContentView
             nameof(ItemTemplate),
             typeof(DataTemplate),
             typeof(AutoSuggestBox),
-            null,
             propertyChanged: OnItemTemplateRelatedChanged);
 
     public Style? ItemContainerStyle
@@ -159,7 +154,6 @@ public sealed class AutoSuggestBox : ContentView
             nameof(ItemContainerStyle),
             typeof(Style),
             typeof(AutoSuggestBox),
-            null,
             propertyChanged: OnItemTemplateRelatedChanged);
 
     public Elevation DropDownElevation

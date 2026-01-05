@@ -14,12 +14,12 @@ public static class AssignmentViaMinCostFlow
         Func<float, float>? costFunc = null,
         Func<int, int, bool>? isAllowedPair = null)
     {
-        if (initialPoints is null) throw new ArgumentNullException(nameof(initialPoints));
-        if (targetPoints is null) throw new ArgumentNullException(nameof(targetPoints));
+        ArgumentNullException.ThrowIfNull(initialPoints);
+        ArgumentNullException.ThrowIfNull(targetPoints);
         if (initialPoints.Count != targetPoints.Count) throw new ArgumentException("Point sets must have equal size.");
 
         int pointCount = initialPoints.Count;
-        if (pointCount == 0) return Array.Empty<int>();
+        if (pointCount == 0) return [];
 
         costFunc ??= distance => distance * distance; // default: squared distance
         isAllowedPair ??= (_, _) => true;

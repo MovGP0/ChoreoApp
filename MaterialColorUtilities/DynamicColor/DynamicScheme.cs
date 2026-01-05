@@ -129,8 +129,8 @@ public class DynamicScheme
 
     public static double GetPiecewiseValue(Hct sourceColorHct, double[] hueBreakpoints, double[] hues)
     {
-        if (hueBreakpoints == null || hues == null)
-            throw new ArgumentNullException(hueBreakpoints == null ? nameof(hueBreakpoints) : nameof(hues));
+        ArgumentNullException.ThrowIfNull(hueBreakpoints);
+        ArgumentNullException.ThrowIfNull(hues);
 
         int size = Min(hueBreakpoints.Length - 1, hues.Length);
         double sourceHue = sourceColorHct.Hue;

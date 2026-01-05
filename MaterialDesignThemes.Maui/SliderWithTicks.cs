@@ -107,7 +107,6 @@ public sealed class SliderWithTicks : ContentView
         nameof(MinimumTrackColor),
         typeof(Color),
         typeof(SliderWithTicks),
-        null,
         propertyChanged: OnAppearanceChanged);
 
     public Color? MinimumTrackColor
@@ -120,7 +119,6 @@ public sealed class SliderWithTicks : ContentView
         nameof(MaximumTrackColor),
         typeof(Color),
         typeof(SliderWithTicks),
-        null,
         propertyChanged: OnAppearanceChanged);
 
     public Color? MaximumTrackColor
@@ -133,7 +131,6 @@ public sealed class SliderWithTicks : ContentView
         nameof(ThumbColor),
         typeof(Color),
         typeof(SliderWithTicks),
-        null,
         propertyChanged: OnAppearanceChanged);
 
     public Color? ThumbColor
@@ -146,7 +143,6 @@ public sealed class SliderWithTicks : ContentView
         nameof(ThumbImageSource),
         typeof(ImageSource),
         typeof(SliderWithTicks),
-        default(ImageSource),
         propertyChanged: OnAppearanceChanged);
 
     public ImageSource? ThumbImageSource
@@ -158,8 +154,7 @@ public sealed class SliderWithTicks : ContentView
     public static readonly BindableProperty DragStartedCommandProperty = BindableProperty.Create(
         nameof(DragStartedCommand),
         typeof(ICommand),
-        typeof(SliderWithTicks),
-        default(ICommand));
+        typeof(SliderWithTicks));
 
     public ICommand? DragStartedCommand
     {
@@ -170,8 +165,7 @@ public sealed class SliderWithTicks : ContentView
     public static readonly BindableProperty DragCompletedCommandProperty = BindableProperty.Create(
         nameof(DragCompletedCommand),
         typeof(ICommand),
-        typeof(SliderWithTicks),
-        default(ICommand));
+        typeof(SliderWithTicks));
 
     public ICommand? DragCompletedCommand
     {
@@ -196,7 +190,6 @@ public sealed class SliderWithTicks : ContentView
         nameof(TickColor),
         typeof(Color),
         typeof(SliderWithTicks),
-        null,
         propertyChanged: OnAppearanceChanged);
 
     public Color? TickColor
@@ -300,7 +293,7 @@ public sealed class SliderWithTicks : ContentView
     {
         if (string.IsNullOrWhiteSpace(TickValues))
         {
-            return Array.Empty<double>();
+            return [];
         }
 
         var parts = TickValues.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);

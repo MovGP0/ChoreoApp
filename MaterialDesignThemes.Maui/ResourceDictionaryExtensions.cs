@@ -6,11 +6,7 @@ public static class ResourceDictionaryExtensions
     {
         public void SetColor(string key, Color value)
         {
-            if (key is null)
-            {
-                throw new ArgumentNullException(nameof(key));
-            }
-
+            ArgumentNullException.ThrowIfNull(key);
             if (!dict.TryGetColor(key, out var existing) || existing != value)
             {
                 dict[key] = value;
@@ -25,7 +21,7 @@ public static class ResourceDictionaryExtensions
                 return true;
             }
 
-            color = default;
+            color = null;
             return false;
         }
     }

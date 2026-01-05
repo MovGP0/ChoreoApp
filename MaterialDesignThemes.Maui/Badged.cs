@@ -34,7 +34,6 @@ public sealed class Badged : ContentView
             nameof(Badge),
             typeof(object),
             typeof(Badged),
-            null,
             propertyChanged: OnBadgeChanged);
 
     public object? Badge
@@ -47,8 +46,7 @@ public sealed class Badged : ContentView
         BindableProperty.Create(
             nameof(BadgeBackground),
             typeof(Color),
-            typeof(Badged),
-            null);
+            typeof(Badged));
 
     public Color? BadgeBackground
     {
@@ -60,8 +58,7 @@ public sealed class Badged : ContentView
         BindableProperty.Create(
             nameof(BadgeForeground),
             typeof(Color),
-            typeof(Badged),
-            null);
+            typeof(Badged));
 
     public Color? BadgeForeground
     {
@@ -73,8 +70,7 @@ public sealed class Badged : ContentView
         BindableProperty.Create(
             nameof(Stroke),
             typeof(Brush),
-            typeof(Badged),
-            null);
+            typeof(Badged));
 
     public Brush? Stroke
     {

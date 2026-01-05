@@ -47,8 +47,7 @@ public sealed class Ripple : ContentView
     public static readonly BindableProperty FeedbackProperty = BindableProperty.Create(
         nameof(Feedback),
         typeof(Color),
-        typeof(Ripple),
-        null);
+        typeof(Ripple));
 
     public static readonly BindableProperty RecognizesAccessKeyProperty = BindableProperty.Create(
         nameof(RecognizesAccessKey),
@@ -59,8 +58,7 @@ public sealed class Ripple : ContentView
     public static readonly BindableProperty RippleContentProperty = BindableProperty.Create(
         nameof(RippleContent),
         typeof(View),
-        typeof(Ripple),
-        null);
+        typeof(Ripple));
 
     public Ripple()
     {

@@ -91,8 +91,7 @@ public sealed class HamburgerToggleButton : Border
         BindableProperty.Create(
             nameof(Command),
             typeof(ICommand),
-            typeof(HamburgerToggleButton),
-            default(ICommand));
+            typeof(HamburgerToggleButton));
 
     public ICommand? Command
     {
@@ -104,8 +103,7 @@ public sealed class HamburgerToggleButton : Border
         BindableProperty.Create(
             nameof(CommandParameter),
             typeof(object),
-            typeof(HamburgerToggleButton),
-            null);
+            typeof(HamburgerToggleButton));
 
     public object? CommandParameter
     {

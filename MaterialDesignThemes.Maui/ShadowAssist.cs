@@ -8,7 +8,7 @@ public static class ShadowAssist
         "LocalInfo",
         typeof(ShadowLocalInfo),
         typeof(ShadowAssist),
-        default(ShadowLocalInfo));
+        null);
 
     private static void SetLocalInfo(BindableObject element, ShadowLocalInfo? value)
     {
@@ -24,7 +24,7 @@ public static class ShadowAssist
         "Darken",
         typeof(bool),
         typeof(ShadowAssist),
-        default(bool),
+        false,
         propertyChanged: DarkenPropertyChanged);
 
     public static void SetDarken(BindableObject element, bool value)

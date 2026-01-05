@@ -143,7 +143,7 @@ public static partial class TextFieldAssist
             "SuffixText",
             typeof(string),
             typeof(TextFieldAssist),
-            default(string));
+            null);
 
     public static void SetSuffixText(BindableObject element, string? value) =>
         element.SetValue(SuffixTextProperty, value);
@@ -155,7 +155,7 @@ public static partial class TextFieldAssist
             "PrefixText",
             typeof(string),
             typeof(TextFieldAssist),
-            default(string));
+            null);
 
     public static void SetPrefixText(BindableObject element, string? value) =>
         element.SetValue(PrefixTextProperty, value);
@@ -323,7 +323,7 @@ public static partial class TextFieldAssist
             "CharacterCounterStyle",
             typeof(Style),
             typeof(TextFieldAssist),
-            default(Style));
+            null);
 
     public static void SetCharacterCounterStyle(BindableObject element, Style? value) =>
         element.SetValue(CharacterCounterStyleProperty, value);

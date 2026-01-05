@@ -4,10 +4,7 @@ internal static class VisualTreeExtensions
 {
     public static IEnumerable<Element> VisualDepthFirstTraversal(this Element node)
     {
-        if (node is null)
-        {
-            throw new ArgumentNullException(nameof(node));
-        }
+        ArgumentNullException.ThrowIfNull(node);
 
         yield return node;
 
@@ -22,10 +19,7 @@ internal static class VisualTreeExtensions
 
     public static IEnumerable<Element> VisualBreadthFirstTraversal(this Element node)
     {
-        if (node is null)
-        {
-            throw new ArgumentNullException(nameof(node));
-        }
+        ArgumentNullException.ThrowIfNull(node);
 
         foreach (var child in GetLogicalChildren(node))
         {

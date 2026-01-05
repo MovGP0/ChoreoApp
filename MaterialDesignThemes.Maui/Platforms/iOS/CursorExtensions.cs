@@ -136,7 +136,7 @@ internal static class PathGeometryExtensions
                 }
                 else if (pathSegment is ArcSegment arcSegment)
                 {
-                    List<Point> points = new List<Point>();
+                    List<Point> points = [];
 
                     GeometryHelper.FlattenArc(
                         points,

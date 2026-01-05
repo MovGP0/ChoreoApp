@@ -48,8 +48,7 @@ public sealed class ToogleButton : Border
         BindableProperty.Create(
             nameof(Command),
             typeof(ICommand),
-            typeof(ToogleButton),
-            default(ICommand));
+            typeof(ToogleButton));
 
     public ICommand? Command
     {
@@ -61,8 +60,7 @@ public sealed class ToogleButton : Border
         BindableProperty.Create(
             nameof(CommandParameter),
             typeof(object),
-            typeof(ToogleButton),
-            null);
+            typeof(ToogleButton));
 
     public object? CommandParameter
     {

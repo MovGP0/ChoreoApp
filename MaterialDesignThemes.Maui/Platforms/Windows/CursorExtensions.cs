@@ -40,7 +40,7 @@ public static class CursorExtensions
             BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.SetProperty | BindingFlags.Instance,
             null,
             uiElement,
-            new object[] { cursor });
+            [cursor]);
     }
 
     private static CoreCursorType GetCursor(CursorIcon cursor)

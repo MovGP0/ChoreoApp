@@ -3,7 +3,7 @@
 internal sealed class SliderWithTicksTickDrawable : IDrawable
 {
     private const float DefaultTickHeight = 4f;
-    private IReadOnlyList<double> _ticks = Array.Empty<double>();
+    private IReadOnlyList<double> _ticks = [];
 
     public double Minimum { get; set; }
     public double Maximum { get; set; }

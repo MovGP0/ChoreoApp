@@ -14,7 +14,6 @@ public class SmartHint : ContentView
             nameof(HintProxy),
             typeof(IHintProxy),
             typeof(SmartHint),
-            default(IHintProxy),
             propertyChanged: OnHintProxyChanged);
 
     public IHintProxy? HintProxy
@@ -27,8 +26,7 @@ public class SmartHint : ContentView
         BindableProperty.Create(
             nameof(Hint),
             typeof(object),
-            typeof(SmartHint),
-            null);
+            typeof(SmartHint));
 
     public object? Hint
     {
@@ -150,8 +148,7 @@ public class SmartHint : ContentView
         BindableProperty.Create(
             nameof(FloatingTarget),
             typeof(View),
-            typeof(SmartHint),
-            default(View));
+            typeof(SmartHint));
 
     public View? FloatingTarget
     {
@@ -163,8 +160,7 @@ public class SmartHint : ContentView
         BindableProperty.Create(
             nameof(HintHost),
             typeof(View),
-            typeof(SmartHint),
-            default(View));
+            typeof(SmartHint));
 
     public View? HintHost
     {

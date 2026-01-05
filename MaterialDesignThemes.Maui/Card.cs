@@ -57,8 +57,7 @@ public sealed class Card : ContentView
         BindableProperty.Create(
             nameof(Stroke),
             typeof(Brush),
-            typeof(Card),
-            null);
+            typeof(Card));
 
     public Brush? Stroke
     {

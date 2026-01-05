@@ -10,8 +10,8 @@ public sealed class ColorPicker : ContentView
     private const double ThumbSize = 18d;
     private const double ThumbRadius = ThumbSize / 2d;
 
-    private readonly Grid _layout = new();
-    private readonly AbsoluteLayout _saturationBrightnessLayout = new();
+    private readonly Grid _layout = [];
+    private readonly AbsoluteLayout _saturationBrightnessLayout = [];
     private readonly GraphicsView _saturationBrightnessView;
     private readonly Border _saturationBrightnessThumb;
     private readonly Slider _hueSlider = new();
@@ -169,25 +169,25 @@ public sealed class ColorPicker : ContentView
             case ColorPickerDock.Top:
                 _layout.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
                 _layout.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
-                _layout.Add(_hueSlider, 0, 0);
+                _layout.Add(_hueSlider, 0);
                 _layout.Add(_saturationBrightnessLayout, 0, 1);
                 break;
             case ColorPickerDock.Left:
                 _layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
                 _layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
-                _layout.Add(_hueSlider, 0, 0);
-                _layout.Add(_saturationBrightnessLayout, 1, 0);
+                _layout.Add(_hueSlider, 0);
+                _layout.Add(_saturationBrightnessLayout, 1);
                 break;
             case ColorPickerDock.Right:
                 _layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
                 _layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                _layout.Add(_saturationBrightnessLayout, 0, 0);
-                _layout.Add(_hueSlider, 1, 0);
+                _layout.Add(_saturationBrightnessLayout, 0);
+                _layout.Add(_hueSlider, 1);
                 break;
             default:
                 _layout.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
                 _layout.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                _layout.Add(_saturationBrightnessLayout, 0, 0);
+                _layout.Add(_saturationBrightnessLayout, 0);
                 _layout.Add(_hueSlider, 0, 1);
                 break;
         }

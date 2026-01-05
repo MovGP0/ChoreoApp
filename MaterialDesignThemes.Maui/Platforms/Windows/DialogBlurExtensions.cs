@@ -72,7 +72,7 @@ public static partial class DialogBlurExtensions
             return true;
         }
 
-        target = default!;
+        target = null!;
         return false;
     }
 
