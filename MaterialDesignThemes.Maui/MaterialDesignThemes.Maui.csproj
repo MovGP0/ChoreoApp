@@ -51,6 +51,9 @@
     <Compile Update="ContentButton.IBorderElement.cs">
       <DependentUpon>ContentButton.cs</DependentUpon>
     </Compile>
+    <Compile Update="TextFieldAssist.Windows.cs">
+      <DependentUpon>TextFieldAssist.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Remove="Resources\Noto\OFL.txt" />
