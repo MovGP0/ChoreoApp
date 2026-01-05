@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="MaterialDesign3.ContentButton.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <Style x:Key="MaterialDesignSnackbarActionButton"
+         TargetType="styling:ContentButton"
+         BasedOn="{StaticResource MaterialDesignFlatButton}">
+    <Setter Property="BackgroundColor" Value="Transparent" />
+    <Setter Property="Stroke" Value="Transparent" />
+    <Setter Property="StrokeThickness" Value="1" />
+    <Setter Property="HeightRequest" Value="36" />
+    <Setter Property="Padding" Value="8" />
+    <Setter Property="Foreground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}" />
+  </Style>
+
+  <Style TargetType="styling:SnackbarMessage">
+    <Setter Property="HorizontalOptions" Value="Fill" />
+    <Setter Property="VerticalOptions" Value="Center" />
+    <Setter Property="Margin" Value="16" />
+    <Setter Property="ControlTemplate">
+      <Setter.Value>
+        <ControlTemplate>
+          <Grid ColumnDefinitions="*,Auto"
+                ColumnSpacing="8">
+            <ContentView x:Name="PART_MessageContentHost"
+                         VerticalOptions="Center" />
+            <styling:ContentButton x:Name="PART_ActionButton"
+                                   Grid.Column="1"
+                                   Style="{Binding Source={RelativeSource AncestorType={x:Type styling:Snackbar}}, Path=ActionButtonStyle}" />
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style TargetType="styling:Snackbar">
+    <Setter Property="ActionButtonStyle" Value="{StaticResource MaterialDesignSnackbarActionButton}" />
+    <Setter Property="BackgroundColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerHigh}}" />
+    <Setter Property="TextColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="HorizontalOptions" Value="Center" />
+    <Setter Property="MinimumWidthRequest" Value="288" />
+    <Setter Property="MaximumWidthRequest" Value="568" />
+    <Setter Property="ControlTemplate">
+      <Setter.Value>
+        <ControlTemplate>
+          <StackLayout IsVisible="{TemplateBinding IsActive}"
+                       Spacing="0">
+            <Border BackgroundColor="{TemplateBinding BackgroundColor}"
+                    StrokeThickness="0"
+                    Padding="{TemplateBinding Padding}">
+              <Border.StrokeShape>
+                <RoundRectangle CornerRadius="{TemplateBinding CornerRadius}" />
+              </Border.StrokeShape>
+              <ContentView x:Name="PART_MessageHost"
+                           VerticalOptions="Center" />
+            </Border>
+          </StackLayout>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

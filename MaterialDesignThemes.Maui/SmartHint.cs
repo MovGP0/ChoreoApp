@@ -3,7 +3,7 @@ namespace MaterialDesignThemes.Maui;
 /// <summary>
 /// Placeholder/floating hint control for MAUI. Mirrors the public surface of WPF SmartHint.
 /// </summary>
-public class SmartHint : ContentView
+public class SmartHint : TemplatedView
 {
     public const string ContentStatesGroupName = "ContentStates";
     public const string HintRestingPositionName = "HintRestingPosition";
@@ -39,7 +39,7 @@ public class SmartHint : ContentView
             nameof(IsContentNullOrEmpty),
             typeof(bool),
             typeof(SmartHint),
-            true);
+            false);
 
     public static readonly BindableProperty IsContentNullOrEmptyProperty =
         IsContentNullOrEmptyPropertyKey.BindableProperty;
