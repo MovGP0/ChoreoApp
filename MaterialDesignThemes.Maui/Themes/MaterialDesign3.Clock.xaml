@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                    xmlns:converters="clr-namespace:MaterialDesignThemes.Maui.Converters;assembly=MaterialDesignThemes.Maui">
+
+  <ResourceDictionary.Resources>
+    <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
+  </ResourceDictionary.Resources>
+
+  <Style x:Key="MaterialDesignClockItemButton"
+         TargetType="styling:ClockItemButton"
+         BasedOn="{StaticResource MaterialDesignFlatButton}">
+    <Setter Property="BackgroundColor" Value="Transparent" />
+    <Setter Property="Foreground"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+    <Setter Property="WidthRequest" Value="32" />
+    <Setter Property="HeightRequest" Value="32" />
+    <Style.Triggers>
+      <DataTrigger TargetType="styling:ClockItemButton"
+                   Binding="{Binding IsChecked, RelativeSource={RelativeSource Self}}"
+                   Value="True">
+        <Setter Property="BackgroundColor"
+                Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}" />
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
+  <Style x:Key="MaterialDesignClockItemLesserButton"
+         TargetType="styling:ClockItemButton"
+         BasedOn="{StaticResource MaterialDesignClockItemButton}">
+    <Setter Property="WidthRequest" Value="12" />
+    <Setter Property="HeightRequest" Value="12" />
+  </Style>
+
+  <ControlTemplate x:Key="MaterialDesignClockTemplate">
+    <Border Background="{TemplateBinding Background}"
+            Stroke="{TemplateBinding BorderBrush}"
+            StrokeThickness="{TemplateBinding BorderThickness}">
+      <Border.StrokeShape>
+        <RoundRectangle CornerRadius="{TemplateBinding CornerRadius}" />
+      </Border.StrokeShape>
+      <Grid RowDefinitions="Auto,*">
+        <Border Background="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}"
+                HeightRequest="120"
+                Margin="0,0,0,12"
+                IsVisible="{TemplateBinding IsHeaderVisible}">
+          <HorizontalStackLayout Margin="24"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="Center"
+                                 Spacing="0">
+            <Grid x:Name="PART_HourReadOut">
+              <Label Text="{TemplateBinding HourText}"
+                     FontSize="66"
+                     TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}"
+                     Opacity="{TemplateBinding HourTextOpacity}" />
+            </Grid>
+            <Label Margin="-16,0,-16,0"
+                   FontSize="66"
+                   Text=":"
+                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}" />
+            <Grid x:Name="PART_MinuteReadOut">
+              <Label Text="{TemplateBinding MinuteText}"
+                     FontSize="66"
+                     TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}"
+                     Opacity="{TemplateBinding MinuteTextOpacity}" />
+            </Grid>
+            <Label Margin="-16,0,-16,0"
+                   FontSize="66"
+                   Text=":"
+                   IsVisible="{TemplateBinding IsSecondsDisplayed}"
+                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}" />
+            <Grid x:Name="PART_SecondReadOut"
+                  IsVisible="{TemplateBinding IsSecondsDisplayed}">
+              <Label Text="{TemplateBinding SecondText}"
+                     FontSize="66"
+                     TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}"
+                     Opacity="{TemplateBinding SecondTextOpacity}" />
+            </Grid>
+            <Label Margin="2,0,0,8"
+                   FontSize="20"
+                   VerticalOptions="End"
+                   IsVisible="{Binding Source={RelativeSource TemplatedParent}, Path=Is24Hours, Converter={StaticResource InvertBooleanConverter}}"
+                   Text="{TemplateBinding AmPmText}"
+                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}" />
+          </HorizontalStackLayout>
+        </Border>
+        <Grid Grid.Row="1"
+              Margin="24"
+              VerticalOptions="Center">
+          <Grid RowDefinitions="*,Auto">
+            <Border WidthRequest="230"
+                    HeightRequest="230"
+                    Background="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.PrimaryContainer}}"
+                    Opacity="0.23"
+                    StrokeThickness="0">
+              <Border.StrokeShape>
+                <RoundRectangle CornerRadius="115" />
+              </Border.StrokeShape>
+            </Border>
+
+            <AbsoluteLayout x:Name="PART_HoursCanvas"
+                            WidthRequest="230"
+                            HeightRequest="230">
+              <BoxView x:Name="PART_HourLine"
+                       WidthRequest="3"
+                       HeightRequest="96"
+                       Color="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}"
+                       AnchorX="0.5"
+                       AnchorY="1"
+                       Rotation="{TemplateBinding HourLineAngle}"
+                       AbsoluteLayout.LayoutBounds="0.5,0.5,3,96"
+                       AbsoluteLayout.LayoutFlags="PositionProportional" />
+            </AbsoluteLayout>
+
+            <AbsoluteLayout x:Name="PART_MinutesCanvas"
+                            WidthRequest="230"
+                            HeightRequest="230"
+                            Opacity="0"
+                            InputTransparent="True">
+              <BoxView x:Name="PART_MinuteLine"
+                       WidthRequest="3"
+                       HeightRequest="96"
+                       Color="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}"
+                       AnchorX="0.5"
+                       AnchorY="1"
+                       Rotation="{TemplateBinding MinuteLineAngle}"
+                       AbsoluteLayout.LayoutBounds="0.5,0.5,3,96"
+                       AbsoluteLayout.LayoutFlags="PositionProportional" />
+            </AbsoluteLayout>
+
+            <AbsoluteLayout x:Name="PART_SecondsCanvas"
+                            WidthRequest="230"
+                            HeightRequest="230"
+                            Opacity="0"
+                            InputTransparent="True">
+              <BoxView x:Name="PART_SecondLine"
+                       WidthRequest="3"
+                       HeightRequest="96"
+                       Color="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}"
+                       AnchorX="0.5"
+                       AnchorY="1"
+                       Rotation="{TemplateBinding SecondLineAngle}"
+                       AbsoluteLayout.LayoutBounds="0.5,0.5,3,96"
+                       AbsoluteLayout.LayoutFlags="PositionProportional" />
+            </AbsoluteLayout>
+
+            <HorizontalStackLayout Grid.Row="1"
+                                   HorizontalOptions="Center"
+                                   Spacing="24"
+                                   IsVisible="{Binding Source={RelativeSource TemplatedParent}, Path=Is24Hours, Converter={StaticResource InvertBooleanConverter}}">
+              <RadioButton Content="AM"
+                           IsChecked="{Binding Source={RelativeSource TemplatedParent}, Path=IsPostMeridiem, Converter={StaticResource InvertBooleanConverter}}" />
+              <RadioButton Content="PM"
+                           IsChecked="{Binding Source={RelativeSource TemplatedParent}, Path=IsPostMeridiem}" />
+            </HorizontalStackLayout>
+          </Grid>
+        </Grid>
+      </Grid>
+      <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="DisplayModeStates">
+          <VisualState x:Name="Hours">
+            <VisualState.Setters>
+              <Setter TargetName="PART_HoursCanvas" Property="Opacity" Value="1" />
+              <Setter TargetName="PART_HoursCanvas" Property="InputTransparent" Value="False" />
+              <Setter TargetName="PART_MinutesCanvas" Property="Opacity" Value="0" />
+              <Setter TargetName="PART_MinutesCanvas" Property="InputTransparent" Value="True" />
+              <Setter TargetName="PART_SecondsCanvas" Property="Opacity" Value="0" />
+              <Setter TargetName="PART_SecondsCanvas" Property="InputTransparent" Value="True" />
+            </VisualState.Setters>
+          </VisualState>
+          <VisualState x:Name="Minutes">
+            <VisualState.Setters>
+              <Setter TargetName="PART_HoursCanvas" Property="Opacity" Value="0" />
+              <Setter TargetName="PART_HoursCanvas" Property="InputTransparent" Value="True" />
+              <Setter TargetName="PART_MinutesCanvas" Property="Opacity" Value="1" />
+              <Setter TargetName="PART_MinutesCanvas" Property="InputTransparent" Value="False" />
+              <Setter TargetName="PART_SecondsCanvas" Property="Opacity" Value="0" />
+              <Setter TargetName="PART_SecondsCanvas" Property="InputTransparent" Value="True" />
+            </VisualState.Setters>
+          </VisualState>
+          <VisualState x:Name="Seconds">
+            <VisualState.Setters>
+              <Setter TargetName="PART_HoursCanvas" Property="Opacity" Value="0" />
+              <Setter TargetName="PART_HoursCanvas" Property="InputTransparent" Value="True" />
+              <Setter TargetName="PART_MinutesCanvas" Property="Opacity" Value="0" />
+              <Setter TargetName="PART_MinutesCanvas" Property="InputTransparent" Value="True" />
+              <Setter TargetName="PART_SecondsCanvas" Property="Opacity" Value="1" />
+              <Setter TargetName="PART_SecondsCanvas" Property="InputTransparent" Value="False" />
+            </VisualState.Setters>
+          </VisualState>
+        </VisualStateGroup>
+      </VisualStateManager.VisualStateGroups>
+    </Border>
+  </ControlTemplate>
+
+  <Style x:Key="MaterialDesignClock"
+         TargetType="styling:Clock">
+    <Setter Property="Background" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="ButtonRadiusInnerRatio" Value="0.6" />
+    <Setter Property="ButtonRadiusRatio" Value="0.835" />
+    <Setter Property="ButtonStyle" Value="{StaticResource MaterialDesignClockItemButton}" />
+    <Setter Property="LesserButtonStyle" Value="{StaticResource MaterialDesignClockItemLesserButton}" />
+    <Setter Property="IsHeaderVisible" Value="True" />
+    <Setter Property="ControlTemplate" Value="{StaticResource MaterialDesignClockTemplate}" />
+  </Style>
+
+  <Style TargetType="styling:Clock"
+         BasedOn="{StaticResource MaterialDesignClock}" />
+</ResourceDictionary>
