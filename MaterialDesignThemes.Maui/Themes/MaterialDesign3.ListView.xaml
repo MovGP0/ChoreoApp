@@ -11,6 +11,9 @@
             Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}" />
     <Setter Property="SeparatorVisibility" Value="Default" />
     <Setter Property="styling:ListViewAssist.ListViewItemPadding" Value="8" />
+    <Setter Property="styling:ListViewAssist.AnimateSelection" Value="True" />
+    <Setter Property="styling:ListViewAssist.SelectionAnimationDuration" Value="140" />
+    <Setter Property="styling:ListViewAssist.SelectionScale" Value="0.96" />
   </Style>
 
   <Style TargetType="ListView"

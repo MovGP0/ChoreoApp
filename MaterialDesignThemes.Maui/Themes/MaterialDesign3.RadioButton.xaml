@@ -7,6 +7,7 @@
          TargetType="RadioButton">
     <Setter Property="BackgroundColor" Value="Transparent" />
     <Setter Property="styling:RadioButtonAssist.RadioButtonSize" Value="18" />
+    <Setter Property="styling:RadioButtonAssist.AnimateOnChecked" Value="True" />
   </Style>
 
   <Style TargetType="RadioButton"

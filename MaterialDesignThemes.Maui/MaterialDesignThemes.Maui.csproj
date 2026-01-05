@@ -45,6 +45,9 @@
     <Compile Update="HintProxyFabric.*.cs">
       <DependentUpon>HintProxyFabric.cs</DependentUpon>
     </Compile>
+    <Compile Update="Expander.Windows.cs">
+      <DependentUpon>Expander.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Remove="Resources\Noto\OFL.txt" />

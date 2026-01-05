@@ -1,40 +1,27 @@
 namespace MaterialDesignThemes.Maui;
 
-public static class ListViewAssist
+public static class CollectionViewAssist
 {
-    private const string SelectionAnimationName = "MaterialDesignListViewSelection";
+    private const string SelectionAnimationName = "MaterialDesignCollectionViewSelection";
 
-    public static readonly BindableProperty ListViewItemPaddingProperty =
+    public static readonly BindableProperty ItemPaddingProperty =
         BindableProperty.CreateAttached(
-            "ListViewItemPadding",
+            "ItemPadding",
             typeof(Thickness),
-            typeof(ListViewAssist),
+            typeof(CollectionViewAssist),
             new Thickness(8, 8, 8, 8));
 
-    public static void SetListViewItemPadding(BindableObject element, Thickness value) =>
-        element.SetValue(ListViewItemPaddingProperty, value);
+    public static void SetItemPadding(BindableObject element, Thickness value) =>
+        element.SetValue(ItemPaddingProperty, value);
 
-    public static Thickness GetListViewItemPadding(BindableObject element) =>
-        (Thickness)element.GetValue(ListViewItemPaddingProperty);
-
-    public static readonly BindableProperty HeaderRowBackgroundProperty =
-        BindableProperty.CreateAttached(
-            "HeaderRowBackground",
-            typeof(Brush),
-            typeof(ListViewAssist),
-            null);
-
-    public static void SetHeaderRowBackground(BindableObject element, Brush value) =>
-        element.SetValue(HeaderRowBackgroundProperty, value);
-
-    public static Brush? GetHeaderRowBackground(BindableObject element) =>
-        (Brush?)element.GetValue(HeaderRowBackgroundProperty);
+    public static Thickness GetItemPadding(BindableObject element) =>
+        (Thickness)element.GetValue(ItemPaddingProperty);
 
     public static readonly BindableProperty AnimateSelectionProperty =
         BindableProperty.CreateAttached(
             "AnimateSelection",
             typeof(bool),
-            typeof(ListViewAssist),
+            typeof(CollectionViewAssist),
             false,
             propertyChanged: OnAnimateSelectionChanged);
 
@@ -48,7 +35,7 @@ public static class ListViewAssist
         BindableProperty.CreateAttached(
             "SelectionAnimationDuration",
             typeof(uint),
-            typeof(ListViewAssist),
+            typeof(CollectionViewAssist),
             (uint)140);
 
     public static uint GetSelectionAnimationDuration(BindableObject element) =>
@@ -61,7 +48,7 @@ public static class ListViewAssist
         BindableProperty.CreateAttached(
             "SelectionScale",
             typeof(double),
-            typeof(ListViewAssist),
+            typeof(CollectionViewAssist),
             0.96);
 
     public static double GetSelectionScale(BindableObject element) =>
@@ -72,47 +59,42 @@ public static class ListViewAssist
 
     private static void OnAnimateSelectionChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        if (bindable is not ListView listView)
+        if (bindable is not CollectionView collectionView)
         {
             return;
         }
 
-        listView.ItemSelected -= OnItemSelected;
-        listView.ItemTapped -= OnItemTapped;
+        collectionView.SelectionChanged -= OnSelectionChanged;
 
         if ((bool)newValue)
         {
-            listView.ItemSelected += OnItemSelected;
-            listView.ItemTapped += OnItemTapped;
+            collectionView.SelectionChanged += OnSelectionChanged;
         }
     }
 
-    private static void OnItemSelected(object? sender, SelectedItemChangedEventArgs e)
+    private static void OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (sender is ListView listView && e.SelectedItem is not null)
+        if (sender is not CollectionView collectionView)
         {
-            _ = AnimateSelectionAsync(listView, e.SelectedItem);
+            return;
         }
-    }
 
-    private static void OnItemTapped(object? sender, ItemTappedEventArgs e)
-    {
-        if (sender is ListView listView && e.Item is not null)
+        foreach (var item in e.CurrentSelection)
         {
-            _ = AnimateSelectionAsync(listView, e.Item);
+            _ = AnimateSelectionAsync(collectionView, item);
         }
     }
 
-    private static async Task AnimateSelectionAsync(ListView listView, object item)
+    private static async Task AnimateSelectionAsync(CollectionView collectionView, object item)
     {
-        var target = FindVisualElement(listView, item);
+        var target = FindVisualElement(collectionView, item);
         if (target is null)
         {
             return;
         }
 
-        var scale = GetSelectionScale(listView);
-        var duration = GetSelectionAnimationDuration(listView);
+        var scale = GetSelectionScale(collectionView);
+        var duration = GetSelectionAnimationDuration(collectionView);
 
         target.AbortAnimation(SelectionAnimationName);
         var originalScale = target.Scale;

@@ -9,6 +9,7 @@
             Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
     <Setter Property="BackgroundColor" Value="Transparent" />
     <Setter Property="styling:CheckBoxAssist.CheckBoxSize" Value="18" />
+    <Setter Property="styling:CheckBoxAssist.AnimateOnChecked" Value="True" />
     <Setter Property="VisualStateManager.VisualStateGroups">
       <VisualStateGroupList>
         <VisualStateGroup x:Name="CommonStates">

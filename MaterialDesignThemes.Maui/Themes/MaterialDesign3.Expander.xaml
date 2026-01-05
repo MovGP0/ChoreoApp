@@ -4,14 +4,15 @@
                     xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
 
   <Style x:Key="MaterialDesignExpander"
-         TargetType="Expander">
+         TargetType="styling:Expander">
     <Setter Property="BackgroundColor"
             Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
     <Setter Property="styling:ExpanderAssist.HeaderFontSize" Value="15" />
     <Setter Property="styling:ExpanderAssist.HorizontalHeaderPadding" Value="24,12" />
     <Setter Property="styling:ExpanderAssist.VerticalHeaderPadding" Value="12,24" />
+    <Setter Property="AnimationDuration" Value="180" />
   </Style>
 
-  <Style TargetType="Expander"
+  <Style TargetType="styling:Expander"
          BasedOn="{StaticResource MaterialDesignExpander}" />
 </ResourceDictionary>

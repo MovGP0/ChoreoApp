@@ -14,6 +14,11 @@
     <Setter Property="HeightRequest" Value="48" />
     <Setter Property="MinimumHeightRequest" Value="48" />
     <Setter Property="MinimumWidthRequest" Value="44" />
+    <Setter Property="styling:DatePickerAssist.AnimateOnFocus" Value="True" />
+    <Setter Property="styling:DatePickerAssist.UnfocusedBackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}" />
+    <Setter Property="styling:DatePickerAssist.FocusedBackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerHigh}}" />
     <Setter Property="VisualStateManager.VisualStateGroups">
       <VisualStateGroupList>
         <VisualStateGroup x:Name="CommonStates">

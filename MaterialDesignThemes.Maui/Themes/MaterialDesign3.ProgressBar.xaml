@@ -10,6 +10,8 @@
     <Setter Property="BackgroundColor"
             Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
     <Setter Property="HeightRequest" Value="4" />
+    <Setter Property="styling:ProgressBarAssist.AnimateProgress" Value="True" />
+    <Setter Property="styling:ProgressBarAssist.ProgressAnimationDuration" Value="180" />
   </Style>
 
   <Style TargetType="ProgressBar"

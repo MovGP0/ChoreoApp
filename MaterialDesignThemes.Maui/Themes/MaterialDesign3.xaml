@@ -9,6 +9,7 @@
         <ResourceDictionary Source="MaterialDesign3.Card.xaml" />
         <ResourceDictionary Source="MaterialDesign3.ContentButton.xaml" />
         <ResourceDictionary Source="MaterialDesign3.Chip.xaml" />
+        <ResourceDictionary Source="MaterialDesign3.CollectionView.xaml" />
         <ResourceDictionary Source="MaterialDesign3.CheckBox.xaml" />
         <ResourceDictionary Source="MaterialDesign3.DatePicker.xaml" />
         <ResourceDictionary Source="MaterialDesign3.Expander.xaml" />
