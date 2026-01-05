@@ -14,19 +14,47 @@
             Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}" />
     <Setter Property="Padding" Value="12" />
     <Setter Property="HueSliderPosition" Value="Bottom" />
-    <Setter Property="Resources">
-      <ResourceDictionary>
-        <Style TargetType="Slider">
-          <Setter Property="MinimumTrackColor"
-                  Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
-          <Setter Property="MaximumTrackColor"
-                  Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
-          <Setter Property="ThumbColor"
-                  Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
-          <Setter Property="Minimum" Value="0" />
-          <Setter Property="Maximum" Value="360" />
-        </Style>
-      </ResourceDictionary>
+    <Setter Property="HueMinimumTrackColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+    <Setter Property="HueMaximumTrackColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+    <Setter Property="HueThumbColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+    <Setter Property="ControlTemplate">
+      <ControlTemplate>
+        <Grid Padding="{TemplateBinding Padding}">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+
+          <AbsoluteLayout x:Name="PART_SaturationBrightnessLayout"
+                          Grid.Row="0"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2">
+            <GraphicsView x:Name="PART_SaturationBrightnessView"
+                          AbsoluteLayout.LayoutFlags="All"
+                          AbsoluteLayout.LayoutBounds="0,0,1,1" />
+            <Border x:Name="PART_SaturationBrightnessThumb"
+                    AbsoluteLayout.LayoutFlags="None"
+                    AbsoluteLayout.LayoutBounds="0,0,18,18" />
+          </AbsoluteLayout>
+
+          <Slider x:Name="PART_HueSlider"
+                  Grid.Row="1"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  Minimum="0"
+                  Maximum="360"
+                  MinimumTrackColor="{TemplateBinding HueMinimumTrackColor}"
+                  MaximumTrackColor="{TemplateBinding HueMaximumTrackColor}"
+                  ThumbColor="{TemplateBinding HueThumbColor}" />
+        </Grid>
+      </ControlTemplate>
     </Setter>
   </Style>
 

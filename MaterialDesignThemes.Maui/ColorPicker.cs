@@ -3,19 +3,25 @@ using Microsoft.Maui.Layouts;
 
 namespace MaterialDesignThemes.Maui;
 
-public sealed class ColorPicker : ContentView
+public sealed class ColorPicker : TemplatedView
 {
+    public const string HueSliderPartName = "PART_HueSlider";
+    public const string SaturationBrightnessLayoutPartName = "PART_SaturationBrightnessLayout";
+    public const string SaturationBrightnessViewPartName = "PART_SaturationBrightnessView";
+    public const string SaturationBrightnessThumbPartName = "PART_SaturationBrightnessThumb";
+
     private const double HueMinimum = 0d;
     private const double HueMaximum = 360d;
     private const double ThumbSize = 18d;
     private const double ThumbRadius = ThumbSize / 2d;
 
-    private readonly Grid _layout = [];
-    private readonly AbsoluteLayout _saturationBrightnessLayout = [];
-    private readonly GraphicsView _saturationBrightnessView;
-    private readonly Border _saturationBrightnessThumb;
-    private readonly Slider _hueSlider = new();
+    private AbsoluteLayout? _saturationBrightnessLayout;
+    private GraphicsView? _saturationBrightnessView;
+    private Border? _saturationBrightnessThumb;
+    private Slider? _hueSlider;
     private readonly SaturationBrightnessDrawable _saturationBrightnessDrawable = new();
+    private readonly PointerGestureRecognizer? _pointerGesture;
+    private readonly PanGestureRecognizer? _panGesture;
 
     private bool _inCallback;
     private bool _isUpdatingFromHue;
@@ -24,50 +30,13 @@ public sealed class ColorPicker : ContentView
 
     public ColorPicker()
     {
-        _saturationBrightnessView = new GraphicsView
-        {
-            Drawable = _saturationBrightnessDrawable
-        };
+        _pointerGesture = new PointerGestureRecognizer();
+        _pointerGesture.PointerPressed += OnSaturationBrightnessPointerPressed;
+        _pointerGesture.PointerMoved += OnSaturationBrightnessPointerMoved;
+        _pointerGesture.PointerReleased += OnSaturationBrightnessPointerReleased;
 
-        _saturationBrightnessThumb = new Border
-        {
-            HeightRequest = ThumbSize,
-            WidthRequest = ThumbSize,
-            Stroke = Colors.White,
-            StrokeThickness = 2,
-            StrokeShape = new RoundRectangle
-            {
-                CornerRadius = ThumbRadius
-            },
-            BackgroundColor = Colors.Transparent
-        };
-
-        AbsoluteLayout.SetLayoutFlags(_saturationBrightnessView, AbsoluteLayoutFlags.All);
-        AbsoluteLayout.SetLayoutBounds(_saturationBrightnessView, new Rect(0, 0, 1, 1));
-        AbsoluteLayout.SetLayoutFlags(_saturationBrightnessThumb, AbsoluteLayoutFlags.None);
-        AbsoluteLayout.SetLayoutBounds(_saturationBrightnessThumb, new Rect(0, 0, ThumbSize, ThumbSize));
-
-        var pointerGesture = new PointerGestureRecognizer();
-        pointerGesture.PointerPressed += OnSaturationBrightnessPointerPressed;
-        pointerGesture.PointerMoved += OnSaturationBrightnessPointerMoved;
-        pointerGesture.PointerReleased += OnSaturationBrightnessPointerReleased;
-        _saturationBrightnessView.GestureRecognizers.Add(pointerGesture);
-
-        var panGesture = new PanGestureRecognizer();
-        panGesture.PanUpdated += OnSaturationBrightnessPanUpdated;
-        _saturationBrightnessView.GestureRecognizers.Add(panGesture);
-
-        _saturationBrightnessLayout.Children.Add(_saturationBrightnessView);
-        _saturationBrightnessLayout.Children.Add(_saturationBrightnessThumb);
-        _saturationBrightnessLayout.SizeChanged += OnSaturationBrightnessLayoutSizeChanged;
-
-        _hueSlider.Minimum = HueMinimum;
-        _hueSlider.Maximum = HueMaximum;
-        _hueSlider.ValueChanged += OnHueSliderValueChanged;
-
-        Content = _layout;
-        BuildLayout();
-        UpdateFromHsb();
+        _panGesture = new PanGestureRecognizer();
+        _panGesture.PanUpdated += OnSaturationBrightnessPanUpdated;
     }
 
     public event EventHandler<ColorChangedEventArgs>? ColorChanged;
@@ -113,6 +82,45 @@ public sealed class ColorPicker : ContentView
         set => SetValue(HueSliderPositionProperty, value);
     }
 
+    public static readonly BindableProperty HueMinimumTrackColorProperty = BindableProperty.Create(
+        nameof(HueMinimumTrackColor),
+        typeof(Color),
+        typeof(ColorPicker),
+        null,
+        propertyChanged: OnHueSliderAppearanceChanged);
+
+    public Color? HueMinimumTrackColor
+    {
+        get => (Color?)GetValue(HueMinimumTrackColorProperty);
+        set => SetValue(HueMinimumTrackColorProperty, value);
+    }
+
+    public static readonly BindableProperty HueMaximumTrackColorProperty = BindableProperty.Create(
+        nameof(HueMaximumTrackColor),
+        typeof(Color),
+        typeof(ColorPicker),
+        null,
+        propertyChanged: OnHueSliderAppearanceChanged);
+
+    public Color? HueMaximumTrackColor
+    {
+        get => (Color?)GetValue(HueMaximumTrackColorProperty);
+        set => SetValue(HueMaximumTrackColorProperty, value);
+    }
+
+    public static readonly BindableProperty HueThumbColorProperty = BindableProperty.Create(
+        nameof(HueThumbColor),
+        typeof(Color),
+        typeof(ColorPicker),
+        null,
+        propertyChanged: OnHueSliderAppearanceChanged);
+
+    public Color? HueThumbColor
+    {
+        get => (Color?)GetValue(HueThumbColorProperty);
+        set => SetValue(HueThumbColorProperty, value);
+    }
+
     private static void OnColorChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (bindable is not ColorPicker colorPicker)
@@ -155,41 +163,14 @@ public sealed class ColorPicker : ContentView
             return;
         }
 
-        colorPicker.BuildLayout();
+        colorPicker.UpdateLayoutForHuePosition();
     }
 
-    private void BuildLayout()
+    private static void OnHueSliderAppearanceChanged(BindableObject bindable, object oldValue, object newValue)
     {
-        _layout.RowDefinitions.Clear();
-        _layout.ColumnDefinitions.Clear();
-        _layout.Children.Clear();
-
-        switch (HueSliderPosition)
+        if (bindable is ColorPicker colorPicker)
         {
-            case ColorPickerDock.Top:
-                _layout.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                _layout.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
-                _layout.Add(_hueSlider, 0);
-                _layout.Add(_saturationBrightnessLayout, 0, 1);
-                break;
-            case ColorPickerDock.Left:
-                _layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                _layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
-                _layout.Add(_hueSlider, 0);
-                _layout.Add(_saturationBrightnessLayout, 1);
-                break;
-            case ColorPickerDock.Right:
-                _layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
-                _layout.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                _layout.Add(_saturationBrightnessLayout, 0);
-                _layout.Add(_hueSlider, 1);
-                break;
-            default:
-                _layout.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
-                _layout.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-                _layout.Add(_saturationBrightnessLayout, 0);
-                _layout.Add(_hueSlider, 0, 1);
-                break;
+            colorPicker.UpdateHueSliderAppearance();
         }
     }
 
@@ -238,7 +219,7 @@ public sealed class ColorPicker : ContentView
 
     private void OnSaturationBrightnessPanUpdated(object? sender, PanUpdatedEventArgs e)
     {
-        if (_saturationBrightnessLayout.Width <= 0 || _saturationBrightnessLayout.Height <= 0)
+        if (_saturationBrightnessLayout is null || _saturationBrightnessLayout.Width <= 0 || _saturationBrightnessLayout.Height <= 0)
         {
             return;
         }
@@ -262,7 +243,7 @@ public sealed class ColorPicker : ContentView
 
     private void ApplyThumbPosition(double left, double top)
     {
-        if (_saturationBrightnessLayout.Width <= 0 || _saturationBrightnessLayout.Height <= 0)
+        if (_saturationBrightnessLayout is null || _saturationBrightnessLayout.Width <= 0 || _saturationBrightnessLayout.Height <= 0)
         {
             return;
         }
@@ -283,7 +264,7 @@ public sealed class ColorPicker : ContentView
 
     private void SetThumbPosition()
     {
-        if (_saturationBrightnessLayout.Width <= 0 || _saturationBrightnessLayout.Height <= 0)
+        if (_saturationBrightnessLayout is null || _saturationBrightnessLayout.Width <= 0 || _saturationBrightnessLayout.Height <= 0)
         {
             return;
         }
@@ -295,6 +276,11 @@ public sealed class ColorPicker : ContentView
 
     private Point GetThumbCenter()
     {
+        if (_saturationBrightnessLayout is null)
+        {
+            return new Point(0, 0);
+        }
+
         var left = _saturationBrightnessLayout.Width * Hsb.Saturation;
         var top = _saturationBrightnessLayout.Height * (1 - Hsb.Brightness);
         return new Point(left, top);
@@ -302,6 +288,11 @@ public sealed class ColorPicker : ContentView
 
     private void SetThumbPosition(double left, double top)
     {
+        if (_saturationBrightnessLayout is null || _saturationBrightnessThumb is null)
+        {
+            return;
+        }
+
         var clampedLeft = Math.Clamp(left, 0, _saturationBrightnessLayout.Width);
         var clampedTop = Math.Clamp(top, 0, _saturationBrightnessLayout.Height);
 
@@ -313,6 +304,7 @@ public sealed class ColorPicker : ContentView
 
     private void UpdateFromHsb()
     {
+        UpdateHueSliderAppearance();
         UpdateHueSliderValue();
         UpdateSaturationBrightnessDrawable();
         SetThumbPosition();
@@ -320,7 +312,7 @@ public sealed class ColorPicker : ContentView
 
     private void UpdateHueSliderValue()
     {
-        if (Math.Abs(_hueSlider.Value - Hsb.Hue) < double.Epsilon)
+        if (_hueSlider is null || Math.Abs(_hueSlider.Value - Hsb.Hue) < double.Epsilon)
         {
             return;
         }
@@ -330,10 +322,148 @@ public sealed class ColorPicker : ContentView
         _isUpdatingFromHue = false;
     }
 
+    private void UpdateHueSliderAppearance()
+    {
+        if (_hueSlider is null)
+        {
+            return;
+        }
+
+        _hueSlider.MinimumTrackColor = HueMinimumTrackColor;
+        _hueSlider.MaximumTrackColor = HueMaximumTrackColor;
+        _hueSlider.ThumbColor = HueThumbColor;
+    }
+
     private void UpdateSaturationBrightnessDrawable()
     {
         _saturationBrightnessDrawable.HueColor = new Hsb(Hsb.Hue, 1, 1).ToColor();
-        _saturationBrightnessView.Invalidate();
+        _saturationBrightnessView?.Invalidate();
+    }
+
+    protected override void OnApplyTemplate()
+    {
+        base.OnApplyTemplate();
+
+        if (_saturationBrightnessLayout is not null)
+        {
+            _saturationBrightnessLayout.SizeChanged -= OnSaturationBrightnessLayoutSizeChanged;
+        }
+
+        if (_saturationBrightnessView is not null)
+        {
+            if (_pointerGesture is not null)
+            {
+                _saturationBrightnessView.GestureRecognizers.Remove(_pointerGesture);
+            }
+            if (_panGesture is not null)
+            {
+                _saturationBrightnessView.GestureRecognizers.Remove(_panGesture);
+            }
+        }
+
+        if (_hueSlider is not null)
+        {
+            _hueSlider.ValueChanged -= OnHueSliderValueChanged;
+        }
+
+        _saturationBrightnessLayout = GetTemplateChild(SaturationBrightnessLayoutPartName) as AbsoluteLayout;
+        _saturationBrightnessView = GetTemplateChild(SaturationBrightnessViewPartName) as GraphicsView;
+        _saturationBrightnessThumb = GetTemplateChild(SaturationBrightnessThumbPartName) as Border;
+        _hueSlider = GetTemplateChild(HueSliderPartName) as Slider;
+
+        if (_saturationBrightnessView is not null)
+        {
+            _saturationBrightnessView.Drawable = _saturationBrightnessDrawable;
+            if (_pointerGesture is not null)
+            {
+                _saturationBrightnessView.GestureRecognizers.Add(_pointerGesture);
+            }
+            if (_panGesture is not null)
+            {
+                _saturationBrightnessView.GestureRecognizers.Add(_panGesture);
+            }
+        }
+
+        if (_saturationBrightnessThumb is not null)
+        {
+            _saturationBrightnessThumb.HeightRequest = ThumbSize;
+            _saturationBrightnessThumb.WidthRequest = ThumbSize;
+            _saturationBrightnessThumb.Stroke = Colors.White;
+            _saturationBrightnessThumb.StrokeThickness = 2;
+            _saturationBrightnessThumb.StrokeShape = new RoundRectangle
+            {
+                CornerRadius = ThumbRadius
+            };
+            _saturationBrightnessThumb.BackgroundColor = Colors.Transparent;
+            AbsoluteLayout.SetLayoutFlags(_saturationBrightnessThumb, AbsoluteLayoutFlags.None);
+        }
+
+        if (_saturationBrightnessLayout is not null)
+        {
+            _saturationBrightnessLayout.SizeChanged += OnSaturationBrightnessLayoutSizeChanged;
+        }
+
+        if (_hueSlider is not null)
+        {
+            _hueSlider.Minimum = HueMinimum;
+            _hueSlider.Maximum = HueMaximum;
+            _hueSlider.ValueChanged += OnHueSliderValueChanged;
+        }
+
+        UpdateLayoutForHuePosition();
+        UpdateFromHsb();
+    }
+
+    private void UpdateLayoutForHuePosition()
+    {
+        if (_hueSlider is null || _saturationBrightnessLayout is null)
+        {
+            return;
+        }
+
+        switch (HueSliderPosition)
+        {
+            case ColorPickerDock.Top:
+                Grid.SetRow(_hueSlider, 0);
+                Grid.SetColumn(_hueSlider, 0);
+                Grid.SetColumnSpan(_hueSlider, 2);
+                Grid.SetRowSpan(_hueSlider, 1);
+                Grid.SetRow(_saturationBrightnessLayout, 1);
+                Grid.SetColumn(_saturationBrightnessLayout, 0);
+                Grid.SetColumnSpan(_saturationBrightnessLayout, 2);
+                Grid.SetRowSpan(_saturationBrightnessLayout, 1);
+                break;
+            case ColorPickerDock.Left:
+                Grid.SetRow(_hueSlider, 0);
+                Grid.SetColumn(_hueSlider, 0);
+                Grid.SetColumnSpan(_hueSlider, 1);
+                Grid.SetRowSpan(_hueSlider, 2);
+                Grid.SetRow(_saturationBrightnessLayout, 0);
+                Grid.SetColumn(_saturationBrightnessLayout, 1);
+                Grid.SetColumnSpan(_saturationBrightnessLayout, 1);
+                Grid.SetRowSpan(_saturationBrightnessLayout, 2);
+                break;
+            case ColorPickerDock.Right:
+                Grid.SetRow(_hueSlider, 0);
+                Grid.SetColumn(_hueSlider, 1);
+                Grid.SetColumnSpan(_hueSlider, 1);
+                Grid.SetRowSpan(_hueSlider, 2);
+                Grid.SetRow(_saturationBrightnessLayout, 0);
+                Grid.SetColumn(_saturationBrightnessLayout, 0);
+                Grid.SetColumnSpan(_saturationBrightnessLayout, 1);
+                Grid.SetRowSpan(_saturationBrightnessLayout, 2);
+                break;
+            default:
+                Grid.SetRow(_hueSlider, 1);
+                Grid.SetColumn(_hueSlider, 0);
+                Grid.SetColumnSpan(_hueSlider, 2);
+                Grid.SetRowSpan(_hueSlider, 1);
+                Grid.SetRow(_saturationBrightnessLayout, 0);
+                Grid.SetColumn(_saturationBrightnessLayout, 0);
+                Grid.SetColumnSpan(_saturationBrightnessLayout, 2);
+                Grid.SetRowSpan(_saturationBrightnessLayout, 1);
+                break;
+        }
     }
 }
 

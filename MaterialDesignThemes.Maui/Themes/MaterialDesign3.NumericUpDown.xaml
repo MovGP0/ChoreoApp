@@ -13,7 +13,6 @@
   <Style x:Key="MaterialDesignNumericUpDownButton"
          TargetType="styling:ContentButton"
          BasedOn="{StaticResource MaterialDesignFlatButton}">
-    <Setter Property="Focusable" Value="False" />
     <Setter Property="HeightRequest" Value="18" />
     <Setter Property="WidthRequest" Value="18" />
     <Setter Property="Padding" Value="0" />
