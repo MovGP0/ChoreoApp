@@ -50,6 +50,9 @@
     <BundleResource Remove="Resources\Noto\OFL.txt" />
     <None Include="Resources\Noto\OFL.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <MauiFont Include="Resources\**\*.ttf" />
+  </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net10.0-windows10.0.19041.0'">
     <Page Remove="Themes\**\*.xaml" />
     <ApplicationDefinition Remove="Themes\**\*.xaml" />

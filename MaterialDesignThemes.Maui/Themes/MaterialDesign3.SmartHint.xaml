@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                    xmlns:converters="clr-namespace:MaterialDesignThemes.Maui.Converters;assembly=MaterialDesignThemes.Maui">
+
+  <ControlTemplate x:Key="MaterialDesignSmartHintTemplate">
+    <Grid Padding="{TemplateBinding Padding}">
+      <Label x:Name="SimpleHintLabel"
+             Text="{TemplateBinding Hint}"
+             FontSize="{TemplateBinding FontSize}"
+             Opacity="{TemplateBinding HintOpacity}"
+             IsVisible="{Binding Source={RelativeSource TemplatedParent}, Path=UseFloating, Converter={x:Static converters:BooleanToVisibilityConverter.CollapsedInstance}}" />
+
+      <styling:ScaleHost x:Name="ScaleHost"
+                         IsVisible="{Binding Source={RelativeSource TemplatedParent}, Path=UseFloating}">
+        <Label x:Name="FloatingHintLabel"
+               Text="{TemplateBinding Hint}"
+               FontSize="{TemplateBinding FontSize}"
+               Opacity="{TemplateBinding HintOpacity}" />
+      </styling:ScaleHost>
+
+      <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="ContentStates">
+          <VisualState x:Name="HintRestingPosition">
+            <VisualState.Setters>
+              <Setter TargetName="ScaleHost" Property="Scale" Value="{Binding Source={RelativeSource TemplatedParent}, Path=FloatingScale}" />
+              <Setter TargetName="FloatingHintLabel" Property="Opacity" Value="{Binding Source={RelativeSource TemplatedParent}, Path=HintOpacity}" />
+            </VisualState.Setters>
+          </VisualState>
+          <VisualState x:Name="HintFloatingPosition">
+            <VisualState.Setters>
+              <Setter TargetName="ScaleHost" Property="Scale" Value="1" />
+              <Setter TargetName="FloatingHintLabel" Property="Opacity" Value="{Binding Source={RelativeSource TemplatedParent}, Path=HintOpacity}" />
+            </VisualState.Setters>
+          </VisualState>
+        </VisualStateGroup>
+      </VisualStateManager.VisualStateGroups>
+    </Grid>
+  </ControlTemplate>
+
+  <Style TargetType="styling:SmartHint">
+    <Setter Property="HorizontalOptions" Value="Fill" />
+    <Setter Property="VerticalOptions" Value="Start" />
+    <Setter Property="IsVisible" Value="True" />
+    <Setter Property="ControlTemplate" Value="{StaticResource MaterialDesignSmartHintTemplate}" />
+  </Style>
+</ResourceDictionary>
