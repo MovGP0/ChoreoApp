@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="MaterialDesign3.ContentButton.xaml" />
+    <ResourceDictionary Source="MaterialDesign3.Entry.xaml" />
+    <ResourceDictionary Source="MaterialDesign3.PackIcon.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <Style x:Key="MaterialDesignNumericUpDownButton"
+         TargetType="styling:ContentButton"
+         BasedOn="{StaticResource MaterialDesignFlatButton}">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="HeightRequest" Value="18" />
+    <Setter Property="WidthRequest" Value="18" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="CornerRadius" Value="4" />
+    <Setter Property="BackgroundColor" Value="Transparent" />
+    <Setter Property="Foreground"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignNumericUpDownBase"
+         TargetType="styling:NumericUpDown">
+    <Setter Property="MinimumWidthRequest" Value="100" />
+    <Setter Property="HeightRequest" Value="48" />
+    <Setter Property="BackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}" />
+    <Setter Property="EntryStyle"
+            Value="{StaticResource MaterialDesignEntry}" />
+    <Setter Property="ButtonStyle"
+            Value="{StaticResource MaterialDesignNumericUpDownButton}" />
+    <Setter Property="IconForeground"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignDecimalUpDownBase"
+         TargetType="styling:DecimalUpDown">
+    <Setter Property="MinimumWidthRequest" Value="100" />
+    <Setter Property="HeightRequest" Value="48" />
+    <Setter Property="BackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}" />
+    <Setter Property="EntryStyle"
+            Value="{StaticResource MaterialDesignEntry}" />
+    <Setter Property="ButtonStyle"
+            Value="{StaticResource MaterialDesignNumericUpDownButton}" />
+    <Setter Property="IconForeground"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignFloatingHintNumericUpDownBase"
+         TargetType="styling:NumericUpDown"
+         BasedOn="{StaticResource MaterialDesignNumericUpDownBase}">
+    <Setter Property="EntryStyle"
+            Value="{StaticResource MaterialDesignFloatingHintEntry}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignFloatingHintDecimalUpDownBase"
+         TargetType="styling:DecimalUpDown"
+         BasedOn="{StaticResource MaterialDesignDecimalUpDownBase}">
+    <Setter Property="EntryStyle"
+            Value="{StaticResource MaterialDesignFloatingHintEntry}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignFilledNumericUpDownBase"
+         TargetType="styling:NumericUpDown"
+         BasedOn="{StaticResource MaterialDesignNumericUpDownBase}">
+    <Setter Property="EntryStyle"
+            Value="{StaticResource MaterialDesignFilledEntry}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignFilledDecimalUpDownBase"
+         TargetType="styling:DecimalUpDown"
+         BasedOn="{StaticResource MaterialDesignDecimalUpDownBase}">
+    <Setter Property="EntryStyle"
+            Value="{StaticResource MaterialDesignFilledEntry}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignOutlinedNumericUpDownBase"
+         TargetType="styling:NumericUpDown"
+         BasedOn="{StaticResource MaterialDesignNumericUpDownBase}">
+    <Setter Property="EntryStyle"
+            Value="{StaticResource MaterialDesignOutlinedEntry}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignOutlinedDecimalUpDownBase"
+         TargetType="styling:DecimalUpDown"
+         BasedOn="{StaticResource MaterialDesignDecimalUpDownBase}">
+    <Setter Property="EntryStyle"
+            Value="{StaticResource MaterialDesignOutlinedEntry}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignFloatingHintNumericUpDown"
+         TargetType="styling:NumericUpDown"
+         BasedOn="{StaticResource MaterialDesignFloatingHintNumericUpDownBase}" />
+
+  <Style x:Key="MaterialDesignFloatingHintDecimalUpDown"
+         TargetType="styling:DecimalUpDown"
+         BasedOn="{StaticResource MaterialDesignFloatingHintDecimalUpDownBase}" />
+
+  <Style x:Key="MaterialDesignFilledNumericUpDown"
+         TargetType="styling:NumericUpDown"
+         BasedOn="{StaticResource MaterialDesignFilledNumericUpDownBase}" />
+
+  <Style x:Key="MaterialDesignFilledDecimalUpDown"
+         TargetType="styling:DecimalUpDown"
+         BasedOn="{StaticResource MaterialDesignFilledDecimalUpDownBase}" />
+
+  <Style x:Key="MaterialDesignOutlinedNumericUpDown"
+         TargetType="styling:NumericUpDown"
+         BasedOn="{StaticResource MaterialDesignOutlinedNumericUpDownBase}" />
+
+  <Style x:Key="MaterialDesignOutlinedDecimalUpDown"
+         TargetType="styling:DecimalUpDown"
+         BasedOn="{StaticResource MaterialDesignOutlinedDecimalUpDownBase}" />
+
+  <Style x:Key="MaterialDesignNumericUpDown"
+         TargetType="styling:NumericUpDown"
+         BasedOn="{StaticResource MaterialDesignNumericUpDownBase}" />
+
+  <Style x:Key="MaterialDesignDecimalUpDown"
+         TargetType="styling:DecimalUpDown"
+         BasedOn="{StaticResource MaterialDesignDecimalUpDownBase}" />
+
+  <Style TargetType="styling:NumericUpDown"
+         BasedOn="{StaticResource MaterialDesignNumericUpDown}" />
+
+  <Style TargetType="styling:DecimalUpDown"
+         BasedOn="{StaticResource MaterialDesignDecimalUpDown}" />
+</ResourceDictionary>
