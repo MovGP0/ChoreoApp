@@ -1,10 +1,5 @@
 # Files to port from WPF to MAUI
 
-ColorAdjustment.cs
-ColorReference.cs
-ColorSelection.cs
-Contrast.cs
-CustomColorTheme.cs
 CustomPopupPlacementCallbackHelper.cs
 DataGridComboBoxColumn.cs
 DataGridTextColumn.cs
@@ -14,7 +9,6 @@ DpiHelper.cs
 FloatingHintHorizontalAlignment.cs
 GridViewColumnThumb.cs
 IMaterialDesignThemeDictionary.cs
-InheritSystemColorTypeConverter.cs
 ListSortDirectionIndicator.cs
 NotoFontExtension.cs
 PackIconExtension.cs
@@ -42,3 +36,4 @@ ThemeChangedEventArgs.cs
 ThemeColorReference.cs
 ThemeExtensions.cs
 ThemeExtensions.g.cs
+CustomColorTheme.cs
