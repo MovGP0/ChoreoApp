@@ -1,6 +1,4 @@
-﻿using Microsoft.Maui.Graphics;
-
-namespace MaterialDesignThemes.Maui;
+﻿namespace MaterialDesignThemes.Maui;
 
 public sealed partial class MaterialDesignColorsDictionary : IDisposable
 {

@@ -1,6 +1,3 @@
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Graphics;
-
 namespace MaterialDesignThemes.Maui;
 
 internal sealed record ShadowLocalInfo(double StandardOpacity);

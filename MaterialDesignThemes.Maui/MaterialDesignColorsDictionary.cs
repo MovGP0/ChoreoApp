@@ -1,6 +1,4 @@
 ﻿using MaterialColorUtilities;
-using Microsoft.Maui.ApplicationModel;
-using Microsoft.Maui.Graphics;
 using Application = Microsoft.Maui.Controls.Application;
 using Platform = MaterialColorUtilities.Platform;
 

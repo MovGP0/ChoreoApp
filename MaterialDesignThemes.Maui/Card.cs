@@ -1,5 +1,4 @@
 using Microsoft.Maui.Controls.Shapes;
-using Microsoft.Maui.Graphics;
 
 namespace MaterialDesignThemes.Maui;
 
