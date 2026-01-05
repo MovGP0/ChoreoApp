@@ -55,7 +55,7 @@
             Value="{StaticResource MaterialDesignHelperSearchBar}" />
     <Setter Property="styling:TextFieldAssist.CharacterCounterStyle"
             Value="{StaticResource MaterialDesignCharacterCounterSearchBar}" />
-    <Setter Property="styling:TextFieldAssist.CharacterCounterVisibility" Value="True" />
+    <Setter Property="styling:TextFieldAssist.CharacterCounterVisibility" Value="Visible" />
     <Setter Property="VisualStateManager.VisualStateGroups">
       <VisualStateGroupList>
         <VisualStateGroup x:Name="CommonStates">

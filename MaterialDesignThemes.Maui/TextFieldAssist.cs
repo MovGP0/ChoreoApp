@@ -11,7 +11,7 @@ public static partial class TextFieldAssist
             "TextBoxViewMargin",
             typeof(Thickness),
             typeof(TextFieldAssist),
-            new Thickness(double.NaN));
+            new Thickness(double.NegativeInfinity));
 
     public static void SetTextBoxViewMargin(BindableObject element, Thickness value) =>
         element.SetValue(TextBoxViewMarginProperty, value);
@@ -33,14 +33,14 @@ public static partial class TextFieldAssist
     public static readonly BindableProperty DecorationVisibilityProperty =
         BindableProperty.CreateAttached(
             "DecorationVisibility",
-            typeof(bool),
+            typeof(Visibility),
             typeof(TextFieldAssist),
-            true);
+            Visibility.Visible);
 
-    public static void SetDecorationVisibility(BindableObject element, bool value) =>
+    public static void SetDecorationVisibility(BindableObject element, Visibility value) =>
         element.SetValue(DecorationVisibilityProperty, value);
-    public static bool GetDecorationVisibility(BindableObject element) =>
-        (bool)element.GetValue(DecorationVisibilityProperty);
+    public static Visibility GetDecorationVisibility(BindableObject element) =>
+        (Visibility)element.GetValue(DecorationVisibilityProperty);
 
     public static readonly BindableProperty UnderlineBrushProperty =
         BindableProperty.CreateAttached(
@@ -165,50 +165,50 @@ public static partial class TextFieldAssist
     public static readonly BindableProperty SuffixTextVisibilityProperty =
         BindableProperty.CreateAttached(
             "SuffixTextVisibility",
-            typeof(bool),
+            typeof(PrefixSuffixVisibility),
             typeof(TextFieldAssist),
-            true);
+            PrefixSuffixVisibility.WhenFocusedOrNonEmpty);
 
-    public static void SetSuffixTextVisibility(BindableObject element, bool value) =>
+    public static void SetSuffixTextVisibility(BindableObject element, PrefixSuffixVisibility value) =>
         element.SetValue(SuffixTextVisibilityProperty, value);
-    public static bool GetSuffixTextVisibility(BindableObject element) =>
-        (bool)element.GetValue(SuffixTextVisibilityProperty);
+    public static PrefixSuffixVisibility GetSuffixTextVisibility(BindableObject element) =>
+        (PrefixSuffixVisibility)element.GetValue(SuffixTextVisibilityProperty);
 
     public static readonly BindableProperty PrefixTextVisibilityProperty =
         BindableProperty.CreateAttached(
             "PrefixTextVisibility",
-            typeof(bool),
+            typeof(PrefixSuffixVisibility),
             typeof(TextFieldAssist),
-            true);
+            PrefixSuffixVisibility.WhenFocusedOrNonEmpty);
 
-    public static void SetPrefixTextVisibility(BindableObject element, bool value) =>
+    public static void SetPrefixTextVisibility(BindableObject element, PrefixSuffixVisibility value) =>
         element.SetValue(PrefixTextVisibilityProperty, value);
-    public static bool GetPrefixTextVisibility(BindableObject element) =>
-        (bool)element.GetValue(PrefixTextVisibilityProperty);
+    public static PrefixSuffixVisibility GetPrefixTextVisibility(BindableObject element) =>
+        (PrefixSuffixVisibility)element.GetValue(PrefixTextVisibilityProperty);
 
     public static readonly BindableProperty SuffixTextHintBehaviorProperty =
         BindableProperty.CreateAttached(
             "SuffixTextHintBehavior",
-            typeof(int),
+            typeof(PrefixSuffixHintBehavior),
             typeof(TextFieldAssist),
-            0);
+            PrefixSuffixHintBehavior.AlignWithPrefixSuffix);
 
-    public static void SetSuffixTextHintBehavior(BindableObject element, int value) =>
+    public static void SetSuffixTextHintBehavior(BindableObject element, PrefixSuffixHintBehavior value) =>
         element.SetValue(SuffixTextHintBehaviorProperty, value);
-    public static int GetSuffixTextHintBehavior(BindableObject element) =>
-        (int)element.GetValue(SuffixTextHintBehaviorProperty);
+    public static PrefixSuffixHintBehavior GetSuffixTextHintBehavior(BindableObject element) =>
+        (PrefixSuffixHintBehavior)element.GetValue(SuffixTextHintBehaviorProperty);
 
     public static readonly BindableProperty PrefixTextHintBehaviorProperty =
         BindableProperty.CreateAttached(
             "PrefixTextHintBehavior",
-            typeof(int),
+            typeof(PrefixSuffixHintBehavior),
             typeof(TextFieldAssist),
-            0);
+            PrefixSuffixHintBehavior.AlignWithPrefixSuffix);
 
-    public static void SetPrefixTextHintBehavior(BindableObject element, int value) =>
+    public static void SetPrefixTextHintBehavior(BindableObject element, PrefixSuffixHintBehavior value) =>
         element.SetValue(PrefixTextHintBehaviorProperty, value);
-    public static int GetPrefixTextHintBehavior(BindableObject element) =>
-        (int)element.GetValue(PrefixTextHintBehaviorProperty);
+    public static PrefixSuffixHintBehavior GetPrefixTextHintBehavior(BindableObject element) =>
+        (PrefixSuffixHintBehavior)element.GetValue(PrefixTextHintBehaviorProperty);
 
     public static readonly BindableProperty HasClearButtonProperty =
         BindableProperty.CreateAttached(
@@ -333,14 +333,14 @@ public static partial class TextFieldAssist
     public static readonly BindableProperty CharacterCounterVisibilityProperty =
         BindableProperty.CreateAttached(
             "CharacterCounterVisibility",
-            typeof(bool),
+            typeof(Visibility),
             typeof(TextFieldAssist),
-            false);
+            Visibility.Collapsed);
 
-    public static void SetCharacterCounterVisibility(BindableObject element, bool value) =>
+    public static void SetCharacterCounterVisibility(BindableObject element, Visibility value) =>
         element.SetValue(CharacterCounterVisibilityProperty, value);
-    public static bool GetCharacterCounterVisibility(BindableObject element) =>
-        (bool)element.GetValue(CharacterCounterVisibilityProperty);
+    public static Visibility GetCharacterCounterVisibility(BindableObject element) =>
+        (Visibility)element.GetValue(CharacterCounterVisibilityProperty);
 
     public static readonly BindableProperty OutlinedBorderActiveThicknessProperty =
         BindableProperty.CreateAttached(
@@ -378,4 +378,18 @@ public static partial class TextFieldAssist
 
     public static bool GetTextBoxIsMultiLine(BindableObject element) =>
         (bool)element.GetValue(TextBoxIsMultiLineProperty);
+}
+
+public enum PrefixSuffixVisibility
+{
+    Never,
+    WhenFocused,
+    WhenNonEmpty,
+    WhenFocusedOrNonEmpty
+}
+
+public enum PrefixSuffixHintBehavior
+{
+    AlignWithPrefixSuffix,
+    AlignWithText
 }
