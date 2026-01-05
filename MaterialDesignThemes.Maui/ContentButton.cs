@@ -8,7 +8,7 @@ namespace MaterialDesignThemes.Maui;
 /// Implements Command/CommandParameter and Clicked event. Uses a <see cref="Border"/> host.
 /// </summary>
 [ContentProperty(nameof(ButtonContent))]
-public sealed partial class ContentButton : ContentView
+public partial class ContentButton : ContentView
 {
     private const string ForegroundResourceKey = "ContentButton.Foreground";
     private const string ForegroundBrushResourceKey = "ContentButton.ForegroundBrush";

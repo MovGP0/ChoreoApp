@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+
+  <ControlTemplate x:Key="MaterialDesignRatingBarTemplate">
+    <StackLayout x:Name="PART_ItemsHost"
+                 Orientation="{TemplateBinding Orientation}"
+                 Padding="{TemplateBinding Padding}"
+                 Spacing="0" />
+  </ControlTemplate>
+
+  <Style x:Key="MaterialDesignRatingBarButton"
+         TargetType="styling:RatingBarButton"
+         BasedOn="{StaticResource MaterialDesignFlatButton}">
+    <Setter Property="BackgroundColor" Value="Transparent" />
+    <Setter Property="Padding" Value="4" />
+  </Style>
+
+  <DataTemplate x:Key="MaterialDesignRatingBarItemTemplate">
+    <Grid WidthRequest="24"
+          HeightRequest="24">
+      <Path Data="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
+            WidthRequest="24"
+            HeightRequest="24"
+            Fill="{Binding Source={RelativeSource AncestorType={x:Type styling:RatingBar}}, Path=ForegroundColor}" />
+    </Grid>
+  </DataTemplate>
+
+  <Style x:Key="MaterialDesignRatingBar"
+         TargetType="styling:RatingBar">
+    <Setter Property="ControlTemplate" Value="{StaticResource MaterialDesignRatingBarTemplate}" />
+    <Setter Property="ForegroundColor" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+    <Setter Property="ValueItemContainerButtonStyle" Value="{StaticResource MaterialDesignRatingBarButton}" />
+    <Setter Property="ValueItemTemplate" Value="{StaticResource MaterialDesignRatingBarItemTemplate}" />
+  </Style>
+
+  <Style TargetType="styling:RatingBar"
+         BasedOn="{StaticResource MaterialDesignRatingBar}">
+    <Style.Triggers>
+      <Trigger TargetType="styling:RatingBar"
+               Property="IsEnabled"
+               Value="False">
+        <Setter Property="Opacity" Value="0.38" />
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+</ResourceDictionary>

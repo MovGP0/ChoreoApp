@@ -1,6 +1,6 @@
 namespace MaterialDesignThemes.Maui;
 
-public sealed partial class ContentButton: IBorderElement
+public partial class ContentButton: IBorderElement
 {
     Brush IBorderElement.Background => Background;
 
