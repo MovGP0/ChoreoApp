@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="MaterialDesign3.Entry.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <Style x:Key="MaterialDesignTimePicker"
+         TargetType="styling:TimePicker">
+    <Setter Property="TextColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+    <Setter Property="BackgroundColor" Value="Transparent" />
+    <Setter Property="FontFamily" Value="OpenSansRegular" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="MinimumHeightRequest" Value="44" />
+    <Setter Property="MinimumWidthRequest" Value="44" />
+    <Setter Property="styling:HintAssist.Foreground"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+    <Setter Property="styling:HintAssist.HelperTextStyle"
+            Value="{StaticResource MaterialDesignHelperEntry}" />
+    <Setter Property="styling:TextFieldAssist.UnderlineBrush"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+    <Setter Property="VisualStateManager.VisualStateGroups">
+      <VisualStateGroupList>
+        <VisualStateGroup x:Name="CommonStates">
+          <VisualState x:Name="Normal" />
+          <VisualState x:Name="Disabled">
+            <VisualState.Setters>
+              <Setter Property="TextColor"
+                      Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+            </VisualState.Setters>
+          </VisualState>
+        </VisualStateGroup>
+      </VisualStateGroupList>
+    </Setter>
+  </Style>
+
+  <Style x:Key="MaterialDesignFloatingHintTimePicker"
+         TargetType="styling:TimePicker"
+         BasedOn="{StaticResource MaterialDesignTimePicker}">
+    <Setter Property="styling:HintAssist.IsFloating" Value="True" />
+  </Style>
+
+  <Style x:Key="MaterialDesignFilledTimePicker"
+         TargetType="styling:TimePicker"
+         BasedOn="{StaticResource MaterialDesignFloatingHintTimePicker}">
+    <Setter Property="BackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}" />
+    <Setter Property="styling:TextFieldAssist.HasFilledTextField" Value="True" />
+    <Setter Property="styling:TextFieldAssist.TextFieldCornerRadius" Value="12" />
+    <Setter Property="styling:TextFieldAssist.UnderlineCornerRadius" Value="0" />
+  </Style>
+
+  <Style x:Key="MaterialDesignOutlinedTimePicker"
+         TargetType="styling:TimePicker"
+         BasedOn="{StaticResource MaterialDesignFloatingHintTimePicker}">
+    <Setter Property="BackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
+    <Setter Property="styling:TextFieldAssist.HasOutlinedTextField" Value="True" />
+    <Setter Property="styling:TextFieldAssist.TextFieldCornerRadius" Value="12" />
+    <Setter Property="styling:TextFieldAssist.OutlinedBorderActiveThickness" Value="1" />
+  </Style>
+
+  <Style TargetType="styling:TimePicker"
+         BasedOn="{StaticResource MaterialDesignTimePicker}" />
+</ResourceDictionary>
