@@ -13,7 +13,7 @@ public sealed class HintProxyFabricConverter : IValueConverter
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return value as IHintProxy;
+        return HintProxyFabric.Get(value as BindableObject);
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

@@ -15,5 +15,5 @@ public interface IHintProxy : IDisposable
     bool IsLoaded { get; }
 
     /// <summary>Should return true when the target has no content.</summary>
-    bool IsEmpty();
+    bool IsEmpty { get; }
 }

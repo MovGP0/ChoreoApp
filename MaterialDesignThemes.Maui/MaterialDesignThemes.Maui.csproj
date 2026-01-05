@@ -30,22 +30,10 @@
     <Compile Update="MaterialDesignColorsDictionary.*.cs">
       <DependentUpon>MaterialDesignColorsDictionary.cs</DependentUpon>
     </Compile>
-    <Compile Update="TextBlockAssist.Windows.cs">
+    <Compile Update="TextBlockAssist.*.cs">
       <DependentUpon>TextBlockAssist.cs</DependentUpon>
     </Compile>
-    <Compile Update="TextBlockAssist.Default.cs">
-      <DependentUpon>TextBlockAssist.cs</DependentUpon>
-    </Compile>
-    <Compile Update="DrawerHost.LeftDrawer.cs">
-      <DependentUpon>DrawerHost.cs</DependentUpon>
-    </Compile>
-    <Compile Update="DrawerHost.RightDrawer.cs">
-      <DependentUpon>DrawerHost.cs</DependentUpon>
-    </Compile>
-    <Compile Update="DrawerHost.TopDrawer.cs">
-      <DependentUpon>DrawerHost.cs</DependentUpon>
-    </Compile>
-    <Compile Update="DrawerHost.BottomDrawer.cs">
+    <Compile Update="DrawerHost.*.cs">
       <DependentUpon>DrawerHost.cs</DependentUpon>
     </Compile>
     <Compile Update="ContentButton.IBorderElement.cs">
@@ -53,6 +41,9 @@
     </Compile>
     <Compile Update="TextFieldAssist.Windows.cs">
       <DependentUpon>TextFieldAssist.cs</DependentUpon>
+    </Compile>
+    <Compile Update="HintProxyFabric.*.cs">
+      <DependentUpon>HintProxyFabric.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

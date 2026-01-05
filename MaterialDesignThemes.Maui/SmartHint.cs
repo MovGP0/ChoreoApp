@@ -234,7 +234,7 @@ public class SmartHint : TemplatedView
 
     protected virtual void OnHintProxyContentChanged(object? sender, EventArgs e)
     {
-        IsContentNullOrEmpty = HintProxy?.IsEmpty() == true;
+        IsContentNullOrEmpty = HintProxy?.IsEmpty == true;
 
         if (HintProxy is { IsLoaded: true })
         {
@@ -266,11 +266,11 @@ public class SmartHint : TemplatedView
             return;
         }
 
-        IsContentNullOrEmpty = proxy.IsEmpty();
+        IsContentNullOrEmpty = proxy.IsEmpty;
 
         void Update()
         {
-            bool isEmpty = proxy.IsEmpty();
+            bool isEmpty = proxy.IsEmpty;
             bool isFocused = HintHost?.IsFocused == true || proxy.IsFocused;
 
             string state;
