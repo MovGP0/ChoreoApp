@@ -2,6 +2,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="MaterialDesign3.ContentButton.xaml" />
+  </ResourceDictionary.MergedDictionaries>
 
   <ControlTemplate x:Key="MaterialDesignRatingBarTemplate">
     <StackLayout x:Name="PART_ItemsHost"

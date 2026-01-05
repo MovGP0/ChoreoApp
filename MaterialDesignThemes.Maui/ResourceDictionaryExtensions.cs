@@ -1,6 +1,6 @@
 ﻿namespace MaterialDesignThemes.Maui;
 
-public static class ResourceDictionaryExtensions
+public static partial class ResourceDictionaryExtensions
 {
     extension (ResourceDictionary dict)
     {

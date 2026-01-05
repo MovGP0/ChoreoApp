@@ -20,7 +20,7 @@ public static class ColorZoneAssist
             "Background",
             typeof(Brush),
             typeof(ColorZoneAssist),
-            default(Brush));
+            null);
 
     public static void SetBackground(BindableObject element, Brush value) =>
         element.SetValue(BackgroundProperty, value);
@@ -33,7 +33,7 @@ public static class ColorZoneAssist
             "Foreground",
             typeof(Brush),
             typeof(ColorZoneAssist),
-            default(Brush));
+            null);
 
     public static void SetForeground(BindableObject element, Brush value) =>
         element.SetValue(ForegroundProperty, value);

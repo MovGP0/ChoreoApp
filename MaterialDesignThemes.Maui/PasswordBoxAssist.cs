@@ -60,7 +60,7 @@ public static class PasswordBoxAssist
             "Password",
             typeof(string),
             typeof(PasswordBoxAssist),
-            default(string),
+            null,
             defaultBindingMode: BindingMode.TwoWay,
             propertyChanged: OnPasswordChanged);
 

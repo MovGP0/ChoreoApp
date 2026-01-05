@@ -20,7 +20,7 @@ public static class ListViewAssist
             "HeaderRowBackground",
             typeof(Brush),
             typeof(ListViewAssist),
-            default(Brush));
+            null);
 
     public static void SetHeaderRowBackground(BindableObject element, Brush value) =>
         element.SetValue(HeaderRowBackgroundProperty, value);

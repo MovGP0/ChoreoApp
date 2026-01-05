@@ -25,7 +25,7 @@ internal sealed class InheritSystemColorTypeConverter : TypeConverter
         {
             if (string.Equals(text, Inherit, StringComparison.OrdinalIgnoreCase))
             {
-                return GetSystemAccentColor() ?? default(Color);
+                return GetSystemAccentColor() ?? null;
             }
 
             if (Color.TryParse(text, out var parsed))
@@ -40,7 +40,7 @@ internal sealed class InheritSystemColorTypeConverter : TypeConverter
     public override object ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
     {
         if (value is Color color &&
-            color != default &&
+            color != null &&
             color == GetSystemAccentColor())
         {
             return Inherit;

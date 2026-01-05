@@ -379,17 +379,3 @@ public static partial class TextFieldAssist
     public static bool GetTextBoxIsMultiLine(BindableObject element) =>
         (bool)element.GetValue(TextBoxIsMultiLineProperty);
 }
-
-public enum PrefixSuffixVisibility
-{
-    Never,
-    WhenFocused,
-    WhenNonEmpty,
-    WhenFocusedOrNonEmpty
-}
-
-public enum PrefixSuffixHintBehavior
-{
-    AlignWithPrefixSuffix,
-    AlignWithText
-}

@@ -137,6 +137,30 @@ public sealed class Clock : TemplatedView
         set => SetValue(LesserButtonStyleProperty, value);
     }
 
+    public static readonly BindableProperty BorderBrushProperty = BindableProperty.Create(
+        nameof(BorderBrush),
+        typeof(Brush),
+        typeof(Clock),
+        default(Brush));
+
+    public Brush? BorderBrush
+    {
+        get => (Brush?)GetValue(BorderBrushProperty);
+        set => SetValue(BorderBrushProperty, value);
+    }
+
+    public static readonly BindableProperty BorderThicknessProperty = BindableProperty.Create(
+        nameof(BorderThickness),
+        typeof(Thickness),
+        typeof(Clock),
+        new Thickness(0));
+
+    public Thickness BorderThickness
+    {
+        get => (Thickness)GetValue(BorderThicknessProperty);
+        set => SetValue(BorderThicknessProperty, value);
+    }
+
     public static readonly BindableProperty ButtonRadiusRatioProperty = BindableProperty.Create(
         nameof(ButtonRadiusRatio),
         typeof(double),

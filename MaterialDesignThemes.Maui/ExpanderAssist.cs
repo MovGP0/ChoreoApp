@@ -56,7 +56,7 @@ public static class ExpanderAssist
             "HeaderBackground",
             typeof(Brush),
             typeof(ExpanderAssist),
-            default(Brush));
+            null);
 
     public static Brush? GetHeaderBackground(BindableObject element) =>
         (Brush?)element.GetValue(HeaderBackgroundProperty);
@@ -69,7 +69,7 @@ public static class ExpanderAssist
             "ExpanderButtonContent",
             typeof(object),
             typeof(ExpanderAssist),
-            default(object));
+            null);
 
     public static object? GetExpanderButtonContent(BindableObject element) =>
         element.GetValue(ExpanderButtonContentProperty);

@@ -22,7 +22,7 @@ public static class ListBoxItemAssist
             "HoverBackground",
             typeof(Brush),
             typeof(ListBoxItemAssist),
-            default(Brush));
+            null);
 
     public static Brush? GetHoverBackground(BindableObject obj) =>
         (Brush?)obj.GetValue(HoverBackgroundProperty);
@@ -35,7 +35,7 @@ public static class ListBoxItemAssist
             "SelectedFocusedBackground",
             typeof(Brush),
             typeof(ListBoxItemAssist),
-            default(Brush));
+            null);
 
     public static Brush? GetSelectedFocusedBackground(BindableObject obj) =>
         (Brush?)obj.GetValue(SelectedFocusedBackgroundProperty);
@@ -48,7 +48,7 @@ public static class ListBoxItemAssist
             "SelectedUnfocusedBackground",
             typeof(Brush),
             typeof(ListBoxItemAssist),
-            default(Brush));
+            null);
 
     public static Brush? GetSelectedUnfocusedBackground(BindableObject obj) =>
         (Brush?)obj.GetValue(SelectedUnfocusedBackgroundProperty);
