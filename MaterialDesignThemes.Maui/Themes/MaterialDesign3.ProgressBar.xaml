@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+
+  <Style x:Key="MaterialDesignProgressBar"
+         TargetType="ProgressBar">
+    <Setter Property="ProgressColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+    <Setter Property="BackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+    <Setter Property="HeightRequest" Value="4" />
+  </Style>
+
+  <Style TargetType="ProgressBar"
+         BasedOn="{StaticResource MaterialDesignProgressBar}" />
+</ResourceDictionary>

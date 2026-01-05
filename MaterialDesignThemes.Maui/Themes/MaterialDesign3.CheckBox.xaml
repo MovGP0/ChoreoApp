@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+
+  <Style x:Key="MaterialDesignCheckBox"
+         TargetType="CheckBox">
+    <Setter Property="Color"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+    <Setter Property="BackgroundColor" Value="Transparent" />
+    <Setter Property="styling:CheckBoxAssist.CheckBoxSize" Value="18" />
+    <Setter Property="VisualStateManager.VisualStateGroups">
+      <VisualStateGroupList>
+        <VisualStateGroup x:Name="CommonStates">
+          <VisualState x:Name="Normal" />
+          <VisualState x:Name="Disabled">
+            <VisualState.Setters>
+              <Setter Property="Color"
+                      Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+              <Setter Property="Opacity" Value="0.6" />
+            </VisualState.Setters>
+          </VisualState>
+        </VisualStateGroup>
+      </VisualStateGroupList>
+    </Setter>
+  </Style>
+
+  <Style x:Key="MaterialDesignLightCheckBox"
+         TargetType="CheckBox"
+         BasedOn="{StaticResource MaterialDesignCheckBox}">
+    <Setter Property="Color"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignDarkCheckBox"
+         TargetType="CheckBox"
+         BasedOn="{StaticResource MaterialDesignCheckBox}">
+    <Setter Property="Color"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignSecondaryCheckBox"
+         TargetType="CheckBox"
+         BasedOn="{StaticResource MaterialDesignCheckBox}">
+    <Setter Property="Color"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}" />
+  </Style>
+
+  <Style x:Key="MaterialDesignActionCheckBox"
+         TargetType="CheckBox"
+         BasedOn="{StaticResource MaterialDesignCheckBox}" />
+
+  <Style x:Key="MaterialDesignActionLightCheckBox"
+         TargetType="CheckBox"
+         BasedOn="{StaticResource MaterialDesignActionCheckBox}" />
+
+  <Style x:Key="MaterialDesignActionDarkCheckBox"
+         TargetType="CheckBox"
+         BasedOn="{StaticResource MaterialDesignActionCheckBox}" />
+
+  <Style x:Key="MaterialDesignActionSecondaryCheckBox"
+         TargetType="CheckBox"
+         BasedOn="{StaticResource MaterialDesignActionCheckBox}" />
+
+  <Style TargetType="CheckBox"
+         BasedOn="{StaticResource MaterialDesignCheckBox}" />
+</ResourceDictionary>

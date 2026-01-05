@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+
+  <Style x:Key="MaterialDesignExpander"
+         TargetType="Expander">
+    <Setter Property="BackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
+    <Setter Property="styling:ExpanderAssist.HeaderFontSize" Value="15" />
+    <Setter Property="styling:ExpanderAssist.HorizontalHeaderPadding" Value="24,12" />
+    <Setter Property="styling:ExpanderAssist.VerticalHeaderPadding" Value="12,24" />
+  </Style>
+
+  <Style TargetType="Expander"
+         BasedOn="{StaticResource MaterialDesignExpander}" />
+</ResourceDictionary>
