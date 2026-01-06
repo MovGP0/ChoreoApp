@@ -64,7 +64,8 @@ public sealed class DrawFloorBehavior(
     private void DrawFloor(SKPaintSurfaceEventArgs args)
     {
         if (stateMachine.State is not ViewSceneState
-            && stateMachine.State is not PlacePositionsState)
+            && stateMachine.State is not PlacePositionsState
+            && stateMachine.State is not MovePositionsState)
         {
             return;
         }
@@ -134,7 +135,12 @@ public sealed class DrawFloorBehavior(
             DrawAxisLabels(scenePositions);
         }
         DrawSceneCurves(previousScene, currentScene, nextScene);
-        DrawPositions(scenePositions, currentScene, nextScene, _currentAudioSeconds);
+        var selectedPositions = globalState.SelectedPositions;
+        var selectedPositionsSet = selectedPositions.Count > 0
+            ? new HashSet<Position>(selectedPositions)
+            : null;
+        DrawPositions(scenePositions, currentScene, nextScene, _currentAudioSeconds, selectedPositionsSet);
+        DrawSelectionRectangle(globalState.SelectionRectangle);
 
         canvas.Restore();
 
@@ -379,7 +385,8 @@ public sealed class DrawFloorBehavior(
             IReadOnlyList<Position>? positions,
             Scene? currentScene,
             Scene? nextScene,
-            double? currentAudioSeconds)
+            double? currentAudioSeconds,
+            IReadOnlySet<Position>? selectedPositions)
         {
             if (positions is null)
             {
@@ -419,6 +426,12 @@ public sealed class DrawFloorBehavior(
             borderPaint.Style = SKPaintStyle.Stroke;
             borderPaint.IsAntialias = true;
             borderPaint.StrokeWidth = 2f;
+
+            using var selectionPaint = new SKPaint();
+            selectionPaint.Style = SKPaintStyle.Stroke;
+            selectionPaint.IsAntialias = true;
+            selectionPaint.StrokeWidth = 3f;
+            selectionPaint.Color = GetColor(MaterialDesignColorKey.Secondary);
 
             using var textPaint = new SKPaint();
             textPaint.Color = SKColors.White;
@@ -492,6 +505,11 @@ public sealed class DrawFloorBehavior(
                 canvas.DrawCircle(cx, cy, radius, fillPaint);
                 canvas.DrawCircle(cx, cy, radius, borderPaint);
 
+                if (selectedPositions is not null && selectedPositions.Contains(position))
+                {
+                    canvas.DrawCircle(cx, cy, radius + 4f, selectionPaint);
+                }
+
                 var shortcut = position.Dancer.Shortcut;
                 if (string.IsNullOrWhiteSpace(shortcut))
                 {
@@ -501,6 +519,37 @@ public sealed class DrawFloorBehavior(
                 var textY = cy + font.Metrics.CapHeight / 2f;
                 canvas.DrawText(shortcut, cx, textY, SKTextAlign.Center, font, textPaint);
             }
+        }
+
+        void DrawSelectionRectangle(Global.SelectionRectangle? selectionRectangle)
+        {
+            if (stateMachine.State is not MovePositionsSelectionState)
+            {
+                return;
+            }
+
+            if (selectionRectangle is not { } rectangle)
+            {
+                return;
+            }
+
+            using var selectionPaint = new SKPaint();
+            selectionPaint.Style = SKPaintStyle.Stroke;
+            selectionPaint.IsAntialias = true;
+            selectionPaint.StrokeWidth = 2f;
+            selectionPaint.PathEffect = SKPathEffect.CreateDash([6f, 6f], 0f);
+            selectionPaint.Color = GetColor(MaterialDesignColorKey.OnSurfaceVariant);
+
+            var start = ToCanvasPoint(rectangle.Start.X, rectangle.Start.Y);
+            var end = ToCanvasPoint(rectangle.End.X, rectangle.End.Y);
+
+            var left = Math.Min(start.X, end.X);
+            var top = Math.Min(start.Y, end.Y);
+            var right = Math.Max(start.X, end.X);
+            var bottom = Math.Max(start.Y, end.Y);
+
+            var rect = new SKRect(left, top, right, bottom);
+            canvas.DrawRect(rect, selectionPaint);
         }
 
         void DrawSceneCurves(Scene? previous, Scene? current, Scene? next)

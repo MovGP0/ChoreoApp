@@ -42,6 +42,56 @@ public static class DependencyInjection
                 Apply: (_, _, _) => new ViewScenePanState()))
             .AddSingleton<StateTransition>(_ => new(
                 FromState: typeof(ViewSceneState),
+                Trigger: typeof(MovePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ViewScenePanState),
+                Trigger: typeof(MovePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ViewSceneZoomState),
+                Trigger: typeof(MovePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(MovePositionsState),
+                Trigger: typeof(MovePositionsCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(MovePositionsSelectionState),
+                Trigger: typeof(MovePositionsCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(MovePositionsDragState),
+                Trigger: typeof(MovePositionsCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(MovePositionsState),
+                Trigger: typeof(MovePositionsSelectionStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsSelectionState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(MovePositionsSelectionState),
+                Trigger: typeof(MovePositionsSelectionCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(MovePositionsState),
+                Trigger: typeof(MovePositionsDragStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsDragState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(MovePositionsDragState),
+                Trigger: typeof(MovePositionsDragCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ViewSceneState),
                 Trigger: typeof(PlacePositionsStartedTrigger),
                 Preconditions: [],
                 Apply: (_, _, _) => new PlacePositionsState()))

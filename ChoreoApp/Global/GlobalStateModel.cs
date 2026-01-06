@@ -21,6 +21,12 @@ public sealed partial class GlobalStateModel : ReactiveObject
     [Reactive]
     private SceneViewModel? _selectedScene;
 
+    [ReactiveCollection]
+    private ObservableCollectionExtended<Position> _selectedPositions = [];
+
+    [Reactive]
+    private SelectionRectangle? _selectionRectangle;
+
     [Reactive]
     private InteractionMode _interactionMode = InteractionMode.View;
 

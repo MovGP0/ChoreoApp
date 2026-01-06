@@ -10,6 +10,7 @@ public static class DependencyInjection
         services.AddTransient<IBehavior<FloorCanvasViewModel>, Behaviors.RedrawFloorBehavior>();
         services.AddTransient<IBehavior<FloorCanvasViewModel>, Behaviors.GestureHandlingBehavior>();
         services.AddTransient<IBehavior<FloorCanvasViewModel>, Behaviors.PlacePositionBehavior>();
+        services.AddTransient<IBehavior<FloorCanvasViewModel>, Behaviors.MovePositionsBehavior>();
 
         return services;
     }

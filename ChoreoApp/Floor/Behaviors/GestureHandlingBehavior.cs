@@ -2,6 +2,7 @@ using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Floor.Messages;
 using ChoreoApp.StateMachine;
+using ChoreoApp.StateMachine.States;
 using ChoreoApp.StateMachine.Triggers;
 using SkiaSharp;
 using SkiaSharp.Views.Maui.Controls;
@@ -56,6 +57,11 @@ public sealed class GestureHandlingBehavior(
 
     private void HandlePanUpdated(FloorCanvasViewModel viewModel, PanUpdatedCommand command)
     {
+        if (stateMachine.State is MovePositionsState)
+        {
+            return;
+        }
+
         if (_activeTouches.Count >= 2)
         {
             return;
@@ -100,6 +106,11 @@ public sealed class GestureHandlingBehavior(
 
     private void HandlePinchUpdated(FloorCanvasViewModel viewModel, PinchUpdatedCommand command)
     {
+        if (stateMachine.State is MovePositionsState)
+        {
+            return;
+        }
+
         if (_activeTouches.Count >= 2)
         {
             return;
@@ -138,6 +149,11 @@ public sealed class GestureHandlingBehavior(
 
     private void HandlePointerPressed(PointerPressedCommand command)
     {
+        if (stateMachine.State is MovePositionsState)
+        {
+            return;
+        }
+
         var position = command.EventArgs.GetPosition(command.CanvasView);
         _lastHoverPosition = position;
 
@@ -152,6 +168,11 @@ public sealed class GestureHandlingBehavior(
 
     private void HandlePointerMoved(FloorCanvasViewModel viewModel, PointerMovedCommand command)
     {
+        if (stateMachine.State is MovePositionsState)
+        {
+            return;
+        }
+
         var position = command.EventArgs.GetPosition(command.CanvasView);
         if (position is null)
         {
@@ -175,11 +196,21 @@ public sealed class GestureHandlingBehavior(
 
     private void HandlePointerReleased(PointerReleasedCommand _)
     {
+        if (stateMachine.State is MovePositionsState)
+        {
+            return;
+        }
+
         _lastPointerPosition = null;
     }
 
     private void HandlePointerWheelChanged(FloorCanvasViewModel viewModel, PointerWheelChangedCommand command)
     {
+        if (stateMachine.State is MovePositionsState)
+        {
+            return;
+        }
+
         stateMachine.TryApply(new ZoomStartedTrigger());
         var zoomFactor = command.Delta > 0 ? 1.1f : 0.9f;
         var zoomCenter = command.Position ?? _lastHoverPosition;
@@ -200,6 +231,11 @@ public sealed class GestureHandlingBehavior(
 
     private void HandleTouch(FloorCanvasViewModel viewModel, TouchCommand command)
     {
+        if (stateMachine.State is MovePositionsState)
+        {
+            return;
+        }
+
         var args = command.EventArgs;
         if (args.InContact)
         {
