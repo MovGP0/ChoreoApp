@@ -38,11 +38,6 @@
                     <styling:PackIcon Kind="Pen" />
                 </styling:ContentButton>
                 <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
-                                       Command="{Binding SaveChoreographyCommand}"
-                                       IsEnabled="{Binding CanSaveChoreography}">
-                    <styling:PackIcon Kind="ContentSave" />
-                </styling:ContentButton>
-                <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
                                        Command="{Binding OpenImageCommand}">
                     <styling:PackIcon Kind="Svg" />
                 </styling:ContentButton>
