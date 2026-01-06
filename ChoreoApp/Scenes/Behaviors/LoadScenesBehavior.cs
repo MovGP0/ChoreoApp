@@ -1,5 +1,6 @@
 ﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
+using ChoreoApp.Models;
 using ChoreoMasterMobile.Json;
 
 namespace ChoreoApp.Scenes.Behaviors;
@@ -35,7 +36,7 @@ public sealed class LoadScenesBehavior(
                     .Max();
 
                 ClearScenes();
-                foreach (Scene scene in scenes)
+                foreach (SceneModel scene in scenes)
                 {
                     if (scene.SceneId.Value <= 0)
                     {

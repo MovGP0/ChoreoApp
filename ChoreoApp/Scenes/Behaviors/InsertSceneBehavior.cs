@@ -1,5 +1,6 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
+using ChoreoApp.Models;
 using ChoreoMasterMobile.Json;
 using Colors = Microsoft.Maui.Graphics.Colors;
 
@@ -98,7 +99,7 @@ public sealed class InsertSceneBehavior(
         }
     }
 
-    private static void ReindexScenes(IList<SceneViewModel> viewModels, IList<Scene> scenes)
+    private static void ReindexScenes(IList<SceneViewModel> viewModels, IList<SceneModel> scenes)
     {
         ReindexScenes(viewModels);
 
@@ -110,7 +111,7 @@ public sealed class InsertSceneBehavior(
     }
 
     private static TimeSpan? InsertModelScene(
-        Choreography choreography,
+        ChoreographyModel choreography,
         SceneViewModel newSceneViewModel,
         SceneViewModel? selectedScene,
         int viewModelInsertIndex)
@@ -126,7 +127,7 @@ public sealed class InsertSceneBehavior(
         var timestamp = CalculateTimestampBetweenScenes(scenes, insertIndex, selectedModelScene);
         var color = selectedModelScene?.Color ?? newSceneViewModel.Color;
 
-        scenes.Insert(insertIndex, new Scene
+        scenes.Insert(insertIndex, new SceneModel
         {
             SceneId = newSceneViewModel.SceneId,
             Name = newSceneViewModel.Name,
@@ -158,9 +159,9 @@ public sealed class InsertSceneBehavior(
     }
 
     private static TimeSpan? CalculateTimestampBetweenScenes(
-        IList<Scene> scenes,
+        IList<SceneModel> scenes,
         int insertIndex,
-        Scene? selectedScene)
+        SceneModel? selectedScene)
     {
         if (insertIndex > 0 && insertIndex < scenes.Count)
         {

@@ -1,6 +1,7 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.AudioPlayer;
+using ChoreoApp.Models;
 using ChoreoApp.Settings;
 using ChoreoMasterMobile.Json;
 using MessagePipe;
@@ -12,6 +13,8 @@ public sealed class OpenChoreoBehavior(
     IPublisher<OpenAudioFileCommand> openAudioPublisher,
     IPublisher<CloseAudioFileCommand> closeAudioPublisher) : IBehavior<ScenesPaneViewModel>
 {
+    private static readonly ChoreographyModelMapper Mapper = new();
+
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
     {
         viewModel
@@ -81,13 +84,13 @@ public sealed class OpenChoreoBehavior(
     private async Task LoadChoreoAsync(string path)
     {
         var choreography = Util.ImportFromFile(path);
-        globalState.Choreography = choreography;
+        globalState.Choreography = Mapper.Map(choreography);
         Preferences.Default.Set(SettingsPreferenceKeys.LastOpenedChoreoFile, path);
 
-        await TryLoadAudioAsync(path, choreography.Settings);
+        await TryLoadAudioAsync(path, globalState.Choreography.Settings);
     }
 
-    private Task TryLoadAudioAsync(string choreographyFilePath, ChoreoMasterMobile.Json.Settings? settings)
+    private Task TryLoadAudioAsync(string choreographyFilePath, SettingsModel? settings)
     {
         if (settings is null)
         {

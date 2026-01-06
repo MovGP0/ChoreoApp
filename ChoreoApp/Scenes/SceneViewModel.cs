@@ -1,4 +1,5 @@
-﻿using DynamicData.Binding;
+﻿using ChoreoApp.Models;
+using DynamicData.Binding;
 
 namespace ChoreoApp.Scenes;
 
@@ -23,11 +24,11 @@ public sealed partial class SceneViewModel: ReactiveObject, IActivatableViewMode
     [Reactive] private bool _isSelected;
 
     [ReactiveCollection]
-    private ObservableCollectionExtended<ChoreoMasterMobile.Json.Position> _positions = new();
+    private ObservableCollectionExtended<PositionModel> _positions = new();
 
     [Reactive] private int _variationDepth;
-    [Reactive] private IList<IList<ChoreoMasterMobile.Json.Scene>>? _variations;
-    [Reactive] private IList<ChoreoMasterMobile.Json.Scene>? _currentVariation;
+    [Reactive] private IList<IList<SceneModel>>? _variations;
+    [Reactive] private IList<SceneModel>? _currentVariation;
     [Reactive] private Color _color = Colors.Transparent;
 
     [ReactiveCommand]

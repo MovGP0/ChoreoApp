@@ -1,11 +1,11 @@
 using System.Globalization;
-using ChoreoMasterMobile.Json;
+using ChoreoApp.Models;
 
 namespace ChoreoApp.ChoreographySettings;
 
 public sealed class ChoreographySettingsMapper
 {
-    public void Map(Choreography source, ChoreographySettingsViewModel target)
+    public void Map(ChoreographyModel source, ChoreographySettingsViewModel target)
     {
         ArgumentNullException.ThrowIfNull(source);
         ArgumentNullException.ThrowIfNull(target);
@@ -34,7 +34,7 @@ public sealed class ChoreographySettingsMapper
         }
     }
 
-    public void Map(ChoreographySettingsViewModel source, Choreography target)
+    public void Map(ChoreographySettingsViewModel source, ChoreographyModel target)
     {
         ArgumentNullException.ThrowIfNull(source);
         ArgumentNullException.ThrowIfNull(target);
@@ -54,7 +54,6 @@ public sealed class ChoreographySettingsMapper
         settings.GridLines = source.GridLines;
         settings.FloorColor = source.FloorColor;
         settings.ShowTimestamps = source.ShowTimestamps;
-        target.Floor ??= new();
         target.Floor.SizeFront = ClampFloorSize(source.FloorFront);
         target.Floor.SizeBack = ClampFloorSize(source.FloorBack);
         target.Floor.SizeLeft = ClampFloorSize(source.FloorLeft);

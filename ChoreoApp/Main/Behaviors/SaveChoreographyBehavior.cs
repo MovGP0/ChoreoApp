@@ -1,20 +1,21 @@
-﻿using System.Reactive.Disposables;
+using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Models;
+using ChoreoApp.Scenes;
 using ChoreoApp.Settings;
 using ChoreoMasterMobile.Json;
 
-namespace ChoreoApp.Scenes.Behaviors;
+namespace ChoreoApp.Main.Behaviors;
 
-public sealed class SaveChoreoBehavior(Global.GlobalStateModel globalState) : IBehavior<ScenesPaneViewModel>
+public sealed class SaveChoreographyBehavior(Global.GlobalStateModel globalState)
+    : IBehavior<MainViewModel>
 {
     private static readonly ChoreographyModelMapper Mapper = new();
     private static readonly SceneMapper SceneMapper = new();
 
-    public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
+    public void Activate(MainViewModel viewModel, CompositeDisposable disposables)
     {
-        viewModel
-            .SaveChoreoCommand
+        viewModel.SaveChoreographyCommand
             .Subscribe(async _ => await HandleSaveAsync())
             .DisposeWith(disposables);
     }

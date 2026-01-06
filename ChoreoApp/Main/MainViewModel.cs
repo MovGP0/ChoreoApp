@@ -7,6 +7,7 @@ using ChoreoApp.Global;
 using ChoreoApp.i18n;
 using ChoreoApp.Main.Messages;
 using ChoreoApp.Scenes;
+using ChoreoApp.Settings;
 using ChoreoApp.StateMachine;
 using ChoreoApp.StateMachine.Triggers;
 using MessagePipe;
@@ -60,6 +61,10 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
                 .Subscribe(_ => UpdatePlaceMode(_globalState.SelectedScene))
                 .DisposeWith(disposables);
 
+            _globalState.WhenAnyValue(state => state.Choreography)
+                .Subscribe(_ => UpdateCanSaveChoreography())
+                .DisposeWith(disposables);
+
             _globalState.WhenAnyValue(state => state.IsPlaceMode)
                 .Subscribe(isPlaceMode =>
                 {
@@ -93,6 +98,9 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
 
     [Reactive]
     private bool _isModeSelectionEnabled = true;
+
+    [Reactive]
+    private bool _canSaveChoreography;
 
     [Reactive]
     private GridLength _navColumnWidth = new(DefaultNavWidth);
@@ -208,6 +216,9 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
         IsChoreographySettingsOpen = true;
     }
 
+    [ReactiveCommand(CanExecute = nameof(CanSaveChoreography))]
+    private Task SaveChoreographyAsync() => Task.CompletedTask;
+
     private void UpdatePlaceMode(SceneViewModel? scene)
     {
         if (scene is null)
@@ -219,6 +230,14 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
         int dancerCount = _globalState.Choreography.Dancers.Count;
         int positionCount = scene.Positions.Count;
         _globalState.IsPlaceMode = dancerCount > 0 && positionCount < dancerCount;
+    }
+
+    private void UpdateCanSaveChoreography()
+    {
+        var path = Preferences.Default.Get(SettingsPreferenceKeys.LastOpenedChoreoFile, string.Empty);
+        CanSaveChoreography = _globalState.Choreography is not null
+            && !string.IsNullOrWhiteSpace(path)
+            && File.Exists(path);
     }
 
     private static List<InteractionModeOption> BuildModeOptions() => new()

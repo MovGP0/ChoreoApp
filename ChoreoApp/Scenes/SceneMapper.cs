@@ -1,8 +1,11 @@
-﻿namespace ChoreoApp.Scenes;
+using ChoreoApp.Models;
+using ChoreoApp.Scenes.Extensions;
+
+namespace ChoreoApp.Scenes;
 
 public sealed class SceneMapper
 {
-    public void Map(SceneViewModel source, ChoreoMasterMobile.Json.Scene target)
+    public void Map(SceneViewModel source, SceneModel target)
     {
         ArgumentNullException.ThrowIfNull(source);
         ArgumentNullException.ThrowIfNull(target);
@@ -14,19 +17,30 @@ public sealed class SceneMapper
         target.Text = source.Text;
         target.FixedPositions = source.FixedPositions;
         target.VariationDepth = source.VariationDepth;
-        target.Variations = CloneSceneListList(source.Variations);
-        target.CurrentVariation = CloneSceneList(source.CurrentVariation);
 
-        target.Positions ??= new List<ChoreoMasterMobile.Json.Position>();
+        if (target.Variations is null)
+        {
+            target.Variations = new();
+        }
+        target.Variations.Clear();
+        if (source.Variations is { } variations)
+        {
+            target.Variations.AddRange(variations.Select(v => CloneSceneList(v).AsObservableCollectionExtended()));
+        }
+
+        if (source.CurrentVariation is { } currentVariation)
+        {
+            target.CurrentVariation = CloneSceneList(currentVariation).AsObservableCollectionExtended();
+        }
+
         target.Positions.Clear();
-
         foreach (var position in source.Positions)
         {
             target.Positions.Add(position);
         }
     }
 
-    public void Map(ChoreoMasterMobile.Json.Scene source, SceneViewModel target)
+    public void Map(SceneModel source, SceneViewModel target)
     {
         ArgumentNullException.ThrowIfNull(source);
         ArgumentNullException.ThrowIfNull(target);
@@ -38,56 +52,38 @@ public sealed class SceneMapper
         target.Text = source.Text ?? string.Empty;
         target.FixedPositions = source.FixedPositions;
         target.VariationDepth = source.VariationDepth;
-        target.Variations = CloneSceneListList(source.Variations);
-        target.CurrentVariation = CloneSceneList(source.CurrentVariation);
+
+        if (source.Variations is {} variations)
+        {
+            target.Variations = variations
+                .Select(v => (IList<SceneModel>)CloneSceneList(v).ToList())
+                .ToList();
+        }
+
+        if (source.CurrentVariation is { } currentVariation)
+        {
+            target.CurrentVariation = CloneSceneList(currentVariation).ToList();
+        }
 
         target.Positions.Clear();
-        if (source.Positions is not null)
+        foreach (var position in source.Positions)
         {
-            foreach (var position in source.Positions)
-            {
-                target.Positions.Add(position);
-            }
+            target.Positions.Add(position);
         }
     }
 
-    private static IList<IList<ChoreoMasterMobile.Json.Scene>>? CloneSceneListList(
-        IList<IList<ChoreoMasterMobile.Json.Scene>>? source)
+    private static IEnumerable<SceneModel> CloneSceneList(IEnumerable<SceneModel> source)
     {
-        if (source is null)
-        {
-            return null;
-        }
-
-        var result = new List<IList<ChoreoMasterMobile.Json.Scene>>(source.Count);
-        foreach (var list in source)
-        {
-            result.Add(CloneSceneList(list) ?? new List<ChoreoMasterMobile.Json.Scene>());
-        }
-
-        return result;
-    }
-
-    private static IList<ChoreoMasterMobile.Json.Scene>? CloneSceneList(
-        IList<ChoreoMasterMobile.Json.Scene>? source)
-    {
-        if (source is null)
-        {
-            return null;
-        }
-
-        var result = new List<ChoreoMasterMobile.Json.Scene>(source.Count);
+        ArgumentNullException.ThrowIfNull(source);
         foreach (var scene in source)
         {
-            result.Add(CloneScene(scene));
+            yield return CloneScene(scene);
         }
-
-        return result;
     }
 
-    private static ChoreoMasterMobile.Json.Scene CloneScene(ChoreoMasterMobile.Json.Scene source)
+    private static SceneModel CloneScene(SceneModel source)
     {
-        var scene = new ChoreoMasterMobile.Json.Scene
+        var scene = new SceneModel
         {
             SceneId = source.SceneId,
             Name = source.Name,
@@ -98,13 +94,21 @@ public sealed class SceneMapper
             Color = source.Color
         };
 
-        if (source.Positions is not null)
+        foreach (var position in source.Positions)
         {
-            scene.Positions = new List<ChoreoMasterMobile.Json.Position>(source.Positions);
+            scene.Positions.Add(position);
         }
 
-        scene.Variations = CloneSceneListList(source.Variations);
-        scene.CurrentVariation = CloneSceneList(source.CurrentVariation);
+        if (source.Variations is { } variations)
+        {
+            scene.Variations = new();
+            scene.Variations.AddRange(variations.Select(v => CloneSceneList(v).AsObservableCollectionExtended()));
+        }
+
+        if (source.CurrentVariation is { } currentVariation)
+        {
+            scene.CurrentVariation = CloneSceneList(currentVariation).AsObservableCollectionExtended();
+        }
 
         return scene;
     }

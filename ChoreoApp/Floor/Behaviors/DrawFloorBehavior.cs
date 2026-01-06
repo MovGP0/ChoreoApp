@@ -5,13 +5,17 @@ using ChoreoApp.Scenes;
 using MaterialDesignThemes.Maui;
 using ChoreoApp.AudioPlayer.Messages;
 using ChoreoApp.Floor.Messages;
-using ChoreoMasterMobile.Json;
+using ChoreoApp.Models;
 using ChoreoApp.Settings;
 using ChoreoApp.StateMachine;
 using ChoreoApp.StateMachine.States;
 using MessagePipe;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
+using Dancer = ChoreoApp.Models.DancerModel;
+using Position = ChoreoApp.Models.PositionModel;
+using Role = ChoreoApp.Models.RoleModel;
+using Scene = ChoreoApp.Models.SceneModel;
 
 namespace ChoreoApp.Floor.Behaviors;
 

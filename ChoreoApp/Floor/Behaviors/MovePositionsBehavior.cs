@@ -1,15 +1,17 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Floor.Messages;
+using ChoreoApp.Models;
 using ChoreoApp.Scenes;
 using ChoreoApp.StateMachine;
 using ChoreoApp.StateMachine.States;
 using ChoreoApp.StateMachine.Triggers;
-using ChoreoMasterMobile.Json;
 using MessagePipe;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
+using Choreography = ChoreoApp.Models.ChoreographyModel;
+using Position = ChoreoApp.Models.PositionModel;
 
 namespace ChoreoApp.Floor.Behaviors;
 
@@ -351,6 +353,7 @@ public sealed class MovePositionsBehavior(
             position.Y = startPoint.Y + deltaY;
         }
 
+        SnapSelectedPositionsToGrid();
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }
 

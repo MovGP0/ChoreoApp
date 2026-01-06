@@ -3,13 +3,17 @@ using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Algorithms.Hungarian;
 using ChoreoApp.Floor.Messages;
+using ChoreoApp.Models;
 using ChoreoApp.StateMachine;
 using ChoreoApp.StateMachine.States;
-using ChoreoMasterMobile.Json;
 using MessagePipe;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
+using Choreography = ChoreoApp.Models.ChoreographyModel;
+using Dancer = ChoreoApp.Models.DancerModel;
+using Position = ChoreoApp.Models.PositionModel;
+using Scene = ChoreoApp.Models.SceneModel;
 
 namespace ChoreoApp.Floor.Behaviors;
 
@@ -217,6 +221,7 @@ public sealed class PlacePositionBehavior(
             return;
         }
 
+        SnapToGrid(choreography, ref positionX, ref positionY);
         var position = new Position
         {
             X = positionX,
@@ -314,7 +319,7 @@ public sealed class PlacePositionBehavior(
         out List<Vector2> points)
     {
         points = new List<Vector2>(dancers.Count);
-        if (scene.Positions is null || scene.Positions.Count != dancers.Count)
+        if (scene.Positions.Count != dancers.Count)
         {
             return false;
         }
@@ -395,8 +400,20 @@ public sealed class PlacePositionBehavior(
             return;
         }
 
-        scene.Positions ??= new List<Position>();
         scene.Positions.Add(position);
+    }
+
+    private static void SnapToGrid(Choreography choreography, ref double positionX, ref double positionY)
+    {
+        var resolution = choreography.Settings.Resolution;
+        if (resolution <= 0)
+        {
+            return;
+        }
+
+        var step = 1d / resolution;
+        positionX = Math.Round(positionX / step) * step;
+        positionY = Math.Round(positionY / step) * step;
     }
 
     private static bool TryGetFloorPosition(

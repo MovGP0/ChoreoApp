@@ -1,5 +1,5 @@
+using ChoreoApp.Models;
 using ChoreoApp.Scenes;
-using ChoreoMasterMobile.Json;
 using DynamicData.Binding;
 
 namespace ChoreoApp.Global;
@@ -7,7 +7,7 @@ namespace ChoreoApp.Global;
 public sealed partial class GlobalStateModel : ReactiveObject
 {
     [Reactive]
-    private Choreography _choreography = new();
+    private ChoreographyModel _choreography = new();
 
     [Reactive]
     private SvgDocument? _svgDocument;
@@ -22,7 +22,7 @@ public sealed partial class GlobalStateModel : ReactiveObject
     private SceneViewModel? _selectedScene;
 
     [ReactiveCollection]
-    private ObservableCollectionExtended<Position> _selectedPositions = [];
+    private ObservableCollectionExtended<PositionModel> _selectedPositions = [];
 
     [Reactive]
     private SelectionRectangle? _selectionRectangle;
