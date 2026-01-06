@@ -20,9 +20,12 @@ public sealed class GestureHandlingBehavior(
     private Point? _lastHoverPosition;
     private Point? _lastPanPosition;
     private Point? _lastPointerPosition;
+    private Point? _lastSingleTouchPosition;
     private SKPoint? _lastTouchCenter;
     private float _lastPinchScale = 1f;
     private float? _lastTouchDistance;
+    private bool _touchPanActive;
+    private bool _touchZoomActive;
 
     public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)
     {
@@ -237,6 +240,7 @@ public sealed class GestureHandlingBehavior(
         }
 
         var args = command.EventArgs;
+        var (dpiScaleX, dpiScaleY) = GetCanvasScale(command.CanvasView);
         if (args.InContact)
         {
             _activeTouches[args.Id] = args.Location;
@@ -246,16 +250,28 @@ public sealed class GestureHandlingBehavior(
             _activeTouches.Remove(args.Id);
         }
 
-        if (_activeTouches.Count < 2)
+        if (_activeTouches.Count == 0)
         {
-            _lastTouchCenter = null;
-            _lastTouchDistance = null;
+            ResetTouchState();
             return;
         }
 
-        var touchPoints = _activeTouches.Values.Take(2).ToArray();
-        var (dpiScaleX, dpiScaleY) = GetCanvasScale(command.CanvasView);
+        if (_activeTouches.Count == 1)
+        {
+            if (_touchZoomActive)
+            {
+                stateMachine.TryApply(new ZoomCompletedTrigger());
+                _touchZoomActive = false;
+                _lastTouchCenter = null;
+                _lastTouchDistance = null;
+            }
 
+            HandleSingleTouchPan(viewModel, command.CanvasView, dpiScaleX, dpiScaleY);
+            return;
+        }
+
+        _lastSingleTouchPosition = null;
+        var touchPoints = _activeTouches.Values.Take(2).ToArray();
         var first = new Point(touchPoints[0].X / dpiScaleX, touchPoints[0].Y / dpiScaleY);
         var second = new Point(touchPoints[1].X / dpiScaleX, touchPoints[1].Y / dpiScaleY);
 
@@ -266,6 +282,12 @@ public sealed class GestureHandlingBehavior(
         var dx = (float)(second.X - first.X);
         var dy = (float)(second.Y - first.Y);
         var distance = MathF.Sqrt(MathF.Pow(dx, 2f) + MathF.Pow(dy, 2f));
+
+        if (!_touchZoomActive)
+        {
+            _touchZoomActive = true;
+            stateMachine.TryApply(new ZoomStartedTrigger());
+        }
 
         if (_lastTouchCenter is { } lastCenterPoint
             && _lastTouchDistance is { } lastDistance
@@ -290,6 +312,54 @@ public sealed class GestureHandlingBehavior(
         _lastTouchCenter = new SKPoint((float)center.X, (float)center.Y);
         _lastTouchDistance = distance;
         args.Handled = true;
+    }
+
+    private void HandleSingleTouchPan(
+        FloorCanvasViewModel viewModel,
+        SKCanvasView canvasView,
+        float dpiScaleX,
+        float dpiScaleY)
+    {
+        var touchPoint = _activeTouches.Values.First();
+        var current = new Point(touchPoint.X / dpiScaleX, touchPoint.Y / dpiScaleY);
+
+        if (_lastSingleTouchPosition is null)
+        {
+            _lastSingleTouchPosition = current;
+            return;
+        }
+
+        if (!_touchPanActive)
+        {
+            _touchPanActive = true;
+            stateMachine.TryApply(new PanStartedTrigger());
+        }
+
+        var deltaX = current.X - _lastSingleTouchPosition.Value.X;
+        var deltaY = current.Y - _lastSingleTouchPosition.Value.Y;
+
+        ApplyTranslation(viewModel, canvasView, deltaX, deltaY);
+        _lastSingleTouchPosition = current;
+        InvalidateCanvas(viewModel);
+    }
+
+    private void ResetTouchState()
+    {
+        if (_touchPanActive)
+        {
+            stateMachine.TryApply(new PanCompletedTrigger());
+        }
+
+        if (_touchZoomActive)
+        {
+            stateMachine.TryApply(new ZoomCompletedTrigger());
+        }
+
+        _touchPanActive = false;
+        _touchZoomActive = false;
+        _lastSingleTouchPosition = null;
+        _lastTouchCenter = null;
+        _lastTouchDistance = null;
     }
 
     private static void InvalidateCanvas(FloorCanvasViewModel viewModel)

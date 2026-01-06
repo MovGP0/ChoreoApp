@@ -196,6 +196,7 @@ public partial class FloorCanvasView
             return;
         }
 
+        e.Handled = true;
         viewModel
             .TouchCommand
             .Execute(new TouchCommand(CanvasView, e))
