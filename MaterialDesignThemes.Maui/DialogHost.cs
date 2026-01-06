@@ -10,6 +10,10 @@ namespace MaterialDesignThemes.Maui;
 public sealed class DialogHost : ContentView
 {
     private static readonly HashSet<WeakReference<DialogHost>> LoadedInstances = [];
+    private const double OverlayOpenOpacity = 0.56;
+    private const uint DialogOpenDuration = 220;
+    private const uint DialogCloseDuration = 180;
+    private const string DialogAnimationName = "MaterialDesignDialogHostAnimation";
 
     private readonly Grid _root;
     private readonly ContentView _mainPresenter;
@@ -26,6 +30,7 @@ public sealed class DialogHost : ContentView
     private DialogClosedEventHandler? _asyncShowClosedEventHandler;
     private bool _isClosingInternally;
     private bool _isDialogContentBindingContextInherited;
+    private int _dialogAnimationToken;
 
     public DialogHost()
     {
@@ -510,6 +515,7 @@ public sealed class DialogHost : ContentView
         UpdateDialogVisibility();
         UpdateBlurState();
         UpdateCommandStates();
+        _ = AnimateDialogAsync(isOpen);
 
         if (isOpen)
         {
@@ -616,13 +622,21 @@ public sealed class DialogHost : ContentView
 
     private void UpdateOverlayVisibility()
     {
-        _overlay.IsVisible = IsOpen;
+        if (IsOpen)
+        {
+            _overlay.IsVisible = true;
+        }
+
         _overlay.InputTransparent = !IsOpen;
     }
 
     private void UpdateDialogVisibility()
     {
-        _dialogContainer.IsVisible = IsOpen;
+        if (IsOpen)
+        {
+            _dialogContainer.IsVisible = true;
+        }
+
         _dialogContainer.InputTransparent = !IsOpen;
     }
 
@@ -651,6 +665,42 @@ public sealed class DialogHost : ContentView
         }
 
         IsOpen = true;
+    }
+
+    private async Task AnimateDialogAsync(bool isOpen)
+    {
+        var token = ++_dialogAnimationToken;
+        _overlay.AbortAnimation(DialogAnimationName);
+        _dialogContainer.AbortAnimation(DialogAnimationName);
+
+        if (isOpen)
+        {
+            _overlay.IsVisible = true;
+            _dialogContainer.IsVisible = true;
+            _overlay.Opacity = 0;
+            _dialogContainer.Opacity = 0;
+            _dialogContainer.Scale = 0.9;
+
+            await Task.WhenAll(
+                _overlay.FadeTo(OverlayOpenOpacity, DialogOpenDuration, Easing.CubicOut),
+                _dialogContainer.FadeTo(1, DialogOpenDuration, Easing.CubicOut),
+                _dialogContainer.ScaleTo(1, DialogOpenDuration, Easing.CubicOut));
+            return;
+        }
+
+        await Task.WhenAll(
+            _overlay.FadeTo(0, DialogCloseDuration, Easing.CubicIn),
+            _dialogContainer.FadeTo(0, DialogCloseDuration, Easing.CubicIn),
+            _dialogContainer.ScaleTo(0.9, DialogCloseDuration, Easing.CubicIn));
+
+        if (token != _dialogAnimationToken)
+        {
+            return;
+        }
+
+        _overlay.IsVisible = false;
+        _dialogContainer.IsVisible = false;
+        _dialogContainer.Scale = 1;
     }
 
     private bool CanExecuteOpenDialog(object? parameter) => !IsOpen;

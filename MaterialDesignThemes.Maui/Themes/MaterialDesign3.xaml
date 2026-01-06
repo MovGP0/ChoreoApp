@@ -12,7 +12,11 @@
         <ResourceDictionary Source="MaterialDesign3.CollectionView.xaml" />
         <ResourceDictionary Source="MaterialDesign3.CheckBox.xaml" />
         <ResourceDictionary Source="MaterialDesign3.DatePicker.xaml" />
+        <ResourceDictionary Source="MaterialDesign3.AutoSuggestBox.xaml" />
+        <ResourceDictionary Source="MaterialDesign3.DialogHost.xaml" />
         <ResourceDictionary Source="MaterialDesign3.Expander.xaml" />
+        <ResourceDictionary Source="MaterialDesign3.Flipper.xaml" />
+        <ResourceDictionary Source="MaterialDesign3.FlipperClassic.xaml" />
         <ResourceDictionary Source="MaterialDesign3.HamburgerToggleButton.xaml" />
         <ResourceDictionary Source="MaterialDesign3.Label.xaml" />
         <ResourceDictionary Source="MaterialDesign3.Entry.xaml" />
@@ -20,6 +24,8 @@
         <ResourceDictionary Source="MaterialDesign3.ListView.xaml" />
         <ResourceDictionary Source="MaterialDesign3.TabbedPage.xaml" />
         <ResourceDictionary Source="MaterialDesign3.TabView.xaml" />
+        <ResourceDictionary Source="MaterialDesign3.PopupBox.xaml" />
+        <ResourceDictionary Source="MaterialDesign3.TreeListView.xaml" />
         <ResourceDictionary Source="MaterialDesign3.SearchBar.xaml" />
         <ResourceDictionary Source="MaterialDesign3.Shadows.xaml" />
         <ResourceDictionary Source="MaterialDesign3.Slider.xaml" />

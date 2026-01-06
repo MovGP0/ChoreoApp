@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+
+  <styling:PackIcon x:Key="MaterialDesignPopupBoxToggleContent"
+                    WidthRequest="24"
+                    HeightRequest="24"
+                    Kind="DotsVertical"
+                    Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+
+  <Style x:Key="MaterialDesignPopupBox"
+         TargetType="styling:PopupBox">
+    <Setter Property="Padding" Value="8" />
+    <Setter Property="PopupElevation" Value="Dp6" />
+    <Setter Property="PopupUniformCornerRadius" Value="4" />
+    <Setter Property="PopupHorizontalOffset" Value="0" />
+    <Setter Property="PopupVerticalOffset" Value="0" />
+    <Setter Property="PopupAnimation" Value="Fade" />
+    <Setter Property="PopupMode" Value="Click" />
+    <Setter Property="ToggleContent" Value="{StaticResource MaterialDesignPopupBoxToggleContent}" />
+    <Setter Property="ControlTemplate">
+      <ControlTemplate>
+        <Grid RowDefinitions="Auto,Auto">
+          <styling:ToogleButton x:Name="PART_Toggle"
+                                Padding="4"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center" />
+
+          <styling:PopupEx x:Name="PART_Popup"
+                           Grid.Row="1"
+                           IsOpen="{TemplateBinding IsPopupOpen}">
+            <Border x:Name="PART_PopupContentControl"
+                    Padding="{TemplateBinding Padding}"
+                    BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}">
+              <Border.StrokeShape>
+                <RoundRectangle CornerRadius="4" />
+              </Border.StrokeShape>
+            </Border>
+          </styling:PopupEx>
+
+          <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="PopupStates">
+              <VisualState x:Name="IsOpen">
+                <VisualState.Setters>
+                  <Setter TargetName="PART_PopupContentControl" Property="Opacity" Value="1" />
+                </VisualState.Setters>
+              </VisualState>
+              <VisualState x:Name="IsClosed">
+                <VisualState.Setters>
+                  <Setter TargetName="PART_PopupContentControl" Property="Opacity" Value="0" />
+                </VisualState.Setters>
+              </VisualState>
+            </VisualStateGroup>
+          </VisualStateManager.VisualStateGroups>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style TargetType="styling:PopupBox"
+         BasedOn="{StaticResource MaterialDesignPopupBox}" />
+</ResourceDictionary>

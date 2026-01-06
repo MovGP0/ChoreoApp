@@ -28,6 +28,8 @@ public partial class PopupBox : TemplatedView
     private PopupEx? _popup;
     private View? _popupContentControl;
     private View? _toggleButton;
+    private int _popupAnimationToken;
+    private const string PopupAnimationName = "MaterialDesignPopupBoxFade";
 
     public PopupBox()
     {
@@ -440,12 +442,13 @@ public partial class PopupBox : TemplatedView
             _popup.IsOpen = IsPopupOpen;
         }
 
-        if (_popupContentControl is not null)
+        if (_popupContentControl is not null && IsPopupOpen)
         {
-            _popupContentControl.IsVisible = IsPopupOpen;
+            _popupContentControl.IsVisible = true;
         }
 
         VisualStateManager.GoToState(this, IsPopupOpen ? PopupIsOpenStateName : PopupIsClosedStateName);
+        _ = AnimatePopupAsync(IsPopupOpen);
 
         if (IsPopupOpen)
         {
@@ -454,6 +457,49 @@ public partial class PopupBox : TemplatedView
         else
         {
             Closed?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    private async Task AnimatePopupAsync(bool isOpen)
+    {
+        if (_popupContentControl is null)
+        {
+            return;
+        }
+
+        var token = ++_popupAnimationToken;
+        _popupContentControl.AbortAnimation(PopupAnimationName);
+
+        if (PopupAnimation != PopupAnimation.Fade)
+        {
+            _popupContentControl.Opacity = isOpen ? 1 : 0;
+            _popupContentControl.Scale = 1;
+            return;
+        }
+
+        if (isOpen)
+        {
+            _popupContentControl.Opacity = 0;
+            _popupContentControl.Scale = 0.96;
+            _popupContentControl.IsVisible = true;
+
+            await Task.WhenAll(
+                _popupContentControl.FadeTo(1, 120, Easing.CubicOut),
+                _popupContentControl.ScaleTo(1, 120, Easing.CubicOut));
+        }
+        else
+        {
+            await Task.WhenAll(
+                _popupContentControl.FadeTo(0, 100, Easing.CubicIn),
+                _popupContentControl.ScaleTo(0.96, 100, Easing.CubicIn));
+
+            if (token != _popupAnimationToken)
+            {
+                return;
+            }
+
+            _popupContentControl.IsVisible = false;
+            _popupContentControl.Scale = 1;
         }
     }
 

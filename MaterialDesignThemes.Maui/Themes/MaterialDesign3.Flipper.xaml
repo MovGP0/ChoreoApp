@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="MaterialDesign3.Card.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <Style x:Key="MaterialDesignFlipper"
+         TargetType="styling:Flipper">
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="BackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}" />
+    <Setter Property="styling:ElevationAssist.Elevation" Value="Dp1" />
+    <Setter Property="styling:FlipperAssist.UniformCornerRadius" Value="4" />
+    <Setter Property="styling:FlipperAssist.CardStyle"
+            Value="{StaticResource MaterialDesignElevatedCard}" />
+    <Setter Property="ControlTemplate">
+      <ControlTemplate>
+        <Grid>
+          <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="FlipStates">
+              <VisualState x:Name="Unflipped">
+                <VisualState.Setters>
+                  <Setter TargetName="FrontCard" Property="IsVisible" Value="True" />
+                  <Setter TargetName="BackCard" Property="IsVisible" Value="False" />
+                  <Setter TargetName="FrontCard" Property="ScaleX" Value="1" />
+                  <Setter TargetName="BackCard" Property="ScaleX" Value="0" />
+                </VisualState.Setters>
+              </VisualState>
+              <VisualState x:Name="Flipped">
+                <VisualState.Setters>
+                  <Setter TargetName="FrontCard" Property="IsVisible" Value="False" />
+                  <Setter TargetName="BackCard" Property="IsVisible" Value="True" />
+                  <Setter TargetName="FrontCard" Property="ScaleX" Value="0" />
+                  <Setter TargetName="BackCard" Property="ScaleX" Value="1" />
+                </VisualState.Setters>
+              </VisualState>
+            </VisualStateGroup>
+          </VisualStateManager.VisualStateGroups>
+
+          <styling:Card x:Name="FrontCard"
+                        Padding="{TemplateBinding Padding}"
+                        BackgroundColor="{TemplateBinding BackgroundColor}"
+                        HorizontalOptions="{TemplateBinding HorizontalOptions}"
+                        VerticalOptions="{TemplateBinding VerticalOptions}"
+                        UniformCornerRadius="{Binding Path=(styling:FlipperAssist.UniformCornerRadius), Source={RelativeSource TemplatedParent}}"
+                        Style="{Binding Path=(styling:FlipperAssist.CardStyle), Source={RelativeSource TemplatedParent}}">
+            <ContentView x:Name="PART_FrontContent" />
+          </styling:Card>
+
+          <styling:Card x:Name="BackCard"
+                        Padding="{TemplateBinding Padding}"
+                        BackgroundColor="{TemplateBinding BackgroundColor}"
+                        HorizontalOptions="{TemplateBinding HorizontalOptions}"
+                        VerticalOptions="{TemplateBinding VerticalOptions}"
+                        UniformCornerRadius="{Binding Path=(styling:FlipperAssist.UniformCornerRadius), Source={RelativeSource TemplatedParent}}"
+                        Style="{Binding Path=(styling:FlipperAssist.CardStyle), Source={RelativeSource TemplatedParent}}">
+            <ContentView x:Name="PART_BackContent" />
+          </styling:Card>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style TargetType="styling:Flipper"
+         BasedOn="{StaticResource MaterialDesignFlipper}" />
+</ResourceDictionary>

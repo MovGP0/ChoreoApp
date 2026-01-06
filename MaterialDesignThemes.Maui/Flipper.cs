@@ -10,6 +10,9 @@ public class Flipper : TemplatedView
     public const string TemplateUnflippedStateName = "Unflipped";
     public const string FrontContentPartName = "PART_FrontContent";
     public const string BackContentPartName = "PART_BackContent";
+    private const uint FlipAnimationDuration = 200;
+    private const string FlipFrontAnimationName = "MaterialDesignFlipperFrontScaleX";
+    private const string FlipBackAnimationName = "MaterialDesignFlipperBackScaleX";
 
     private static readonly BindablePropertyKey FlipCommandPropertyKey = BindableProperty.CreateReadOnly(
         nameof(FlipCommand),
@@ -127,6 +130,7 @@ public class Flipper : TemplatedView
 
     private ContentView? _frontContentHost;
     private ContentView? _backContentHost;
+    private int _flipAnimationToken;
 
     public Flipper()
     {
@@ -140,6 +144,8 @@ public class Flipper : TemplatedView
     }
 
     public event EventHandler<ValueChangedEventArgs<bool>>? IsFlippedChanged;
+    protected ContentView? FrontContentHost => _frontContentHost;
+    protected ContentView? BackContentHost => _backContentHost;
 
     protected override void OnApplyTemplate()
     {
@@ -213,6 +219,73 @@ public class Flipper : TemplatedView
         VisualStateManager.GoToState(
             this,
             IsFlipped ? TemplateFlippedStateName : TemplateUnflippedStateName);
+        _ = AnimateFlipAsync(IsFlipped);
+    }
+
+    protected virtual async Task AnimateFlipAsync(bool isFlipped)
+    {
+        var front = _frontContentHost;
+        var back = _backContentHost;
+        if (front is null || back is null)
+        {
+            return;
+        }
+
+        var token = ++_flipAnimationToken;
+        front.AbortAnimation(FlipFrontAnimationName);
+        back.AbortAnimation(FlipBackAnimationName);
+
+        front.IsVisible = true;
+        back.IsVisible = true;
+
+        if (isFlipped)
+        {
+            front.ScaleX = 1;
+            back.ScaleX = 0;
+
+            await AnimateScaleX(front, 1, 0, FlipAnimationDuration / 2, FlipFrontAnimationName);
+            if (token != _flipAnimationToken)
+            {
+                return;
+            }
+
+            front.IsVisible = false;
+            await AnimateScaleX(back, 0, 1, FlipAnimationDuration / 2, FlipBackAnimationName);
+        }
+        else
+        {
+            back.ScaleX = 1;
+            front.ScaleX = 0;
+
+            await AnimateScaleX(back, 1, 0, FlipAnimationDuration / 2, FlipBackAnimationName);
+            if (token != _flipAnimationToken)
+            {
+                return;
+            }
+
+            back.IsVisible = false;
+            await AnimateScaleX(front, 0, 1, FlipAnimationDuration / 2, FlipFrontAnimationName);
+        }
+    }
+
+    private static Task AnimateScaleX(VisualElement element, double from, double to, uint duration, string animationName)
+    {
+        var tcs = new TaskCompletionSource();
+        element.ScaleX = from;
+
+        var animation = new Animation(
+            callback: value => element.ScaleX = value,
+            start: from,
+            end: to,
+            easing: Easing.Linear);
+
+        animation.Commit(element, animationName, 16, duration, Easing.Linear, (_, _) =>
+        {
+            element.ScaleX = to;
+            tcs.TrySetResult();
+        });
+
+        return tcs.Task;
     }
 
     private void OnFlipRequested()

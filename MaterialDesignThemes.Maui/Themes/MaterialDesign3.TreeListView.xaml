@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+
+  <Style x:Key="MaterialDesignTreeListViewItem"
+         TargetType="styling:TreeListViewItem">
+    <Setter Property="Padding" Value="8" />
+    <Setter Property="BackgroundColor" Value="Transparent" />
+    <Setter Property="VisualStateManager.VisualStateGroups">
+      <VisualStateGroupList>
+        <VisualStateGroup x:Name="CommonStates">
+          <VisualState x:Name="Normal" />
+          <VisualState x:Name="Selected">
+            <VisualState.Setters>
+              <Setter Property="BackgroundColor"
+                      Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerHigh}}" />
+            </VisualState.Setters>
+          </VisualState>
+        </VisualStateGroup>
+      </VisualStateGroupList>
+    </Setter>
+  </Style>
+
+  <Style x:Key="MaterialDesignTreeListView"
+         TargetType="styling:TreeListView">
+    <Setter Property="BackgroundColor" Value="Transparent" />
+    <Setter Property="SelectionMode" Value="Single" />
+    <Setter Property="ItemsLayout">
+      <LinearItemsLayout Orientation="Vertical" />
+    </Setter>
+  </Style>
+
+  <Style TargetType="styling:TreeListView"
+         BasedOn="{StaticResource MaterialDesignTreeListView}" />
+  <Style TargetType="styling:TreeListViewItem"
+         BasedOn="{StaticResource MaterialDesignTreeListViewItem}" />
+</ResourceDictionary>
