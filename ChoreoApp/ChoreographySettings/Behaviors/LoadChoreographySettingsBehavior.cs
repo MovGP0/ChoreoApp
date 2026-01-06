@@ -47,5 +47,12 @@ public sealed class LoadChoreographySettingsBehavior(GlobalStateModel globalStat
         viewModel.GridLines = false;
         viewModel.FloorColor = Colors.Transparent;
         viewModel.ShowTimestamps = false;
+        viewModel.HasSelectedScene = false;
+        viewModel.SceneName = string.Empty;
+        viewModel.SceneText = string.Empty;
+        viewModel.SceneFixedPositions = false;
+        viewModel.SceneHasTimestamp = false;
+        viewModel.SceneTimestamp = TimeSpan.Zero;
+        viewModel.SceneColor = Colors.Transparent;
     }
 }

@@ -21,6 +21,59 @@
         <VerticalStackLayout Spacing="4"
                              Padding="4">
             <styling:Card Padding="4" Style="{StaticResource MaterialDesignElevatedCard}">
+                <VerticalStackLayout Spacing="12"
+                                     IsEnabled="{Binding HasSelectedScene}">
+                    <Label Text="{x:Static i18n:Translations.SceneSectionTitle}"
+                           FontAttributes="Bold"
+                           FontSize="18"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                    <Entry Placeholder="{x:Static i18n:Translations.SceneNameLabel}"
+                           Text="{Binding SceneName}"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                           BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+                           PlaceholderColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                    <Editor Placeholder="{x:Static i18n:Translations.SceneTextLabel}"
+                            Text="{Binding SceneText}"
+                            AutoSize="TextChanges"
+                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                            BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+                            PlaceholderColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                    <Grid ColumnDefinitions="*,Auto"
+                          RowDefinitions="Auto"
+                          ColumnSpacing="12"
+                          RowSpacing="8">
+                        <Label Text="{x:Static i18n:Translations.SceneFixedPositionsLabel}"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <CheckBox Grid.Column="1"
+                                  IsChecked="{Binding SceneFixedPositions}"
+                                  VerticalOptions="Center" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,Auto"
+                          RowDefinitions="Auto,Auto"
+                          ColumnSpacing="12"
+                          RowSpacing="8">
+                        <Label Text="{x:Static i18n:Translations.SceneTimestampLabel}"
+                               Grid.Column="0"
+                               Grid.Row="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <CheckBox Grid.Column="1"
+                                  Grid.Row="0"
+                                  IsChecked="{Binding SceneHasTimestamp}"
+                                  VerticalOptions="Center" />
+                        <TimePicker Grid.Column="0"
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    Time="{Binding SceneTimestamp}"
+                                    IsEnabled="{Binding SceneHasTimestamp}" />
+                    </Grid>
+                    <Label Text="{x:Static i18n:Translations.SceneColorLabel}"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                    <colorPicker:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
+                                                        SelectedColor="{Binding SceneColor}" />
+                </VerticalStackLayout>
+            </styling:Card>
+            <styling:Card Padding="4" Style="{StaticResource MaterialDesignElevatedCard}">
                 <VerticalStackLayout Spacing="12">
                     <Label Text="{x:Static i18n:Translations.ChoreographySectionTitle}"
                            FontAttributes="Bold"

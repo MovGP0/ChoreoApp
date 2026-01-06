@@ -58,7 +58,7 @@ public partial class MainPage: IDisposable
         });
     }
 
-    private void OnDrawerOpened(object? sender, DrawerOpenedEventArgs? e)
+    private void OnDrawerOpened(object? sender, DrawerOpenedEventArgs e)
     {
         if (e.Dock == DrawerDock.Left && !HamburgerButton.IsChecked)
         {

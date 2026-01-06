@@ -251,12 +251,13 @@ public sealed class MovePositionsBehavior(
 
     private void HandleTouchMove(FloorCanvasViewModel viewModel, long touchId, SKPoint location)
     {
-        if (!_touchStartPositions.TryGetValue(touchId, out var startViewPoint))
+        if (!_touchStartPositions.TryGetValue(touchId, out var startViewPoint)
+            || viewModel.CanvasView is not { } canvasView)
         {
             return;
         }
 
-        var viewPoint = ToViewPoint(location, viewModel.CanvasView);
+        var viewPoint = ToViewPoint(location, canvasView);
         var deltaX = viewPoint.X - startViewPoint.X;
         var deltaY = viewPoint.Y - startViewPoint.Y;
         var distance = MathF.Sqrt((float)(deltaX * deltaX + deltaY * deltaY));
@@ -285,7 +286,12 @@ public sealed class MovePositionsBehavior(
 
     private void HandleTouchRelease(FloorCanvasViewModel viewModel, long touchId, SKPoint location)
     {
-        var viewPoint = ToViewPoint(location, viewModel.CanvasView);
+        if (viewModel.CanvasView is not { } canvasView)
+        {
+            return;
+        }
+
+        var viewPoint = ToViewPoint(location, canvasView);
         if (!TryGetFloorPoint(viewModel, viewPoint, out var floorPoint))
         {
             if (_clearSelectionOnRelease)

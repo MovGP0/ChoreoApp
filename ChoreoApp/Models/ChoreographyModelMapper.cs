@@ -322,13 +322,13 @@ public sealed class ChoreographyModelMapper
         return position;
     }
 
-    private static ObservableCollectionExtended<ObservableCollectionExtended<SceneModel>>? MapSceneVariations(
+    private static ObservableCollectionExtended<ObservableCollectionExtended<SceneModel>> MapSceneVariations(
         IList<IList<Scene>>? variations,
         IReadOnlyDictionary<Dancer, DancerModel> dancerMap)
     {
         if (variations is null)
         {
-            return null;
+            return new();
         }
 
         var result = new ObservableCollectionExtended<ObservableCollectionExtended<SceneModel>>();
@@ -370,13 +370,13 @@ public sealed class ChoreographyModelMapper
         return result;
     }
 
-    private static ObservableCollectionExtended<SceneModel>? MapSceneList(
+    private static ObservableCollectionExtended<SceneModel> MapSceneList(
         IList<Scene>? scenes,
         IReadOnlyDictionary<Dancer, DancerModel> dancerMap)
     {
         if (scenes is null)
         {
-            return null;
+            return new();
         }
 
         var result = new ObservableCollectionExtended<SceneModel>();

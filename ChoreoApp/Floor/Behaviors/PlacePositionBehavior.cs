@@ -111,7 +111,7 @@ public sealed class PlacePositionBehavior(
 
         if (shouldPlace)
         {
-            TryPlacePosition(viewModel, position.Value);
+            TryPlacePosition(viewModel, position!.Value);
         }
     }
 

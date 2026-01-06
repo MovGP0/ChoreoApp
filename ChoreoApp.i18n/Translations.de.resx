@@ -105,6 +105,24 @@
   <data name="ChoreographyVariationPlaceholder" xml:space="preserve">
     <value>Variation</value>
   </data>
+  <data name="SceneSectionTitle" xml:space="preserve">
+    <value>Szene</value>
+  </data>
+  <data name="SceneNameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="SceneTextLabel" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="SceneFixedPositionsLabel" xml:space="preserve">
+    <value>Feste Positionen</value>
+  </data>
+  <data name="SceneTimestampLabel" xml:space="preserve">
+    <value>Zeitstempel</value>
+  </data>
+  <data name="SceneColorLabel" xml:space="preserve">
+    <value>Farbe</value>
+  </data>
   <data name="ModeLabel" xml:space="preserve">
     <value>Modus</value>
   </data>

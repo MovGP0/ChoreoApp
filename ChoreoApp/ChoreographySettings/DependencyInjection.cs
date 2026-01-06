@@ -8,6 +8,7 @@ public static class DependencyInjection
         services.AddTransient<ChoreographySettingsView>();
         services.AddTransient<ChoreographySettingsViewModel>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.LoadChoreographySettingsBehavior>();
+        services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateSelectedSceneBehavior>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateCommentBehavior>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateNameBehavior>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateSubtitleBehavior>();

@@ -375,6 +375,60 @@ namespace ChoreoApp.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color.
+        /// </summary>
+        public static string SceneColorLabel {
+            get {
+                return ResourceManager.GetString("SceneColorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fixed positions.
+        /// </summary>
+        public static string SceneFixedPositionsLabel {
+            get {
+                return ResourceManager.GetString("SceneFixedPositionsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string SceneNameLabel {
+            get {
+                return ResourceManager.GetString("SceneNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scene.
+        /// </summary>
+        public static string SceneSectionTitle {
+            get {
+                return ResourceManager.GetString("SceneSectionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text.
+        /// </summary>
+        public static string SceneTextLabel {
+            get {
+                return ResourceManager.GetString("SceneTextLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timestamp.
+        /// </summary>
+        public static string SceneTimestampLabel {
+            get {
+                return ResourceManager.GetString("SceneTimestampLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string SearchPlaceholder {

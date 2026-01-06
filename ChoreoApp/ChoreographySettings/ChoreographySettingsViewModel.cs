@@ -90,6 +90,27 @@ public sealed partial class ChoreographySettingsViewModel : ReactiveObject, IAct
     [Reactive]
     private string _description = string.Empty;
 
+    [Reactive]
+    private bool _hasSelectedScene;
+
+    [Reactive]
+    private string _sceneName = string.Empty;
+
+    [Reactive]
+    private string _sceneText = string.Empty;
+
+    [Reactive]
+    private bool _sceneFixedPositions;
+
+    [Reactive]
+    private bool _sceneHasTimestamp;
+
+    [Reactive]
+    private TimeSpan _sceneTimestamp;
+
+    [Reactive]
+    private Color _sceneColor = Colors.Transparent;
+
     private static IReadOnlyList<GridSizeOption> BuildGridSizeOptions()
     {
         var options = new List<GridSizeOption>();
