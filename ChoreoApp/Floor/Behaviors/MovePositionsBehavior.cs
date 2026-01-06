@@ -1,7 +1,6 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Floor.Messages;
-using ChoreoApp.Models;
 using ChoreoApp.Scenes;
 using ChoreoApp.StateMachine;
 using ChoreoApp.StateMachine.States;
@@ -10,7 +9,6 @@ using MessagePipe;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
-using Choreography = ChoreoApp.Models.ChoreographyModel;
 using Position = ChoreoApp.Models.PositionModel;
 
 namespace ChoreoApp.Floor.Behaviors;
@@ -35,6 +33,7 @@ public sealed class MovePositionsBehavior(
     private bool _clearSelectionOnRelease;
 
     private readonly Dictionary<Position, Point> _dragStartPositions = new();
+    private Point? _lastDragFloorPoint;
 
     public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)
     {
@@ -163,7 +162,7 @@ public sealed class MovePositionsBehavior(
         {
             if (_dragActive)
             {
-                CompleteDrag(floorPoint);
+                CompleteDrag();
             }
             else if (_selectionActive)
             {
@@ -301,7 +300,7 @@ public sealed class MovePositionsBehavior(
 
         if (_dragActive)
         {
-            CompleteDrag(floorPoint);
+            CompleteDrag();
             ResetPointerState();
             return;
         }
@@ -329,6 +328,7 @@ public sealed class MovePositionsBehavior(
         }
 
         _dragStartFloorPoint = floorPoint;
+        _lastDragFloorPoint = floorPoint;
         _dragActive = true;
         _selectionActive = false;
         _clearSelectionOnRelease = false;
@@ -353,17 +353,25 @@ public sealed class MovePositionsBehavior(
             position.Y = startPoint.Y + deltaY;
         }
 
+        _lastDragFloorPoint = floorPoint;
         SnapSelectedPositionsToGrid();
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }
 
-    private void CompleteDrag(Point floorPoint)
+    private void CompleteDrag()
     {
-        UpdateDrag(floorPoint);
+        var floorPoint = _lastDragFloorPoint ?? _dragStartFloorPoint;
+        if (floorPoint is null)
+        {
+            return;
+        }
+
+        UpdateDrag(floorPoint.Value);
         SnapSelectedPositionsToGrid();
         _dragActive = false;
         _dragStartPositions.Clear();
         _dragStartFloorPoint = null;
+        _lastDragFloorPoint = null;
         stateMachine.TryApply(new MovePositionsDragCompletedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }
@@ -415,6 +423,7 @@ public sealed class MovePositionsBehavior(
         _dragActive = false;
         _dragStartPositions.Clear();
         _dragStartFloorPoint = null;
+        _lastDragFloorPoint = null;
         ResetPointerState();
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }
