@@ -158,10 +158,10 @@
                                                VerticalOptions="Center">
                             <Label Text="{Binding Transparency, StringFormat='{0:F2}'}"
                                    TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
-                            <Stepper Minimum="0"
-                                     Maximum="1"
-                                     Increment="0.01"
-                                     Value="{Binding Transparency, Converter={StaticResource DecimalDoubleConverter}}" />
+                            <Slider Minimum="0"
+                                    Maximum="1"
+                                    Value="{Binding Transparency, Converter={StaticResource DecimalDoubleConverter}}"
+                                    WidthRequest="140" />
                         </HorizontalStackLayout>
                     </Grid>
                     <Label Text="{x:Static i18n:Translations.ChoreographyFloorColorLabel}"
