@@ -14,7 +14,7 @@
             BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
             Padding="12,16"
             MaximumWidthRequest="600">
-        <Grid RowDefinitions="*,Auto,Auto">
+        <Grid RowDefinitions="*,Auto,Auto,Auto">
             <CollectionView x:Name="ScenesCollection"
                             Grid.Row="0"
                             ItemsSource="{Binding Scenes}"
@@ -92,7 +92,7 @@
                            Text="{Binding SearchText, Mode=TwoWay}" />
             </Grid>
             <Grid Grid.Row="2"
-                  ColumnDefinitions="*,Auto,Auto,Auto,Auto,Auto"
+                  ColumnDefinitions="Auto,Auto,Auto,Auto,*"
                   Margin="0,12,0,0"
                   ColumnSpacing="8">
                 <styling:ContentButton Grid.Column="1"
@@ -107,19 +107,30 @@
                 </styling:ContentButton>
                 <styling:ContentButton Grid.Column="3"
                                        Style="{StaticResource MaterialDesignIconButton}"
-                                       Command="{Binding OpenChoreoCommand}">
-                    <styling:PackIcon Kind="FolderOpen" />
+                                       Command="{Binding DeleteSceneCommand}"
+                                       IsEnabled="{Binding CanDeleteScene}">
+                    <styling:PackIcon Kind="Delete" />
                 </styling:ContentButton>
-                <styling:ContentButton Grid.Column="4"
+            </Grid>
+            <Grid Grid.Row="3"
+                  ColumnDefinitions="Auto,Auto,Auto,Auto,*"
+                  Margin="0,12,0,0"
+                  ColumnSpacing="8">
+                <styling:ContentButton Grid.Column="0"
+                                       Style="{StaticResource MaterialDesignIconButton}"
+                                       Command="{Binding OpenChoreoCommand}">
+                  <styling:PackIcon Kind="FolderOpen" />
+                </styling:ContentButton>
+                <styling:ContentButton Grid.Column="1"
                                        Style="{StaticResource MaterialDesignIconButton}"
                                        Command="{Binding SaveChoreoCommand}"
                                        IsEnabled="{Binding CanSaveChoreo}">
-                    <styling:PackIcon Kind="ContentSave" />
+                  <styling:PackIcon Kind="ContentSave" />
                 </styling:ContentButton>
-                <styling:ContentButton Grid.Column="5"
+                <styling:ContentButton Grid.Column="2"
                                        Style="{StaticResource MaterialDesignIconButton}"
                                        Command="{Binding NavigateToSettingsCommand}">
-                    <styling:PackIcon Kind="Settings" />
+                  <styling:PackIcon Kind="Settings" />
                 </styling:ContentButton>
             </Grid>
         </Grid>

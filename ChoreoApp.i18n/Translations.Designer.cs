@@ -267,6 +267,51 @@ namespace ChoreoApp.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to this scene.
+        /// </summary>
+        public static string DeleteSceneDialogDefaultName {
+            get {
+                return ResourceManager.GetString("DeleteSceneDialogDefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete scene &quot;{0}&quot;?.
+        /// </summary>
+        public static string DeleteSceneDialogMessage {
+            get {
+                return ResourceManager.GetString("DeleteSceneDialogMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string DeleteSceneDialogNo {
+            get {
+                return ResourceManager.GetString("DeleteSceneDialogNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete scene.
+        /// </summary>
+        public static string DeleteSceneDialogTitle {
+            get {
+                return ResourceManager.GetString("DeleteSceneDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string DeleteSceneDialogYes {
+            get {
+                return ResourceManager.GetString("DeleteSceneDialogYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mode.
         /// </summary>
         public static string ModeLabel {

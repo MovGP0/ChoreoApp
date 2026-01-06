@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentView x:TypeArguments="scenes:DeleteSceneDialogViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          xmlns:scenes="clr-namespace:ChoreoApp.Scenes"
+                          xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
+                          x:DataType="scenes:DeleteSceneDialogViewModel"
+                          x:Class="ChoreoApp.Scenes.DeleteSceneDialogView">
+    <styling:Card Padding="16"
+                  Style="{StaticResource MaterialDesignElevatedCard}"
+                  BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
+        <VerticalStackLayout Spacing="16">
+            <Label Text="{x:Static i18n:Translations.DeleteSceneDialogTitle}"
+                   FontAttributes="Bold"
+                   FontSize="18"
+                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+            <Label Text="{Binding Message}"
+                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+            <HorizontalStackLayout HorizontalOptions="End"
+                                   Spacing="8">
+                <Button Text="{x:Static i18n:Translations.DeleteSceneDialogNo}"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Command="{Binding CancelCommand}" />
+                <Button Text="{x:Static i18n:Translations.DeleteSceneDialogYes}"
+                        Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
+                        Command="{Binding ConfirmDeleteCommand}" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </styling:Card>
+</maui:ReactiveContentView>

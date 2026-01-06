@@ -87,6 +87,21 @@
   <data name="ChoreographyTransparencyLabel" xml:space="preserve">
     <value>Transparenz</value>
   </data>
+  <data name="DeleteSceneDialogTitle" xml:space="preserve">
+    <value>Szene löschen</value>
+  </data>
+  <data name="DeleteSceneDialogMessage" xml:space="preserve">
+    <value>Szene "{0}" löschen?</value>
+  </data>
+  <data name="DeleteSceneDialogDefaultName" xml:space="preserve">
+    <value>diese Szene</value>
+  </data>
+  <data name="DeleteSceneDialogYes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="DeleteSceneDialogNo" xml:space="preserve">
+    <value>Nein</value>
+  </data>
   <data name="ChoreographyVariationPlaceholder" xml:space="preserve">
     <value>Variation</value>
   </data>

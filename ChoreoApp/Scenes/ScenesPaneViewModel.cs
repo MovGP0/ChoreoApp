@@ -2,6 +2,7 @@
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Global;
 using ChoreoApp.Settings;
+using MessagePipe;
 
 namespace ChoreoApp.Scenes;
 
@@ -10,18 +11,28 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     public ViewModelActivator Activator { get; } = new();
 
     private readonly GlobalStateModel _globalState;
+    private readonly IPublisher<Main.Messages.ShowDialogCommand> _showDialogPublisher;
+    private readonly IPublisher<Main.Messages.CloseDialogCommand> _closeDialogPublisher;
 
     public ScenesPaneViewModel(
         GlobalStateModel globalState,
-        IEnumerable<IBehavior<ScenesPaneViewModel>> behaviors)
+        IEnumerable<IBehavior<ScenesPaneViewModel>> behaviors,
+        IPublisher<Main.Messages.ShowDialogCommand> showDialogPublisher,
+        IPublisher<Main.Messages.CloseDialogCommand> closeDialogPublisher)
     {
         _globalState = globalState;
+        _showDialogPublisher = showDialogPublisher;
+        _closeDialogPublisher = closeDialogPublisher;
 
         this.WhenActivated(disposables =>
         {
             _globalState
                 .WhenAnyValue(gs => gs.SelectedScene)
-                .Subscribe(_ => this.RaisePropertyChanged(nameof(SelectedScene)))
+                .Subscribe(scene =>
+                {
+                    CanDeleteScene = scene is not null;
+                    this.RaisePropertyChanged(nameof(SelectedScene));
+                })
                 .DisposeWith(disposables);
 
             _globalState
@@ -44,6 +55,9 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
 
     [Reactive]
     private bool _canSaveChoreo;
+
+    [Reactive]
+    private bool _canDeleteScene;
 
     [Reactive]
     private bool _showTimestamps;
@@ -104,6 +118,19 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
 
     [ReactiveCommand(CanExecute = nameof(CanSaveChoreo))]
     private Task SaveChoreoAsync() => Task.CompletedTask;
+
+    [ReactiveCommand(CanExecute = nameof(CanDeleteScene))]
+    private void DeleteScene()
+    {
+        if (SelectedScene is null)
+        {
+            return;
+        }
+
+        var dialogViewModel = new DeleteSceneDialogViewModel(_globalState, _closeDialogPublisher, SelectedScene);
+        var dialogView = new DeleteSceneDialogView { ViewModel = dialogViewModel };
+        _showDialogPublisher.Publish(new Main.Messages.ShowDialogCommand(dialogView));
+    }
 
     private void UpdateCanSave()
     {
