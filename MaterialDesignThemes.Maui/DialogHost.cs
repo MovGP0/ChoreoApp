@@ -484,17 +484,17 @@ public sealed class DialogHost : ContentView
 
     private static void OnOverlayBackgroundChanged(BindableObject bindable, object? oldValue, object? newValue)
     {
-        if (bindable is DialogHost dialogHost)
+        if (bindable is DialogHost { _overlay: { } overlay })
         {
-            dialogHost._overlay.Background = newValue as Brush ?? new SolidColorBrush(Color.FromArgb("#66000000"));
+            overlay.Background = newValue as Brush ?? new SolidColorBrush(Color.FromArgb("#66000000"));
         }
     }
 
     private static void OnDialogBackgroundChanged(BindableObject bindable, object? oldValue, object? newValue)
     {
-        if (bindable is DialogHost dialogHost)
+        if (bindable is DialogHost { _dialogBorder: {} dialogBorder })
         {
-            dialogHost._dialogBorder.Background = newValue as Brush ?? new SolidColorBrush(Colors.White);
+            dialogBorder.Background = newValue as Brush ?? new SolidColorBrush(Colors.White);
         }
     }
 

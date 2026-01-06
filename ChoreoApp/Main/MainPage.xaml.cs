@@ -1,13 +1,16 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Floor;
+using ChoreoApp.Logging;
 using ChoreoApp.Scenes;
+using Microsoft.Extensions.Logging;
 using MaterialDesignThemes.Maui;
 
 namespace ChoreoApp.Main;
 
 public partial class MainPage: IDisposable
 {
+    private static readonly ILogger Logger = AppLogger.CreateLogger<MainPage>();
     private CompositeDisposable Disposables { get; } = new();
     public void Dispose() => Disposables.Dispose();
 
@@ -17,7 +20,15 @@ public partial class MainPage: IDisposable
         FloorCanvasViewModel floorVm,
         ChoreographySettings.ChoreographySettingsViewModel choreographySettingsViewModel)
     {
-        InitializeComponent();
+        try
+        {
+            InitializeComponent();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogCritical(ex, "Failed to initialize MainPage XAML.");
+            throw;
+        }
 
         // setup bindings
         ViewModel = viewModel;

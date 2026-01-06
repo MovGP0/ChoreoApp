@@ -1,4 +1,6 @@
+using ChoreoApp.Logging;
 using ChoreoApp.Settings;
+using Microsoft.Extensions.Logging;
 using MaterialDesignThemes.Maui;
 using MaterialColorUtilities;
 using Platform = MaterialColorUtilities.Platform;
@@ -7,15 +9,27 @@ namespace ChoreoApp;
 
 public partial class App
 {
+    private static readonly ILogger Logger = AppLogger.CreateLogger<App>();
+
     public App()
     {
-        InitializeComponent();
+        try
+        {
+            InitializeComponent();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogCritical(ex, "Failed to initialize App resources.");
+            throw;
+        }
 
         if (Current is { } application)
         {
             application.RequestedThemeChanged += OnRequestedThemeChanged;
             ApplyStoredTheme(application);
         }
+
+        HookUnhandledExceptions();
     }
 
     protected override Window CreateWindow(IActivationState? activationState)
@@ -46,6 +60,8 @@ public partial class App
         {
             return;
         }
+
+        Logger.LogInformation("Theme changed to {Theme}.", e.RequestedTheme);
 
         var useSystem = Preferences.Default.Get(SettingsPreferenceKeys.UseSystemTheme, true);
         Preferences.Default.Set(SettingsPreferenceKeys.Theme, e.RequestedTheme == AppTheme.Dark ? "Dark" : "Light");
@@ -158,5 +174,29 @@ public partial class App
         }
 
         return fallback;
+    }
+
+    private void HookUnhandledExceptions()
+    {
+        AppDomain.CurrentDomain.UnhandledException += OnAppDomainUnhandledException;
+        TaskScheduler.UnobservedTaskException += OnTaskSchedulerUnobservedTaskException;
+    }
+
+    private static void OnAppDomainUnhandledException(object? sender, System.UnhandledExceptionEventArgs e)
+    {
+        if (e.ExceptionObject is Exception exception)
+        {
+            Logger.LogCritical(exception, "AppDomain unhandled exception. IsTerminating: {IsTerminating}", e.IsTerminating);
+        }
+        else
+        {
+            Logger.LogCritical("AppDomain unhandled exception (non-Exception). IsTerminating: {IsTerminating}", e.IsTerminating);
+        }
+    }
+
+    private static void OnTaskSchedulerUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
+    {
+        Logger.LogError(e.Exception, "Unobserved task exception.");
+        e.SetObserved();
     }
 }
