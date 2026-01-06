@@ -1,6 +1,3 @@
-#if DEBUG
-using Microsoft.Extensions.Logging;
-#endif
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using ChoreoApp.AudioPlayer;
 using ChoreoApp.ChoreographySettings;
@@ -46,9 +43,7 @@ public static class MauiProgram
             .AddSettings()
             .AddMain();
 
-#if DEBUG
-        builder.Logging.AddDebug();
-#endif
+        builder.Logging.ConfigureLogging();
 
         var app = builder.Build();
         Services = app.Services;

@@ -19,7 +19,7 @@ public partial class App
         }
         catch (Exception ex)
         {
-            Logger.LogCritical(ex, "Failed to initialize App resources.");
+            Logger.LogAppInitializationError(ex);
             throw;
         }
 
@@ -182,21 +182,21 @@ public partial class App
         TaskScheduler.UnobservedTaskException += OnTaskSchedulerUnobservedTaskException;
     }
 
-    private static void OnAppDomainUnhandledException(object? sender, System.UnhandledExceptionEventArgs e)
+    private static void OnAppDomainUnhandledException(object? sender, UnhandledExceptionEventArgs e)
     {
         if (e.ExceptionObject is Exception exception)
         {
-            Logger.LogCritical(exception, "AppDomain unhandled exception. IsTerminating: {IsTerminating}", e.IsTerminating);
+            Logger.LogUnhandledException(exception, e.IsTerminating);
         }
         else
         {
-            Logger.LogCritical("AppDomain unhandled exception (non-Exception). IsTerminating: {IsTerminating}", e.IsTerminating);
+            Logger.LogUnhandledException(e.IsTerminating);
         }
     }
 
     private static void OnTaskSchedulerUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
     {
-        Logger.LogError(e.Exception, "Unobserved task exception.");
+        Logger.LogUnobservedTaskException(e.Exception);
         e.SetObserved();
     }
 }

@@ -2,7 +2,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ChoreoApp.Logging;
 
-public static class AppLogger
+public static partial class AppLogger
 {
     private static readonly Lock SyncRoot = new();
 
@@ -17,14 +17,34 @@ public static class AppLogger
 
             lock (SyncRoot)
             {
-                field ??= LoggerFactory.Create(builder => builder.AddDebug());
+                return field ??= LoggerFactory.Create(builder => builder.ConfigureLogging());
             }
-
-            return field;
         }
     }
 
     public static ILogger CreateLogger<T>() => Factory.CreateLogger<T>();
 
-    public static ILogger CreateLogger(string categoryName) => Factory.CreateLogger(categoryName);
+    [LoggerMessage(
+        EventId = 0,
+        Level = LogLevel.Critical,
+        Message = "AppDomain unhandled exception. IsTerminating: {IsTerminating}")]
+    public static partial void LogUnhandledException(this ILogger logger, Exception exception, bool isTerminating);
+
+    [LoggerMessage(
+        EventId = 0,
+        Level = LogLevel.Critical,
+        Message = "AppDomain unhandled exception. IsTerminating: {IsTerminating}")]
+    public static partial void LogUnhandledException(this ILogger logger, bool isTerminating);
+
+    [LoggerMessage(
+        EventId = 0,
+        Level = LogLevel.Critical,
+        Message = "Unobserved task exception.")]
+    public static partial void LogUnobservedTaskException(this ILogger logger, AggregateException exception);
+
+    [LoggerMessage(
+        EventId = 0,
+        Level = LogLevel.Critical,
+        Message = "Failed to initialize App resources.")]
+    public static partial void LogAppInitializationError(this  ILogger logger, Exception exception);
 }
