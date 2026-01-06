@@ -6,8 +6,8 @@
     <Style TargetType="choreoApp:HamburgerToggleButton">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="StrokeThickness" Value="1" />
-        <Setter Property="Height" Value="37" />
-        <Setter Property="Width" Value="37" />
+        <Setter Property="HeightRequest" Value="37" />
+        <Setter Property="WidthRequest" Value="37" />
         <Setter Property="Padding" Value="1" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="VerticalOptions" Value="Center" />
@@ -21,8 +21,8 @@
     <Style TargetType="choreoApp:HamburgerToggleButton" x:Key="MaterialDesignHamburgerToggleButton">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="StrokeThickness" Value="1" />
-        <Setter Property="Height" Value="37" />
-        <Setter Property="Width" Value="37" />
+        <Setter Property="HeightRequest" Value="37" />
+        <Setter Property="WidthRequest" Value="37" />
         <Setter Property="Padding" Value="1" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="VerticalOptions" Value="Center" />

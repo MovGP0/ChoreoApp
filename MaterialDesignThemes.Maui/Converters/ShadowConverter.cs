@@ -54,17 +54,11 @@ public sealed class ShadowConverter : IValueConverter
             return null;
         }
 
-        if (targetType == typeof(Shade) || targetType == typeof(object))
+        if (targetType == typeof(Shade))
         {
             return shade;
         }
 
-        if (typeof(IEnumerable<Shade>).IsAssignableFrom(targetType)
-            || typeof(IReadOnlyCollection<Shade>).IsAssignableFrom(targetType))
-        {
-            return new ReadOnlyCollection<Shade>([shade]);
-        }
-
-        return shade;
+        return new ObservableCollection<Shade> { shade };
     }
 }
