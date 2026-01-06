@@ -87,20 +87,27 @@ public static class PickerAssist
 
     private static void AnimateBackground(VisualElement element, Color target)
     {
-        const uint duration = 160;
-        var start = element.BackgroundColor;
+        try
+        {
+            const uint duration = 160;
+            var start = element.BackgroundColor;
 
-        element.AbortAnimation(AnimateBackgroundName);
-        var animation = new Animation(
-            callback: value => element.BackgroundColor = Color.FromRgba(
-                start.Red + (target.Red - start.Red) * value,
-                start.Green + (target.Green - start.Green) * value,
-                start.Blue + (target.Blue - start.Blue) * value,
-                start.Alpha + (target.Alpha - start.Alpha) * value),
-            start: 0,
-            end: 1,
-            easing: Easing.CubicOut);
+            element.AbortAnimation(AnimateBackgroundName);
+            var animation = new Animation(
+                callback: value => element.BackgroundColor = Color.FromRgba(
+                    start.Red + (target.Red - start.Red) * value,
+                    start.Green + (target.Green - start.Green) * value,
+                    start.Blue + (target.Blue - start.Blue) * value,
+                    start.Alpha + (target.Alpha - start.Alpha) * value),
+                start: 0,
+                end: 1,
+                easing: Easing.CubicOut);
 
-        animation.Commit(element, AnimateBackgroundName, 16, duration);
+            animation.Commit(element, AnimateBackgroundName, 16, duration);
+        }
+        catch
+        {
+            // ignore
+        }
     }
 }

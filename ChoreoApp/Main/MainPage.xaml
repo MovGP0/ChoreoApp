@@ -12,45 +12,46 @@
                           xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
                           x:DataType="main:MainViewModel"
                           x:Class="ChoreoApp.Main.MainPage">
+    <Shell.TitleView>
+        <Grid Padding="12,8"
+              ColumnDefinitions="Auto,*"
+              BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
+            <styling:HamburgerToggleButton x:Name="HamburgerButton"
+                                           Grid.Column="0"
+                                           Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                                           Checked="OnBurgerClicked"
+                                           Unchecked="OnBurgerClicked" />
+            <HorizontalStackLayout Grid.Column="1"
+                                   HorizontalOptions="End"
+                                   VerticalOptions="Center"
+                                   Spacing="8">
+                  <Picker ItemsSource="{Binding ModeOptions}"
+                          SelectedItem="{Binding SelectedModeOption}"
+                          ItemDisplayBinding="{Binding Display}"
+                          IsEnabled="{Binding IsModeSelectionEnabled}"
+                          TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                          BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+                          HeightRequest="32"
+                          WidthRequest="180" />
+                <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                                       Command="{Binding OpenChoreographySettingsCommand}">
+                    <styling:PackIcon Kind="Pen" />
+                </styling:ContentButton>
+                <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                                       Command="{Binding OpenImageCommand}">
+                    <styling:PackIcon Kind="Svg" />
+                </styling:ContentButton>
+                <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                                       Command="{Binding ToggleAudioPlayerCommand}">
+                    <styling:PackIcon Kind="PlayCircle" />
+                </styling:ContentButton>
+            </HorizontalStackLayout>
+        </Grid>
+    </Shell.TitleView>
     <styling:DialogHost x:Name="MainDialogHost"
                         IsOpen="{Binding IsDialogOpen, Mode=TwoWay}"
                         DialogContent="{Binding DialogContentView}">
         <Grid RowDefinitions="Auto,*,Auto">
-            <Grid Padding="12,8"
-                  ColumnDefinitions="Auto,*"
-                  BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
-                <styling:HamburgerToggleButton x:Name="HamburgerButton"
-                                               Grid.Column="0"
-                                               Style="{StaticResource MaterialDesignHamburgerToggleButton}"
-                                               Checked="OnBurgerClicked"
-                                               Unchecked="OnBurgerClicked" />
-                <HorizontalStackLayout Grid.Column="1"
-                                       HorizontalOptions="End"
-                                       VerticalOptions="Center"
-                                       Spacing="8">
-                    <HorizontalStackLayout VerticalOptions="Center">
-                        <Picker ItemsSource="{Binding ModeOptions}"
-                                SelectedItem="{Binding SelectedModeOption}"
-                                ItemDisplayBinding="{Binding Display}"
-                                IsEnabled="{Binding IsModeSelectionEnabled}"
-                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                                BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
-                                WidthRequest="180" />
-                    </HorizontalStackLayout>
-                    <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
-                                           Command="{Binding OpenChoreographySettingsCommand}">
-                        <styling:PackIcon Kind="Pen" />
-                    </styling:ContentButton>
-                    <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
-                                           Command="{Binding OpenImageCommand}">
-                        <styling:PackIcon Kind="Svg" />
-                    </styling:ContentButton>
-                    <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
-                                           Command="{Binding ToggleAudioPlayerCommand}">
-                        <styling:PackIcon Kind="PlayCircle" />
-                    </styling:ContentButton>
-                </HorizontalStackLayout>
-            </Grid>
             <styling:DrawerHost x:Name="Drawer"
                                 Grid.Row="1"
                                 ResponsiveBreakpoint="900"
