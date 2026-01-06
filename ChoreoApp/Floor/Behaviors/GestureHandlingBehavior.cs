@@ -1,5 +1,6 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
+using System.Threading.Channels;
 using ChoreoApp.Floor.Messages;
 using ChoreoApp.StateMachine;
 using ChoreoApp.StateMachine.States;
@@ -14,29 +15,26 @@ public sealed class GestureHandlingBehavior(
     IBehavior<FloorCanvasViewModel>
 {
     private const float TouchPanFactor = 0.5f;
+    private readonly Channel<TouchCommand> _touchChannel = Channel.CreateBounded<TouchCommand>(
+        new BoundedChannelOptions(1)
+        {
+            SingleReader = true,
+            SingleWriter = false,
+            FullMode = BoundedChannelFullMode.DropOldest
+        });
 
     private readonly Dictionary<long, SKPoint> _activeTouches = new();
 
     private Point? _lastHoverPosition;
-    private Point? _lastPanPosition;
     private Point? _lastPointerPosition;
     private Point? _lastSingleTouchPosition;
     private SKPoint? _lastTouchCenter;
-    private float _lastPinchScale = 1f;
     private float? _lastTouchDistance;
     private bool _touchPanActive;
     private bool _touchZoomActive;
 
     public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)
     {
-        viewModel.PanUpdatedCommand
-            .Subscribe(command => HandlePanUpdated(viewModel, command))
-            .DisposeWith(disposables);
-
-        viewModel.PinchUpdatedCommand
-            .Subscribe(command => HandlePinchUpdated(viewModel, command))
-            .DisposeWith(disposables);
-
         viewModel.PointerPressedCommand
             .Subscribe(HandlePointerPressed)
             .DisposeWith(disposables);
@@ -54,101 +52,42 @@ public sealed class GestureHandlingBehavior(
             .DisposeWith(disposables);
 
         viewModel.TouchCommand
-            .Subscribe(command => HandleTouch(viewModel, command))
+            .Subscribe(command => _touchChannel.Writer.TryWrite(command))
+            .DisposeWith(disposables);
+
+        var cancellationTokenSource = new CancellationTokenSource();
+        var readerTask = Task.Run(async () => await ProcessTouchCommandsAsync(viewModel, cancellationTokenSource.Token),
+            cancellationTokenSource.Token);
+        Disposable
+            .Create(() =>
+            {
+                cancellationTokenSource.Cancel();
+                _touchChannel.Writer.TryComplete();
+                _ = readerTask;
+            })
             .DisposeWith(disposables);
     }
 
-    private void HandlePanUpdated(FloorCanvasViewModel viewModel, PanUpdatedCommand command)
+    private async Task ProcessTouchCommandsAsync(FloorCanvasViewModel viewModel, CancellationToken cancellationToken)
     {
-        if (stateMachine.State is MovePositionsState)
+        var reader = _touchChannel.Reader;
+        while (await reader.WaitToReadAsync(cancellationToken))
         {
-            return;
-        }
-
-        if (_activeTouches.Count >= 2)
-        {
-            return;
-        }
-
-        var args = command.EventArgs;
-        switch (args.StatusType)
-        {
-            case GestureStatus.Started:
-                stateMachine.TryApply(new PanStartedTrigger());
-                _lastPanPosition = new Point(args.TotalX, args.TotalY);
-                break;
-
-            case GestureStatus.Running:
+            TouchCommand? latest = null;
+            while (reader.TryRead(out var command))
             {
-                if (_lastPanPosition is null)
-                {
-                    _lastPanPosition = new Point(args.TotalX, args.TotalY);
-                    break;
-                }
-
-                var currentPosition = new Point(args.TotalX, args.TotalY);
-                var deltaX = currentPosition.X - _lastPanPosition.Value.X;
-                var deltaY = currentPosition.Y - _lastPanPosition.Value.Y;
-
-                ApplyTranslation(viewModel, command.CanvasView, deltaX, deltaY);
-                _lastPanPosition = currentPosition;
-                InvalidateCanvas(viewModel);
-                break;
+                latest = command;
             }
 
-            case GestureStatus.Canceled:
-            case GestureStatus.Completed:
-                stateMachine.TryApply(new PanCompletedTrigger());
-                _lastPanPosition = null;
-                break;
+            if (latest is null)
+            {
+                continue;
+            }
 
-            default:
-                throw new ArgumentOutOfRangeException();
+            MainThread.BeginInvokeOnMainThread(() => HandleTouch(viewModel, latest));
         }
     }
 
-    private void HandlePinchUpdated(FloorCanvasViewModel viewModel, PinchUpdatedCommand command)
-    {
-        if (stateMachine.State is MovePositionsState)
-        {
-            return;
-        }
-
-        if (_activeTouches.Count >= 2)
-        {
-            return;
-        }
-
-        var args = command.EventArgs;
-        switch (args.Status)
-        {
-            case GestureStatus.Started:
-                stateMachine.TryApply(new ZoomStartedTrigger());
-                _lastPinchScale = 1f;
-                break;
-            case GestureStatus.Running:
-            {
-                var scale = (float)(args.Scale / _lastPinchScale);
-                _lastPinchScale = (float)args.Scale;
-
-                var (dpiScaleX, dpiScaleY) = GetCanvasScale(command.CanvasView);
-                var originX = (float)(args.ScaleOrigin.X * command.CanvasView.Width * dpiScaleX);
-                var originY = (float)(args.ScaleOrigin.Y * command.CanvasView.Height * dpiScaleY);
-
-                var scaleMatrix = SKMatrix.CreateScale(scale, scale, originX, originY);
-                ApplyTransformation(viewModel, scaleMatrix);
-                InvalidateCanvas(viewModel);
-                break;
-            }
-            case GestureStatus.Canceled:
-            case GestureStatus.Completed:
-                stateMachine.TryApply(new ZoomCompletedTrigger());
-                _lastPinchScale = 1f;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-    }
 
     private void HandlePointerPressed(PointerPressedCommand command)
     {

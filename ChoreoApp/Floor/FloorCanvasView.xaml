@@ -12,8 +12,6 @@
                            EnableTouchEvents="True"
                            Touch="OnCanvasViewTouch">
             <skia:SKCanvasView.GestureRecognizers>
-                <PanGestureRecognizer PanUpdated="OnCanvasViewPanUpdated" />
-                <PinchGestureRecognizer PinchUpdated="OnCanvasViewPinchUpdated" />
                 <PointerGestureRecognizer PointerPressed="OnCanvasViewPointerPressed"
                                           PointerMoved="OnCanvasViewPointerMoved"
                                           PointerReleased="OnCanvasViewPointerReleased" />

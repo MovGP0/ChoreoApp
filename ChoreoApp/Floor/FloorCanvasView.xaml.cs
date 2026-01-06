@@ -124,32 +124,6 @@ public partial class FloorCanvasView
         CanvasView.InvalidateSurface();
     }
 
-    private void OnCanvasViewPanUpdated(object? sender, PanUpdatedEventArgs e)
-    {
-        if (ViewModel is not { } viewModel)
-        {
-            return;
-        }
-
-        viewModel
-            .PanUpdatedCommand
-            .Execute(new PanUpdatedCommand(CanvasView, e))
-            .Subscribe();
-    }
-
-    private void OnCanvasViewPinchUpdated(object? sender, PinchGestureUpdatedEventArgs e)
-    {
-        if (ViewModel is not { } viewModel)
-        {
-            return;
-        }
-
-        viewModel
-            .PinchUpdatedCommand
-            .Execute(new PinchUpdatedCommand(CanvasView, e))
-            .Subscribe();
-    }
-
     private void OnCanvasViewPointerPressed(object? sender, PointerEventArgs e)
     {
         if (ViewModel is not { } viewModel)
