@@ -4,6 +4,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddFloor(this IServiceCollection services)
     {
+        services.AddSingleton<IFloorRenderGate, FloorRenderGate>();
         services.AddTransient<IViewFor<FloorCanvasViewModel>, FloorCanvasView>();
         services.AddTransient<FloorCanvasViewModel>();
         services.AddTransient<IBehavior<FloorCanvasViewModel>, Behaviors.DrawFloorBehavior>();

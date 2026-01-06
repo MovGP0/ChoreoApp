@@ -24,13 +24,15 @@ public sealed class DrawFloorBehavior(
     ApplicationStateMachine stateMachine,
     ISubscriber<DrawFloorCommand> drawFloorCommandSubscriber,
     ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber,
-    ISubscriber<AudioPlayerPositionChangedEvent> audioPositionSubscriber):
+    ISubscriber<AudioPlayerPositionChangedEvent> audioPositionSubscriber,
+    IFloorRenderGate renderGate):
     IBehavior<FloorCanvasViewModel>
 {
     private readonly Dictionary<int, SKColor> _roleBorderColors = new();
     private FloorCanvasViewModel? _viewModel;
     private SceneViewModel? _selectedScene;
     private double? _currentAudioSeconds;
+    private bool _hasRendered;
 
     private static SKColor GetColor(string resourceKey)
     {
@@ -67,6 +69,12 @@ public sealed class DrawFloorBehavior(
 
     private void DrawFloor(SKPaintSurfaceEventArgs args)
     {
+        if (!_hasRendered)
+        {
+            _hasRendered = true;
+            renderGate.MarkRendered();
+        }
+
         if (stateMachine.State is not ViewSceneState
             && stateMachine.State is not PlacePositionsState
             && stateMachine.State is not MovePositionsState)

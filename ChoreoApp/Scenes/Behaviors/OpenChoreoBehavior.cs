@@ -10,6 +10,7 @@ namespace ChoreoApp.Scenes.Behaviors;
 
 public sealed class OpenChoreoBehavior(
     Global.GlobalStateModel globalState,
+    Floor.IFloorRenderGate renderGate,
     IPublisher<OpenAudioFileCommand> openAudioPublisher,
     IPublisher<CloseAudioFileCommand> closeAudioPublisher) : IBehavior<ScenesPaneViewModel>
 {
@@ -70,7 +71,7 @@ public sealed class OpenChoreoBehavior(
 
     private async Task LoadLastOpenedAsync(CancellationToken cancellationToken)
     {
-        await Task.Delay(TimeSpan.FromMilliseconds(200), cancellationToken);
+        await renderGate.WaitForFirstRenderAsync(cancellationToken);
 
         var storedPath = Preferences.Default.Get(SettingsPreferenceKeys.LastOpenedChoreoFile, string.Empty);
         if (string.IsNullOrWhiteSpace(storedPath) || !File.Exists(storedPath))
@@ -78,23 +79,28 @@ public sealed class OpenChoreoBehavior(
             return;
         }
 
-        await LoadChoreoAsync(storedPath);
+        await LoadChoreoAsync(storedPath, cancellationToken);
     }
 
-    private async Task LoadChoreoAsync(string path)
+    private async Task LoadChoreoAsync(string path, CancellationToken cancellationToken = default)
     {
-        var choreography = Util.ImportFromFile(path);
-        globalState.Choreography = Mapper.Map(choreography);
-        Preferences.Default.Set(SettingsPreferenceKeys.LastOpenedChoreoFile, path);
+        var choreography = await Task.Run(() => Util.ImportFromFile(path), cancellationToken);
+        var mapped = Mapper.Map(choreography);
 
-        await TryLoadAudioAsync(path, globalState.Choreography.Settings);
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            globalState.Choreography = mapped;
+            Preferences.Default.Set(SettingsPreferenceKeys.LastOpenedChoreoFile, path);
+        });
+
+        await TryLoadAudioAsync(path, mapped.Settings, cancellationToken);
     }
 
-    private Task TryLoadAudioAsync(string choreographyFilePath, SettingsModel? settings)
+    private async Task TryLoadAudioAsync(string choreographyFilePath, SettingsModel? settings, CancellationToken cancellationToken)
     {
         if (settings is null)
         {
-            return Task.CompletedTask;
+            return;
         }
 
         var candidates = new List<string>();
@@ -122,10 +128,9 @@ public sealed class OpenChoreoBehavior(
         foreach (var candidate in candidates.Where(File.Exists))
         {
             openAudioPublisher.Publish(new OpenAudioFileCommand(candidate));
-            return Task.CompletedTask;
+            return;
         }
 
         closeAudioPublisher.Publish(new CloseAudioFileCommand());
-        return Task.CompletedTask;
     }
 }

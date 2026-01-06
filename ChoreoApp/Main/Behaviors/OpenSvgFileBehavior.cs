@@ -10,6 +10,7 @@ namespace ChoreoApp.Main.Behaviors;
 
 public sealed class OpenSvgFileBehavior(
     GlobalStateModel globalState,
+    Floor.IFloorRenderGate renderGate,
     ISubscriber<OpenSvgFileCommand> subscriber) : IBehavior<MainViewModel>
 {
     public void Activate(MainViewModel viewModel, CompositeDisposable disposables)
@@ -38,7 +39,7 @@ public sealed class OpenSvgFileBehavior(
 
     private async Task LoadLastOpenedAsync(CancellationToken cancellationToken)
     {
-        await Task.Delay(TimeSpan.FromMilliseconds(200), cancellationToken);
+        await renderGate.WaitForFirstRenderAsync(cancellationToken);
 
         var storedPath = Preferences.Default.Get(SettingsPreferenceKeys.LastOpenedSvgFile, string.Empty);
         if (string.IsNullOrWhiteSpace(storedPath) || !File.Exists(storedPath))
@@ -51,16 +52,19 @@ public sealed class OpenSvgFileBehavior(
 
     private async Task LoadSvgAsync(string path)
     {
-        var document = await Task.Run(() => LoadSvgDocument(path));
+        var document = await Task.Run(() => LoadSvgDocument(path), CancellationToken.None);
         if (document is null)
         {
             return;
         }
 
         var previous = globalState.SvgDocument;
-        globalState.SvgDocument = document;
-        globalState.SvgFilePath = path;
-        Preferences.Default.Set(SettingsPreferenceKeys.LastOpenedSvgFile, path);
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            globalState.SvgDocument = document;
+            globalState.SvgFilePath = path;
+            Preferences.Default.Set(SettingsPreferenceKeys.LastOpenedSvgFile, path);
+        });
 
         previous?.Dispose();
     }
