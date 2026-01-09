@@ -3,6 +3,7 @@ using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.ChoreographySettings.Messages;
 using ChoreoApp.Global;
+using ChoreoApp.Settings;
 using MessagePipe;
 
 namespace ChoreoApp.Scenes.Behaviors;
@@ -27,7 +28,7 @@ public sealed class ShowSceneTimestampsBehavior(
 
         void UpdateFromChoreography()
         {
-            viewModel.ShowTimestamps = globalState.Choreography?.Settings?.ShowTimestamps ?? false;
+            viewModel.ShowTimestamps = globalState.Choreography.Settings.ShowTimestamps;
         }
     }
 }

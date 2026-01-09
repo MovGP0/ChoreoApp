@@ -1,9 +1,16 @@
+using ChoreoApp.Settings;
 using ChoreoMasterMobile.Json;
 
 namespace ChoreoApp.Models;
 
 public sealed partial class SettingsModel : ReactiveObject
 {
+    public SettingsModel()
+    {
+        ShowTimestamps = Preferences.Default.Get(SettingsPreferenceKeys.ShowTimestamps, true);
+        PositionsAtSide = Preferences.Default.Get(SettingsPreferenceKeys.PositionsAtSide, true);
+    }
+
     [Reactive]
     private int _animationMilliseconds;
 

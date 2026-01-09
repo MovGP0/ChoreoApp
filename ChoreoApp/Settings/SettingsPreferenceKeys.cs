@@ -19,4 +19,6 @@ public static class SettingsPreferenceKeys
 
     public const string DrawPathFrom = "DrawPathFrom";
     public const string DrawPathTo = "DrawPathTo";
+    public const string PositionsAtSide = "PositionsAtSide";
+    public const string ShowTimestamps = "ShowTimestamps";
 }

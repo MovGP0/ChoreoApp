@@ -3,6 +3,7 @@ using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.Floor.Messages;
 using ChoreoApp.Global;
+using ChoreoApp.Settings;
 using MessagePipe;
 
 namespace ChoreoApp.ChoreographySettings.Behaviors;
@@ -14,6 +15,8 @@ public sealed class UpdatePositionsAtSideBehavior(
 {
     public void Activate(ChoreographySettingsViewModel viewModel, CompositeDisposable disposables)
     {
+        globalState.Choreography.Settings.PositionsAtSide = Preferences.Default.Get(SettingsPreferenceKeys.PositionsAtSide, true);
+
         viewModel
             .WhenAnyValue(vm => vm.PositionsAtSide)
             .Skip(1)

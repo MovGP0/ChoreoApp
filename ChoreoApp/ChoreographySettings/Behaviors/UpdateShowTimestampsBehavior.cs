@@ -4,6 +4,7 @@ using System.Reactive.Linq;
 using ChoreoApp.ChoreographySettings.Messages;
 using ChoreoApp.Floor.Messages;
 using ChoreoApp.Global;
+using ChoreoApp.Settings;
 using MessagePipe;
 
 namespace ChoreoApp.ChoreographySettings.Behaviors;
@@ -16,6 +17,8 @@ public sealed class UpdateShowTimestampsBehavior(
 {
     public void Activate(ChoreographySettingsViewModel viewModel, CompositeDisposable disposables)
     {
+        globalState.Choreography.Settings.ShowTimestamps = Preferences.Default.Get(SettingsPreferenceKeys.ShowTimestamps, true);
+
         viewModel
             .WhenAnyValue(vm => vm.ShowTimestamps)
             .Skip(1)
