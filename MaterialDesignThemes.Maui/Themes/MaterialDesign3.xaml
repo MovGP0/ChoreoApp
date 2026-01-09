@@ -20,6 +20,7 @@
         <ResourceDictionary Source="MaterialDesign3.HamburgerToggleButton.xaml" />
         <ResourceDictionary Source="MaterialDesign3.Label.xaml" />
         <ResourceDictionary Source="MaterialDesign3.Entry.xaml" />
+        <ResourceDictionary Source="MaterialDesign3.NumericUpDown.xaml" />
         <ResourceDictionary Source="MaterialDesign3.Picker.xaml" />
         <ResourceDictionary Source="MaterialDesign3.ListView.xaml" />
         <ResourceDictionary Source="MaterialDesign3.TabbedPage.xaml" />

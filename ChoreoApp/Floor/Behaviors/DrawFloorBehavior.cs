@@ -10,6 +10,7 @@ using ChoreoApp.Settings;
 using ChoreoApp.StateMachine;
 using ChoreoApp.StateMachine.States;
 using MessagePipe;
+using Microsoft.Maui.Devices;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using Dancer = ChoreoApp.Models.DancerModel;
@@ -101,6 +102,7 @@ public sealed class DrawFloorBehavior(
 
         float canvasWidth = args.Info.Width;
         float canvasHeight = args.Info.Height;
+        float uiScale = GetUiScale();
         float headerHeight = CalculateHeaderHeight();
         float contentHeight = canvasHeight - headerHeight;
         if (contentHeight <= 0f)
@@ -229,15 +231,15 @@ public sealed class DrawFloorBehavior(
 
         float CalculateHeaderHeight()
         {
-            const float padding = 16f;
-            const float spacing = 4f;
+            float padding = 16f * uiScale;
+            float spacing = 4f * uiScale;
 
             using var titleFont = new SKFont();
-            titleFont.Size = 20f;
+            titleFont.Size = 20f * uiScale;
             titleFont.Edging = SKFontEdging.Antialias;
 
             using var subtitleFont = new SKFont();
-            subtitleFont.Size = 16f;
+            subtitleFont.Size = 16f * uiScale;
             subtitleFont.Edging = SKFontEdging.Antialias;
 
             float titleHeight = titleFont.Metrics.Descent - titleFont.Metrics.Ascent;
@@ -248,8 +250,8 @@ public sealed class DrawFloorBehavior(
 
         void DrawHeader()
         {
-            const float padding = 16f;
-            const float spacing = 4f;
+            float padding = 16f * uiScale;
+            float spacing = 4f * uiScale;
 
             var choreographyName = choreography.Name ?? string.Empty;
             var sceneName = _selectedScene?.Name ?? string.Empty;
@@ -263,11 +265,11 @@ public sealed class DrawFloorBehavior(
             subtitlePaint.IsAntialias = true;
 
             using var titleFont = new SKFont();
-            titleFont.Size = 20f;
+            titleFont.Size = 20f * uiScale;
             titleFont.Edging = SKFontEdging.Antialias;
 
             using var subtitleFont = new SKFont();
-            subtitleFont.Size = 14f;
+            subtitleFont.Size = 14f * uiScale;
             subtitleFont.Edging = SKFontEdging.Antialias;
 
             float titleHeight = titleFont.Metrics.Descent - titleFont.Metrics.Ascent;
@@ -309,10 +311,10 @@ public sealed class DrawFloorBehavior(
             labelPaint.IsAntialias = true;
 
             using var font = new SKFont();
-            font.Size = 16f;
+            font.Size = 16f * uiScale;
             font.Edging = SKFontEdging.Antialias;
 
-            const float labelOffset = 12f;
+            float labelOffset = 12f * uiScale;
             float topLabelY = top - labelOffset;
             float bottomLabelY = bottom + labelOffset;
             float leftLabelX = left - labelOffset;
@@ -406,7 +408,7 @@ public sealed class DrawFloorBehavior(
             }
 
             double? interpolationT = null;
-            Dictionary<int, Position>? nextPositionsByDancer = null;
+            Dictionary<string, Position>? nextPositionsByDancer = null;
 
             if (currentAudioSeconds.HasValue
                 && currentScene?.Timestamp is { } currentTimestamp
@@ -422,7 +424,7 @@ public sealed class DrawFloorBehavior(
                     if (rawT >= 0d && rawT <= 1d)
                     {
                         interpolationT = rawT;
-                        nextPositionsByDancer = BuildPositionsByDancerId(nextScene);
+                        nextPositionsByDancer = BuildPositionsByDancerKey(nextScene);
                     }
                 }
             }
@@ -478,7 +480,8 @@ public sealed class DrawFloorBehavior(
 
                 if (interpolationT is { } t
                     && nextPositionsByDancer is not null
-                    && nextPositionsByDancer.TryGetValue(position.Dancer.DancerId.Value, out var nextPosition))
+                    && GetDancerKey(position.Dancer) is { } dancerKey
+                    && nextPositionsByDancer.TryGetValue(dancerKey, out var nextPosition))
                 {
                     var curve1X = position.Curve1X;
                     var curve1Y = position.Curve1Y;
@@ -593,7 +596,7 @@ public sealed class DrawFloorBehavior(
 
         void DrawCurvesBetweenScenes(Scene fromScene, Scene toScene, SKPaint paint, bool useDarkerColor)
         {
-            var fromByDancer = BuildPositionsByDancerId(fromScene);
+            var fromByDancer = BuildPositionsByDancerKey(fromScene);
             if (fromByDancer.Count == 0 || toScene.Positions is null)
             {
                 return;
@@ -606,8 +609,9 @@ public sealed class DrawFloorBehavior(
                     continue;
                 }
 
-                int dancerId = dancer.DancerId.Value;
-                if (dancerId <= 0 || !fromByDancer.TryGetValue(dancerId, out var fromPosition))
+                var dancerKey = GetDancerKey(dancer);
+                if (string.IsNullOrWhiteSpace(dancerKey)
+                    || !fromByDancer.TryGetValue(dancerKey, out var fromPosition))
                 {
                     continue;
                 }
@@ -693,9 +697,20 @@ public sealed class DrawFloorBehavior(
             return color.WithAlpha(alpha);
         }
 
-        Dictionary<int, Position> BuildPositionsByDancerId(Scene scene)
+        static float GetUiScale()
         {
-            var lookup = new Dictionary<int, Position>();
+            var density = DeviceDisplay.MainDisplayInfo.Density;
+            if (density <= 0d)
+            {
+                return 1f;
+            }
+
+            return (float)density;
+        }
+
+        Dictionary<string, Position> BuildPositionsByDancerKey(Scene scene)
+        {
+            var lookup = new Dictionary<string, Position>(StringComparer.Ordinal);
             if (scene.Positions is null)
             {
                 return lookup;
@@ -708,14 +723,35 @@ public sealed class DrawFloorBehavior(
                     continue;
                 }
 
-                int dancerId = dancer.DancerId.Value;
-                if (dancerId > 0)
+                var dancerKey = GetDancerKey(dancer);
+                if (!string.IsNullOrWhiteSpace(dancerKey))
                 {
-                    lookup[dancerId] = position;
+                    lookup[dancerKey] = position;
                 }
             }
 
             return lookup;
+        }
+
+        static string? GetDancerKey(Dancer dancer)
+        {
+            int dancerId = dancer.DancerId.Value;
+            if (dancerId > 0)
+            {
+                return $"id:{dancerId}";
+            }
+
+            if (!string.IsNullOrWhiteSpace(dancer.Shortcut))
+            {
+                return $"shortcut:{dancer.Shortcut}";
+            }
+
+            if (!string.IsNullOrWhiteSpace(dancer.Name))
+            {
+                return $"name:{dancer.Name}";
+            }
+
+            return null;
         }
 
         IReadOnlyList<Position>? GetScenePositions()

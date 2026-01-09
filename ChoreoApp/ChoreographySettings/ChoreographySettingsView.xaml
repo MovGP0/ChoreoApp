@@ -56,6 +56,7 @@
                         <Label Text="{x:Static i18n:Translations.SceneTimestampLabel}"
                                Grid.Column="0"
                                Grid.Row="0"
+                               VerticalOptions="Center"
                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         <CheckBox Grid.Column="1"
                                   Grid.Row="0"
@@ -64,41 +65,50 @@
                         <Grid Grid.Column="0"
                               Grid.Row="1"
                               Grid.ColumnSpan="2"
-                              ColumnDefinitions="*,*,*"
-                              RowDefinitions="Auto,Auto"
+                              ColumnDefinitions="Auto,*"
+                              RowDefinitions="Auto,Auto,Auto"
                               ColumnSpacing="12"
                               RowSpacing="4">
-                            <Label Text="{x:Static i18n:Translations.SceneTimestampMinutesLabel}"
-                                   Grid.Row="0"
-                                   Grid.Column="0"
-                                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <Label Text="{x:Static i18n:Translations.SceneTimestampSecondsLabel}"
-                                   Grid.Row="0"
-                                   Grid.Column="1"
-                                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <Label Text="{x:Static i18n:Translations.SceneTimestampMillisecondsLabel}"
-                                   Grid.Row="0"
-                                   Grid.Column="2"
-                                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <styling:NumericUpDown Grid.Row="1"
-                                                   Grid.Column="0"
+                          <!-- Minutes -->
+                          <Label Text="{x:Static i18n:Translations.SceneTimestampMinutesLabel}"
+                                 Grid.Row="0"
+                                 Grid.Column="0"
+                                 VerticalOptions="Center"
+                                 TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <styling:NumericUpDown Grid.Row="0"
+                                                   Grid.Column="1"
                                                    Minimum="0"
                                                    Maximum="1440"
                                                    ValueStep="1"
+                                                   VerticalOptions="Center"
                                                    Value="{Binding SceneTimestampMinutes}"
                                                    IsEnabled="{Binding SceneHasTimestamp}" />
+                            <!-- Seconds -->
+                            <Label Text="{x:Static i18n:Translations.SceneTimestampSecondsLabel}"
+                                   Grid.Row="1"
+                                   Grid.Column="0"
+                                   VerticalOptions="Center"
+                                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
                             <styling:NumericUpDown Grid.Row="1"
                                                    Grid.Column="1"
                                                    Minimum="0"
                                                    Maximum="59"
                                                    ValueStep="1"
+                                                   VerticalOptions="Center"
                                                    Value="{Binding SceneTimestampSeconds}"
                                                    IsEnabled="{Binding SceneHasTimestamp}" />
-                            <styling:NumericUpDown Grid.Row="1"
-                                                   Grid.Column="2"
+                            <!-- Milliseconds -->
+                            <Label Text="{x:Static i18n:Translations.SceneTimestampMillisecondsLabel}"
+                                   Grid.Row="2"
+                                   Grid.Column="0"
+                                   VerticalOptions="Center"
+                                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                            <styling:NumericUpDown Grid.Row="2"
+                                                   Grid.Column="1"
                                                    Minimum="0"
                                                    Maximum="999"
                                                    ValueStep="10"
+                                                   VerticalOptions="Center"
                                                    Value="{Binding SceneTimestampMilliseconds}"
                                                    IsEnabled="{Binding SceneHasTimestamp}" />
                         </Grid>
