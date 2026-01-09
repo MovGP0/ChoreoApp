@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="DarkModeLabel" xml:space="preserve">
+    <value>Mode sombre</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Visionneuse de chorégraphie</value>
+  </data>
+  <data name="ChoreographyAuthorPlaceholder" xml:space="preserve">
+    <value>Auteur</value>
+  </data>
+  <data name="ChoreographyCommentPlaceholder" xml:space="preserve">
+    <value>Commentaire</value>
+  </data>
+  <data name="ChoreographyDescriptionPlaceholder" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ChoreographyDisplayTitle" xml:space="preserve">
+    <value>Affichage</value>
+  </data>
+  <data name="ChoreographyDrawPathFromLabel" xml:space="preserve">
+    <value>D'où</value>
+  </data>
+  <data name="ChoreographyDrawPathToLabel" xml:space="preserve">
+    <value>Où</value>
+  </data>
+  <data name="ChoreographyFloorBackLabel" xml:space="preserve">
+    <value>Arrière</value>
+  </data>
+  <data name="ChoreographyFloorColorLabel" xml:space="preserve">
+    <value>Couleur du sol</value>
+  </data>
+  <data name="ChoreographyFloorFrontLabel" xml:space="preserve">
+    <value>Avant</value>
+  </data>
+  <data name="ChoreographyFloorLeftLabel" xml:space="preserve">
+    <value>Gauche</value>
+  </data>
+  <data name="ChoreographyFloorRightLabel" xml:space="preserve">
+    <value>Droite</value>
+  </data>
+  <data name="ChoreographyFloorTitle" xml:space="preserve">
+    <value>Sol</value>
+  </data>
+  <data name="ChoreographyGridLinesLabel" xml:space="preserve">
+    <value>Lignes de grille</value>
+  </data>
+  <data name="ChoreographyGridSizeLabel" xml:space="preserve">
+    <value>Taille de la grille</value>
+  </data>
+  <data name="ChoreographyNamePlaceholder" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="ChoreographyPositionsAtSideLabel" xml:space="preserve">
+    <value>Positions sur le côté</value>
+  </data>
+  <data name="ChoreographySectionTitle" xml:space="preserve">
+    <value>Chorégraphie</value>
+  </data>
+  <data name="ChoreographyShowTimestampsLabel" xml:space="preserve">
+    <value>Afficher les horodatages</value>
+  </data>
+  <data name="ChoreographySubtitlePlaceholder" xml:space="preserve">
+    <value>Sous-titre</value>
+  </data>
+  <data name="ChoreographyTransparencyLabel" xml:space="preserve">
+    <value>Transparence</value>
+  </data>
+  <data name="DeleteSceneDialogTitle" xml:space="preserve">
+    <value>Supprimer la scène</value>
+  </data>
+  <data name="DeleteSceneDialogMessage" xml:space="preserve">
+    <value>Supprimer la scène « {0} » ?</value>
+  </data>
+  <data name="DeleteSceneDialogDefaultName" xml:space="preserve">
+    <value>cette scène</value>
+  </data>
+  <data name="DeleteSceneDialogYes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+  <data name="DeleteSceneDialogNo" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="ChoreographyVariationPlaceholder" xml:space="preserve">
+    <value>Variation</value>
+  </data>
+  <data name="SceneSectionTitle" xml:space="preserve">
+    <value>Scène</value>
+  </data>
+  <data name="SceneNameLabel" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="SceneTextLabel" xml:space="preserve">
+    <value>Texte</value>
+  </data>
+  <data name="SceneFixedPositionsLabel" xml:space="preserve">
+    <value>Positions fixes</value>
+  </data>
+  <data name="SceneTimestampLabel" xml:space="preserve">
+    <value>Horodatage</value>
+  </data>
+  <data name="SceneColorLabel" xml:space="preserve">
+    <value>Couleur</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="ModeView" xml:space="preserve">
+    <value>Vue</value>
+  </data>
+  <data name="ModeMove" xml:space="preserve">
+    <value>Déplacer</value>
+  </data>
+  <data name="ModeRotateAroundCenter" xml:space="preserve">
+    <value>Rotation autour du centre</value>
+  </data>
+  <data name="ModeRotateAroundDancer" xml:space="preserve">
+    <value>Rotation autour du danseur</value>
+  </data>
+  <data name="ModeScale" xml:space="preserve">
+    <value>Échelle</value>
+  </data>
+  <data name="ModeLineOfSight" xml:space="preserve">
+    <value>Ligne de vue</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Rechercher</value>
+  </data>
+</root>

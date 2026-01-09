@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="DarkModeLabel" xml:space="preserve">
+    <value>Темный режим</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Просмотр хореографии</value>
+  </data>
+  <data name="ChoreographyAuthorPlaceholder" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="ChoreographyCommentPlaceholder" xml:space="preserve">
+    <value>Комментарий</value>
+  </data>
+  <data name="ChoreographyDescriptionPlaceholder" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="ChoreographyDisplayTitle" xml:space="preserve">
+    <value>Отображение</value>
+  </data>
+  <data name="ChoreographyDrawPathFromLabel" xml:space="preserve">
+    <value>Откуда</value>
+  </data>
+  <data name="ChoreographyDrawPathToLabel" xml:space="preserve">
+    <value>Куда</value>
+  </data>
+  <data name="ChoreographyFloorBackLabel" xml:space="preserve">
+    <value>Сзади</value>
+  </data>
+  <data name="ChoreographyFloorColorLabel" xml:space="preserve">
+    <value>Цвет пола</value>
+  </data>
+  <data name="ChoreographyFloorFrontLabel" xml:space="preserve">
+    <value>Спереди</value>
+  </data>
+  <data name="ChoreographyFloorLeftLabel" xml:space="preserve">
+    <value>Слева</value>
+  </data>
+  <data name="ChoreographyFloorRightLabel" xml:space="preserve">
+    <value>Справа</value>
+  </data>
+  <data name="ChoreographyFloorTitle" xml:space="preserve">
+    <value>Пол</value>
+  </data>
+  <data name="ChoreographyGridLinesLabel" xml:space="preserve">
+    <value>Линии сетки</value>
+  </data>
+  <data name="ChoreographyGridSizeLabel" xml:space="preserve">
+    <value>Размер сетки</value>
+  </data>
+  <data name="ChoreographyNamePlaceholder" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="ChoreographyPositionsAtSideLabel" xml:space="preserve">
+    <value>Позиции по бокам</value>
+  </data>
+  <data name="ChoreographySectionTitle" xml:space="preserve">
+    <value>Хореография</value>
+  </data>
+  <data name="ChoreographyShowTimestampsLabel" xml:space="preserve">
+    <value>Показывать временные метки</value>
+  </data>
+  <data name="ChoreographySubtitlePlaceholder" xml:space="preserve">
+    <value>Подзаголовок</value>
+  </data>
+  <data name="ChoreographyTransparencyLabel" xml:space="preserve">
+    <value>Прозрачность</value>
+  </data>
+  <data name="DeleteSceneDialogTitle" xml:space="preserve">
+    <value>Удалить сцену</value>
+  </data>
+  <data name="DeleteSceneDialogMessage" xml:space="preserve">
+    <value>Удалить сцену «{0}»?</value>
+  </data>
+  <data name="DeleteSceneDialogDefaultName" xml:space="preserve">
+    <value>эту сцену</value>
+  </data>
+  <data name="DeleteSceneDialogYes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="DeleteSceneDialogNo" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="ChoreographyVariationPlaceholder" xml:space="preserve">
+    <value>Вариация</value>
+  </data>
+  <data name="SceneSectionTitle" xml:space="preserve">
+    <value>Сцена</value>
+  </data>
+  <data name="SceneNameLabel" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="SceneTextLabel" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="SceneFixedPositionsLabel" xml:space="preserve">
+    <value>Фиксированные позиции</value>
+  </data>
+  <data name="SceneTimestampLabel" xml:space="preserve">
+    <value>Временная метка</value>
+  </data>
+  <data name="SceneColorLabel" xml:space="preserve">
+    <value>Цвет</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Режим</value>
+  </data>
+  <data name="ModeView" xml:space="preserve">
+    <value>Просмотр</value>
+  </data>
+  <data name="ModeMove" xml:space="preserve">
+    <value>Перемещение</value>
+  </data>
+  <data name="ModeRotateAroundCenter" xml:space="preserve">
+    <value>Вращение вокруг центра</value>
+  </data>
+  <data name="ModeRotateAroundDancer" xml:space="preserve">
+    <value>Вращение вокруг танцора</value>
+  </data>
+  <data name="ModeScale" xml:space="preserve">
+    <value>Масштаб</value>
+  </data>
+  <data name="ModeLineOfSight" xml:space="preserve">
+    <value>Линия видимости</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+</root>

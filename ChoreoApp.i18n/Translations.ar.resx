@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>الإعدادات</value>
+  </data>
+  <data name="DarkModeLabel" xml:space="preserve">
+    <value>الوضع الداكن</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>عارض تصميم الرقصات</value>
+  </data>
+  <data name="ChoreographyAuthorPlaceholder" xml:space="preserve">
+    <value>المؤلف</value>
+  </data>
+  <data name="ChoreographyCommentPlaceholder" xml:space="preserve">
+    <value>تعليق</value>
+  </data>
+  <data name="ChoreographyDescriptionPlaceholder" xml:space="preserve">
+    <value>الوصف</value>
+  </data>
+  <data name="ChoreographyDisplayTitle" xml:space="preserve">
+    <value>العرض</value>
+  </data>
+  <data name="ChoreographyDrawPathFromLabel" xml:space="preserve">
+    <value>من أين</value>
+  </data>
+  <data name="ChoreographyDrawPathToLabel" xml:space="preserve">
+    <value>إلى أين</value>
+  </data>
+  <data name="ChoreographyFloorBackLabel" xml:space="preserve">
+    <value>خلف</value>
+  </data>
+  <data name="ChoreographyFloorColorLabel" xml:space="preserve">
+    <value>لون الأرضية</value>
+  </data>
+  <data name="ChoreographyFloorFrontLabel" xml:space="preserve">
+    <value>أمام</value>
+  </data>
+  <data name="ChoreographyFloorLeftLabel" xml:space="preserve">
+    <value>يسار</value>
+  </data>
+  <data name="ChoreographyFloorRightLabel" xml:space="preserve">
+    <value>يمين</value>
+  </data>
+  <data name="ChoreographyFloorTitle" xml:space="preserve">
+    <value>الأرضية</value>
+  </data>
+  <data name="ChoreographyGridLinesLabel" xml:space="preserve">
+    <value>خطوط الشبكة</value>
+  </data>
+  <data name="ChoreographyGridSizeLabel" xml:space="preserve">
+    <value>حجم الشبكة</value>
+  </data>
+  <data name="ChoreographyNamePlaceholder" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="ChoreographyPositionsAtSideLabel" xml:space="preserve">
+    <value>مواضع على الجانب</value>
+  </data>
+  <data name="ChoreographySectionTitle" xml:space="preserve">
+    <value>تصميم الرقصات</value>
+  </data>
+  <data name="ChoreographyShowTimestampsLabel" xml:space="preserve">
+    <value>إظهار الطوابع الزمنية</value>
+  </data>
+  <data name="ChoreographySubtitlePlaceholder" xml:space="preserve">
+    <value>العنوان الفرعي</value>
+  </data>
+  <data name="ChoreographyTransparencyLabel" xml:space="preserve">
+    <value>الشفافية</value>
+  </data>
+  <data name="DeleteSceneDialogTitle" xml:space="preserve">
+    <value>حذف المشهد</value>
+  </data>
+  <data name="DeleteSceneDialogMessage" xml:space="preserve">
+    <value>حذف المشهد "{0}"؟</value>
+  </data>
+  <data name="DeleteSceneDialogDefaultName" xml:space="preserve">
+    <value>هذا المشهد</value>
+  </data>
+  <data name="DeleteSceneDialogYes" xml:space="preserve">
+    <value>نعم</value>
+  </data>
+  <data name="DeleteSceneDialogNo" xml:space="preserve">
+    <value>لا</value>
+  </data>
+  <data name="ChoreographyVariationPlaceholder" xml:space="preserve">
+    <value>تنويع</value>
+  </data>
+  <data name="SceneSectionTitle" xml:space="preserve">
+    <value>مشهد</value>
+  </data>
+  <data name="SceneNameLabel" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="SceneTextLabel" xml:space="preserve">
+    <value>نص</value>
+  </data>
+  <data name="SceneFixedPositionsLabel" xml:space="preserve">
+    <value>مواضع ثابتة</value>
+  </data>
+  <data name="SceneTimestampLabel" xml:space="preserve">
+    <value>طابع زمني</value>
+  </data>
+  <data name="SceneColorLabel" xml:space="preserve">
+    <value>لون</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>الوضع</value>
+  </data>
+  <data name="ModeView" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="ModeMove" xml:space="preserve">
+    <value>تحريك</value>
+  </data>
+  <data name="ModeRotateAroundCenter" xml:space="preserve">
+    <value>تدوير حول المركز</value>
+  </data>
+  <data name="ModeRotateAroundDancer" xml:space="preserve">
+    <value>تدوير حول الراقص</value>
+  </data>
+  <data name="ModeScale" xml:space="preserve">
+    <value>مقياس</value>
+  </data>
+  <data name="ModeLineOfSight" xml:space="preserve">
+    <value>خط الرؤية</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+</root>
