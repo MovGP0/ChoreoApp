@@ -147,4 +147,13 @@
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Αναζήτηση</value>
   </data>
+  <data name="SceneTimestampMinutesLabel" xml:space="preserve">
+    <value>λεπ</value>
+  </data>
+  <data name="SceneTimestampSecondsLabel" xml:space="preserve">
+    <value>δευτ</value>
+  </data>
+  <data name="SceneTimestampMillisecondsLabel" xml:space="preserve">
+    <value>χιλ.δευτ</value>
+  </data>
 </root>

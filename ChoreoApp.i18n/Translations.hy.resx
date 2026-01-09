@@ -147,4 +147,13 @@
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>Որոնել</value>
   </data>
+  <data name="SceneTimestampMinutesLabel" xml:space="preserve">
+    <value>րոպե</value>
+  </data>
+  <data name="SceneTimestampSecondsLabel" xml:space="preserve">
+    <value>վրկ</value>
+  </data>
+  <data name="SceneTimestampMillisecondsLabel" xml:space="preserve">
+    <value>մվ</value>
+  </data>
 </root>

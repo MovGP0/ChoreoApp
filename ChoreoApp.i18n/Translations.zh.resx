@@ -147,4 +147,13 @@
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>搜索</value>
   </data>
+  <data name="SceneTimestampMinutesLabel" xml:space="preserve">
+    <value>分</value>
+  </data>
+  <data name="SceneTimestampSecondsLabel" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="SceneTimestampMillisecondsLabel" xml:space="preserve">
+    <value>毫秒</value>
+  </data>
 </root>

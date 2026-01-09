@@ -429,6 +429,33 @@ namespace ChoreoApp.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ms.
+        /// </summary>
+        public static string SceneTimestampMillisecondsLabel {
+            get {
+                return ResourceManager.GetString("SceneTimestampMillisecondsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to min.
+        /// </summary>
+        public static string SceneTimestampMinutesLabel {
+            get {
+                return ResourceManager.GetString("SceneTimestampMinutesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to s.
+        /// </summary>
+        public static string SceneTimestampSecondsLabel {
+            get {
+                return ResourceManager.GetString("SceneTimestampSecondsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string SearchPlaceholder {

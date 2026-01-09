@@ -147,4 +147,13 @@
   <data name="SearchPlaceholder" xml:space="preserve">
     <value>खोजें</value>
   </data>
+  <data name="SceneTimestampMinutesLabel" xml:space="preserve">
+    <value>मिनट</value>
+  </data>
+  <data name="SceneTimestampSecondsLabel" xml:space="preserve">
+    <value>सेकंड</value>
+  </data>
+  <data name="SceneTimestampMillisecondsLabel" xml:space="preserve">
+    <value>मिलीसेकंड</value>
+  </data>
 </root>
