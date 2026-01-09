@@ -16,15 +16,25 @@
                    FontAttributes="Bold"
                    FontSize="18"
                    TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+            <HorizontalStackLayout Spacing="8"
+                                   VerticalOptions="Center">
+                <BoxView WidthRequest="12"
+                         HeightRequest="12"
+                         CornerRadius="6"
+                         BackgroundColor="{Binding SceneColor}" />
+                <Label Text="{Binding SceneName}"
+                       VerticalOptions="Center"
+                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+            </HorizontalStackLayout>
             <Label Text="{Binding Message}"
                    TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
             <HorizontalStackLayout HorizontalOptions="End"
                                    Spacing="8">
                 <Button Text="{x:Static i18n:Translations.DeleteSceneDialogNo}"
-                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
                         Command="{Binding CancelCommand}" />
                 <Button Text="{x:Static i18n:Translations.DeleteSceneDialogYes}"
-                        Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
                         Command="{Binding ConfirmDeleteCommand}" />
             </HorizontalStackLayout>
         </VerticalStackLayout>

@@ -27,6 +27,9 @@ public sealed partial class DeleteSceneDialogViewModel : ReactiveObject, IActiva
             name = Translations.DeleteSceneDialogDefaultName;
         }
 
+        SceneName = name;
+        SceneColor = scene?.Color ?? Colors.Transparent;
+
         Message = string.Format(CultureInfo.CurrentUICulture, Translations.DeleteSceneDialogMessage, name);
     }
 
@@ -34,6 +37,12 @@ public sealed partial class DeleteSceneDialogViewModel : ReactiveObject, IActiva
 
     [Reactive]
     private string _message = string.Empty;
+
+    [Reactive]
+    private string _sceneName = string.Empty;
+
+    [Reactive]
+    private Color _sceneColor = Colors.Transparent;
 
     [ReactiveCommand]
     private void ConfirmDelete()

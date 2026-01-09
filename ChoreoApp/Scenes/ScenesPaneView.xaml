@@ -52,6 +52,7 @@
                             </Border.Triggers>
                             <Grid x:Name="SceneContent"
                                   RowDefinitions="Auto,0"
+                                  ColumnDefinitions="Auto,*"
                                   Padding="4">
                                 <Grid.Triggers>
                                     <DataTrigger TargetType="Grid"
@@ -61,15 +62,24 @@
                                                 Value="Auto,Auto" />
                                     </DataTrigger>
                                 </Grid.Triggers>
+                                <BoxView Grid.Row="0"
+                                         Grid.Column="0"
+                                         WidthRequest="12"
+                                         HeightRequest="12"
+                                         CornerRadius="3"
+                                         VerticalOptions="Center"
+                                         BackgroundColor="{Binding Color}" />
                                 <Label x:Name="SceneName"
                                        Text="{Binding Name}"
                                        FontAttributes="Bold"
                                        Grid.Row="0"
+                                       Grid.Column="1"
                                        VerticalOptions="Center"
                                        TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                        BackgroundColor="Transparent" />
                                 <Label x:Name="SceneTimestamp"
                                        Grid.Row="1"
+                                       Grid.Column="1"
                                        Text="{Binding Timestamp, StringFormat='{0:mm\\:ss\\.fff}'}"
                                        IsVisible="{Binding Source={x:Reference Root}, Path=BindingContext.ShowTimestamps}"
                                        TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}"

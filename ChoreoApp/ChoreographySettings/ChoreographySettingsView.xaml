@@ -142,6 +142,56 @@
                                                         SelectedColor="{Binding SceneColor}" />
                 </VerticalStackLayout>
             </styling:Card>
+
+            <styling:Card Padding="4" Style="{StaticResource MaterialDesignElevatedCard}">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="{x:Static i18n:Translations.ChoreographyDisplayTitle}"
+                           FontAttributes="Bold"
+                           FontSize="18"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                    <Grid ColumnDefinitions="*,Auto"
+                          RowDefinitions="Auto,Auto,Auto,Auto"
+                          ColumnSpacing="12"
+                          RowSpacing="8">
+                        <Label Text="{x:Static i18n:Translations.ChoreographyDrawPathFromLabel}"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <CheckBox Grid.Row="0"
+                                  Grid.Column="1"
+                                  IsChecked="{Binding DrawPathFrom}"
+                                  VerticalOptions="Center" />
+
+                        <Label Text="{x:Static i18n:Translations.ChoreographyDrawPathToLabel}"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <CheckBox Grid.Row="1"
+                                  Grid.Column="1"
+                                  IsChecked="{Binding DrawPathTo}"
+                                  VerticalOptions="Center" />
+
+                        <Label Text="{x:Static i18n:Translations.ChoreographyShowTimestampsLabel}"
+                               Grid.Row="2"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <CheckBox Grid.Row="2"
+                                  Grid.Column="1"
+                                  IsChecked="{Binding ShowTimestamps}"
+                                  VerticalOptions="Center" />
+
+                        <Label Text="{x:Static i18n:Translations.ChoreographyPositionsAtSideLabel}"
+                               Grid.Row="3"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <CheckBox Grid.Row="3"
+                                  Grid.Column="1"
+                                  IsChecked="{Binding PositionsAtSide}"
+                                  VerticalOptions="Center" />
+                    </Grid>
+                </VerticalStackLayout>
+            </styling:Card>
+
             <styling:Card Padding="4" Style="{StaticResource MaterialDesignElevatedCard}">
                 <VerticalStackLayout Spacing="12">
                     <Label Text="{x:Static i18n:Translations.ChoreographySectionTitle}"
@@ -290,55 +340,6 @@
                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
                     <colorPicker:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
                                                         SelectedColor="{Binding FloorColor}" />
-                </VerticalStackLayout>
-            </styling:Card>
-
-            <styling:Card Padding="4" Style="{StaticResource MaterialDesignElevatedCard}">
-                <VerticalStackLayout Spacing="12">
-                    <Label Text="{x:Static i18n:Translations.ChoreographyDisplayTitle}"
-                           FontAttributes="Bold"
-                           FontSize="18"
-                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
-                    <Grid ColumnDefinitions="*,Auto"
-                          RowDefinitions="Auto,Auto,Auto,Auto"
-                          ColumnSpacing="12"
-                          RowSpacing="8">
-                        <Label Text="{x:Static i18n:Translations.ChoreographyDrawPathFromLabel}"
-                               Grid.Row="0"
-                               Grid.Column="0"
-                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                        <CheckBox Grid.Row="0"
-                                  Grid.Column="1"
-                                  IsChecked="{Binding DrawPathFrom}"
-                                  VerticalOptions="Center" />
-
-                        <Label Text="{x:Static i18n:Translations.ChoreographyDrawPathToLabel}"
-                               Grid.Row="1"
-                               Grid.Column="0"
-                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                        <CheckBox Grid.Row="1"
-                                  Grid.Column="1"
-                                  IsChecked="{Binding DrawPathTo}"
-                                  VerticalOptions="Center" />
-
-                        <Label Text="{x:Static i18n:Translations.ChoreographyShowTimestampsLabel}"
-                               Grid.Row="2"
-                               Grid.Column="0"
-                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                        <CheckBox Grid.Row="2"
-                                  Grid.Column="1"
-                                  IsChecked="{Binding ShowTimestamps}"
-                                  VerticalOptions="Center" />
-
-                        <Label Text="{x:Static i18n:Translations.ChoreographyPositionsAtSideLabel}"
-                               Grid.Row="3"
-                               Grid.Column="0"
-                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                        <CheckBox Grid.Row="3"
-                                  Grid.Column="1"
-                                  IsChecked="{Binding PositionsAtSide}"
-                                  VerticalOptions="Center" />
-                    </Grid>
                 </VerticalStackLayout>
             </styling:Card>
         </VerticalStackLayout>
