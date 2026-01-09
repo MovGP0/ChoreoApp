@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Тохиргоо</value>
+  </data>
+  <data name="DarkModeLabel" xml:space="preserve">
+    <value>Бараан горим</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Бүжгийн найруулга харах</value>
+  </data>
+  <data name="ChoreographyAuthorPlaceholder" xml:space="preserve">
+    <value>Зохиогч</value>
+  </data>
+  <data name="ChoreographyCommentPlaceholder" xml:space="preserve">
+    <value>Тайлбар</value>
+  </data>
+  <data name="ChoreographyDescriptionPlaceholder" xml:space="preserve">
+    <value>Тайлбар</value>
+  </data>
+  <data name="ChoreographyDisplayTitle" xml:space="preserve">
+    <value>Дэлгэц</value>
+  </data>
+  <data name="ChoreographyDrawPathFromLabel" xml:space="preserve">
+    <value>Хаанаас</value>
+  </data>
+  <data name="ChoreographyDrawPathToLabel" xml:space="preserve">
+    <value>Хаашаа</value>
+  </data>
+  <data name="ChoreographyFloorBackLabel" xml:space="preserve">
+    <value>Хойд</value>
+  </data>
+  <data name="ChoreographyFloorColorLabel" xml:space="preserve">
+    <value>Шалны өнгө</value>
+  </data>
+  <data name="ChoreographyFloorFrontLabel" xml:space="preserve">
+    <value>Урд</value>
+  </data>
+  <data name="ChoreographyFloorLeftLabel" xml:space="preserve">
+    <value>Зүүн</value>
+  </data>
+  <data name="ChoreographyFloorRightLabel" xml:space="preserve">
+    <value>Баруун</value>
+  </data>
+  <data name="ChoreographyFloorTitle" xml:space="preserve">
+    <value>Шал</value>
+  </data>
+  <data name="ChoreographyGridLinesLabel" xml:space="preserve">
+    <value>Торон шугам</value>
+  </data>
+  <data name="ChoreographyGridSizeLabel" xml:space="preserve">
+    <value>Торон хэмжээ</value>
+  </data>
+  <data name="ChoreographyNamePlaceholder" xml:space="preserve">
+    <value>Нэр</value>
+  </data>
+  <data name="ChoreographyPositionsAtSideLabel" xml:space="preserve">
+    <value>Хажуугийн байрлал</value>
+  </data>
+  <data name="ChoreographySectionTitle" xml:space="preserve">
+    <value>Бүжгийн найруулга</value>
+  </data>
+  <data name="ChoreographyShowTimestampsLabel" xml:space="preserve">
+    <value>Цагийн тэмдэглэгээ харуулах</value>
+  </data>
+  <data name="ChoreographySubtitlePlaceholder" xml:space="preserve">
+    <value>Дэд гарчиг</value>
+  </data>
+  <data name="ChoreographyTransparencyLabel" xml:space="preserve">
+    <value>Тунгалаг байдал</value>
+  </data>
+  <data name="DeleteSceneDialogTitle" xml:space="preserve">
+    <value>Үзэгдэл устгах</value>
+  </data>
+  <data name="DeleteSceneDialogMessage" xml:space="preserve">
+    <value>Үзэгдэл "{0}"-г устгах уу?</value>
+  </data>
+  <data name="DeleteSceneDialogDefaultName" xml:space="preserve">
+    <value>энэ үзэгдэл</value>
+  </data>
+  <data name="DeleteSceneDialogYes" xml:space="preserve">
+    <value>Тийм</value>
+  </data>
+  <data name="DeleteSceneDialogNo" xml:space="preserve">
+    <value>Үгүй</value>
+  </data>
+  <data name="ChoreographyVariationPlaceholder" xml:space="preserve">
+    <value>Хувилбар</value>
+  </data>
+  <data name="SceneSectionTitle" xml:space="preserve">
+    <value>Үзэгдэл</value>
+  </data>
+  <data name="SceneNameLabel" xml:space="preserve">
+    <value>Нэр</value>
+  </data>
+  <data name="SceneTextLabel" xml:space="preserve">
+    <value>Текст</value>
+  </data>
+  <data name="SceneFixedPositionsLabel" xml:space="preserve">
+    <value>Тогтмол байрлал</value>
+  </data>
+  <data name="SceneTimestampLabel" xml:space="preserve">
+    <value>Цагийн тэмдэглэгээ</value>
+  </data>
+  <data name="SceneColorLabel" xml:space="preserve">
+    <value>Өнгө</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Горим</value>
+  </data>
+  <data name="ModeView" xml:space="preserve">
+    <value>Харах</value>
+  </data>
+  <data name="ModeMove" xml:space="preserve">
+    <value>Шилжүүлэх</value>
+  </data>
+  <data name="ModeRotateAroundCenter" xml:space="preserve">
+    <value>Төв тойрон эргүүлэх</value>
+  </data>
+  <data name="ModeRotateAroundDancer" xml:space="preserve">
+    <value>Бүжигчин тойрон эргүүлэх</value>
+  </data>
+  <data name="ModeScale" xml:space="preserve">
+    <value>Хэмжээс</value>
+  </data>
+  <data name="ModeLineOfSight" xml:space="preserve">
+    <value>Харааны шугам</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Хайх</value>
+  </data>
+</root>

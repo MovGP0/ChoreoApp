@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>সেটিংস</value>
+  </data>
+  <data name="DarkModeLabel" xml:space="preserve">
+    <value>ডার্ক মোড</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>কোরিওগ্রাফি ভিউয়ার</value>
+  </data>
+  <data name="ChoreographyAuthorPlaceholder" xml:space="preserve">
+    <value>লেখক</value>
+  </data>
+  <data name="ChoreographyCommentPlaceholder" xml:space="preserve">
+    <value>মন্তব্য</value>
+  </data>
+  <data name="ChoreographyDescriptionPlaceholder" xml:space="preserve">
+    <value>বিবরণ</value>
+  </data>
+  <data name="ChoreographyDisplayTitle" xml:space="preserve">
+    <value>প্রদর্শন</value>
+  </data>
+  <data name="ChoreographyDrawPathFromLabel" xml:space="preserve">
+    <value>কোথা থেকে</value>
+  </data>
+  <data name="ChoreographyDrawPathToLabel" xml:space="preserve">
+    <value>কোথা পর্যন্ত</value>
+  </data>
+  <data name="ChoreographyFloorBackLabel" xml:space="preserve">
+    <value>পেছন</value>
+  </data>
+  <data name="ChoreographyFloorColorLabel" xml:space="preserve">
+    <value>মেঝের রঙ</value>
+  </data>
+  <data name="ChoreographyFloorFrontLabel" xml:space="preserve">
+    <value>সামনে</value>
+  </data>
+  <data name="ChoreographyFloorLeftLabel" xml:space="preserve">
+    <value>বাম</value>
+  </data>
+  <data name="ChoreographyFloorRightLabel" xml:space="preserve">
+    <value>ডান</value>
+  </data>
+  <data name="ChoreographyFloorTitle" xml:space="preserve">
+    <value>মেঝে</value>
+  </data>
+  <data name="ChoreographyGridLinesLabel" xml:space="preserve">
+    <value>গ্রিড লাইন</value>
+  </data>
+  <data name="ChoreographyGridSizeLabel" xml:space="preserve">
+    <value>গ্রিডের আকার</value>
+  </data>
+  <data name="ChoreographyNamePlaceholder" xml:space="preserve">
+    <value>নাম</value>
+  </data>
+  <data name="ChoreographyPositionsAtSideLabel" xml:space="preserve">
+    <value>পাশের অবস্থান</value>
+  </data>
+  <data name="ChoreographySectionTitle" xml:space="preserve">
+    <value>কোরিওগ্রাফি</value>
+  </data>
+  <data name="ChoreographyShowTimestampsLabel" xml:space="preserve">
+    <value>টাইমস্ট্যাম্প দেখান</value>
+  </data>
+  <data name="ChoreographySubtitlePlaceholder" xml:space="preserve">
+    <value>সাবটাইটেল</value>
+  </data>
+  <data name="ChoreographyTransparencyLabel" xml:space="preserve">
+    <value>স্বচ্ছতা</value>
+  </data>
+  <data name="DeleteSceneDialogTitle" xml:space="preserve">
+    <value>দৃশ্য মুছুন</value>
+  </data>
+  <data name="DeleteSceneDialogMessage" xml:space="preserve">
+    <value>দৃশ্য "{0}" মুছবেন?</value>
+  </data>
+  <data name="DeleteSceneDialogDefaultName" xml:space="preserve">
+    <value>এই দৃশ্য</value>
+  </data>
+  <data name="DeleteSceneDialogYes" xml:space="preserve">
+    <value>হ্যাঁ</value>
+  </data>
+  <data name="DeleteSceneDialogNo" xml:space="preserve">
+    <value>না</value>
+  </data>
+  <data name="ChoreographyVariationPlaceholder" xml:space="preserve">
+    <value>ভ্যারিয়েশন</value>
+  </data>
+  <data name="SceneSectionTitle" xml:space="preserve">
+    <value>দৃশ্য</value>
+  </data>
+  <data name="SceneNameLabel" xml:space="preserve">
+    <value>নাম</value>
+  </data>
+  <data name="SceneTextLabel" xml:space="preserve">
+    <value>টেক্সট</value>
+  </data>
+  <data name="SceneFixedPositionsLabel" xml:space="preserve">
+    <value>স্থির অবস্থান</value>
+  </data>
+  <data name="SceneTimestampLabel" xml:space="preserve">
+    <value>টাইমস্ট্যাম্প</value>
+  </data>
+  <data name="SceneColorLabel" xml:space="preserve">
+    <value>রঙ</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>মোড</value>
+  </data>
+  <data name="ModeView" xml:space="preserve">
+    <value>দেখুন</value>
+  </data>
+  <data name="ModeMove" xml:space="preserve">
+    <value>সরান</value>
+  </data>
+  <data name="ModeRotateAroundCenter" xml:space="preserve">
+    <value>কেন্দ্রের চারপাশে ঘোরান</value>
+  </data>
+  <data name="ModeRotateAroundDancer" xml:space="preserve">
+    <value>নৃত্যশিল্পীর চারপাশে ঘোরান</value>
+  </data>
+  <data name="ModeScale" xml:space="preserve">
+    <value>স্কেল</value>
+  </data>
+  <data name="ModeLineOfSight" xml:space="preserve">
+    <value>দৃষ্টিরেখা</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>খুঁজুন</value>
+  </data>
+</root>
