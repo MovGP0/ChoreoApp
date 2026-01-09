@@ -15,6 +15,26 @@
     <maui:ReactiveContentView.Resources>
         <ResourceDictionary>
             <conv:DecimalDoubleConverter x:Key="DecimalDoubleConverter" />
+            <Style x:Key="SceneTimestampNumericUpDownEntryStyle"
+                   TargetType="Entry"
+                   BasedOn="{StaticResource MaterialDesignEntry}">
+                <Setter Property="BackgroundColor"
+                        Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+                <Setter Property="TextColor"
+                        Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                <Setter Property="PlaceholderColor"
+                        Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+            </Style>
+            <Style x:Key="SceneTimestampNumericUpDownStyle"
+                   TargetType="styling:NumericUpDown"
+                   BasedOn="{StaticResource MaterialDesignNumericUpDown}">
+                <Setter Property="BackgroundColor"
+                        Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+                <Setter Property="EntryStyle"
+                        Value="{StaticResource SceneTimestampNumericUpDownEntryStyle}" />
+                <Setter Property="IconForeground"
+                        Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+            </Style>
         </ResourceDictionary>
     </maui:ReactiveContentView.Resources>
     <ScrollView>
@@ -77,6 +97,7 @@
                                  TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
                             <styling:NumericUpDown Grid.Row="0"
                                                    Grid.Column="1"
+                                                   Style="{StaticResource SceneTimestampNumericUpDownStyle}"
                                                    Minimum="0"
                                                    Maximum="1440"
                                                    ValueStep="1"
@@ -91,6 +112,7 @@
                                    TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
                             <styling:NumericUpDown Grid.Row="1"
                                                    Grid.Column="1"
+                                                   Style="{StaticResource SceneTimestampNumericUpDownStyle}"
                                                    Minimum="0"
                                                    Maximum="59"
                                                    ValueStep="1"
@@ -105,6 +127,7 @@
                                    TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
                             <styling:NumericUpDown Grid.Row="2"
                                                    Grid.Column="1"
+                                                   Style="{StaticResource SceneTimestampNumericUpDownStyle}"
                                                    Minimum="0"
                                                    Maximum="999"
                                                    ValueStep="10"
