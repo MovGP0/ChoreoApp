@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Iestatījumi</value>
+  </data>
+  <data name="DarkModeLabel" xml:space="preserve">
+    <value>Tumšais režīms</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Horeogrāfijas skatītājs</value>
+  </data>
+  <data name="ChoreographyAuthorPlaceholder" xml:space="preserve">
+    <value>Autors</value>
+  </data>
+  <data name="ChoreographyCommentPlaceholder" xml:space="preserve">
+    <value>Komentārs</value>
+  </data>
+  <data name="ChoreographyDescriptionPlaceholder" xml:space="preserve">
+    <value>Apraksts</value>
+  </data>
+  <data name="ChoreographyDisplayTitle" xml:space="preserve">
+    <value>Attēlošana</value>
+  </data>
+  <data name="ChoreographyDrawPathFromLabel" xml:space="preserve">
+    <value>No kurienes</value>
+  </data>
+  <data name="ChoreographyDrawPathToLabel" xml:space="preserve">
+    <value>Uz kurieni</value>
+  </data>
+  <data name="ChoreographyFloorBackLabel" xml:space="preserve">
+    <value>Aizmugure</value>
+  </data>
+  <data name="ChoreographyFloorColorLabel" xml:space="preserve">
+    <value>Grīdas krāsa</value>
+  </data>
+  <data name="ChoreographyFloorFrontLabel" xml:space="preserve">
+    <value>Priekšā</value>
+  </data>
+  <data name="ChoreographyFloorLeftLabel" xml:space="preserve">
+    <value>Pa kreisi</value>
+  </data>
+  <data name="ChoreographyFloorRightLabel" xml:space="preserve">
+    <value>Pa labi</value>
+  </data>
+  <data name="ChoreographyFloorTitle" xml:space="preserve">
+    <value>Grīda</value>
+  </data>
+  <data name="ChoreographyGridLinesLabel" xml:space="preserve">
+    <value>Režģa līnijas</value>
+  </data>
+  <data name="ChoreographyGridSizeLabel" xml:space="preserve">
+    <value>Režģa izmērs</value>
+  </data>
+  <data name="ChoreographyNamePlaceholder" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="ChoreographyPositionsAtSideLabel" xml:space="preserve">
+    <value>Pozīcijas sānos</value>
+  </data>
+  <data name="ChoreographySectionTitle" xml:space="preserve">
+    <value>Horeogrāfija</value>
+  </data>
+  <data name="ChoreographyShowTimestampsLabel" xml:space="preserve">
+    <value>Rādīt laika zīmogus</value>
+  </data>
+  <data name="ChoreographySubtitlePlaceholder" xml:space="preserve">
+    <value>Apakšvirsraksts</value>
+  </data>
+  <data name="ChoreographyTransparencyLabel" xml:space="preserve">
+    <value>Caurspīdīgums</value>
+  </data>
+  <data name="DeleteSceneDialogTitle" xml:space="preserve">
+    <value>Dzēst ainu</value>
+  </data>
+  <data name="DeleteSceneDialogMessage" xml:space="preserve">
+    <value>Dzēst ainu "{0}"?</value>
+  </data>
+  <data name="DeleteSceneDialogDefaultName" xml:space="preserve">
+    <value>šo ainu</value>
+  </data>
+  <data name="DeleteSceneDialogYes" xml:space="preserve">
+    <value>Jā</value>
+  </data>
+  <data name="DeleteSceneDialogNo" xml:space="preserve">
+    <value>Nē</value>
+  </data>
+  <data name="ChoreographyVariationPlaceholder" xml:space="preserve">
+    <value>Variācija</value>
+  </data>
+  <data name="SceneSectionTitle" xml:space="preserve">
+    <value>Aina</value>
+  </data>
+  <data name="SceneNameLabel" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="SceneTextLabel" xml:space="preserve">
+    <value>Teksts</value>
+  </data>
+  <data name="SceneFixedPositionsLabel" xml:space="preserve">
+    <value>Fiksētas pozīcijas</value>
+  </data>
+  <data name="SceneTimestampLabel" xml:space="preserve">
+    <value>Laika zīmogs</value>
+  </data>
+  <data name="SceneColorLabel" xml:space="preserve">
+    <value>Krāsa</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Režīms</value>
+  </data>
+  <data name="ModeView" xml:space="preserve">
+    <value>Skats</value>
+  </data>
+  <data name="ModeMove" xml:space="preserve">
+    <value>Pārvietot</value>
+  </data>
+  <data name="ModeRotateAroundCenter" xml:space="preserve">
+    <value>Pagriezt ap centru</value>
+  </data>
+  <data name="ModeRotateAroundDancer" xml:space="preserve">
+    <value>Pagriezt ap dejotāju</value>
+  </data>
+  <data name="ModeScale" xml:space="preserve">
+    <value>Mērogs</value>
+  </data>
+  <data name="ModeLineOfSight" xml:space="preserve">
+    <value>Redzes līnija</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Meklēt</value>
+  </data>
+</root>

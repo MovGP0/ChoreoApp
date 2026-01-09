@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Կարգավորումներ</value>
+  </data>
+  <data name="DarkModeLabel" xml:space="preserve">
+    <value>Մութ ռեժիմ</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Քորեոգրաֆիայի դիտիչ</value>
+  </data>
+  <data name="ChoreographyAuthorPlaceholder" xml:space="preserve">
+    <value>Հեղինակ</value>
+  </data>
+  <data name="ChoreographyCommentPlaceholder" xml:space="preserve">
+    <value>Մեկնաբանություն</value>
+  </data>
+  <data name="ChoreographyDescriptionPlaceholder" xml:space="preserve">
+    <value>Նկարագրություն</value>
+  </data>
+  <data name="ChoreographyDisplayTitle" xml:space="preserve">
+    <value>Ցուցադրում</value>
+  </data>
+  <data name="ChoreographyDrawPathFromLabel" xml:space="preserve">
+    <value>Որտեղից</value>
+  </data>
+  <data name="ChoreographyDrawPathToLabel" xml:space="preserve">
+    <value>Որտեղ</value>
+  </data>
+  <data name="ChoreographyFloorBackLabel" xml:space="preserve">
+    <value>Հետև</value>
+  </data>
+  <data name="ChoreographyFloorColorLabel" xml:space="preserve">
+    <value>Հատակ գույն</value>
+  </data>
+  <data name="ChoreographyFloorFrontLabel" xml:space="preserve">
+    <value>Առջև</value>
+  </data>
+  <data name="ChoreographyFloorLeftLabel" xml:space="preserve">
+    <value>Ձախ</value>
+  </data>
+  <data name="ChoreographyFloorRightLabel" xml:space="preserve">
+    <value>Աջ</value>
+  </data>
+  <data name="ChoreographyFloorTitle" xml:space="preserve">
+    <value>Հատակ</value>
+  </data>
+  <data name="ChoreographyGridLinesLabel" xml:space="preserve">
+    <value>Ցանցային գծեր</value>
+  </data>
+  <data name="ChoreographyGridSizeLabel" xml:space="preserve">
+    <value>Ցանցի չափ</value>
+  </data>
+  <data name="ChoreographyNamePlaceholder" xml:space="preserve">
+    <value>Անուն</value>
+  </data>
+  <data name="ChoreographyPositionsAtSideLabel" xml:space="preserve">
+    <value>Կողային դիրքեր</value>
+  </data>
+  <data name="ChoreographySectionTitle" xml:space="preserve">
+    <value>Քորեոգրաֆիա</value>
+  </data>
+  <data name="ChoreographyShowTimestampsLabel" xml:space="preserve">
+    <value>Ցուցադրել ժամանակային դրոշակները</value>
+  </data>
+  <data name="ChoreographySubtitlePlaceholder" xml:space="preserve">
+    <value>Ենթավերնագիր</value>
+  </data>
+  <data name="ChoreographyTransparencyLabel" xml:space="preserve">
+    <value>Թափանցիկություն</value>
+  </data>
+  <data name="DeleteSceneDialogTitle" xml:space="preserve">
+    <value>Ջնջել տեսարանը</value>
+  </data>
+  <data name="DeleteSceneDialogMessage" xml:space="preserve">
+    <value>Ջնջե՞լ «{0}» տեսարանը</value>
+  </data>
+  <data name="DeleteSceneDialogDefaultName" xml:space="preserve">
+    <value>այս տեսարանը</value>
+  </data>
+  <data name="DeleteSceneDialogYes" xml:space="preserve">
+    <value>Այո</value>
+  </data>
+  <data name="DeleteSceneDialogNo" xml:space="preserve">
+    <value>Ոչ</value>
+  </data>
+  <data name="ChoreographyVariationPlaceholder" xml:space="preserve">
+    <value>Տարբերակ</value>
+  </data>
+  <data name="SceneSectionTitle" xml:space="preserve">
+    <value>Տեսարան</value>
+  </data>
+  <data name="SceneNameLabel" xml:space="preserve">
+    <value>Անուն</value>
+  </data>
+  <data name="SceneTextLabel" xml:space="preserve">
+    <value>Տեքստ</value>
+  </data>
+  <data name="SceneFixedPositionsLabel" xml:space="preserve">
+    <value>Ֆիքսված դիրքեր</value>
+  </data>
+  <data name="SceneTimestampLabel" xml:space="preserve">
+    <value>Ժամանակային դրոշակ</value>
+  </data>
+  <data name="SceneColorLabel" xml:space="preserve">
+    <value>Գույն</value>
+  </data>
+  <data name="ModeLabel" xml:space="preserve">
+    <value>Ռեժիմ</value>
+  </data>
+  <data name="ModeView" xml:space="preserve">
+    <value>Դիտել</value>
+  </data>
+  <data name="ModeMove" xml:space="preserve">
+    <value>Տեղափոխել</value>
+  </data>
+  <data name="ModeRotateAroundCenter" xml:space="preserve">
+    <value>Պտտել կենտրոնի շուրջ</value>
+  </data>
+  <data name="ModeRotateAroundDancer" xml:space="preserve">
+    <value>Պտտել պարողի շուրջ</value>
+  </data>
+  <data name="ModeScale" xml:space="preserve">
+    <value>Մասշտաբ</value>
+  </data>
+  <data name="ModeLineOfSight" xml:space="preserve">
+    <value>Տեսադաշտ</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Որոնել</value>
+  </data>
+</root>
