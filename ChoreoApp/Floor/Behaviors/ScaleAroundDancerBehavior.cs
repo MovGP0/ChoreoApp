@@ -1,4 +1,4 @@
-using System.Reactive.Disposables;
+﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Floor.Messages;
 using ChoreoApp.Scenes;
@@ -13,27 +13,37 @@ using Position = ChoreoApp.Models.PositionModel;
 
 namespace ChoreoApp.Floor.Behaviors;
 
-public sealed class MovePositionsBehavior(
+public sealed class ScaleAroundDancerBehavior(
     Global.GlobalStateModel globalState,
     ApplicationStateMachine stateMachine,
+    TimeProvider timeProvider,
     IPublisher<RedrawFloorCommand> redrawFloorPublisher,
     ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber)
     : IBehavior<FloorCanvasViewModel>
 {
     private const float PointerMoveThreshold = 6f;
+    private const float DoubleTapDistanceThreshold = 12f;
+    private const int DoubleTapTimeThresholdMs = 400;
 
+    private readonly TimeProvider _timeProvider = timeProvider;
     private readonly Dictionary<long, Point> _touchStartPositions = new();
     private readonly HashSet<long> _touchMoved = new();
 
     private Point? _pointerPressedPosition;
-    private Point? _dragStartFloorPoint;
     private bool _pointerMoved;
     private bool _selectionActive;
-    private bool _dragActive;
+    private bool _rotationActive;
     private bool _clearSelectionOnRelease;
 
-    private readonly Dictionary<Position, Point> _dragStartPositions = new();
-    private Point? _lastDragFloorPoint;
+    private readonly Dictionary<Position, Point> _rotationStartPositions = new();
+    private Point? _rotationCenter;
+    private double? _rotationStartAngle;
+    private Point? _lastRotationFloorPoint;
+
+    private DateTimeOffset? _lastTapTimestamp;
+    private Point? _lastTapViewPoint;
+    private Position? _lastTapPosition;
+    private Position? _rotationAnchorPosition;
 
     public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)
     {
@@ -61,10 +71,10 @@ public sealed class MovePositionsBehavior(
             .WhenAnyValue(state => state.InteractionMode)
             .Subscribe(mode =>
             {
-                if (mode != Global.InteractionMode.Move
+                if (mode != Global.InteractionMode.RotateAroundDancer
+                    && mode != Global.InteractionMode.Move
                     && mode != Global.InteractionMode.RotateAroundCenter
-                    && mode != Global.InteractionMode.Scale
-                    && mode != Global.InteractionMode.RotateAroundDancer)
+                    && mode != Global.InteractionMode.Scale)
                 {
                     ClearSelection();
                 }
@@ -74,7 +84,7 @@ public sealed class MovePositionsBehavior(
 
     private void HandlePointerPressed(FloorCanvasViewModel viewModel, PointerPressedCommand command)
     {
-        if (!IsMoveModeActive())
+        if (!IsRotateModeActive())
         {
             return;
         }
@@ -95,9 +105,9 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        if (TryGetPositionAtPoint(globalState.SelectedScene, floorPoint, out var hitPosition))
+        if (globalState.SelectedPositions.Count > 0 && !_selectionActive)
         {
-            StartDrag(floorPoint, hitPosition);
+            StartRotation(floorPoint);
             return;
         }
 
@@ -106,7 +116,7 @@ public sealed class MovePositionsBehavior(
 
     private void HandlePointerMoved(FloorCanvasViewModel viewModel, PointerMovedCommand command)
     {
-        if (!IsMoveModeActive())
+        if (!IsRotateModeActive())
         {
             return;
         }
@@ -135,9 +145,9 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        if (_dragActive)
+        if (_rotationActive && _pointerMoved)
         {
-            UpdateDrag(floorPoint);
+            UpdateRotation(floorPoint);
             return;
         }
 
@@ -149,7 +159,7 @@ public sealed class MovePositionsBehavior(
 
     private void HandlePointerReleased(FloorCanvasViewModel viewModel, PointerReleasedCommand command)
     {
-        if (!IsMoveModeActive())
+        if (!IsRotateModeActive())
         {
             ResetPointerState();
             return;
@@ -163,9 +173,36 @@ public sealed class MovePositionsBehavior(
         var position = command.EventArgs.GetPosition(viewModel.CanvasView);
         if (position is not null && TryGetFloorPoint(viewModel, position.Value, out var floorPoint))
         {
-            if (_dragActive)
+            var isTapOnPosition = false;
+            var isDoubleTap = !_pointerMoved && TryHandleDoubleTap(position.Value, floorPoint, out isTapOnPosition);
+            if (isDoubleTap)
             {
-                CompleteDrag();
+                CancelSelectionForDoubleTap();
+                CancelRotation();
+                ResetPointerState();
+                redrawFloorPublisher.Publish(new RedrawFloorCommand());
+                return;
+            }
+
+            if (!_pointerMoved && isTapOnPosition)
+            {
+                CancelSelectionForDoubleTap();
+                CancelRotation();
+                ResetPointerState();
+                redrawFloorPublisher.Publish(new RedrawFloorCommand());
+                return;
+            }
+
+            if (_rotationActive)
+            {
+                if (_pointerMoved)
+                {
+                    CompleteRotation();
+                }
+                else
+                {
+                    ClearSelection();
+                }
             }
             else if (_selectionActive)
             {
@@ -190,7 +227,7 @@ public sealed class MovePositionsBehavior(
 
     private void HandleTouch(FloorCanvasViewModel viewModel, TouchCommand command)
     {
-        if (!IsMoveModeActive())
+        if (!IsRotateModeActive())
         {
             return;
         }
@@ -243,9 +280,9 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        if (TryGetPositionAtPoint(globalState.SelectedScene, floorPoint, out var hitPosition))
+        if (globalState.SelectedPositions.Count > 0 && !_selectionActive)
         {
-            StartDrag(floorPoint, hitPosition);
+            StartRotation(floorPoint);
             return;
         }
 
@@ -275,9 +312,9 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        if (_dragActive)
+        if (_rotationActive && _pointerMoved)
         {
-            UpdateDrag(floorPoint);
+            UpdateRotation(floorPoint);
             return;
         }
 
@@ -307,9 +344,37 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        if (_dragActive)
+        var isTapOnPosition = false;
+        var isDoubleTap = !_pointerMoved && TryHandleDoubleTap(viewPoint, floorPoint, out isTapOnPosition);
+        if (isDoubleTap)
         {
-            CompleteDrag();
+            CancelSelectionForDoubleTap();
+            CancelRotation();
+            ResetPointerState();
+            redrawFloorPublisher.Publish(new RedrawFloorCommand());
+            return;
+        }
+
+        if (!_pointerMoved && isTapOnPosition)
+        {
+            CancelSelectionForDoubleTap();
+            CancelRotation();
+            ResetPointerState();
+            redrawFloorPublisher.Publish(new RedrawFloorCommand());
+            return;
+        }
+
+        if (_rotationActive)
+        {
+            if (_pointerMoved)
+            {
+                CompleteRotation();
+            }
+            else
+            {
+                ClearSelection();
+            }
+
             ResetPointerState();
             return;
         }
@@ -322,77 +387,16 @@ public sealed class MovePositionsBehavior(
         ResetPointerState();
     }
 
-    private void StartDrag(Point floorPoint, Position hitPosition)
-    {
-        if (!globalState.SelectedPositions.Contains(hitPosition))
-        {
-            globalState.SelectedPositions.Clear();
-            globalState.SelectedPositions.Add(hitPosition);
-        }
-
-        _dragStartPositions.Clear();
-        foreach (var selected in globalState.SelectedPositions)
-        {
-            _dragStartPositions[selected] = new Point(selected.X, selected.Y);
-        }
-
-        _dragStartFloorPoint = floorPoint;
-        _lastDragFloorPoint = floorPoint;
-        _dragActive = true;
-        _selectionActive = false;
-        _clearSelectionOnRelease = false;
-        globalState.SelectionRectangle = null;
-        stateMachine.TryApply(new MovePositionsDragStartedTrigger());
-        redrawFloorPublisher.Publish(new RedrawFloorCommand());
-    }
-
-    private void UpdateDrag(Point floorPoint)
-    {
-        if (_dragStartFloorPoint is null)
-        {
-            return;
-        }
-
-        var deltaX = floorPoint.X - _dragStartFloorPoint.Value.X;
-        var deltaY = floorPoint.Y - _dragStartFloorPoint.Value.Y;
-
-        foreach (var (position, startPoint) in _dragStartPositions)
-        {
-            position.X = startPoint.X + deltaX;
-            position.Y = startPoint.Y + deltaY;
-        }
-
-        _lastDragFloorPoint = floorPoint;
-        SnapSelectedPositionsToGrid();
-        redrawFloorPublisher.Publish(new RedrawFloorCommand());
-    }
-
-    private void CompleteDrag()
-    {
-        var floorPoint = _lastDragFloorPoint ?? _dragStartFloorPoint;
-        if (floorPoint is null)
-        {
-            return;
-        }
-
-        UpdateDrag(floorPoint.Value);
-        SnapSelectedPositionsToGrid();
-        _dragActive = false;
-        _dragStartPositions.Clear();
-        _dragStartFloorPoint = null;
-        _lastDragFloorPoint = null;
-        stateMachine.TryApply(new MovePositionsDragCompletedTrigger());
-        redrawFloorPublisher.Publish(new RedrawFloorCommand());
-    }
-
     private void StartSelection(Point floorPoint)
     {
         _selectionActive = true;
-        _dragActive = false;
+        _rotationActive = false;
         _clearSelectionOnRelease = false;
+        _rotationAnchorPosition = null;
+        ResetTapState();
         globalState.SelectedPositions.Clear();
         globalState.SelectionRectangle = new Global.SelectionRectangle(floorPoint, floorPoint);
-        stateMachine.TryApply(new MovePositionsSelectionStartedTrigger());
+        stateMachine.TryApply(new ScaleAroundDancerSelectionStartedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }
 
@@ -420,8 +424,107 @@ public sealed class MovePositionsBehavior(
 
         globalState.SelectionRectangle = null;
         _selectionActive = false;
-        stateMachine.TryApply(new MovePositionsSelectionCompletedTrigger());
+        stateMachine.TryApply(new ScaleAroundDancerSelectionCompletedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
+    }
+
+    private void CancelSelectionForDoubleTap()
+    {
+        if (!_selectionActive)
+        {
+            return;
+        }
+
+        globalState.SelectionRectangle = null;
+        _selectionActive = false;
+        stateMachine.TryApply(new ScaleAroundDancerSelectionCompletedTrigger());
+    }
+
+    private void StartRotation(Point floorPoint)
+    {
+        if (globalState.SelectedPositions.Count == 0)
+        {
+            return;
+        }
+
+        _rotationStartPositions.Clear();
+        foreach (var selected in globalState.SelectedPositions)
+        {
+            _rotationStartPositions[selected] = new Point(selected.X, selected.Y);
+        }
+
+        _rotationCenter = _rotationAnchorPosition is null
+            ? CalculateCenter(globalState.SelectedPositions)
+            : new Point(_rotationAnchorPosition.X, _rotationAnchorPosition.Y);
+        _rotationStartAngle = CalculateAngle(_rotationCenter.Value, floorPoint);
+        _lastRotationFloorPoint = floorPoint;
+        _rotationActive = true;
+        _selectionActive = false;
+        _clearSelectionOnRelease = false;
+        globalState.SelectionRectangle = null;
+        stateMachine.TryApply(new ScaleAroundDancerDragStartedTrigger());
+        redrawFloorPublisher.Publish(new RedrawFloorCommand());
+    }
+
+    private void UpdateRotation(Point floorPoint)
+    {
+        if (_rotationCenter is null || _rotationStartAngle is null)
+        {
+            return;
+        }
+
+        var angle = CalculateAngle(_rotationCenter.Value, floorPoint);
+        var delta = angle - _rotationStartAngle.Value;
+        var cos = Math.Cos(delta);
+        var sin = Math.Sin(delta);
+
+        foreach (var (position, startPoint) in _rotationStartPositions)
+        {
+            var relativeX = startPoint.X - _rotationCenter.Value.X;
+            var relativeY = startPoint.Y - _rotationCenter.Value.Y;
+            var rotatedX = relativeX * cos - relativeY * sin;
+            var rotatedY = relativeX * sin + relativeY * cos;
+            position.X = _rotationCenter.Value.X + rotatedX;
+            position.Y = _rotationCenter.Value.Y + rotatedY;
+        }
+
+        _lastRotationFloorPoint = floorPoint;
+        SnapSelectedPositionsToGrid();
+        redrawFloorPublisher.Publish(new RedrawFloorCommand());
+    }
+
+    private void CompleteRotation()
+    {
+        var floorPoint = _lastRotationFloorPoint;
+        if (floorPoint is null)
+        {
+            return;
+        }
+
+        UpdateRotation(floorPoint.Value);
+        SnapSelectedPositionsToGrid();
+        _rotationActive = false;
+        _rotationStartPositions.Clear();
+        _rotationCenter = null;
+        _rotationStartAngle = null;
+        _lastRotationFloorPoint = null;
+        stateMachine.TryApply(new ScaleAroundDancerDragCompletedTrigger());
+        redrawFloorPublisher.Publish(new RedrawFloorCommand());
+    }
+
+    private void CancelRotation()
+    {
+        if (!_rotationActive)
+        {
+            return;
+        }
+
+        _rotationActive = false;
+        _rotationStartPositions.Clear();
+        _rotationCenter = null;
+        _rotationStartAngle = null;
+        _lastRotationFloorPoint = null;
+        stateMachine.TryApply(new ScaleAroundDancerDragCompletedTrigger());
     }
 
     private void ClearSelection()
@@ -429,10 +532,13 @@ public sealed class MovePositionsBehavior(
         globalState.SelectedPositions.Clear();
         globalState.SelectionRectangle = null;
         _selectionActive = false;
-        _dragActive = false;
-        _dragStartPositions.Clear();
-        _dragStartFloorPoint = null;
-        _lastDragFloorPoint = null;
+        _rotationActive = false;
+        _rotationStartPositions.Clear();
+        _rotationCenter = null;
+        _rotationStartAngle = null;
+        _lastRotationFloorPoint = null;
+        _rotationAnchorPosition = null;
+        ResetTapState();
         ResetPointerState();
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }
@@ -444,14 +550,93 @@ public sealed class MovePositionsBehavior(
         _clearSelectionOnRelease = false;
     }
 
-    private bool IsMoveModeActive()
+    private void ResetTapState()
     {
-        if (globalState.InteractionMode != Global.InteractionMode.Move)
+        _lastTapTimestamp = null;
+        _lastTapViewPoint = null;
+        _lastTapPosition = null;
+    }
+
+    private bool IsRotateModeActive()
+    {
+        if (globalState.InteractionMode != Global.InteractionMode.RotateAroundDancer)
         {
             return false;
         }
 
-        return stateMachine.State is MovePositionsState;
+        return stateMachine.State is ScaleAroundDancerState;
+    }
+
+    private bool TryHandleDoubleTap(Point viewPoint, Point floorPoint, out bool isTapOnPosition)
+    {
+        isTapOnPosition = false;
+
+        if (!TryGetPositionAtPoint(globalState.SelectedScene, floorPoint, out var hitPosition))
+        {
+            ResetTapState();
+            return false;
+        }
+
+        isTapOnPosition = true;
+        var now = _timeProvider.GetUtcNow();
+        var isDoubleTap = _lastTapTimestamp is not null
+            && _lastTapViewPoint is not null
+            && _lastTapPosition == hitPosition
+            && (now - _lastTapTimestamp.Value).TotalMilliseconds <= DoubleTapTimeThresholdMs
+            && CalculateDistance(viewPoint, _lastTapViewPoint.Value) <= DoubleTapDistanceThreshold;
+
+        _lastTapTimestamp = now;
+        _lastTapViewPoint = viewPoint;
+        _lastTapPosition = hitPosition;
+
+        if (!isDoubleTap)
+        {
+            return false;
+        }
+
+        SetAnchorPosition(hitPosition);
+        ResetTapState();
+        return true;
+    }
+
+    private void SetAnchorPosition(Position position)
+    {
+        _rotationAnchorPosition = position;
+        if (!globalState.SelectedPositions.Contains(position))
+        {
+            globalState.SelectedPositions.Add(position);
+        }
+    }
+
+    private static Point CalculateCenter(IReadOnlyCollection<Position> positions)
+    {
+        double sumX = 0d;
+        double sumY = 0d;
+        foreach (var position in positions)
+        {
+            sumX += position.X;
+            sumY += position.Y;
+        }
+
+        var count = positions.Count;
+        if (count == 0)
+        {
+            return new Point(0d, 0d);
+        }
+
+        return new Point(sumX / count, sumY / count);
+    }
+
+    private static double CalculateAngle(Point center, Point point)
+    {
+        return Math.Atan2(point.Y - center.Y, point.X - center.X);
+    }
+
+    private static double CalculateDistance(Point center, Point point)
+    {
+        var dx = point.X - center.X;
+        var dy = point.Y - center.Y;
+        return Math.Sqrt(dx * dx + dy * dy);
     }
 
     private bool TryGetPositionAtPoint(SceneViewModel? scene, Point floorPoint, out Position position)

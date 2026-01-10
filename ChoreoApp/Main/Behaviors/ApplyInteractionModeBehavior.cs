@@ -26,23 +26,39 @@ public sealed class ApplyInteractionModeBehavior(
             case InteractionMode.Move:
                 stateMachine.TryApply(new RotateAroundCenterCompletedTrigger());
                 stateMachine.TryApply(new ScalePositionsCompletedTrigger());
+                stateMachine.TryApply(new ScaleAroundDancerCompletedTrigger());
                 stateMachine.TryApply(new MovePositionsStartedTrigger());
                 break;
             case InteractionMode.RotateAroundCenter when globalState.SelectedPositions.Count == 0:
                 stateMachine.TryApply(new ScalePositionsCompletedTrigger());
+                stateMachine.TryApply(new ScaleAroundDancerCompletedTrigger());
                 stateMachine.TryApply(new RotateAroundCenterStartedTrigger());
                 break;
             case InteractionMode.RotateAroundCenter:
                 stateMachine.TryApply(new ScalePositionsCompletedTrigger());
+                stateMachine.TryApply(new ScaleAroundDancerCompletedTrigger());
                 stateMachine.TryApply(new RotateAroundCenterStartedTrigger());
                 stateMachine.TryApply(new RotateAroundCenterSelectionCompletedTrigger());
                 break;
+            case InteractionMode.RotateAroundDancer when globalState.SelectedPositions.Count == 0:
+                stateMachine.TryApply(new RotateAroundCenterCompletedTrigger());
+                stateMachine.TryApply(new ScalePositionsCompletedTrigger());
+                stateMachine.TryApply(new ScaleAroundDancerStartedTrigger());
+                break;
+            case InteractionMode.RotateAroundDancer:
+                stateMachine.TryApply(new RotateAroundCenterCompletedTrigger());
+                stateMachine.TryApply(new ScalePositionsCompletedTrigger());
+                stateMachine.TryApply(new ScaleAroundDancerStartedTrigger());
+                stateMachine.TryApply(new ScaleAroundDancerSelectionCompletedTrigger());
+                break;
             case InteractionMode.Scale when globalState.SelectedPositions.Count == 0:
                 stateMachine.TryApply(new RotateAroundCenterCompletedTrigger());
+                stateMachine.TryApply(new ScaleAroundDancerCompletedTrigger());
                 stateMachine.TryApply(new ScalePositionsStartedTrigger());
                 break;
             case InteractionMode.Scale:
                 stateMachine.TryApply(new RotateAroundCenterCompletedTrigger());
+                stateMachine.TryApply(new ScaleAroundDancerCompletedTrigger());
                 stateMachine.TryApply(new ScalePositionsStartedTrigger());
                 stateMachine.TryApply(new ScalePositionsSelectionCompletedTrigger());
                 break;
@@ -50,6 +66,7 @@ public sealed class ApplyInteractionModeBehavior(
                 stateMachine.TryApply(new MovePositionsCompletedTrigger());
                 stateMachine.TryApply(new RotateAroundCenterCompletedTrigger());
                 stateMachine.TryApply(new ScalePositionsCompletedTrigger());
+                stateMachine.TryApply(new ScaleAroundDancerCompletedTrigger());
                 break;
         }
     }

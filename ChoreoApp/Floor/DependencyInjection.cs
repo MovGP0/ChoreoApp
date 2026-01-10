@@ -14,6 +14,7 @@ public static class DependencyInjection
         services.AddTransient<IBehavior<FloorCanvasViewModel>, Behaviors.MovePositionsBehavior>();
         services.AddTransient<IBehavior<FloorCanvasViewModel>, Behaviors.RotateAroundCenterBehavior>();
         services.AddTransient<IBehavior<FloorCanvasViewModel>, Behaviors.ScalePositionsBehavior>();
+        services.AddTransient<IBehavior<FloorCanvasViewModel>, Behaviors.ScaleAroundDancerBehavior>();
 
         return services;
     }

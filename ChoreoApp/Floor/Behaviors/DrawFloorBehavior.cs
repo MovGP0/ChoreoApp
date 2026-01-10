@@ -80,7 +80,8 @@ public sealed class DrawFloorBehavior(
             && stateMachine.State is not PlacePositionsState
             && stateMachine.State is not MovePositionsState
             && stateMachine.State is not RotateAroundCenterState
-            && stateMachine.State is not ScalePositionsState)
+            && stateMachine.State is not ScalePositionsState
+            && stateMachine.State is not ScaleAroundDancerState)
         {
             return;
         }

@@ -64,7 +64,8 @@ public sealed class ScalePositionsBehavior(
             {
                 if (mode != Global.InteractionMode.Scale
                     && mode != Global.InteractionMode.Move
-                    && mode != Global.InteractionMode.RotateAroundCenter)
+                    && mode != Global.InteractionMode.RotateAroundCenter
+                    && mode != Global.InteractionMode.RotateAroundDancer)
                 {
                     ClearSelection();
                 }

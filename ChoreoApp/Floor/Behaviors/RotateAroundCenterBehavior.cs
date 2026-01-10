@@ -64,7 +64,8 @@ public sealed class RotateAroundCenterBehavior(
             {
                 if (mode != Global.InteractionMode.RotateAroundCenter
                     && mode != Global.InteractionMode.Move
-                    && mode != Global.InteractionMode.Scale)
+                    && mode != Global.InteractionMode.Scale
+                    && mode != Global.InteractionMode.RotateAroundDancer)
                 {
                     ClearSelection();
                 }
