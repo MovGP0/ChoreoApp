@@ -1,6 +1,7 @@
 ﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.ColorPicker;
+using ChoreoApp.Models;
 
 namespace ChoreoApp.Settings;
 

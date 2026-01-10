@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Global;
+using ChoreoApp.Models;
 using ChoreoApp.Settings;
 using MessagePipe;
 

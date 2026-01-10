@@ -1,4 +1,4 @@
-namespace ChoreoApp.Settings;
+namespace ChoreoApp.Models;
 
 public static class SettingsPreferenceKeys
 {

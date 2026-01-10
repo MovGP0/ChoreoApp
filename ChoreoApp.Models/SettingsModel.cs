@@ -1,4 +1,3 @@
-using ChoreoApp.Settings;
 using ChoreoMasterMobile.Json;
 
 namespace ChoreoApp.Models;

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
@@ -74,6 +74,7 @@
     <PackageReference Include="CommunityToolkit.Maui" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ChoreoApp.Models\ChoreoApp.Models.csproj" />
     <ProjectReference Include="..\ChoreoApp.i18n\ChoreoApp.i18n.csproj" />
     <ProjectReference Include="..\ChoreoApp.Algorithms\ChoreoApp.Algorithms.csproj" />
     <ProjectReference Include="..\MaterialDesignThemes.Maui\MaterialDesignThemes.Maui.csproj" />
@@ -108,3 +109,4 @@
     </Compile>
   </ItemGroup>
 </Project>
+
