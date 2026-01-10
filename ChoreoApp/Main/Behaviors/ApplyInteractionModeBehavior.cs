@@ -21,12 +21,21 @@ public sealed class ApplyInteractionModeBehavior(
 
     private void ApplyMode(InteractionMode mode)
     {
-        if (mode == InteractionMode.Move)
+        switch (mode)
         {
-            stateMachine.TryApply(new MovePositionsStartedTrigger());
-            return;
+            case InteractionMode.Move:
+                stateMachine.TryApply(new MovePositionsStartedTrigger());
+                break;
+            case InteractionMode.RotateAroundCenter when globalState.SelectedPositions.Count == 0:
+                stateMachine.TryApply(new RotateAroundCenterStartedTrigger());
+                break;
+            case InteractionMode.RotateAroundCenter:
+                stateMachine.TryApply(new RotateAroundCenterSelectionCompletedTrigger());
+                break;
+            default:
+                stateMachine.TryApply(new MovePositionsCompletedTrigger());
+                stateMachine.TryApply(new RotateAroundCenterCompletedTrigger());
+                break;
         }
-
-        stateMachine.TryApply(new MovePositionsCompletedTrigger());
     }
 }

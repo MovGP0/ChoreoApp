@@ -91,7 +91,7 @@ public sealed class GestureHandlingBehavior(
 
     private void HandlePointerPressed(PointerPressedCommand command)
     {
-        if (stateMachine.State is MovePositionsState)
+        if (stateMachine.State is MovePositionsState or RotateAroundCenterState)
         {
             return;
         }
@@ -110,7 +110,7 @@ public sealed class GestureHandlingBehavior(
 
     private void HandlePointerMoved(FloorCanvasViewModel viewModel, PointerMovedCommand command)
     {
-        if (stateMachine.State is MovePositionsState)
+        if (stateMachine.State is MovePositionsState or RotateAroundCenterState)
         {
             return;
         }
@@ -138,7 +138,7 @@ public sealed class GestureHandlingBehavior(
 
     private void HandlePointerReleased(PointerReleasedCommand _)
     {
-        if (stateMachine.State is MovePositionsState)
+        if (stateMachine.State is MovePositionsState or RotateAroundCenterState)
         {
             return;
         }
@@ -148,7 +148,7 @@ public sealed class GestureHandlingBehavior(
 
     private void HandlePointerWheelChanged(FloorCanvasViewModel viewModel, PointerWheelChangedCommand command)
     {
-        if (stateMachine.State is MovePositionsState)
+        if (stateMachine.State is MovePositionsState or RotateAroundCenterState)
         {
             return;
         }
@@ -173,7 +173,7 @@ public sealed class GestureHandlingBehavior(
 
     private void HandleTouch(FloorCanvasViewModel viewModel, TouchCommand command)
     {
-        if (stateMachine.State is MovePositionsState)
+        if (stateMachine.State is MovePositionsState or RotateAroundCenterState)
         {
             return;
         }

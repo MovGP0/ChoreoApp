@@ -56,6 +56,36 @@ public static class DependencyInjection
                 Preconditions: [],
                 Apply: (_, _, _) => new MovePositionsState()))
             .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ViewSceneState),
+                Trigger: typeof(RotateAroundCenterStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ViewScenePanState),
+                Trigger: typeof(RotateAroundCenterStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ViewSceneZoomState),
+                Trigger: typeof(RotateAroundCenterStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(MovePositionsState),
+                Trigger: typeof(RotateAroundCenterStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(MovePositionsSelectionState),
+                Trigger: typeof(RotateAroundCenterStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(MovePositionsDragState),
+                Trigger: typeof(RotateAroundCenterStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterState()))
+            .AddSingleton<StateTransition>(_ => new(
                 FromState: typeof(MovePositionsState),
                 Trigger: typeof(MovePositionsCompletedTrigger),
                 Preconditions: [],
@@ -90,6 +120,101 @@ public static class DependencyInjection
                 Trigger: typeof(MovePositionsDragCompletedTrigger),
                 Preconditions: [],
                 Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterState),
+                Trigger: typeof(MovePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterSelectionStartState),
+                Trigger: typeof(MovePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterSelectionEndState),
+                Trigger: typeof(MovePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterRotationStartState),
+                Trigger: typeof(MovePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterRotationEndState),
+                Trigger: typeof(MovePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterState),
+                Trigger: typeof(RotateAroundCenterCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterSelectionStartState),
+                Trigger: typeof(RotateAroundCenterCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterSelectionEndState),
+                Trigger: typeof(RotateAroundCenterCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterRotationStartState),
+                Trigger: typeof(RotateAroundCenterCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterRotationEndState),
+                Trigger: typeof(RotateAroundCenterCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterState),
+                Trigger: typeof(RotateAroundCenterSelectionStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterSelectionStartState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterSelectionEndState),
+                Trigger: typeof(RotateAroundCenterSelectionStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterSelectionStartState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterRotationEndState),
+                Trigger: typeof(RotateAroundCenterSelectionStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterSelectionStartState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterSelectionStartState),
+                Trigger: typeof(RotateAroundCenterSelectionCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterSelectionEndState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterState),
+                Trigger: typeof(RotateAroundCenterSelectionCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterSelectionEndState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterState),
+                Trigger: typeof(RotateAroundCenterRotationStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterRotationStartState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterSelectionEndState),
+                Trigger: typeof(RotateAroundCenterRotationStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterRotationStartState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterRotationEndState),
+                Trigger: typeof(RotateAroundCenterRotationStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterRotationStartState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterRotationStartState),
+                Trigger: typeof(RotateAroundCenterRotationCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterRotationEndState()))
             .AddSingleton<StateTransition>(_ => new(
                 FromState: typeof(ViewSceneState),
                 Trigger: typeof(PlacePositionsStartedTrigger),

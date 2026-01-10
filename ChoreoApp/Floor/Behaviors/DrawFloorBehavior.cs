@@ -78,7 +78,8 @@ public sealed class DrawFloorBehavior(
 
         if (stateMachine.State is not ViewSceneState
             && stateMachine.State is not PlacePositionsState
-            && stateMachine.State is not MovePositionsState)
+            && stateMachine.State is not MovePositionsState
+            && stateMachine.State is not RotateAroundCenterState)
         {
             return;
         }
