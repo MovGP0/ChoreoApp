@@ -26,15 +26,18 @@
                                    HorizontalOptions="End"
                                    VerticalOptions="Center"
                                    Spacing="8">
-                  <Picker x:DataType="main:InteractionModeOption"
-                          ItemsSource="{Binding Source={x:Reference Root}, Path=BindingContext.ModeOptions, x:DataType=main:MainViewModel}"
-                          SelectedItem="{Binding Source={x:Reference Root}, Path=BindingContext.SelectedModeOption, x:DataType=main:MainViewModel}"
-                          ItemDisplayBinding="{Binding Display}"
-                          IsEnabled="{Binding Source={x:Reference Root}, Path=BindingContext.IsModeSelectionEnabled, x:DataType=main:MainViewModel}"
+                  <Picker x:DataType="main:MainViewModel"
+                          ItemsSource="{Binding ModeOptions}"
+                          SelectedItem="{Binding SelectedModeOption}"
+                          IsEnabled="{Binding IsModeSelectionEnabled}"
                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                           BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                           HeightRequest="32"
-                          WidthRequest="180" />
+                          WidthRequest="180">
+                    <Picker.ItemDisplayBinding>
+                      <Binding Path="Display" x:DataType="main:InteractionModeOption" />
+                    </Picker.ItemDisplayBinding>
+                  </Picker>
                 <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
                                        Command="{Binding OpenChoreographySettingsCommand}">
                     <styling:PackIcon Kind="Pen" />
