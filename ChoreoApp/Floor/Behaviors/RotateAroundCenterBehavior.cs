@@ -62,7 +62,9 @@ public sealed class RotateAroundCenterBehavior(
             .WhenAnyValue(state => state.InteractionMode)
             .Subscribe(mode =>
             {
-                if (mode != Global.InteractionMode.RotateAroundCenter)
+                if (mode != Global.InteractionMode.RotateAroundCenter
+                    && mode != Global.InteractionMode.Move
+                    && mode != Global.InteractionMode.Scale)
                 {
                     ClearSelection();
                 }

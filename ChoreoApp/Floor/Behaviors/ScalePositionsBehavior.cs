@@ -1,4 +1,4 @@
-using System.Reactive.Disposables;
+﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Floor.Messages;
 using ChoreoApp.Scenes;
@@ -13,7 +13,7 @@ using Position = ChoreoApp.Models.PositionModel;
 
 namespace ChoreoApp.Floor.Behaviors;
 
-public sealed class MovePositionsBehavior(
+public sealed class ScalePositionsBehavior(
     Global.GlobalStateModel globalState,
     ApplicationStateMachine stateMachine,
     IPublisher<RedrawFloorCommand> redrawFloorPublisher,
@@ -26,14 +26,15 @@ public sealed class MovePositionsBehavior(
     private readonly HashSet<long> _touchMoved = new();
 
     private Point? _pointerPressedPosition;
-    private Point? _dragStartFloorPoint;
     private bool _pointerMoved;
     private bool _selectionActive;
-    private bool _dragActive;
+    private bool _scaleActive;
     private bool _clearSelectionOnRelease;
 
-    private readonly Dictionary<Position, Point> _dragStartPositions = new();
-    private Point? _lastDragFloorPoint;
+    private readonly Dictionary<Position, Point> _scaleStartPositions = new();
+    private Point? _scaleCenter;
+    private double? _scaleStartDistance;
+    private Point? _lastScaleFloorPoint;
 
     public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)
     {
@@ -61,9 +62,9 @@ public sealed class MovePositionsBehavior(
             .WhenAnyValue(state => state.InteractionMode)
             .Subscribe(mode =>
             {
-                if (mode != Global.InteractionMode.Move
-                    && mode != Global.InteractionMode.RotateAroundCenter
-                    && mode != Global.InteractionMode.Scale)
+                if (mode != Global.InteractionMode.Scale
+                    && mode != Global.InteractionMode.Move
+                    && mode != Global.InteractionMode.RotateAroundCenter)
                 {
                     ClearSelection();
                 }
@@ -73,7 +74,7 @@ public sealed class MovePositionsBehavior(
 
     private void HandlePointerPressed(FloorCanvasViewModel viewModel, PointerPressedCommand command)
     {
-        if (!IsMoveModeActive())
+        if (!IsScaleModeActive())
         {
             return;
         }
@@ -94,9 +95,9 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        if (TryGetPositionAtPoint(globalState.SelectedScene, floorPoint, out var hitPosition))
+        if (globalState.SelectedPositions.Count > 0 && !_selectionActive)
         {
-            StartDrag(floorPoint, hitPosition);
+            StartScale(floorPoint);
             return;
         }
 
@@ -105,7 +106,7 @@ public sealed class MovePositionsBehavior(
 
     private void HandlePointerMoved(FloorCanvasViewModel viewModel, PointerMovedCommand command)
     {
-        if (!IsMoveModeActive())
+        if (!IsScaleModeActive())
         {
             return;
         }
@@ -134,9 +135,9 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        if (_dragActive)
+        if (_scaleActive && _pointerMoved)
         {
-            UpdateDrag(floorPoint);
+            UpdateScale(floorPoint);
             return;
         }
 
@@ -148,7 +149,7 @@ public sealed class MovePositionsBehavior(
 
     private void HandlePointerReleased(FloorCanvasViewModel viewModel, PointerReleasedCommand command)
     {
-        if (!IsMoveModeActive())
+        if (!IsScaleModeActive())
         {
             ResetPointerState();
             return;
@@ -162,9 +163,16 @@ public sealed class MovePositionsBehavior(
         var position = command.EventArgs.GetPosition(viewModel.CanvasView);
         if (position is not null && TryGetFloorPoint(viewModel, position.Value, out var floorPoint))
         {
-            if (_dragActive)
+            if (_scaleActive)
             {
-                CompleteDrag();
+                if (_pointerMoved)
+                {
+                    CompleteScale();
+                }
+                else
+                {
+                    ClearSelection();
+                }
             }
             else if (_selectionActive)
             {
@@ -189,7 +197,7 @@ public sealed class MovePositionsBehavior(
 
     private void HandleTouch(FloorCanvasViewModel viewModel, TouchCommand command)
     {
-        if (!IsMoveModeActive())
+        if (!IsScaleModeActive())
         {
             return;
         }
@@ -242,9 +250,9 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        if (TryGetPositionAtPoint(globalState.SelectedScene, floorPoint, out var hitPosition))
+        if (globalState.SelectedPositions.Count > 0 && !_selectionActive)
         {
-            StartDrag(floorPoint, hitPosition);
+            StartScale(floorPoint);
             return;
         }
 
@@ -274,9 +282,9 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        if (_dragActive)
+        if (_scaleActive && _pointerMoved)
         {
-            UpdateDrag(floorPoint);
+            UpdateScale(floorPoint);
             return;
         }
 
@@ -306,9 +314,17 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        if (_dragActive)
+        if (_scaleActive)
         {
-            CompleteDrag();
+            if (_pointerMoved)
+            {
+                CompleteScale();
+            }
+            else
+            {
+                ClearSelection();
+            }
+
             ResetPointerState();
             return;
         }
@@ -321,77 +337,14 @@ public sealed class MovePositionsBehavior(
         ResetPointerState();
     }
 
-    private void StartDrag(Point floorPoint, Position hitPosition)
-    {
-        if (!globalState.SelectedPositions.Contains(hitPosition))
-        {
-            globalState.SelectedPositions.Clear();
-            globalState.SelectedPositions.Add(hitPosition);
-        }
-
-        _dragStartPositions.Clear();
-        foreach (var selected in globalState.SelectedPositions)
-        {
-            _dragStartPositions[selected] = new Point(selected.X, selected.Y);
-        }
-
-        _dragStartFloorPoint = floorPoint;
-        _lastDragFloorPoint = floorPoint;
-        _dragActive = true;
-        _selectionActive = false;
-        _clearSelectionOnRelease = false;
-        globalState.SelectionRectangle = null;
-        stateMachine.TryApply(new MovePositionsDragStartedTrigger());
-        redrawFloorPublisher.Publish(new RedrawFloorCommand());
-    }
-
-    private void UpdateDrag(Point floorPoint)
-    {
-        if (_dragStartFloorPoint is null)
-        {
-            return;
-        }
-
-        var deltaX = floorPoint.X - _dragStartFloorPoint.Value.X;
-        var deltaY = floorPoint.Y - _dragStartFloorPoint.Value.Y;
-
-        foreach (var (position, startPoint) in _dragStartPositions)
-        {
-            position.X = startPoint.X + deltaX;
-            position.Y = startPoint.Y + deltaY;
-        }
-
-        _lastDragFloorPoint = floorPoint;
-        SnapSelectedPositionsToGrid();
-        redrawFloorPublisher.Publish(new RedrawFloorCommand());
-    }
-
-    private void CompleteDrag()
-    {
-        var floorPoint = _lastDragFloorPoint ?? _dragStartFloorPoint;
-        if (floorPoint is null)
-        {
-            return;
-        }
-
-        UpdateDrag(floorPoint.Value);
-        SnapSelectedPositionsToGrid();
-        _dragActive = false;
-        _dragStartPositions.Clear();
-        _dragStartFloorPoint = null;
-        _lastDragFloorPoint = null;
-        stateMachine.TryApply(new MovePositionsDragCompletedTrigger());
-        redrawFloorPublisher.Publish(new RedrawFloorCommand());
-    }
-
     private void StartSelection(Point floorPoint)
     {
         _selectionActive = true;
-        _dragActive = false;
+        _scaleActive = false;
         _clearSelectionOnRelease = false;
         globalState.SelectedPositions.Clear();
         globalState.SelectionRectangle = new Global.SelectionRectangle(floorPoint, floorPoint);
-        stateMachine.TryApply(new MovePositionsSelectionStartedTrigger());
+        stateMachine.TryApply(new ScalePositionsSelectionStartedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }
 
@@ -419,7 +372,83 @@ public sealed class MovePositionsBehavior(
 
         globalState.SelectionRectangle = null;
         _selectionActive = false;
-        stateMachine.TryApply(new MovePositionsSelectionCompletedTrigger());
+        stateMachine.TryApply(new ScalePositionsSelectionCompletedTrigger());
+        redrawFloorPublisher.Publish(new RedrawFloorCommand());
+    }
+
+    private void StartScale(Point floorPoint)
+    {
+        if (globalState.SelectedPositions.Count == 0)
+        {
+            return;
+        }
+
+        _scaleStartPositions.Clear();
+        foreach (var selected in globalState.SelectedPositions)
+        {
+            _scaleStartPositions[selected] = new Point(selected.X, selected.Y);
+        }
+
+        _scaleCenter = CalculateCenter(globalState.SelectedPositions);
+        _scaleStartDistance = CalculateDistance(_scaleCenter.Value, floorPoint);
+        if (_scaleStartDistance <= 0d)
+        {
+            _scaleStartDistance = null;
+            return;
+        }
+
+        _lastScaleFloorPoint = floorPoint;
+        _scaleActive = true;
+        _selectionActive = false;
+        _clearSelectionOnRelease = false;
+        globalState.SelectionRectangle = null;
+        stateMachine.TryApply(new ScalePositionsDragStartedTrigger());
+        redrawFloorPublisher.Publish(new RedrawFloorCommand());
+    }
+
+    private void UpdateScale(Point floorPoint)
+    {
+        if (_scaleCenter is null || _scaleStartDistance is null)
+        {
+            return;
+        }
+
+        var currentDistance = CalculateDistance(_scaleCenter.Value, floorPoint);
+        if (currentDistance <= 0d)
+        {
+            return;
+        }
+
+        var factor = currentDistance / _scaleStartDistance.Value;
+        foreach (var (position, startPoint) in _scaleStartPositions)
+        {
+            var relativeX = startPoint.X - _scaleCenter.Value.X;
+            var relativeY = startPoint.Y - _scaleCenter.Value.Y;
+            position.X = _scaleCenter.Value.X + relativeX * factor;
+            position.Y = _scaleCenter.Value.Y + relativeY * factor;
+        }
+
+        _lastScaleFloorPoint = floorPoint;
+        SnapSelectedPositionsToGrid();
+        redrawFloorPublisher.Publish(new RedrawFloorCommand());
+    }
+
+    private void CompleteScale()
+    {
+        var floorPoint = _lastScaleFloorPoint;
+        if (floorPoint is null)
+        {
+            return;
+        }
+
+        UpdateScale(floorPoint.Value);
+        SnapSelectedPositionsToGrid();
+        _scaleActive = false;
+        _scaleStartPositions.Clear();
+        _scaleCenter = null;
+        _scaleStartDistance = null;
+        _lastScaleFloorPoint = null;
+        stateMachine.TryApply(new ScalePositionsDragCompletedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }
 
@@ -428,10 +457,11 @@ public sealed class MovePositionsBehavior(
         globalState.SelectedPositions.Clear();
         globalState.SelectionRectangle = null;
         _selectionActive = false;
-        _dragActive = false;
-        _dragStartPositions.Clear();
-        _dragStartFloorPoint = null;
-        _lastDragFloorPoint = null;
+        _scaleActive = false;
+        _scaleStartPositions.Clear();
+        _scaleCenter = null;
+        _scaleStartDistance = null;
+        _lastScaleFloorPoint = null;
         ResetPointerState();
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }
@@ -443,39 +473,40 @@ public sealed class MovePositionsBehavior(
         _clearSelectionOnRelease = false;
     }
 
-    private bool IsMoveModeActive()
+    private bool IsScaleModeActive()
     {
-        if (globalState.InteractionMode != Global.InteractionMode.Move)
+        if (globalState.InteractionMode != Global.InteractionMode.Scale)
         {
             return false;
         }
 
-        return stateMachine.State is MovePositionsState;
+        return stateMachine.State is ScalePositionsState;
     }
 
-    private bool TryGetPositionAtPoint(SceneViewModel? scene, Point floorPoint, out Position position)
+    private static Point CalculateCenter(IReadOnlyCollection<Position> positions)
     {
-        position = null!;
-
-        if (scene is null || globalState.Choreography is not { } choreography)
+        double sumX = 0d;
+        double sumY = 0d;
+        foreach (var position in positions)
         {
-            return false;
+            sumX += position.X;
+            sumY += position.Y;
         }
 
-        var size = (double)choreography.Settings.DancerSize;
-        var halfSize = size / 2d;
-
-        foreach (var candidate in scene.Positions)
+        var count = positions.Count;
+        if (count == 0)
         {
-            if (Math.Abs(candidate.X - floorPoint.X) <= halfSize
-                && Math.Abs(candidate.Y - floorPoint.Y) <= halfSize)
-            {
-                position = candidate;
-                return true;
-            }
+            return new Point(0d, 0d);
         }
 
-        return false;
+        return new Point(sumX / count, sumY / count);
+    }
+
+    private static double CalculateDistance(Point center, Point point)
+    {
+        var dx = point.X - center.X;
+        var dy = point.Y - center.Y;
+        return Math.Sqrt(dx * dx + dy * dy);
     }
 
     private IReadOnlyList<Position> GetPositionsInRectangle(SceneViewModel? scene, Global.SelectionRectangle rectangle)

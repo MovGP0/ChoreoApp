@@ -71,6 +71,21 @@ public static class DependencyInjection
                 Preconditions: [],
                 Apply: (_, _, _) => new RotateAroundCenterState()))
             .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ViewSceneState),
+                Trigger: typeof(ScalePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ViewScenePanState),
+                Trigger: typeof(ScalePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ViewSceneZoomState),
+                Trigger: typeof(ScalePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
                 FromState: typeof(MovePositionsState),
                 Trigger: typeof(RotateAroundCenterStartedTrigger),
                 Preconditions: [],
@@ -85,6 +100,21 @@ public static class DependencyInjection
                 Trigger: typeof(RotateAroundCenterStartedTrigger),
                 Preconditions: [],
                 Apply: (_, _, _) => new RotateAroundCenterState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(MovePositionsState),
+                Trigger: typeof(ScalePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(MovePositionsSelectionState),
+                Trigger: typeof(ScalePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(MovePositionsDragState),
+                Trigger: typeof(ScalePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsState()))
             .AddSingleton<StateTransition>(_ => new(
                 FromState: typeof(MovePositionsState),
                 Trigger: typeof(MovePositionsCompletedTrigger),
@@ -142,6 +172,31 @@ public static class DependencyInjection
                 Apply: (_, _, _) => new MovePositionsState()))
             .AddSingleton<StateTransition>(_ => new(
                 FromState: typeof(RotateAroundCenterRotationEndState),
+                Trigger: typeof(MovePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsState),
+                Trigger: typeof(MovePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsSelectionStartState),
+                Trigger: typeof(MovePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsSelectionEndState),
+                Trigger: typeof(MovePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsDragStartState),
+                Trigger: typeof(MovePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new MovePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsDragEndState),
                 Trigger: typeof(MovePositionsStartedTrigger),
                 Preconditions: [],
                 Apply: (_, _, _) => new MovePositionsState()))
@@ -215,6 +270,111 @@ public static class DependencyInjection
                 Trigger: typeof(RotateAroundCenterRotationCompletedTrigger),
                 Preconditions: [],
                 Apply: (_, _, _) => new RotateAroundCenterRotationEndState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterState),
+                Trigger: typeof(ScalePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterSelectionStartState),
+                Trigger: typeof(ScalePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterSelectionEndState),
+                Trigger: typeof(ScalePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterRotationStartState),
+                Trigger: typeof(ScalePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(RotateAroundCenterRotationEndState),
+                Trigger: typeof(ScalePositionsStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsState),
+                Trigger: typeof(ScalePositionsCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsSelectionStartState),
+                Trigger: typeof(ScalePositionsCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsSelectionEndState),
+                Trigger: typeof(ScalePositionsCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsDragStartState),
+                Trigger: typeof(ScalePositionsCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsDragEndState),
+                Trigger: typeof(ScalePositionsCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ViewSceneState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsState),
+                Trigger: typeof(ScalePositionsSelectionStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsSelectionStartState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsSelectionStartState),
+                Trigger: typeof(ScalePositionsSelectionCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsSelectionEndState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsState),
+                Trigger: typeof(ScalePositionsSelectionCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsSelectionEndState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsState),
+                Trigger: typeof(ScalePositionsDragStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsDragStartState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsSelectionEndState),
+                Trigger: typeof(ScalePositionsDragStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsDragStartState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsDragStartState),
+                Trigger: typeof(ScalePositionsDragCompletedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new ScalePositionsDragEndState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsState),
+                Trigger: typeof(RotateAroundCenterStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsSelectionStartState),
+                Trigger: typeof(RotateAroundCenterStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsSelectionEndState),
+                Trigger: typeof(RotateAroundCenterStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsDragStartState),
+                Trigger: typeof(RotateAroundCenterStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterState()))
+            .AddSingleton<StateTransition>(_ => new(
+                FromState: typeof(ScalePositionsDragEndState),
+                Trigger: typeof(RotateAroundCenterStartedTrigger),
+                Preconditions: [],
+                Apply: (_, _, _) => new RotateAroundCenterState()))
             .AddSingleton<StateTransition>(_ => new(
                 FromState: typeof(ViewSceneState),
                 Trigger: typeof(PlacePositionsStartedTrigger),

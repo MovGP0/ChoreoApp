@@ -24,17 +24,32 @@ public sealed class ApplyInteractionModeBehavior(
         switch (mode)
         {
             case InteractionMode.Move:
+                stateMachine.TryApply(new RotateAroundCenterCompletedTrigger());
+                stateMachine.TryApply(new ScalePositionsCompletedTrigger());
                 stateMachine.TryApply(new MovePositionsStartedTrigger());
                 break;
             case InteractionMode.RotateAroundCenter when globalState.SelectedPositions.Count == 0:
+                stateMachine.TryApply(new ScalePositionsCompletedTrigger());
                 stateMachine.TryApply(new RotateAroundCenterStartedTrigger());
                 break;
             case InteractionMode.RotateAroundCenter:
+                stateMachine.TryApply(new ScalePositionsCompletedTrigger());
+                stateMachine.TryApply(new RotateAroundCenterStartedTrigger());
                 stateMachine.TryApply(new RotateAroundCenterSelectionCompletedTrigger());
+                break;
+            case InteractionMode.Scale when globalState.SelectedPositions.Count == 0:
+                stateMachine.TryApply(new RotateAroundCenterCompletedTrigger());
+                stateMachine.TryApply(new ScalePositionsStartedTrigger());
+                break;
+            case InteractionMode.Scale:
+                stateMachine.TryApply(new RotateAroundCenterCompletedTrigger());
+                stateMachine.TryApply(new ScalePositionsStartedTrigger());
+                stateMachine.TryApply(new ScalePositionsSelectionCompletedTrigger());
                 break;
             default:
                 stateMachine.TryApply(new MovePositionsCompletedTrigger());
                 stateMachine.TryApply(new RotateAroundCenterCompletedTrigger());
+                stateMachine.TryApply(new ScalePositionsCompletedTrigger());
                 break;
         }
     }
