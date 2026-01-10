@@ -47,7 +47,7 @@
                     <styling:PackIcon Kind="Svg" />
                 </styling:ContentButton>
                 <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
-                                       Command="{Binding ToggleAudioPlayerCommand}">
+                                       Command="{Binding OpenAudioCommand}">
                     <styling:PackIcon Kind="PlayCircle" />
                 </styling:ContentButton>
             </HorizontalStackLayout>

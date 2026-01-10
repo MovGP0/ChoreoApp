@@ -5,11 +5,8 @@ using System.Reactive.Linq;
 using ChoreoApp.AudioPlayer;
 using ChoreoApp.Global;
 using ChoreoApp.i18n;
-using ChoreoApp.Main.Messages;
 using ChoreoApp.Scenes;
 using ChoreoApp.StateMachine;
-using ChoreoApp.StateMachine.Triggers;
-using MessagePipe;
 
 namespace ChoreoApp.Main;
 
@@ -19,15 +16,11 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
         IEnumerable<IBehavior<MainViewModel>> behaviors,
         GlobalStateModel globalState,
         ApplicationStateMachine stateMachine,
-        AudioPlayerViewModel audioPlayerViewModel,
-        IPublisher<OpenAudioFileCommand> openAudioPublisher,
-        IPublisher<OpenSvgFileCommand> openSvgPublisher)
+        AudioPlayerViewModel audioPlayerViewModel)
     {
         _globalState = globalState;
         _stateMachine = stateMachine;
         AudioPlayerViewModel = audioPlayerViewModel;
-        _openAudioPublisher = openAudioPublisher;
-        _openSvgPublisher = openSvgPublisher;
 
         ModeOptions = BuildModeOptions();
         SelectedModeOption = ModeOptions.FirstOrDefault(option => option.Mode == _globalState.InteractionMode)
@@ -79,8 +72,6 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
     }
 
     private const double DefaultNavWidth = 280d;
-    private readonly IPublisher<OpenAudioFileCommand> _openAudioPublisher;
-    private readonly IPublisher<OpenSvgFileCommand> _openSvgPublisher;
     private readonly GlobalStateModel _globalState;
     private readonly ApplicationStateMachine _stateMachine;
 
@@ -113,93 +104,15 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
     private View? _dialogContentView;
 
     [ReactiveCommand]
-    private async Task ToggleAudioPlayer()
+    private Task OpenAudioAsync()
     {
-        if (IsAudioPlayerOpen)
-        {
-            IsAudioPlayerOpen = false;
-            return;
-        }
-
-        if (AudioPlayerViewModel.StreamFactory is not null)
-        {
-            IsAudioPlayerOpen = true;
-            return;
-        }
-
-        var result = await FilePicker.Default.PickAsync(new PickOptions
-        {
-            PickerTitle = "Open audio file",
-            FileTypes = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
-            {
-                [DevicePlatform.WinUI] = [".mp3"],
-                [DevicePlatform.MacCatalyst] = ["mp3"],
-                [DevicePlatform.iOS] = ["mp3"],
-                [DevicePlatform.Android] = ["audio/mpeg", "audio/*", "*/*"],
-            })
-        });
-
-        if (result is null)
-        {
-            return;
-        }
-
-        if (!string.Equals(Path.GetExtension(result.FileName), ".mp3", StringComparison.OrdinalIgnoreCase))
-        {
-            throw new InvalidOperationException($"Unsupported file type: {result.FileName}");
-        }
-
-        var path = result.FullPath;
-
-        if (string.IsNullOrWhiteSpace(path))
-        {
-            await using var pickedStream = await result.OpenReadAsync();
-            var tempPath = Path.Combine(FileSystem.CacheDirectory, $"{Path.GetFileNameWithoutExtension(result.FileName)}.mp3");
-            await using var tempFile = File.Open(tempPath, FileMode.Create, FileAccess.Write);
-            await pickedStream.CopyToAsync(tempFile);
-            path = tempPath;
-        }
-
-        _openAudioPublisher.Publish(new OpenAudioFileCommand(path));
-        IsAudioPlayerOpen = true;
+        return Task.CompletedTask;
     }
 
     [ReactiveCommand]
-    private async Task OpenImageAsync()
+    private Task OpenImageAsync()
     {
-        var result = await FilePicker.Default.PickAsync(new PickOptions
-        {
-            PickerTitle = "Open SVG image",
-            FileTypes = new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
-            {
-                [DevicePlatform.WinUI] = [".svg"],
-                [DevicePlatform.MacCatalyst] = ["svg"],
-                [DevicePlatform.iOS] = ["svg"],
-                [DevicePlatform.Android] = ["image/svg+xml", "image/*", "*/*"],
-            })
-        });
-
-        if (result is null)
-        {
-            return;
-        }
-
-        if (!string.Equals(Path.GetExtension(result.FileName), ".svg", StringComparison.OrdinalIgnoreCase))
-        {
-            throw new InvalidOperationException($"Unsupported file type: {result.FileName}");
-        }
-
-        var path = result.FullPath;
-        if (string.IsNullOrWhiteSpace(path))
-        {
-            await using var pickedStream = await result.OpenReadAsync();
-            var tempPath = Path.Combine(FileSystem.CacheDirectory, $"{Path.GetFileNameWithoutExtension(result.FileName)}.svg");
-            await using var tempFile = File.Open(tempPath, FileMode.Create, FileAccess.Write);
-            await pickedStream.CopyToAsync(tempFile);
-            path = tempPath;
-        }
-
-        _openSvgPublisher.Publish(new OpenSvgFileCommand(path));
+        return Task.CompletedTask;
     }
 
     [ReactiveCommand]
