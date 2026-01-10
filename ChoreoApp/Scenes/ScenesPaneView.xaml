@@ -143,6 +143,11 @@
                                        Command="{Binding NavigateToSettingsCommand}">
                   <styling:PackIcon Kind="Settings" />
                 </styling:ContentButton>
+                <styling:ContentButton Grid.Column="3"
+                                       Style="{StaticResource MaterialDesignIconButton}"
+                                       Command="{Binding NavigateToDancerSettingsCommand}">
+                  <styling:PackIcon Kind="AccountGroup" />
+                </styling:ContentButton>
             </Grid>
         </Grid>
     </Border>

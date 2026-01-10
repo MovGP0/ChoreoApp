@@ -1,6 +1,7 @@
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using ChoreoApp.AudioPlayer;
 using ChoreoApp.ChoreographySettings;
+using ChoreoApp.Dancers;
 using ChoreoApp.Floor;
 using ChoreoApp.Main;
 using ChoreoApp.Scenes;
@@ -41,6 +42,7 @@ public static class MauiProgram
             .AddAudio()
             .AddScenes()
             .AddChoreographySettings()
+            .AddDancers()
             .AddSettings()
             .AddMain();
 

@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="dancers:DancerSettingsViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          xmlns:dancers="clr-namespace:ChoreoApp.Dancers"
+                          xmlns:colorPicker="clr-namespace:ChoreoApp.ColorPicker"
+                          xmlns:conv="clr-namespace:ChoreoApp.Dancers.Converters"
+                          xmlns:models="clr-namespace:ChoreoApp.Models;assembly=ChoreoApp.Models"
+                          x:DataType="dancers:DancerSettingsViewModel"
+                          x:Class="ChoreoApp.Dancers.DancerSettingsPage">
+    <maui:ReactiveContentPage.Resources>
+        <ResourceDictionary>
+            <conv:IconNameToImageSourceConverter x:Key="IconNameToImageSourceConverter" />
+        </ResourceDictionary>
+    </maui:ReactiveContentPage.Resources>
+    <ScrollView x:DataType="dancers:DancerSettingsViewModel">
+        <Grid Padding="16"
+              ColumnDefinitions="2*,3*"
+              RowDefinitions="*,Auto"
+              ColumnSpacing="16"
+              RowSpacing="12">
+            <Border Grid.Column="0"
+                    Grid.Row="0"
+                    BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+                    StrokeThickness="0"
+                    Padding="8">
+                <CollectionView ItemsSource="{Binding Dancers}"
+                                SelectionMode="Single"
+                                SelectedItem="{Binding SelectedDancer, Mode=TwoWay}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="6"
+                                           Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:DancerModel">
+                            <Border StrokeThickness="1"
+                                    Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
+                                    BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}"
+                                    Padding="8"
+                                    StrokeShape="RoundRectangle 6">
+                                <Grid ColumnDefinitions="Auto,*,Auto"
+                                      ColumnSpacing="8">
+                                    <Image WidthRequest="28"
+                                           HeightRequest="28"
+                                           Source="{Binding Icon, Converter={StaticResource IconNameToImageSourceConverter}}"
+                                           VerticalOptions="Center" />
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Name}"
+                                           VerticalOptions="Center"
+                                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                                    <BoxView Grid.Column="2"
+                                             WidthRequest="14"
+                                             HeightRequest="14"
+                                             CornerRadius="3"
+                                             VerticalOptions="Center"
+                                             BackgroundColor="{Binding Color}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+
+            <ScrollView Grid.Column="1"
+                        Grid.Row="0"
+                        x:DataType="dancers:DancerSettingsViewModel">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Dancer"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+
+                    <VerticalStackLayout Spacing="10"
+                                         IsEnabled="{Binding HasSelectedDancer}">
+                        <Label Text="Role (Dame oder Herr)"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <Picker ItemsSource="{Binding Roles}"
+                                x:DataType="{x:Null}"
+                                SelectedItem="{Binding SelectedRole, Mode=TwoWay}"
+                                ItemDisplayBinding="{Binding Name}" />
+
+                        <Label Text="Name"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <Entry Text="{Binding SelectedDancer.Name}"
+                               Placeholder="Name"
+                               BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+
+                        <Label Text="Abkürzung"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <Entry Text="{Binding SelectedDancer.Shortcut}"
+                               Placeholder="Abkürzung"
+                               BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+
+                        <Label Text="Color"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <colorPicker:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
+                                                            SelectedColor="{Binding SelectedDancer.Color}" />
+
+                        <Label Text="Icon"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <Grid ColumnDefinitions="Auto,*"
+                              ColumnSpacing="12">
+                            <Image Grid.Column="0"
+                                   WidthRequest="32"
+                                   HeightRequest="32"
+                                   Source="{Binding SelectedIconOption.ImageSource}" />
+                            <Picker Grid.Column="1"
+                                    x:DataType="{x:Null}"
+                                    ItemsSource="{Binding IconOptions}"
+                                    SelectedItem="{Binding SelectedIconOption, Mode=TwoWay}"
+                                    ItemDisplayBinding="{Binding DisplayName}" />
+                        </Grid>
+
+                        <Label Text="Preview"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <Image HeightRequest="96"
+                               WidthRequest="96"
+                               Aspect="AspectFit"
+                               Source="{Binding SelectedDancer.Icon, Converter={StaticResource IconNameToImageSourceConverter}}" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <Grid Grid.Column="0"
+                  Grid.Row="1"
+                  ColumnDefinitions="Auto,Auto,*"
+                  ColumnSpacing="8">
+                <styling:ContentButton Grid.Column="0"
+                                       Style="{StaticResource MaterialDesignIconButton}"
+                                       Command="{Binding AddDancerCommand}">
+                    <styling:PackIcon Kind="AccountMultiplePlus" />
+                </styling:ContentButton>
+                <styling:ContentButton Grid.Column="1"
+                                       Style="{StaticResource MaterialDesignIconButton}"
+                                       Command="{Binding DeleteDancerCommand}"
+                                       IsEnabled="{Binding CanDeleteDancer}">
+                    <styling:PackIcon Kind="AccountMultipleRemove" />
+                </styling:ContentButton>
+            </Grid>
+
+            <HorizontalStackLayout Grid.Column="1"
+                                   Grid.Row="1"
+                                   Spacing="8"
+                                   HorizontalOptions="End">
+                <Button Text="Cancel"
+                        Command="{Binding CancelCommand}"
+                        Style="{StaticResource MaterialDesignOutlinedButton}" />
+                <Button Text="OK"
+                        Command="{Binding SaveCommand}"
+                        Style="{StaticResource MaterialDesignRaisedButton}" />
+            </HorizontalStackLayout>
+        </Grid>
+    </ScrollView>
+</maui:ReactiveContentPage>

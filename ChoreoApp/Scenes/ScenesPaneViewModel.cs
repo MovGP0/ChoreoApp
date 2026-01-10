@@ -2,6 +2,7 @@
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Global;
 using ChoreoApp.Models;
+using ChoreoApp.Dancers;
 using ChoreoApp.Settings;
 using MessagePipe;
 
@@ -105,12 +106,24 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     [Reactive]
     private bool _canNavigateToSettings = true;
 
+    [Reactive]
+    private bool _canNavigateToDancerSettings = true;
+
     [ReactiveCommand(CanExecute = nameof(CanNavigateToSettings))]
     private async Task NavigateToSettingsAsync()
     {
         if (Shell.Current is { } shell)
         {
             await shell.GoToAsync(nameof(SettingsPage));
+        }
+    }
+
+    [ReactiveCommand(CanExecute = nameof(CanNavigateToDancerSettings))]
+    private async Task NavigateToDancerSettingsAsync()
+    {
+        if (Shell.Current is { } shell)
+        {
+            await shell.GoToAsync(nameof(DancerSettingsPage));
         }
     }
 

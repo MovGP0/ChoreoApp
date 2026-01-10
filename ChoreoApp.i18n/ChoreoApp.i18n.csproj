@@ -25,7 +25,7 @@
     <PackageReference Include="PolySharp" />
   </ItemGroup>
   <ItemGroup>
-    <MauiImage Include="Icons\\*.png" />
+    <EmbeddedResource Include="Icons\\*.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Remove="*.xaml" />
