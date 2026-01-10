@@ -267,6 +267,9 @@ BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.S
 Style="{StaticResource MaterialDesignHamburgerToggleButton}"
 ```
 
+# Issue tracking
+Use 'bd' for issue tracking.
+
 ## Remember
 - use Rider tools when possible. Avoid `pwsh` and `python` where possible.
 - do not use namespaces that are already implicit
