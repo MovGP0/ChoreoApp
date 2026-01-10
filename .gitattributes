@@ -1,3 +1,64 @@
-
 # Use bd merge for beads JSONL files
 .beads/issues.jsonl merge=beads
+
+# document files
+*.pdf binary
+*.doc binary
+*.docx binary
+*.xls binary
+*.xlsx binary
+*.ppt binary
+*.pptx binary
+*.odt binary
+*.ods binary
+*.odp binary
+
+# audio and video files
+*.mp3 binary
+*.wav binary
+*.ogg binary
+*.flac binary
+*.m4a binary
+*.aac binary
+*.mp4 binary
+*.mov binary
+*.avi binary
+*.mkv binary
+*.webm binary
+*.flv binary
+
+# image files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.bmp binary
+*.tif binary
+*.tiff binary
+*.webp binary
+*.svgz binary
+*.ico binary
+*.icns binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+
+# archive files
+*.zip binary
+*.7z binary
+*.rar binary
+*.gz binary
+*.tar binary
+*.bz2 binary
+*.xz binary
+
+# platform packages
+*.apk binary
+*.aab binary
+*.ipa binary
+
+# build artefacts
+*.dll binary
+*.exe binary
+*.pdb binary

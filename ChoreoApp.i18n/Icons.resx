@@ -1,0 +1,993 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="IconAlien" xml:space="preserve">
+    <value>Icons/alien.png</value>
+  </data>
+  <data name="IconAngelBlack" xml:space="preserve">
+    <value>Icons/angel_black.png</value>
+  </data>
+  <data name="IconAngelFemaleBlack" xml:space="preserve">
+    <value>Icons/angel_female_black.png</value>
+  </data>
+  <data name="IconAngelFemale" xml:space="preserve">
+    <value>Icons/angel_female.png</value>
+  </data>
+  <data name="IconAngel" xml:space="preserve">
+    <value>Icons/angel.png</value>
+  </data>
+  <data name="IconAstronaut" xml:space="preserve">
+    <value>Icons/astronaut.png</value>
+  </data>
+  <data name="IconBallplayerBlack" xml:space="preserve">
+    <value>Icons/ballplayer_black.png</value>
+  </data>
+  <data name="IconBallplayer" xml:space="preserve">
+    <value>Icons/ballplayer.png</value>
+  </data>
+  <data name="IconBanker" xml:space="preserve">
+    <value>Icons/banker.png</value>
+  </data>
+  <data name="IconBart" xml:space="preserve">
+    <value>Icons/bart.png</value>
+  </data>
+  <data name="IconBatman" xml:space="preserve">
+    <value>Icons/batman.png</value>
+  </data>
+  <data name="IconBeachLifeguardFemale" xml:space="preserve">
+    <value>Icons/beach_lifeguard_female.png</value>
+  </data>
+  <data name="IconBeachLifeguard" xml:space="preserve">
+    <value>Icons/beach_lifeguard.png</value>
+  </data>
+  <data name="IconBender" xml:space="preserve">
+    <value>Icons/bender.png</value>
+  </data>
+  <data name="IconBishop" xml:space="preserve">
+    <value>Icons/bishop.png</value>
+  </data>
+  <data name="IconBlondy" xml:space="preserve">
+    <value>Icons/blondy.png</value>
+  </data>
+  <data name="IconBoxerBlack" xml:space="preserve">
+    <value>Icons/boxer_black.png</value>
+  </data>
+  <data name="IconBoxer" xml:space="preserve">
+    <value>Icons/boxer.png</value>
+  </data>
+  <data name="IconBuddhist" xml:space="preserve">
+    <value>Icons/buddhist.png</value>
+  </data>
+  <data name="IconC3po" xml:space="preserve">
+    <value>Icons/c3po.png</value>
+  </data>
+  <data name="IconCatwomen" xml:space="preserve">
+    <value>Icons/catwomen.png</value>
+  </data>
+  <data name="IconChiefBlack" xml:space="preserve">
+    <value>Icons/chief_black.png</value>
+  </data>
+  <data name="IconChiefFemaleBlack" xml:space="preserve">
+    <value>Icons/chief_female_black.png</value>
+  </data>
+  <data name="IconChiefFemale" xml:space="preserve">
+    <value>Icons/chief_female.png</value>
+  </data>
+  <data name="IconChief" xml:space="preserve">
+    <value>Icons/chief.png</value>
+  </data>
+  <data name="IconClown" xml:space="preserve">
+    <value>Icons/clown.png</value>
+  </data>
+  <data name="IconCookBlack" xml:space="preserve">
+    <value>Icons/cook_black.png</value>
+  </data>
+  <data name="IconCookFemaleBlack" xml:space="preserve">
+    <value>Icons/cook_female_black.png</value>
+  </data>
+  <data name="IconCookFemale" xml:space="preserve">
+    <value>Icons/cook_female.png</value>
+  </data>
+  <data name="IconCook" xml:space="preserve">
+    <value>Icons/cook.png</value>
+  </data>
+  <data name="IconCowboyFemale" xml:space="preserve">
+    <value>Icons/cowboy_female.png</value>
+  </data>
+  <data name="IconCowboy" xml:space="preserve">
+    <value>Icons/cowboy.png</value>
+  </data>
+  <data name="IconCrabs" xml:space="preserve">
+    <value>Icons/crabs.png</value>
+  </data>
+  <data name="IconDarthVader" xml:space="preserve">
+    <value>Icons/darth_vader.png</value>
+  </data>
+  <data name="IconDeath" xml:space="preserve">
+    <value>Icons/death.png</value>
+  </data>
+  <data name="IconDetectiveGray" xml:space="preserve">
+    <value>Icons/detective_gray.png</value>
+  </data>
+  <data name="IconDetective" xml:space="preserve">
+    <value>Icons/detective.png</value>
+  </data>
+  <data name="IconDevil" xml:space="preserve">
+    <value>Icons/devil.png</value>
+  </data>
+  <data name="IconDiver" xml:space="preserve">
+    <value>Icons/diver.png</value>
+  </data>
+  <data name="IconDracula" xml:space="preserve">
+    <value>Icons/dracula.png</value>
+  </data>
+  <data name="IconEgyptianFemale" xml:space="preserve">
+    <value>Icons/egyptian_female.png</value>
+  </data>
+  <data name="IconEgyptian" xml:space="preserve">
+    <value>Icons/egyptian.png</value>
+  </data>
+  <data name="IconEmo" xml:space="preserve">
+    <value>Icons/emo.png</value>
+  </data>
+  <data name="IconEmotionAdore" xml:space="preserve">
+    <value>Icons/emotion_adore.png</value>
+  </data>
+  <data name="IconEmotionAfterBoom" xml:space="preserve">
+    <value>Icons/emotion_after_boom.png</value>
+  </data>
+  <data name="IconEmotionAh" xml:space="preserve">
+    <value>Icons/emotion_ah.png</value>
+  </data>
+  <data name="IconEmotionAlien" xml:space="preserve">
+    <value>Icons/emotion_alien.png</value>
+  </data>
+  <data name="IconEmotionAmazing" xml:space="preserve">
+    <value>Icons/emotion_amazing.png</value>
+  </data>
+  <data name="IconEmotionAngel" xml:space="preserve">
+    <value>Icons/emotion_angel.png</value>
+  </data>
+  <data name="IconEmotionAnger" xml:space="preserve">
+    <value>Icons/emotion_anger.png</value>
+  </data>
+  <data name="IconEmotionAngry" xml:space="preserve">
+    <value>Icons/emotion_angry.png</value>
+  </data>
+  <data name="IconEmotionAqua" xml:space="preserve">
+    <value>Icons/emotion_aqua.png</value>
+  </data>
+  <data name="IconEmotionBaby" xml:space="preserve">
+    <value>Icons/emotion_baby.png</value>
+  </data>
+  <data name="IconEmotionBadEgg" xml:space="preserve">
+    <value>Icons/emotion_bad_egg.png</value>
+  </data>
+  <data name="IconEmotionBadSmelly" xml:space="preserve">
+    <value>Icons/emotion_bad_smelly.png</value>
+  </data>
+  <data name="IconEmotionBaffle" xml:space="preserve">
+    <value>Icons/emotion_baffle.png</value>
+  </data>
+  <data name="IconEmotionBatman" xml:space="preserve">
+    <value>Icons/emotion_batman.png</value>
+  </data>
+  <data name="IconEmotionBeatBrick" xml:space="preserve">
+    <value>Icons/emotion_beat_brick.png</value>
+  </data>
+  <data name="IconEmotionBeaten" xml:space="preserve">
+    <value>Icons/emotion_beaten.png</value>
+  </data>
+  <data name="IconEmotionBigsmile" xml:space="preserve">
+    <value>Icons/emotion_bigsmile.png</value>
+  </data>
+  <data name="IconEmotionBlind" xml:space="preserve">
+    <value>Icons/emotion_blind.png</value>
+  </data>
+  <data name="IconEmotionBloody" xml:space="preserve">
+    <value>Icons/emotion_bloody.png</value>
+  </data>
+  <data name="IconEmotionBlowCurrent" xml:space="preserve">
+    <value>Icons/emotion_blow_current.png</value>
+  </data>
+  <data name="IconEmotionBoo" xml:space="preserve">
+    <value>Icons/emotion_boo.png</value>
+  </data>
+  <data name="IconEmotionBrains" xml:space="preserve">
+    <value>Icons/emotion_brains.png</value>
+  </data>
+  <data name="IconEmotionBubblegum" xml:space="preserve">
+    <value>Icons/emotion_bubblegum.png</value>
+  </data>
+  <data name="IconEmotionBully" xml:space="preserve">
+    <value>Icons/emotion_bully.png</value>
+  </data>
+  <data name="IconEmotionBurnJossStick" xml:space="preserve">
+    <value>Icons/emotion_burn_joss_stick.png</value>
+  </data>
+  <data name="IconEmotionBurnt" xml:space="preserve">
+    <value>Icons/emotion_burnt.png</value>
+  </data>
+  <data name="IconEmotionByeBye" xml:space="preserve">
+    <value>Icons/emotion_bye_bye.png</value>
+  </data>
+  <data name="IconEmotionChinese" xml:space="preserve">
+    <value>Icons/emotion_chinese.png</value>
+  </data>
+  <data name="IconEmotionChupachups" xml:space="preserve">
+    <value>Icons/emotion_chupachups.png</value>
+  </data>
+  <data name="IconEmotionClown" xml:space="preserve">
+    <value>Icons/emotion_clown.png</value>
+  </data>
+  <data name="IconEmotionCold" xml:space="preserve">
+    <value>Icons/emotion_cold.png</value>
+  </data>
+  <data name="IconEmotionConfident" xml:space="preserve">
+    <value>Icons/emotion_confident.png</value>
+  </data>
+  <data name="IconEmotionConfuse" xml:space="preserve">
+    <value>Icons/emotion_confuse.png</value>
+  </data>
+  <data name="IconEmotionConvict" xml:space="preserve">
+    <value>Icons/emotion_convict.png</value>
+  </data>
+  <data name="IconEmotionCool" xml:space="preserve">
+    <value>Icons/emotion_cool.png</value>
+  </data>
+  <data name="IconEmotionCrazyRabbit" xml:space="preserve">
+    <value>Icons/emotion_crazy_rabbit.png</value>
+  </data>
+  <data name="IconEmotionCrazy" xml:space="preserve">
+    <value>Icons/emotion_crazy.png</value>
+  </data>
+  <data name="IconEmotionCry" xml:space="preserve">
+    <value>Icons/emotion_cry.png</value>
+  </data>
+  <data name="IconEmotionCyclops" xml:space="preserve">
+    <value>Icons/emotion_cyclops.png</value>
+  </data>
+  <data name="IconEmotionDaddyCool" xml:space="preserve">
+    <value>Icons/emotion_daddy_cool.png</value>
+  </data>
+  <data name="IconEmotionDarthWader" xml:space="preserve">
+    <value>Icons/emotion_darth_wader.png</value>
+  </data>
+  <data name="IconEmotionDavidBlaine" xml:space="preserve">
+    <value>Icons/emotion_david_blaine.png</value>
+  </data>
+  <data name="IconEmotionDead" xml:space="preserve">
+    <value>Icons/emotion_dead.png</value>
+  </data>
+  <data name="IconEmotionDetective" xml:space="preserve">
+    <value>Icons/emotion_detective.png</value>
+  </data>
+  <data name="IconEmotionDevil" xml:space="preserve">
+    <value>Icons/emotion_devil.png</value>
+  </data>
+  <data name="IconEmotionDiver" xml:space="preserve">
+    <value>Icons/emotion_diver.png</value>
+  </data>
+  <data name="IconEmotionDoubt" xml:space="preserve">
+    <value>Icons/emotion_doubt.png</value>
+  </data>
+  <data name="IconEmotionDoze" xml:space="preserve">
+    <value>Icons/emotion_doze.png</value>
+  </data>
+  <data name="IconEmotionDraw" xml:space="preserve">
+    <value>Icons/emotion_draw.png</value>
+  </data>
+  <data name="IconEmotionDribble" xml:space="preserve">
+    <value>Icons/emotion_dribble.png</value>
+  </data>
+  <data name="IconEmotionDrink" xml:space="preserve">
+    <value>Icons/emotion_drink.png</value>
+  </data>
+  <data name="IconEmotionDrunkard" xml:space="preserve">
+    <value>Icons/emotion_drunkard.png</value>
+  </data>
+  <data name="IconEmotionEvilgrin" xml:space="preserve">
+    <value>Icons/emotion_evilgrin.png</value>
+  </data>
+  <data name="IconEmotionEvolution" xml:space="preserve">
+    <value>Icons/emotion_evolution.png</value>
+  </data>
+  <data name="IconEmotionExciting" xml:space="preserve">
+    <value>Icons/emotion_exciting.png</value>
+  </data>
+  <data name="IconEmotionEye" xml:space="preserve">
+    <value>Icons/emotion_eye.png</value>
+  </data>
+  <data name="IconEmotionEyesDroped" xml:space="preserve">
+    <value>Icons/emotion_eyes_droped.png</value>
+  </data>
+  <data name="IconEmotionFaceMonkey" xml:space="preserve">
+    <value>Icons/emotion_face_monkey.png</value>
+  </data>
+  <data name="IconEmotionFacePanda" xml:space="preserve">
+    <value>Icons/emotion_face_panda.png</value>
+  </data>
+  <data name="IconEmotionFan" xml:space="preserve">
+    <value>Icons/emotion_fan.png</value>
+  </data>
+  <data name="IconEmotionFire" xml:space="preserve">
+    <value>Icons/emotion_fire.png</value>
+  </data>
+  <data name="IconEmotionFlowerDead" xml:space="preserve">
+    <value>Icons/emotion_flower_dead.png</value>
+  </data>
+  <data name="IconEmotionFranken" xml:space="preserve">
+    <value>Icons/emotion_franken.png</value>
+  </data>
+  <data name="IconEmotionFreak" xml:space="preserve">
+    <value>Icons/emotion_freak.png</value>
+  </data>
+  <data name="IconEmotionFrost" xml:space="preserve">
+    <value>Icons/emotion_frost.png</value>
+  </data>
+  <data name="IconEmotionGangs" xml:space="preserve">
+    <value>Icons/emotion_gangs.png</value>
+  </data>
+  <data name="IconEmotionGear" xml:space="preserve">
+    <value>Icons/emotion_gear.png</value>
+  </data>
+  <data name="IconEmotionGhost" xml:space="preserve">
+    <value>Icons/emotion_ghost.png</value>
+  </data>
+  <data name="IconEmotionGirl" xml:space="preserve">
+    <value>Icons/emotion_girl.png</value>
+  </data>
+  <data name="IconEmotionGo" xml:space="preserve">
+    <value>Icons/emotion_go.png</value>
+  </data>
+  <data name="IconEmotionGourmand" xml:space="preserve">
+    <value>Icons/emotion_gourmand.png</value>
+  </data>
+  <data name="IconEmotionGradGreen" xml:space="preserve">
+    <value>Icons/emotion_grad_green.png</value>
+  </data>
+  <data name="IconEmotionGradRed" xml:space="preserve">
+    <value>Icons/emotion_grad_red.png</value>
+  </data>
+  <data name="IconEmotionGradYellow" xml:space="preserve">
+    <value>Icons/emotion_grad_yellow.png</value>
+  </data>
+  <data name="IconEmotionGreedy" xml:space="preserve">
+    <value>Icons/emotion_greedy.png</value>
+  </data>
+  <data name="IconEmotionGrin" xml:space="preserve">
+    <value>Icons/emotion_grin.png</value>
+  </data>
+  <data name="IconEmotionHaha" xml:space="preserve">
+    <value>Icons/emotion_haha.png</value>
+  </data>
+  <data name="IconEmotionHandFlower" xml:space="preserve">
+    <value>Icons/emotion_hand_flower.png</value>
+  </data>
+  <data name="IconEmotionHappy" xml:space="preserve">
+    <value>Icons/emotion_happy.png</value>
+  </data>
+  <data name="IconEmotionHarryPotter" xml:space="preserve">
+    <value>Icons/emotion_harry_potter.png</value>
+  </data>
+  <data name="IconEmotionHatched" xml:space="preserve">
+    <value>Icons/emotion_hatched.png</value>
+  </data>
+  <data name="IconEmotionHidden" xml:space="preserve">
+    <value>Icons/emotion_hidden.png</value>
+  </data>
+  <data name="IconEmotionHitler" xml:space="preserve">
+    <value>Icons/emotion_hitler.png</value>
+  </data>
+  <data name="IconEmotionHorror" xml:space="preserve">
+    <value>Icons/emotion_horror.png</value>
+  </data>
+  <data name="IconEmotionHot" xml:space="preserve">
+    <value>Icons/emotion_hot.png</value>
+  </data>
+  <data name="IconEmotionHungry" xml:space="preserve">
+    <value>Icons/emotion_hungry.png</value>
+  </data>
+  <data name="IconEmotionHypnotized" xml:space="preserve">
+    <value>Icons/emotion_hypnotized.png</value>
+  </data>
+  <data name="IconEmotionInjured" xml:space="preserve">
+    <value>Icons/emotion_injured.png</value>
+  </data>
+  <data name="IconEmotionJapan" xml:space="preserve">
+    <value>Icons/emotion_japan.png</value>
+  </data>
+  <data name="IconEmotionJason" xml:space="preserve">
+    <value>Icons/emotion_jason.png</value>
+  </data>
+  <data name="IconEmotionJuggler" xml:space="preserve">
+    <value>Icons/emotion_juggler.png</value>
+  </data>
+  <data name="IconEmotionKiddy" xml:space="preserve">
+    <value>Icons/emotion_kiddy.png</value>
+  </data>
+  <data name="IconEmotionKiss" xml:space="preserve">
+    <value>Icons/emotion_kiss.png</value>
+  </data>
+  <data name="IconEmotionKissed" xml:space="preserve">
+    <value>Icons/emotion_kissed.png</value>
+  </data>
+  <data name="IconEmotionKnight" xml:space="preserve">
+    <value>Icons/emotion_knight.png</value>
+  </data>
+  <data name="IconEmotionLol" xml:space="preserve">
+    <value>Icons/emotion_lol.png</value>
+  </data>
+  <data name="IconEmotionLollipops" xml:space="preserve">
+    <value>Icons/emotion_lollipops.png</value>
+  </data>
+  <data name="IconEmotionLove" xml:space="preserve">
+    <value>Icons/emotion_love.png</value>
+  </data>
+  <data name="IconEmotionMad" xml:space="preserve">
+    <value>Icons/emotion_mad.png</value>
+  </data>
+  <data name="IconEmotionMahPlaylist" xml:space="preserve">
+    <value>Icons/emotion_mah_playlist.png</value>
+  </data>
+  <data name="IconEmotionMatrix" xml:space="preserve">
+    <value>Icons/emotion_matrix.png</value>
+  </data>
+  <data name="IconEmotionMeaw" xml:space="preserve">
+    <value>Icons/emotion_meaw.png</value>
+  </data>
+  <data name="IconEmotionMedic" xml:space="preserve">
+    <value>Icons/emotion_medic.png</value>
+  </data>
+  <data name="IconEmotionMisdoubt" xml:space="preserve">
+    <value>Icons/emotion_misdoubt.png</value>
+  </data>
+  <data name="IconEmotionMoney" xml:space="preserve">
+    <value>Icons/emotion_money.png</value>
+  </data>
+  <data name="IconEmotionMummy" xml:space="preserve">
+    <value>Icons/emotion_mummy.png</value>
+  </data>
+  <data name="IconEmotionMusician" xml:space="preserve">
+    <value>Icons/emotion_musician.png</value>
+  </data>
+  <data name="IconEmotionNerd" xml:space="preserve">
+    <value>Icons/emotion_nerd.png</value>
+  </data>
+  <data name="IconEmotionNinja" xml:space="preserve">
+    <value>Icons/emotion_ninja.png</value>
+  </data>
+  <data name="IconEmotionNomNom" xml:space="preserve">
+    <value>Icons/emotion_nom_nom.png</value>
+  </data>
+  <data name="IconEmotionNosePick" xml:space="preserve">
+    <value>Icons/emotion_nose_pick.png</value>
+  </data>
+  <data name="IconEmotionNosebleed" xml:space="preserve">
+    <value>Icons/emotion_nosebleed.png</value>
+  </data>
+  <data name="IconEmotionOddball" xml:space="preserve">
+    <value>Icons/emotion_oddball.png</value>
+  </data>
+  <data name="IconEmotionOps" xml:space="preserve">
+    <value>Icons/emotion_ops.png</value>
+  </data>
+  <data name="IconEmotionParty" xml:space="preserve">
+    <value>Icons/emotion_party.png</value>
+  </data>
+  <data name="IconEmotionPatient" xml:space="preserve">
+    <value>Icons/emotion_patient.png</value>
+  </data>
+  <data name="IconEmotionPirate" xml:space="preserve">
+    <value>Icons/emotion_pirate.png</value>
+  </data>
+  <data name="IconEmotionPumpkin" xml:space="preserve">
+    <value>Icons/emotion_pumpkin.png</value>
+  </data>
+  <data name="IconEmotionPunk" xml:space="preserve">
+    <value>Icons/emotion_punk.png</value>
+  </data>
+  <data name="IconEmotionQuestion" xml:space="preserve">
+    <value>Icons/emotion_question.png</value>
+  </data>
+  <data name="IconEmotionRap" xml:space="preserve">
+    <value>Icons/emotion_rap.png</value>
+  </data>
+  <data name="IconEmotionRazz" xml:space="preserve">
+    <value>Icons/emotion_razz.png</value>
+  </data>
+  <data name="IconEmotionReading" xml:space="preserve">
+    <value>Icons/emotion_reading.png</value>
+  </data>
+  <data name="IconEmotionRed" xml:space="preserve">
+    <value>Icons/emotion_red.png</value>
+  </data>
+  <data name="IconEmotionRocknroll" xml:space="preserve">
+    <value>Icons/emotion_rocknroll.png</value>
+  </data>
+  <data name="IconEmotionSad" xml:space="preserve">
+    <value>Icons/emotion_sad.png</value>
+  </data>
+  <data name="IconEmotionShame" xml:space="preserve">
+    <value>Icons/emotion_shame.png</value>
+  </data>
+  <data name="IconEmotionShave" xml:space="preserve">
+    <value>Icons/emotion_shave.png</value>
+  </data>
+  <data name="IconEmotionShocked" xml:space="preserve">
+    <value>Icons/emotion_shocked.png</value>
+  </data>
+  <data name="IconEmotionSick" xml:space="preserve">
+    <value>Icons/emotion_sick.png</value>
+  </data>
+  <data name="IconEmotionSilent" xml:space="preserve">
+    <value>Icons/emotion_silent.png</value>
+  </data>
+  <data name="IconEmotionSkull" xml:space="preserve">
+    <value>Icons/emotion_skull.png</value>
+  </data>
+  <data name="IconEmotionSleep" xml:space="preserve">
+    <value>Icons/emotion_sleep.png</value>
+  </data>
+  <data name="IconEmotionSmile" xml:space="preserve">
+    <value>Icons/emotion_smile.png</value>
+  </data>
+  <data name="IconEmotionSmokesGrass" xml:space="preserve">
+    <value>Icons/emotion_smokes_grass.png</value>
+  </data>
+  <data name="IconEmotionSnooty" xml:space="preserve">
+    <value>Icons/emotion_snooty.png</value>
+  </data>
+  <data name="IconEmotionSpeaking" xml:space="preserve">
+    <value>Icons/emotion_speaking.png</value>
+  </data>
+  <data name="IconEmotionSpiderman" xml:space="preserve">
+    <value>Icons/emotion_spiderman.png</value>
+  </data>
+  <data name="IconEmotionSpy" xml:space="preserve">
+    <value>Icons/emotion_spy.png</value>
+  </data>
+  <data name="IconEmotionStar" xml:space="preserve">
+    <value>Icons/emotion_star.png</value>
+  </data>
+  <data name="IconEmotionStillDreaming" xml:space="preserve">
+    <value>Icons/emotion_still_dreaming.png</value>
+  </data>
+  <data name="IconEmotionStink" xml:space="preserve">
+    <value>Icons/emotion_stink.png</value>
+  </data>
+  <data name="IconEmotionStruggle" xml:space="preserve">
+    <value>Icons/emotion_struggle.png</value>
+  </data>
+  <data name="IconEmotionStupid" xml:space="preserve">
+    <value>Icons/emotion_stupid.png</value>
+  </data>
+  <data name="IconEmotionSuperman" xml:space="preserve">
+    <value>Icons/emotion_superman.png</value>
+  </data>
+  <data name="IconEmotionSuprised" xml:space="preserve">
+    <value>Icons/emotion_suprised.png</value>
+  </data>
+  <data name="IconEmotionSure" xml:space="preserve">
+    <value>Icons/emotion_sure.png</value>
+  </data>
+  <data name="IconEmotionSurrender" xml:space="preserve">
+    <value>Icons/emotion_surrender.png</value>
+  </data>
+  <data name="IconEmotionSweat" xml:space="preserve">
+    <value>Icons/emotion_sweat.png</value>
+  </data>
+  <data name="IconEmotionTerminator" xml:space="preserve">
+    <value>Icons/emotion_terminator.png</value>
+  </data>
+  <data name="IconEmotionTire" xml:space="preserve">
+    <value>Icons/emotion_tire.png</value>
+  </data>
+  <data name="IconEmotionTomato" xml:space="preserve">
+    <value>Icons/emotion_tomato.png</value>
+  </data>
+  <data name="IconEmotionTongue" xml:space="preserve">
+    <value>Icons/emotion_tongue.png</value>
+  </data>
+  <data name="IconEmotionTooSad" xml:space="preserve">
+    <value>Icons/emotion_too_sad.png</value>
+  </data>
+  <data name="IconEmotionUmbrella" xml:space="preserve">
+    <value>Icons/emotion_umbrella.png</value>
+  </data>
+  <data name="IconEmotionUnbelievable" xml:space="preserve">
+    <value>Icons/emotion_unbelievable.png</value>
+  </data>
+  <data name="IconEmotionUnhappyVery" xml:space="preserve">
+    <value>Icons/emotion_unhappy_very.png</value>
+  </data>
+  <data name="IconEmotionUnhappy" xml:space="preserve">
+    <value>Icons/emotion_unhappy.png</value>
+  </data>
+  <data name="IconEmotionUnshaven" xml:space="preserve">
+    <value>Icons/emotion_unshaven.png</value>
+  </data>
+  <data name="IconEmotionVampire" xml:space="preserve">
+    <value>Icons/emotion_vampire.png</value>
+  </data>
+  <data name="IconEmotionVictory" xml:space="preserve">
+    <value>Icons/emotion_victory.png</value>
+  </data>
+  <data name="IconEmotionViking" xml:space="preserve">
+    <value>Icons/emotion_viking.png</value>
+  </data>
+  <data name="IconEmotionWaaaht" xml:space="preserve">
+    <value>Icons/emotion_waaaht.png</value>
+  </data>
+  <data name="IconEmotionWaii" xml:space="preserve">
+    <value>Icons/emotion_waii.png</value>
+  </data>
+  <data name="IconEmotionWatermelon" xml:space="preserve">
+    <value>Icons/emotion_watermelon.png</value>
+  </data>
+  <data name="IconEmotionWhat" xml:space="preserve">
+    <value>Icons/emotion_what.png</value>
+  </data>
+  <data name="IconEmotionWhew" xml:space="preserve">
+    <value>Icons/emotion_whew.png</value>
+  </data>
+  <data name="IconEmotionWhist" xml:space="preserve">
+    <value>Icons/emotion_whist.png</value>
+  </data>
+  <data name="IconEmotionWink" xml:space="preserve">
+    <value>Icons/emotion_wink.png</value>
+  </data>
+  <data name="IconEmotionYuush" xml:space="preserve">
+    <value>Icons/emotion_yuush.png</value>
+  </data>
+  <data name="IconEmotionZedz" xml:space="preserve">
+    <value>Icons/emotion_zedz.png</value>
+  </data>
+  <data name="IconEmotionZingy" xml:space="preserve">
+    <value>Icons/emotion_zingy.png</value>
+  </data>
+  <data name="IconEskimoFemale" xml:space="preserve">
+    <value>Icons/eskimo_female.png</value>
+  </data>
+  <data name="IconEskimo" xml:space="preserve">
+    <value>Icons/eskimo.png</value>
+  </data>
+  <data name="IconFemale" xml:space="preserve">
+    <value>Icons/female.png</value>
+  </data>
+  <data name="IconFirefighterBlack" xml:space="preserve">
+    <value>Icons/firefighter_black.png</value>
+  </data>
+  <data name="IconFirefighter" xml:space="preserve">
+    <value>Icons/firefighter.png</value>
+  </data>
+  <data name="IconFreddy" xml:space="preserve">
+    <value>Icons/freddy.png</value>
+  </data>
+  <data name="IconGeisha" xml:space="preserve">
+    <value>Icons/geisha.png</value>
+  </data>
+  <data name="IconGladiator" xml:space="preserve">
+    <value>Icons/gladiator.png</value>
+  </data>
+  <data name="IconGomer" xml:space="preserve">
+    <value>Icons/gomer.png</value>
+  </data>
+  <data name="IconGoth" xml:space="preserve">
+    <value>Icons/goth.png</value>
+  </data>
+  <data name="IconGray" xml:space="preserve">
+    <value>Icons/gray.png</value>
+  </data>
+  <data name="IconGreen" xml:space="preserve">
+    <value>Icons/green.png</value>
+  </data>
+  <data name="IconHalk" xml:space="preserve">
+    <value>Icons/halk.png</value>
+  </data>
+  <data name="IconHendrix" xml:space="preserve">
+    <value>Icons/hendrix.png</value>
+  </data>
+  <data name="IconImprisonedBlack" xml:space="preserve">
+    <value>Icons/imprisoned_black.png</value>
+  </data>
+  <data name="IconImprisonedFemaleBlack" xml:space="preserve">
+    <value>Icons/imprisoned_female_black.png</value>
+  </data>
+  <data name="IconImprisonedFemale" xml:space="preserve">
+    <value>Icons/imprisoned_female.png</value>
+  </data>
+  <data name="IconImprisoned" xml:space="preserve">
+    <value>Icons/imprisoned.png</value>
+  </data>
+  <data name="IconIndianFemale" xml:space="preserve">
+    <value>Icons/indian_female.png</value>
+  </data>
+  <data name="IconIndian" xml:space="preserve">
+    <value>Icons/indian.png</value>
+  </data>
+  <data name="IconIronman" xml:space="preserve">
+    <value>Icons/ironman.png</value>
+  </data>
+  <data name="IconJason" xml:space="preserve">
+    <value>Icons/jason.png</value>
+  </data>
+  <data name="IconJawa" xml:space="preserve">
+    <value>Icons/jawa.png</value>
+  </data>
+  <data name="IconJester" xml:space="preserve">
+    <value>Icons/jester.png</value>
+  </data>
+  <data name="IconJew" xml:space="preserve">
+    <value>Icons/jew.png</value>
+  </data>
+  <data name="IconJudgeBlack" xml:space="preserve">
+    <value>Icons/judge_black.png</value>
+  </data>
+  <data name="IconJudge" xml:space="preserve">
+    <value>Icons/judge.png</value>
+  </data>
+  <data name="IconKingBlack" xml:space="preserve">
+    <value>Icons/king_black.png</value>
+  </data>
+  <data name="IconKing" xml:space="preserve">
+    <value>Icons/king.png</value>
+  </data>
+  <data name="IconKnight" xml:space="preserve">
+    <value>Icons/knight.png</value>
+  </data>
+  <data name="IconLeprechaun" xml:space="preserve">
+    <value>Icons/leprechaun.png</value>
+  </data>
+  <data name="IconLisa" xml:space="preserve">
+    <value>Icons/lisa.png</value>
+  </data>
+  <data name="IconMaid" xml:space="preserve">
+    <value>Icons/maid.png</value>
+  </data>
+  <data name="IconMedicalBlack" xml:space="preserve">
+    <value>Icons/medical_black.png</value>
+  </data>
+  <data name="IconMedicalFemaleBlack" xml:space="preserve">
+    <value>Icons/medical_female_black.png</value>
+  </data>
+  <data name="IconMedicalFemale" xml:space="preserve">
+    <value>Icons/medical_female.png</value>
+  </data>
+  <data name="IconMedical" xml:space="preserve">
+    <value>Icons/medical.png</value>
+  </data>
+  <data name="IconMexican" xml:space="preserve">
+    <value>Icons/mexican.png</value>
+  </data>
+  <data name="IconMuslimFemale" xml:space="preserve">
+    <value>Icons/muslim_female.png</value>
+  </data>
+  <data name="IconMuslim" xml:space="preserve">
+    <value>Icons/muslim.png</value>
+  </data>
+  <data name="IconNinja" xml:space="preserve">
+    <value>Icons/ninja.png</value>
+  </data>
+  <data name="IconNudeBlack" xml:space="preserve">
+    <value>Icons/nude_black.png</value>
+  </data>
+  <data name="IconNudeFemaleBlack" xml:space="preserve">
+    <value>Icons/nude_female_black.png</value>
+  </data>
+  <data name="IconNudeFemale" xml:space="preserve">
+    <value>Icons/nude_female.png</value>
+  </data>
+  <data name="IconNude" xml:space="preserve">
+    <value>Icons/nude.png</value>
+  </data>
+  <data name="IconNunBlack" xml:space="preserve">
+    <value>Icons/nun_black.png</value>
+  </data>
+  <data name="IconNun" xml:space="preserve">
+    <value>Icons/nun.png</value>
+  </data>
+  <data name="IconOfficerBlack" xml:space="preserve">
+    <value>Icons/officer_black.png</value>
+  </data>
+  <data name="IconOfficer" xml:space="preserve">
+    <value>Icons/officer.png</value>
+  </data>
+  <data name="IconOldmanBlack" xml:space="preserve">
+    <value>Icons/oldman_black.png</value>
+  </data>
+  <data name="IconOldman" xml:space="preserve">
+    <value>Icons/oldman.png</value>
+  </data>
+  <data name="IconOldwomanBlack" xml:space="preserve">
+    <value>Icons/oldwoman_black.png</value>
+  </data>
+  <data name="IconOldwoman" xml:space="preserve">
+    <value>Icons/oldwoman.png</value>
+  </data>
+  <data name="IconOrange" xml:space="preserve">
+    <value>Icons/orange.png</value>
+  </data>
+  <data name="IconPatrick" xml:space="preserve">
+    <value>Icons/patrick.png</value>
+  </data>
+  <data name="IconPilotCivil" xml:space="preserve">
+    <value>Icons/pilot_civil.png</value>
+  </data>
+  <data name="IconPilot" xml:space="preserve">
+    <value>Icons/pilot.png</value>
+  </data>
+  <data name="IconPirate" xml:space="preserve">
+    <value>Icons/pirate.png</value>
+  </data>
+  <data name="IconPlankton" xml:space="preserve">
+    <value>Icons/plankton.png</value>
+  </data>
+  <data name="IconPoliceEngland" xml:space="preserve">
+    <value>Icons/police_england.png</value>
+  </data>
+  <data name="IconPoliceFemaleBlack" xml:space="preserve">
+    <value>Icons/police_female_black.png</value>
+  </data>
+  <data name="IconPoliceFemale" xml:space="preserve">
+    <value>Icons/police_female.png</value>
+  </data>
+  <data name="IconPoliceman" xml:space="preserve">
+    <value>Icons/policeman.png</value>
+  </data>
+  <data name="IconPoliceman2" xml:space="preserve">
+    <value>Icons/policeman(2).png</value>
+  </data>
+  <data name="IconPriestBlack" xml:space="preserve">
+    <value>Icons/priest_black.png</value>
+  </data>
+  <data name="IconPriest" xml:space="preserve">
+    <value>Icons/priest.png</value>
+  </data>
+  <data name="IconPumpkin" xml:space="preserve">
+    <value>Icons/pumpkin.png</value>
+  </data>
+  <data name="IconQueenBlack" xml:space="preserve">
+    <value>Icons/queen_black.png</value>
+  </data>
+  <data name="IconQueen" xml:space="preserve">
+    <value>Icons/queen.png</value>
+  </data>
+  <data name="IconR2d2" xml:space="preserve">
+    <value>Icons/r2d2.png</value>
+  </data>
+  <data name="IconRacer" xml:space="preserve">
+    <value>Icons/racer.png</value>
+  </data>
+  <data name="IconRambo" xml:space="preserve">
+    <value>Icons/rambo.png</value>
+  </data>
+  <data name="IconRed" xml:space="preserve">
+    <value>Icons/red.png</value>
+  </data>
+  <data name="IconRedskin" xml:space="preserve">
+    <value>Icons/redskin.png</value>
+  </data>
+  <data name="IconRobocop" xml:space="preserve">
+    <value>Icons/robocop.png</value>
+  </data>
+  <data name="IconSailorBlack" xml:space="preserve">
+    <value>Icons/sailor_black.png</value>
+  </data>
+  <data name="IconSailor" xml:space="preserve">
+    <value>Icons/sailor.png</value>
+  </data>
+  <data name="IconSamurai" xml:space="preserve">
+    <value>Icons/samurai.png</value>
+  </data>
+  <data name="IconScream" xml:space="preserve">
+    <value>Icons/scream.png</value>
+  </data>
+  <data name="IconSilhouette" xml:space="preserve">
+    <value>Icons/silhouette.png</value>
+  </data>
+  <data name="IconSoldier" xml:space="preserve">
+    <value>Icons/soldier.png</value>
+  </data>
+  <data name="IconSpiderman" xml:space="preserve">
+    <value>Icons/spiderman.png</value>
+  </data>
+  <data name="IconSpongeBob" xml:space="preserve">
+    <value>Icons/sponge_bob.png</value>
+  </data>
+  <data name="IconSquidward" xml:space="preserve">
+    <value>Icons/squidward.png</value>
+  </data>
+  <data name="IconStewardessBlack" xml:space="preserve">
+    <value>Icons/stewardess_black.png</value>
+  </data>
+  <data name="IconStewardess" xml:space="preserve">
+    <value>Icons/stewardess.png</value>
+  </data>
+  <data name="IconStriperBlack" xml:space="preserve">
+    <value>Icons/striper_black.png</value>
+  </data>
+  <data name="IconStriper" xml:space="preserve">
+    <value>Icons/striper.png</value>
+  </data>
+  <data name="IconStudentBlack" xml:space="preserve">
+    <value>Icons/student_black.png</value>
+  </data>
+  <data name="IconStudentFemaleBlack" xml:space="preserve">
+    <value>Icons/student_female_black.png</value>
+  </data>
+  <data name="IconStudentFemale" xml:space="preserve">
+    <value>Icons/student_female.png</value>
+  </data>
+  <data name="IconStudent" xml:space="preserve">
+    <value>Icons/student.png</value>
+  </data>
+  <data name="IconSuit" xml:space="preserve">
+    <value>Icons/suit.png</value>
+  </data>
+  <data name="IconSuperman" xml:space="preserve">
+    <value>Icons/superman.png</value>
+  </data>
+  <data name="IconSwimmerBlack" xml:space="preserve">
+    <value>Icons/swimmer_black.png</value>
+  </data>
+  <data name="IconSwimmerFemale" xml:space="preserve">
+    <value>Icons/swimmer_female.png</value>
+  </data>
+  <data name="IconSwimmer" xml:space="preserve">
+    <value>Icons/swimmer.png</value>
+  </data>
+  <data name="IconTrooperCaptain" xml:space="preserve">
+    <value>Icons/trooper_captain.png</value>
+  </data>
+  <data name="IconTrooper" xml:space="preserve">
+    <value>Icons/trooper.png</value>
+  </data>
+  <data name="IconVietnameseFemale" xml:space="preserve">
+    <value>Icons/vietnamese_female.png</value>
+  </data>
+  <data name="IconVietnamese" xml:space="preserve">
+    <value>Icons/vietnamese.png</value>
+  </data>
+  <data name="IconVikingFemale" xml:space="preserve">
+    <value>Icons/viking_female.png</value>
+  </data>
+  <data name="IconViking" xml:space="preserve">
+    <value>Icons/viking.png</value>
+  </data>
+  <data name="IconWaiterFemaleBlack" xml:space="preserve">
+    <value>Icons/waiter_female_black.png</value>
+  </data>
+  <data name="IconWaiterFemale" xml:space="preserve">
+    <value>Icons/waiter_female.png</value>
+  </data>
+  <data name="IconWaiter" xml:space="preserve">
+    <value>Icons/waiter.png</value>
+  </data>
+  <data name="IconWicket" xml:space="preserve">
+    <value>Icons/wicket.png</value>
+  </data>
+  <data name="IconYoda" xml:space="preserve">
+    <value>Icons/yoda.png</value>
+  </data>
+  <data name="IconZorro" xml:space="preserve">
+    <value>Icons/zorro.png</value>
+  </data>
+</root>

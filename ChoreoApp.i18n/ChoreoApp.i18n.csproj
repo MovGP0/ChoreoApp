@@ -25,6 +25,9 @@
     <PackageReference Include="PolySharp" />
   </ItemGroup>
   <ItemGroup>
+    <MauiImage Include="Icons\\*.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Page Remove="*.xaml" />
     <MauiXaml Include="*.xaml" />
   </ItemGroup>
@@ -36,6 +39,7 @@
     <EmbeddedResource Update="Translations.*.resx">
       <DependentUpon>Translations.resx</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Update="Icons.resx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Translations.Designer.cs">
