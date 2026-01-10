@@ -28,7 +28,8 @@
                                                 Converter={x:Static converters:DoubleToIntConverter.Instance}}"
                         Shades="{Binding Path=Elevation,
                                         Source={RelativeSource TemplatedParent},
-                                        Converter={x:Static converters:ShadowConverter.Instance}}">
+                                        Converter={x:Static converters:ShadowConverter.Instance}}"
+                        x:DataType="styling:Card">
           <Border x:Name="PART_ClipBorder"
                   Padding="{TemplateBinding Padding}"
                   BackgroundColor="{TemplateBinding BackgroundColor}"

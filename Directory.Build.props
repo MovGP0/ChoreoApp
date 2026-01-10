@@ -22,4 +22,10 @@
     <Using Include="ReactiveUI" />
     <Using Include="ReactiveUI.SourceGenerators" />
   </ItemGroup>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+    <FrameworkReference Update="Microsoft.NETCore.App" RuntimePackName="Microsoft.NETCore.App.Runtime.win-x64" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'win-arm64'">
+    <FrameworkReference Update="Microsoft.NETCore.App" RuntimePackName="Microsoft.NETCore.App.Runtime.win-arm64" />
+  </ItemGroup>
 </Project>

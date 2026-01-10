@@ -10,7 +10,8 @@
   <ControlTemplate x:Key="MaterialDesignScrollViewerTemplate">
     <Grid ColumnDefinitions="*,Auto"
           RowDefinitions="*,Auto"
-          BackgroundColor="{TemplateBinding BackgroundColor}">
+          BackgroundColor="{TemplateBinding BackgroundColor}"
+          x:DataType="styling:ScrollViewer">
       <ScrollView x:Name="PART_ScrollView"
                   Grid.Row="0"
                   Grid.Column="0"

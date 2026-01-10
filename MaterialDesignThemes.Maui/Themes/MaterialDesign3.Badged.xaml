@@ -4,7 +4,8 @@
                     xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
 
   <Style x:Key="MaterialDesignBadge"
-         TargetType="styling:Badged">
+         TargetType="styling:Badged"
+         x:DataType="styling:Badged">
     <Setter Property="BadgeColorZoneMode" Value="PrimaryLight" />
     <Setter Property="BadgePlacementMode" Value="TopRight" />
     <Setter Property="VerticalOptions" Value="Start" />
@@ -12,7 +13,7 @@
     <Setter Property="CornerRadius" Value="9" />
     <Setter Property="ControlTemplate">
       <ControlTemplate>
-        <Grid>
+        <Grid x:DataType="styling:Badged">
           <Border BackgroundColor="{TemplateBinding BackgroundColor}"
                   Stroke="{TemplateBinding Stroke}"
                   StrokeThickness="{TemplateBinding StrokeThickness}">
@@ -188,10 +189,11 @@
 
   <Style x:Key="MaterialDesignMiniBadge"
          TargetType="styling:Badged"
-         BasedOn="{StaticResource MaterialDesignBadge}">
+         BasedOn="{StaticResource MaterialDesignBadge}"
+         x:DataType="styling:Badged">
     <Setter Property="ControlTemplate">
       <ControlTemplate>
-        <Grid>
+        <Grid x:DataType="styling:Badged">
           <Border BackgroundColor="{TemplateBinding BackgroundColor}"
                   Stroke="{TemplateBinding Stroke}"
                   StrokeThickness="{TemplateBinding StrokeThickness}">

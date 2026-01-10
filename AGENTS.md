@@ -51,6 +51,14 @@ font.Size = 12;
 ## Tool usage
 - When available, prefer tools (e.g. Rider) for creating, listing, inspecting and editing files.
 
+## Scripts
+- `scripts/Create-DevCert.ps1` creates the development signing certificate and prints its thumbprint.
+- `scripts/Publish-All.ps1` publishes all supported platforms, skipping targets that require a different OS.
+
+## Dependency Updates
+- Use `dotnet outdated` to scan for dependency updates.
+- Apply version updates in `Directory.Packages.props` (central package management).
+
 ## Implicit Usings
 - Implicit global usings are enabled for all projects; common namespaces are auto-included:
 ```csharp
@@ -73,6 +81,10 @@ global using Microsoft.Extensions.DependencyInjection;
 
 ## MAUI Specific
 - Use `SemanticProperties` for accessibility (`SemanticProperties.Hint`, `SemanticProperties.Description`, `SemanticProperties.HeadingLevel`).
+- Prefer compiled bindings:
+  - Add `x:DataType` on views and `DataTemplate` roots where bindings are used.
+  - For bindings that use `Source=...`, keep `MauiEnableXamlCBindingWithSourceCompilation` set to `true` in project files.
+  - If a binding cannot be compiled safely (e.g., attached-property bindings), opt out with `x:DataType="{x:Null}"` on that binding or container.
 
 ## ReactiveUI Specific
 - The documentation for ReactiveUI can be found at https://reactiveui.net/docs/

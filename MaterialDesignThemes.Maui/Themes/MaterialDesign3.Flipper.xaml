@@ -18,7 +18,7 @@
             Value="{StaticResource MaterialDesignElevatedCard}" />
     <Setter Property="ControlTemplate">
       <ControlTemplate>
-        <Grid>
+        <Grid x:DataType="styling:Flipper">
           <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="FlipStates">
               <VisualState x:Name="Unflipped">
@@ -45,8 +45,8 @@
                         BackgroundColor="{TemplateBinding BackgroundColor}"
                         HorizontalOptions="{TemplateBinding HorizontalOptions}"
                         VerticalOptions="{TemplateBinding VerticalOptions}"
-                        UniformCornerRadius="{Binding Path=(styling:FlipperAssist.UniformCornerRadius), Source={RelativeSource TemplatedParent}}"
-                        Style="{Binding Path=(styling:FlipperAssist.CardStyle), Source={RelativeSource TemplatedParent}}">
+                        UniformCornerRadius="{Binding Path=(styling:FlipperAssist.UniformCornerRadius), Source={RelativeSource TemplatedParent}, x:DataType={x:Null}}"
+                        Style="{Binding Path=(styling:FlipperAssist.CardStyle), Source={RelativeSource TemplatedParent}, x:DataType={x:Null}}">
             <ContentView x:Name="PART_FrontContent" />
           </styling:Card>
 
@@ -55,8 +55,8 @@
                         BackgroundColor="{TemplateBinding BackgroundColor}"
                         HorizontalOptions="{TemplateBinding HorizontalOptions}"
                         VerticalOptions="{TemplateBinding VerticalOptions}"
-                        UniformCornerRadius="{Binding Path=(styling:FlipperAssist.UniformCornerRadius), Source={RelativeSource TemplatedParent}}"
-                        Style="{Binding Path=(styling:FlipperAssist.CardStyle), Source={RelativeSource TemplatedParent}}">
+                        UniformCornerRadius="{Binding Path=(styling:FlipperAssist.UniformCornerRadius), Source={RelativeSource TemplatedParent}, x:DataType={x:Null}}"
+                        Style="{Binding Path=(styling:FlipperAssist.CardStyle), Source={RelativeSource TemplatedParent}, x:DataType={x:Null}}">
             <ContentView x:Name="PART_BackContent" />
           </styling:Card>
         </Grid>

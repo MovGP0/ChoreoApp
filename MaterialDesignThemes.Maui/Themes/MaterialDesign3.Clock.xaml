@@ -39,7 +39,8 @@
   <ControlTemplate x:Key="MaterialDesignClockTemplate">
     <Border Background="{TemplateBinding Background}"
             Stroke="{TemplateBinding BorderBrush}"
-            StrokeThickness="{TemplateBinding BorderThickness}">
+            StrokeThickness="{TemplateBinding BorderThickness}"
+            x:DataType="styling:Clock">
       <Border.StrokeShape>
         <RoundRectangle CornerRadius="{TemplateBinding CornerRadius}" />
       </Border.StrokeShape>

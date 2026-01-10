@@ -5,7 +5,8 @@
                     xmlns:converters="clr-namespace:MaterialDesignThemes.Maui.Converters;assembly=MaterialDesignThemes.Maui">
 
   <ControlTemplate x:Key="MaterialDesignSmartHintTemplate">
-    <Grid Padding="{TemplateBinding Padding}">
+    <Grid Padding="{TemplateBinding Padding}"
+          x:DataType="styling:SmartHint">
       <Label x:Name="SimpleHintLabel"
              Text="{TemplateBinding Hint}"
              FontSize="{TemplateBinding FontSize}"

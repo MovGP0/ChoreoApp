@@ -251,8 +251,9 @@
                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         <Picker Grid.Row="0"
                                 Grid.Column="1"
-                                ItemsSource="{Binding FloorSizeOptions}"
-                                SelectedItem="{Binding FloorFront}"
+                                x:DataType="x:Int32"
+                                ItemsSource="{Binding Source={x:Reference Root}, Path=BindingContext.FloorSizeOptions, x:DataType=settings:ChoreographySettingsViewModel}"
+                                SelectedItem="{Binding Source={x:Reference Root}, Path=BindingContext.FloorFront, x:DataType=settings:ChoreographySettingsViewModel}"
                                 ItemDisplayBinding="{Binding .}"
                                 TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
@@ -263,8 +264,9 @@
                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         <Picker Grid.Row="1"
                                 Grid.Column="1"
-                                ItemsSource="{Binding FloorSizeOptions}"
-                                SelectedItem="{Binding FloorBack}"
+                                x:DataType="x:Int32"
+                                ItemsSource="{Binding Source={x:Reference Root}, Path=BindingContext.FloorSizeOptions, x:DataType=settings:ChoreographySettingsViewModel}"
+                                SelectedItem="{Binding Source={x:Reference Root}, Path=BindingContext.FloorBack, x:DataType=settings:ChoreographySettingsViewModel}"
                                 ItemDisplayBinding="{Binding .}"
                                 TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
@@ -275,8 +277,9 @@
                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         <Picker Grid.Row="2"
                                 Grid.Column="1"
-                                ItemsSource="{Binding FloorSizeOptions}"
-                                SelectedItem="{Binding FloorLeft}"
+                                x:DataType="x:Int32"
+                                ItemsSource="{Binding Source={x:Reference Root}, Path=BindingContext.FloorSizeOptions, x:DataType=settings:ChoreographySettingsViewModel}"
+                                SelectedItem="{Binding Source={x:Reference Root}, Path=BindingContext.FloorLeft, x:DataType=settings:ChoreographySettingsViewModel}"
                                 ItemDisplayBinding="{Binding .}"
                                 TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
@@ -287,8 +290,9 @@
                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         <Picker Grid.Row="3"
                                 Grid.Column="1"
-                                ItemsSource="{Binding FloorSizeOptions}"
-                                SelectedItem="{Binding FloorRight}"
+                                x:DataType="x:Int32"
+                                ItemsSource="{Binding Source={x:Reference Root}, Path=BindingContext.FloorSizeOptions, x:DataType=settings:ChoreographySettingsViewModel}"
+                                SelectedItem="{Binding Source={x:Reference Root}, Path=BindingContext.FloorRight, x:DataType=settings:ChoreographySettingsViewModel}"
                                 ItemDisplayBinding="{Binding .}"
                                 TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
@@ -301,8 +305,9 @@
                                Grid.Column="0"
                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
                         <Picker Grid.Column="1"
-                                ItemsSource="{Binding GridSizeOptions}"
-                                SelectedItem="{Binding SelectedGridSizeOption}"
+                                x:DataType="settings:GridSizeOption"
+                                ItemsSource="{Binding Source={x:Reference Root}, Path=BindingContext.GridSizeOptions, x:DataType=settings:ChoreographySettingsViewModel}"
+                                SelectedItem="{Binding Source={x:Reference Root}, Path=BindingContext.SelectedGridSizeOption, x:DataType=settings:ChoreographySettingsViewModel}"
                                 ItemDisplayBinding="{Binding Display}"
                                 TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />

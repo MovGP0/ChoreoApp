@@ -15,7 +15,8 @@
           ColumnDefinitions="*,Auto"
           RowDefinitions="*,*"
           ColumnSpacing="0"
-          RowSpacing="0">
+          RowSpacing="0"
+          x:DataType="styling:NumericUpDown">
       <Entry x:Name="PART_Entry"
              Grid.RowSpan="2"
              Style="{TemplateBinding EntryStyle}"

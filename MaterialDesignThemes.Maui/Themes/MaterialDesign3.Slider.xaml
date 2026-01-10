@@ -5,7 +5,8 @@
 
   <ControlTemplate x:Key="MaterialDesignSliderTemplate">
     <AbsoluteLayout x:Name="PART_TrackLayout"
-                    HeightRequest="{TemplateBinding HeightRequest}">
+                    HeightRequest="{TemplateBinding HeightRequest}"
+                    x:DataType="styling:Slider">
       <BoxView x:Name="PART_Track"
                Color="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                HeightRequest="{TemplateBinding TrackThickness}"

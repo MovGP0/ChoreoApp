@@ -5,7 +5,8 @@
                     xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
 
   <Style x:Key="MaterialDesignChip"
-         TargetType="styling:Chip">
+         TargetType="styling:Chip"
+         x:DataType="styling:Chip">
     <Setter Property="BackgroundColor"
             Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}" />
     <Setter Property="Foreground"
@@ -22,7 +23,8 @@
     <Setter Property="StrokeThickness" Value="0" />
     <Setter Property="ControlTemplate">
       <ControlTemplate>
-        <Grid ColumnDefinitions="Auto,*,Auto">
+        <Grid ColumnDefinitions="Auto,*,Auto"
+              x:DataType="styling:Chip">
           <Border Grid.ColumnSpan="3"
                   BackgroundColor="{TemplateBinding BackgroundColor}"
                   Stroke="{TemplateBinding Stroke}"
@@ -114,7 +116,8 @@
 
   <Style x:Key="MaterialDesignOutlineChip"
          TargetType="styling:Chip"
-         BasedOn="{StaticResource MaterialDesignChip}">
+         BasedOn="{StaticResource MaterialDesignChip}"
+         x:DataType="styling:Chip">
     <Setter Property="BackgroundColor"
             Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
     <Setter Property="Stroke"
@@ -122,7 +125,8 @@
     <Setter Property="StrokeThickness" Value="1" />
     <Setter Property="ControlTemplate">
       <ControlTemplate>
-        <Grid ColumnDefinitions="Auto,*,Auto">
+        <Grid ColumnDefinitions="Auto,*,Auto"
+              x:DataType="styling:Chip">
           <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="CommonStates">
               <VisualState x:Name="Normal" />

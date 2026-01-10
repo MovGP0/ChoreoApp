@@ -34,6 +34,19 @@ public class SmartHint : TemplatedView
         set => SetValue(HintProperty, value);
     }
 
+    public static readonly BindableProperty FontSizeProperty =
+        BindableProperty.Create(
+            nameof(FontSize),
+            typeof(double),
+            typeof(SmartHint),
+            14d);
+
+    public double FontSize
+    {
+        get => (double)GetValue(FontSizeProperty);
+        set => SetValue(FontSizeProperty, value);
+    }
+
     private static readonly BindablePropertyKey IsContentNullOrEmptyPropertyKey =
         BindableProperty.CreateReadOnly(
             nameof(IsContentNullOrEmpty),

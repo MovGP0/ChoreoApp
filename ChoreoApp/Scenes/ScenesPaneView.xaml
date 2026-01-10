@@ -8,6 +8,7 @@
                           xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
                           xmlns:choreoApp="using:ChoreoApp"
                           xmlns:scenes="clr-namespace:ChoreoApp.Scenes"
+                          x:DataType="scenes:ScenesPaneViewModel"
                           x:Class="ChoreoApp.Scenes.ScenesPaneView">
     <Border x:DataType="scenes:ScenesPaneViewModel"
             StrokeThickness="0"
@@ -56,7 +57,7 @@
                                   Padding="4">
                                 <Grid.Triggers>
                                     <DataTrigger TargetType="Grid"
-                                                 Binding="{Binding Source={x:Reference Root}, Path=BindingContext.ShowTimestamps}"
+                                                 Binding="{Binding Source={x:Reference Root}, Path=BindingContext.ShowTimestamps, x:DataType=scenes:ScenesPaneViewModel}"
                                                  Value="True">
                                         <Setter Property="RowDefinitions"
                                                 Value="Auto,Auto" />
@@ -81,7 +82,7 @@
                                        Grid.Row="1"
                                        Grid.Column="1"
                                        Text="{Binding Timestamp, StringFormat='{0:mm\\:ss\\.fff}'}"
-                                       IsVisible="{Binding Source={x:Reference Root}, Path=BindingContext.ShowTimestamps}"
+                                       IsVisible="{Binding Source={x:Reference Root}, Path=BindingContext.ShowTimestamps, x:DataType=scenes:ScenesPaneViewModel}"
                                        TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}"
                                        BackgroundColor="Transparent" />
                             </Grid>

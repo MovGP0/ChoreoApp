@@ -20,7 +20,8 @@
 
   <ControlTemplate x:Key="MaterialDesignScrollBarVerticalTemplate">
     <Grid RowDefinitions="Auto,*,Auto"
-          RowSpacing="2">
+          RowSpacing="2"
+          x:DataType="styling:ScrollBar">
       <styling:ContentButton x:Name="PART_DecreaseButton"
                              Grid.Row="0"
                              Style="{StaticResource MaterialDesignScrollBarButton}" />
@@ -43,7 +44,8 @@
 
   <ControlTemplate x:Key="MaterialDesignScrollBarHorizontalTemplate">
     <Grid ColumnDefinitions="Auto,*,Auto"
-          ColumnSpacing="2">
+          ColumnSpacing="2"
+          x:DataType="styling:ScrollBar">
       <styling:ContentButton x:Name="PART_DecreaseButton"
                              Grid.Column="0"
                              Style="{StaticResource MaterialDesignScrollBarButton}" />
@@ -65,7 +67,8 @@
   </ControlTemplate>
 
   <Style x:Key="MaterialDesignScrollBar"
-         TargetType="styling:ScrollBar">
+         TargetType="styling:ScrollBar"
+         x:DataType="styling:ScrollBar">
     <Setter Property="ControlTemplate" Value="{StaticResource MaterialDesignScrollBarVerticalTemplate}" />
     <Setter Property="WidthRequest" Value="12" />
     <Setter Property="HeightRequest" Value="120" />

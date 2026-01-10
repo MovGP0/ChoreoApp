@@ -26,12 +26,13 @@
       <Setter.Value>
         <ControlTemplate>
           <Grid ColumnDefinitions="*,Auto"
-                ColumnSpacing="8">
+                ColumnSpacing="8"
+                x:DataType="styling:SnackbarMessage">
             <ContentView x:Name="PART_MessageContentHost"
                          VerticalOptions="Center" />
             <styling:ContentButton x:Name="PART_ActionButton"
                                    Grid.Column="1"
-                                   Style="{Binding Source={RelativeSource AncestorType={x:Type styling:Snackbar}}, Path=ActionButtonStyle}" />
+                                   Style="{Binding Source={RelativeSource AncestorType={x:Type styling:Snackbar}}, Path=ActionButtonStyle, x:DataType=styling:Snackbar}" />
           </Grid>
         </ControlTemplate>
       </Setter.Value>
@@ -50,7 +51,8 @@
       <Setter.Value>
         <ControlTemplate>
           <StackLayout IsVisible="{TemplateBinding IsActive}"
-                       Spacing="0">
+                       Spacing="0"
+                       x:DataType="styling:Snackbar">
             <Border BackgroundColor="{TemplateBinding BackgroundColor}"
                     StrokeThickness="0"
                     Padding="{TemplateBinding Padding}">

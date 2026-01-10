@@ -22,7 +22,8 @@
             Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
     <Setter Property="ControlTemplate">
       <ControlTemplate>
-        <Grid Padding="{TemplateBinding Padding}">
+        <Grid Padding="{TemplateBinding Padding}"
+              x:DataType="styling:ColorPicker">
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

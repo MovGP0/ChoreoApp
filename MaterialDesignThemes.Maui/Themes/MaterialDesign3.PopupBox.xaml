@@ -21,7 +21,8 @@
     <Setter Property="ToggleContent" Value="{StaticResource MaterialDesignPopupBoxToggleContent}" />
     <Setter Property="ControlTemplate">
       <ControlTemplate>
-        <Grid RowDefinitions="Auto,Auto">
+        <Grid RowDefinitions="Auto,Auto"
+              x:DataType="styling:PopupBox">
           <styling:ToogleButton x:Name="PART_Toggle"
                                 Padding="4"
                                 HorizontalOptions="Start"

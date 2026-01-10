@@ -7,6 +7,7 @@
                           xmlns:conv="clr-namespace:ChoreoApp.Settings.Converters"
                           xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
                           xmlns:colorPicker="clr-namespace:ChoreoApp.ColorPicker"
+                          x:DataType="settings:SettingsViewModel"
                           x:Class="ChoreoApp.Settings.SettingsPage">
     <maui:ReactiveContentPage.Resources>
         <ResourceDictionary>

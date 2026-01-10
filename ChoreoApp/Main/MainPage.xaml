@@ -10,6 +10,7 @@
                           xmlns:settings="clr-namespace:ChoreoApp.ChoreographySettings"
                           xmlns:main="clr-namespace:ChoreoApp.Main"
                           xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
+                          x:Name="Root"
                           x:DataType="main:MainViewModel"
                           x:Class="ChoreoApp.Main.MainPage">
     <Shell.TitleView>
@@ -25,10 +26,11 @@
                                    HorizontalOptions="End"
                                    VerticalOptions="Center"
                                    Spacing="8">
-                  <Picker ItemsSource="{Binding ModeOptions}"
-                          SelectedItem="{Binding SelectedModeOption}"
+                  <Picker x:DataType="main:InteractionModeOption"
+                          ItemsSource="{Binding Source={x:Reference Root}, Path=BindingContext.ModeOptions, x:DataType=main:MainViewModel}"
+                          SelectedItem="{Binding Source={x:Reference Root}, Path=BindingContext.SelectedModeOption, x:DataType=main:MainViewModel}"
                           ItemDisplayBinding="{Binding Display}"
-                          IsEnabled="{Binding IsModeSelectionEnabled}"
+                          IsEnabled="{Binding Source={x:Reference Root}, Path=BindingContext.IsModeSelectionEnabled, x:DataType=main:MainViewModel}"
                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                           BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                           HeightRequest="32"

@@ -5,6 +5,7 @@
                           xmlns:maui="using:ReactiveUI.Maui"
                           xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
                           xmlns:floor="clr-namespace:ChoreoApp.Floor"
+                          x:DataType="floor:FloorCanvasViewModel"
                           x:Class="ChoreoApp.Floor.FloorCanvasView">
     <Grid>
         <skia:SKCanvasView x:Name="CanvasView"

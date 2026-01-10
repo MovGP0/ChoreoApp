@@ -13,7 +13,8 @@
           ColumnDefinitions="*,Auto"
           RowDefinitions="Auto,Auto"
           ColumnSpacing="0"
-          RowSpacing="0">
+          RowSpacing="0"
+          x:DataType="styling:SplitButton">
       <styling:ContentButton x:Name="PART_PrimaryButton"
                              Grid.Row="0"
                              Grid.Column="0"

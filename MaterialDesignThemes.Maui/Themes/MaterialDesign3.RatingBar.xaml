@@ -10,7 +10,8 @@
     <StackLayout x:Name="PART_ItemsHost"
                  Orientation="{TemplateBinding Orientation}"
                  Padding="{TemplateBinding Padding}"
-                 Spacing="0" />
+                 Spacing="0"
+                 x:DataType="styling:RatingBar" />
   </ControlTemplate>
 
   <Style x:Key="MaterialDesignRatingBarButton"
@@ -22,7 +23,8 @@
 
   <DataTemplate x:Key="MaterialDesignRatingBarItemTemplate">
     <Grid WidthRequest="24"
-          HeightRequest="24">
+          HeightRequest="24"
+          x:DataType="styling:RatingBar">
       <Path Data="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
             WidthRequest="24"
             HeightRequest="24"

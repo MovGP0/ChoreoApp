@@ -18,7 +18,7 @@
             Value="{StaticResource MaterialDesignElevatedCard}" />
     <Setter Property="ControlTemplate">
       <ControlTemplate>
-        <Grid>
+        <Grid x:DataType="styling:FlipperClassic">
           <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="FlipStates">
               <VisualState x:Name="Unflipped">
@@ -42,8 +42,8 @@
                         BackgroundColor="{TemplateBinding BackgroundColor}"
                         HorizontalOptions="{TemplateBinding HorizontalOptions}"
                         VerticalOptions="{TemplateBinding VerticalOptions}"
-                        UniformCornerRadius="{Binding Path=(styling:FlipperAssist.UniformCornerRadius), Source={RelativeSource TemplatedParent}}"
-                        Style="{Binding Path=(styling:FlipperAssist.CardStyle), Source={RelativeSource TemplatedParent}}">
+                        UniformCornerRadius="{Binding Path=(styling:FlipperAssist.UniformCornerRadius), Source={RelativeSource TemplatedParent}, x:DataType={x:Null}}"
+                        Style="{Binding Path=(styling:FlipperAssist.CardStyle), Source={RelativeSource TemplatedParent}, x:DataType={x:Null}}">
             <styling:Plane3D x:Name="PART_Plane3D"
                              RotationY="0"
                              ZFactor="2.055">

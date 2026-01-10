@@ -3,20 +3,19 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Riok.Mapperly" Version="4.3.0" />
+    <PackageVersion Include="Riok.Mapperly" Version="4.3.1" />
     <PackageVersion Include="StronglyTypedId" Version="1.0.0-beta08" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="10.0.1" />
     <PackageVersion Include="PolySharp" Version="1.15.0" />
     <PackageVersion Include="MessagePipe" Version="1.8.1" />
   </ItemGroup>
   <ItemGroup Label="MAUI">
-    <PackageVersion Include="Microsoft.Maui.Controls.Core" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.Maui.Graphics" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.Maui.Controls" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.Maui.Essentials" Version="10.0.11" />
-    <PackageVersion Include="Microsoft.Maui.Controls.Foldable" Version="10.0.11" />
+    <PackageVersion Include="Microsoft.Maui.Controls.Core" Version="10.0.20" />
+    <PackageVersion Include="Microsoft.Maui.Graphics" Version="10.0.20" />
+    <PackageVersion Include="Microsoft.Maui.Controls" Version="10.0.20" />
+    <PackageVersion Include="Microsoft.Maui.Essentials" Version="10.0.20" />
+    <PackageVersion Include="Microsoft.Maui.Controls.Foldable" Version="10.0.20" />
     <PackageVersion Include="Plugin.Maui.Audio" Version="4.0.0" />
-    <PackageVersion Include="CommunityToolkit.Maui" Version="13.0.0" />
     <PackageVersion Include="ThomasLevesque.WeakEvent" Version="4.1.0" />
     <PackageVersion Include="Sharpnado.Maui.Shadows" Version="2.0.2" />
     <PackageVersion Include="CommunityToolkit.Maui" Version="13.0.0" />
@@ -34,7 +33,7 @@
     <PackageVersion Include="SkiaSharp.Views.Maui.Controls" Version="3.119.1" />
     <PackageVersion Include="nor0x.Maui.ColorPicker" Version="2.0.4" />
     <PackageVersion Include="SkiaSharp.Extended" Version="3.0.0" />
-    <PackageVersion Include="Svg.Skia" Version="3.2.1" />
+    <PackageVersion Include="Svg.Skia" Version="3.4.0" />
   </ItemGroup>
   <ItemGroup Label="Testing">
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
