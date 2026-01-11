@@ -192,4 +192,58 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>Dansarar</value>
   </data>
+  <data name="ColorAmber" xml:space="preserve">
+    <value>Rav</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>Blá</value>
+  </data>
+  <data name="ColorBlueGrey" xml:space="preserve">
+    <value>Blágrátt</value>
+  </data>
+  <data name="ColorBrown" xml:space="preserve">
+    <value>Brúnt</value>
+  </data>
+  <data name="ColorCyan" xml:space="preserve">
+    <value>Cyan</value>
+  </data>
+  <data name="ColorDeepOrange" xml:space="preserve">
+    <value>Mørkt appelsingult</value>
+  </data>
+  <data name="ColorDeepPurple" xml:space="preserve">
+    <value>Mørkt lilla</value>
+  </data>
+  <data name="ColorGray" xml:space="preserve">
+    <value>Grátt</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>Grøn</value>
+  </data>
+  <data name="ColorIndigo" xml:space="preserve">
+    <value>Indigo</value>
+  </data>
+  <data name="ColorLightGreen" xml:space="preserve">
+    <value>Ljósgrønt</value>
+  </data>
+  <data name="ColorLime" xml:space="preserve">
+    <value>Lime</value>
+  </data>
+  <data name="ColorOrange" xml:space="preserve">
+    <value>Appelsingult</value>
+  </data>
+  <data name="ColorPink" xml:space="preserve">
+    <value>Pink</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>Lilla</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>Reytt</value>
+  </data>
+  <data name="ColorTeal" xml:space="preserve">
+    <value>Turkis</value>
+  </data>
+  <data name="ColorYellow" xml:space="preserve">
+    <value>Gult</value>
+  </data>
 </root>

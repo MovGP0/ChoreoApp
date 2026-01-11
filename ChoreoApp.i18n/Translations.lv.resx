@@ -192,4 +192,58 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>Dejotāji</value>
   </data>
+  <data name="ColorAmber" xml:space="preserve">
+    <value>Dzintara</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>Zila</value>
+  </data>
+  <data name="ColorBlueGrey" xml:space="preserve">
+    <value>Zilgani pelēka</value>
+  </data>
+  <data name="ColorBrown" xml:space="preserve">
+    <value>Brūna</value>
+  </data>
+  <data name="ColorCyan" xml:space="preserve">
+    <value>Ciāna</value>
+  </data>
+  <data name="ColorDeepOrange" xml:space="preserve">
+    <value>Tumši oranža</value>
+  </data>
+  <data name="ColorDeepPurple" xml:space="preserve">
+    <value>Tumši violeta</value>
+  </data>
+  <data name="ColorGray" xml:space="preserve">
+    <value>Pelēka</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>Zaļa</value>
+  </data>
+  <data name="ColorIndigo" xml:space="preserve">
+    <value>Indigo</value>
+  </data>
+  <data name="ColorLightGreen" xml:space="preserve">
+    <value>Gaiši zaļa</value>
+  </data>
+  <data name="ColorLime" xml:space="preserve">
+    <value>Laima</value>
+  </data>
+  <data name="ColorOrange" xml:space="preserve">
+    <value>Oranža</value>
+  </data>
+  <data name="ColorPink" xml:space="preserve">
+    <value>Rozā</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>Violeta</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>Sarkana</value>
+  </data>
+  <data name="ColorTeal" xml:space="preserve">
+    <value>Tirkīza</value>
+  </data>
+  <data name="ColorYellow" xml:space="preserve">
+    <value>Dzeltena</value>
+  </data>
 </root>

@@ -192,4 +192,58 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>Танчери</value>
   </data>
+  <data name="ColorAmber" xml:space="preserve">
+    <value>Кехлибар</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>Сина</value>
+  </data>
+  <data name="ColorBlueGrey" xml:space="preserve">
+    <value>Сино-сива</value>
+  </data>
+  <data name="ColorBrown" xml:space="preserve">
+    <value>Кафеава</value>
+  </data>
+  <data name="ColorCyan" xml:space="preserve">
+    <value>Цијан</value>
+  </data>
+  <data name="ColorDeepOrange" xml:space="preserve">
+    <value>Темно портокалова</value>
+  </data>
+  <data name="ColorDeepPurple" xml:space="preserve">
+    <value>Темно виолетова</value>
+  </data>
+  <data name="ColorGray" xml:space="preserve">
+    <value>Сива</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>Зелена</value>
+  </data>
+  <data name="ColorIndigo" xml:space="preserve">
+    <value>Индиго</value>
+  </data>
+  <data name="ColorLightGreen" xml:space="preserve">
+    <value>Светло зелена</value>
+  </data>
+  <data name="ColorLime" xml:space="preserve">
+    <value>Лајм</value>
+  </data>
+  <data name="ColorOrange" xml:space="preserve">
+    <value>Портокалова</value>
+  </data>
+  <data name="ColorPink" xml:space="preserve">
+    <value>Розова</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>Виолетова</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>Црвена</value>
+  </data>
+  <data name="ColorTeal" xml:space="preserve">
+    <value>Тиркизна</value>
+  </data>
+  <data name="ColorYellow" xml:space="preserve">
+    <value>Жолта</value>
+  </data>
 </root>

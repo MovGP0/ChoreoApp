@@ -192,4 +192,58 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>Táncosok</value>
   </data>
+  <data name="ColorAmber" xml:space="preserve">
+    <value>Borostyán</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>Kék</value>
+  </data>
+  <data name="ColorBlueGrey" xml:space="preserve">
+    <value>Kékesszürke</value>
+  </data>
+  <data name="ColorBrown" xml:space="preserve">
+    <value>Barna</value>
+  </data>
+  <data name="ColorCyan" xml:space="preserve">
+    <value>Cián</value>
+  </data>
+  <data name="ColorDeepOrange" xml:space="preserve">
+    <value>Sötét narancs</value>
+  </data>
+  <data name="ColorDeepPurple" xml:space="preserve">
+    <value>Sötét lila</value>
+  </data>
+  <data name="ColorGray" xml:space="preserve">
+    <value>Szürke</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>Zöld</value>
+  </data>
+  <data name="ColorIndigo" xml:space="preserve">
+    <value>Indigó</value>
+  </data>
+  <data name="ColorLightGreen" xml:space="preserve">
+    <value>Világoszöld</value>
+  </data>
+  <data name="ColorLime" xml:space="preserve">
+    <value>Lime</value>
+  </data>
+  <data name="ColorOrange" xml:space="preserve">
+    <value>Narancs</value>
+  </data>
+  <data name="ColorPink" xml:space="preserve">
+    <value>Rózsaszín</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>Lila</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>Piros</value>
+  </data>
+  <data name="ColorTeal" xml:space="preserve">
+    <value>Türkiz</value>
+  </data>
+  <data name="ColorYellow" xml:space="preserve">
+    <value>Sárga</value>
+  </data>
 </root>

@@ -192,4 +192,58 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>Танцюристи</value>
   </data>
+  <data name="ColorAmber" xml:space="preserve">
+    <value>Бурштин</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>Синій</value>
+  </data>
+  <data name="ColorBlueGrey" xml:space="preserve">
+    <value>Синьо-сірий</value>
+  </data>
+  <data name="ColorBrown" xml:space="preserve">
+    <value>Коричневий</value>
+  </data>
+  <data name="ColorCyan" xml:space="preserve">
+    <value>Ціан</value>
+  </data>
+  <data name="ColorDeepOrange" xml:space="preserve">
+    <value>Темно-оранжевий</value>
+  </data>
+  <data name="ColorDeepPurple" xml:space="preserve">
+    <value>Темно-фіолетовий</value>
+  </data>
+  <data name="ColorGray" xml:space="preserve">
+    <value>Сірий</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>Зелений</value>
+  </data>
+  <data name="ColorIndigo" xml:space="preserve">
+    <value>Індиго</value>
+  </data>
+  <data name="ColorLightGreen" xml:space="preserve">
+    <value>Світло-зелений</value>
+  </data>
+  <data name="ColorLime" xml:space="preserve">
+    <value>Лайм</value>
+  </data>
+  <data name="ColorOrange" xml:space="preserve">
+    <value>Оранжевий</value>
+  </data>
+  <data name="ColorPink" xml:space="preserve">
+    <value>Рожевий</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>Фіолетовий</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>Червоний</value>
+  </data>
+  <data name="ColorTeal" xml:space="preserve">
+    <value>Бірюзовий</value>
+  </data>
+  <data name="ColorYellow" xml:space="preserve">
+    <value>Жовтий</value>
+  </data>
 </root>

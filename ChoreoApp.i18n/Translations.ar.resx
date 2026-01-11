@@ -192,4 +192,58 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>الراقصون</value>
   </data>
+  <data name="ColorAmber" xml:space="preserve">
+    <value>عنبر</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>أزرق</value>
+  </data>
+  <data name="ColorBlueGrey" xml:space="preserve">
+    <value>أزرق رمادي</value>
+  </data>
+  <data name="ColorBrown" xml:space="preserve">
+    <value>بني</value>
+  </data>
+  <data name="ColorCyan" xml:space="preserve">
+    <value>سماوي</value>
+  </data>
+  <data name="ColorDeepOrange" xml:space="preserve">
+    <value>برتقالي داكن</value>
+  </data>
+  <data name="ColorDeepPurple" xml:space="preserve">
+    <value>بنفسجي داكن</value>
+  </data>
+  <data name="ColorGray" xml:space="preserve">
+    <value>رمادي</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>أخضر</value>
+  </data>
+  <data name="ColorIndigo" xml:space="preserve">
+    <value>نيلي</value>
+  </data>
+  <data name="ColorLightGreen" xml:space="preserve">
+    <value>أخضر فاتح</value>
+  </data>
+  <data name="ColorLime" xml:space="preserve">
+    <value>ليموني</value>
+  </data>
+  <data name="ColorOrange" xml:space="preserve">
+    <value>برتقالي</value>
+  </data>
+  <data name="ColorPink" xml:space="preserve">
+    <value>وردي</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>بنفسجي</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>أحمر</value>
+  </data>
+  <data name="ColorTeal" xml:space="preserve">
+    <value>أخضر مزرق</value>
+  </data>
+  <data name="ColorYellow" xml:space="preserve">
+    <value>أصفر</value>
+  </data>
 </root>

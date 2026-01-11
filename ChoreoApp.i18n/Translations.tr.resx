@@ -192,4 +192,58 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>Dansçılar</value>
   </data>
+  <data name="ColorAmber" xml:space="preserve">
+    <value>Kehribar</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>Mavi</value>
+  </data>
+  <data name="ColorBlueGrey" xml:space="preserve">
+    <value>Mavi gri</value>
+  </data>
+  <data name="ColorBrown" xml:space="preserve">
+    <value>Kahverengi</value>
+  </data>
+  <data name="ColorCyan" xml:space="preserve">
+    <value>Camgöbeği</value>
+  </data>
+  <data name="ColorDeepOrange" xml:space="preserve">
+    <value>Koyu turuncu</value>
+  </data>
+  <data name="ColorDeepPurple" xml:space="preserve">
+    <value>Koyu mor</value>
+  </data>
+  <data name="ColorGray" xml:space="preserve">
+    <value>Gri</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>Yeşil</value>
+  </data>
+  <data name="ColorIndigo" xml:space="preserve">
+    <value>İndigo</value>
+  </data>
+  <data name="ColorLightGreen" xml:space="preserve">
+    <value>Açık yeşil</value>
+  </data>
+  <data name="ColorLime" xml:space="preserve">
+    <value>Limon yeşili</value>
+  </data>
+  <data name="ColorOrange" xml:space="preserve">
+    <value>Turuncu</value>
+  </data>
+  <data name="ColorPink" xml:space="preserve">
+    <value>Pembe</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>Mor</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>Kırmızı</value>
+  </data>
+  <data name="ColorTeal" xml:space="preserve">
+    <value>Turkuaz</value>
+  </data>
+  <data name="ColorYellow" xml:space="preserve">
+    <value>Sarı</value>
+  </data>
 </root>

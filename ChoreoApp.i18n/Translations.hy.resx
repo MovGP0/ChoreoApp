@@ -192,4 +192,58 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>Պարողները</value>
   </data>
+  <data name="ColorAmber" xml:space="preserve">
+    <value>Սաթ</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>Կապույտ</value>
+  </data>
+  <data name="ColorBlueGrey" xml:space="preserve">
+    <value>Կապտամոխրագույն</value>
+  </data>
+  <data name="ColorBrown" xml:space="preserve">
+    <value>Շագանակագույն</value>
+  </data>
+  <data name="ColorCyan" xml:space="preserve">
+    <value>Ցիան</value>
+  </data>
+  <data name="ColorDeepOrange" xml:space="preserve">
+    <value>Մուգ նարնջագույն</value>
+  </data>
+  <data name="ColorDeepPurple" xml:space="preserve">
+    <value>Մուգ մանուշակագույն</value>
+  </data>
+  <data name="ColorGray" xml:space="preserve">
+    <value>Մոխրագույն</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>Կանաչ</value>
+  </data>
+  <data name="ColorIndigo" xml:space="preserve">
+    <value>Ինդիգո</value>
+  </data>
+  <data name="ColorLightGreen" xml:space="preserve">
+    <value>Բաց կանաչ</value>
+  </data>
+  <data name="ColorLime" xml:space="preserve">
+    <value>Լայմ</value>
+  </data>
+  <data name="ColorOrange" xml:space="preserve">
+    <value>Նարնջագույն</value>
+  </data>
+  <data name="ColorPink" xml:space="preserve">
+    <value>Վարդագույն</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>Մանուշակագույն</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>Կարմիր</value>
+  </data>
+  <data name="ColorTeal" xml:space="preserve">
+    <value>Թուրքիզ</value>
+  </data>
+  <data name="ColorYellow" xml:space="preserve">
+    <value>Դեղին</value>
+  </data>
 </root>

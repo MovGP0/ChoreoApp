@@ -192,4 +192,58 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>მოცეკვავეები</value>
   </data>
+  <data name="ColorAmber" xml:space="preserve">
+    <value>ქარვისფერი</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>ლურჯი</value>
+  </data>
+  <data name="ColorBlueGrey" xml:space="preserve">
+    <value>ლურჯ-ნაცრისფერი</value>
+  </data>
+  <data name="ColorBrown" xml:space="preserve">
+    <value>ყავისფერი</value>
+  </data>
+  <data name="ColorCyan" xml:space="preserve">
+    <value>ციანი</value>
+  </data>
+  <data name="ColorDeepOrange" xml:space="preserve">
+    <value>მუქი ნარინჯისფერი</value>
+  </data>
+  <data name="ColorDeepPurple" xml:space="preserve">
+    <value>მუქი იასამნისფერი</value>
+  </data>
+  <data name="ColorGray" xml:space="preserve">
+    <value>ნაცრისფერი</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>მწვანე</value>
+  </data>
+  <data name="ColorIndigo" xml:space="preserve">
+    <value>ინდიგო</value>
+  </data>
+  <data name="ColorLightGreen" xml:space="preserve">
+    <value>ღია მწვანე</value>
+  </data>
+  <data name="ColorLime" xml:space="preserve">
+    <value>ლაიმი</value>
+  </data>
+  <data name="ColorOrange" xml:space="preserve">
+    <value>ნარინჯისფერი</value>
+  </data>
+  <data name="ColorPink" xml:space="preserve">
+    <value>ვარდისფერი</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>იასამნისფერი</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>წითელი</value>
+  </data>
+  <data name="ColorTeal" xml:space="preserve">
+    <value>თურქიზი</value>
+  </data>
+  <data name="ColorYellow" xml:space="preserve">
+    <value>ყვითელი</value>
+  </data>
 </root>

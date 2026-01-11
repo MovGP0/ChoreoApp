@@ -52,7 +52,7 @@ public sealed partial class DancerSettingsViewModel : ReactiveObject, IActivatab
     [Reactive]
     private bool _isDancerListOpen;
 
-    public IReadOnlyList<MaterialColorGroup> ColorGroups { get; } = MaterialColorPalette.BuildGroups();
+    public IReadOnlyList<MaterialColorGroup> ColorGroups { get; } = MaterialColorPalette.DefaultGroups;
     public IReadOnlyList<IconOption> IconOptions { get; }
 
     [ReactiveCommand]

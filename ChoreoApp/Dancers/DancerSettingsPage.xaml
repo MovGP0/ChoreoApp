@@ -149,12 +149,6 @@
                                         ItemDisplayBinding="{Binding DisplayName}" />
                             </Grid>
 
-                            <Label Text="{x:Static i18n:Translations.DancerPreviewLabel}"
-                                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <Image HeightRequest="96"
-                                   WidthRequest="96"
-                                   Aspect="AspectFit"
-                                   Source="{Binding SelectedDancer.Icon, Converter={StaticResource IconNameToImageSourceConverter}}" />
                         </VerticalStackLayout>
                     </VerticalStackLayout>
                 </ScrollView>

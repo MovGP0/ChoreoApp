@@ -192,4 +192,58 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>Бүжигчид</value>
   </data>
+  <data name="ColorAmber" xml:space="preserve">
+    <value>Хув</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>Цэнхэр</value>
+  </data>
+  <data name="ColorBlueGrey" xml:space="preserve">
+    <value>Цэнхэр саарал</value>
+  </data>
+  <data name="ColorBrown" xml:space="preserve">
+    <value>Бор</value>
+  </data>
+  <data name="ColorCyan" xml:space="preserve">
+    <value>Циан</value>
+  </data>
+  <data name="ColorDeepOrange" xml:space="preserve">
+    <value>Хар улбар шар</value>
+  </data>
+  <data name="ColorDeepPurple" xml:space="preserve">
+    <value>Хар ягаан</value>
+  </data>
+  <data name="ColorGray" xml:space="preserve">
+    <value>Саарал</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>Ногоон</value>
+  </data>
+  <data name="ColorIndigo" xml:space="preserve">
+    <value>Индиго</value>
+  </data>
+  <data name="ColorLightGreen" xml:space="preserve">
+    <value>Цайвар ногоон</value>
+  </data>
+  <data name="ColorLime" xml:space="preserve">
+    <value>Лайм</value>
+  </data>
+  <data name="ColorOrange" xml:space="preserve">
+    <value>Улбар шар</value>
+  </data>
+  <data name="ColorPink" xml:space="preserve">
+    <value>Ягаан</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>Нил ягаан</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>Улаан</value>
+  </data>
+  <data name="ColorTeal" xml:space="preserve">
+    <value>Туркойз</value>
+  </data>
+  <data name="ColorYellow" xml:space="preserve">
+    <value>Шар</value>
+  </data>
 </root>

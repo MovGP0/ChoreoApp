@@ -13,7 +13,7 @@
                     StrokeThickness="1"
                     BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}"
                     Padding="12,8">
-                <Grid ColumnDefinitions="Auto,Auto"
+                <Grid ColumnDefinitions="Auto,*,Auto"
                       ColumnSpacing="8"
                       VerticalOptions="Center">
                     <BoxView WidthRequest="20"
@@ -22,7 +22,12 @@
                              Color="{Binding SelectedColor, Source={x:Reference Root}}"
                              VerticalOptions="Center" />
                     <Label Grid.Column="1"
-                           Text="v"
+                           Text="{Binding SelectedDisplayName, Source={x:Reference Root}}"
+                           LineBreakMode="TailTruncation"
+                           VerticalOptions="Center"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                    <Label Grid.Column="2"
+                           Text="▼"
                            FontSize="12"
                            VerticalOptions="Center"
                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />

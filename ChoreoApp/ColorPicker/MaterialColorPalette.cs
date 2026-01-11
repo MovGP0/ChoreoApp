@@ -1,30 +1,35 @@
-﻿namespace ChoreoApp.ColorPicker;
+﻿using ChoreoApp.i18n;
+
+namespace ChoreoApp.ColorPicker;
 
 public static class MaterialColorPalette
 {
+    private static readonly Lazy<IReadOnlyList<MaterialColorGroup>> s_defaultGroups = new(() => BuildGroups());
     private static readonly int[] ShadeStops = [ 50, 100, 200, 300, 400, 500, 600, 700, 800, 900 ];
 
-    private static readonly (string BaseName, string DisplayName)[] Groups =
+    private static readonly (string BaseName, Func<string> DisplayNameFactory)[] Groups =
     [
-        ("Red", "Red"),
-        ("Green", "Green"),
-        ("Blue", "Blue"),
-        ("Pink", "Pink"),
-        ("Purple", "Purple"),
-        ("DeepPurple", "Deep Purple"),
-        ("Indigo", "Indigo"),
-        ("BlueGrey", "Blue Grey"),
-        ("Cyan", "Cyan"),
-        ("Teal", "Teal"),
-        ("LightGreen", "Light Green"),
-        ("Lime", "Lime"),
-        ("Yellow", "Yellow"),
-        ("Amber", "Amber"),
-        ("Orange", "Orange"),
-        ("DeepOrange", "Deep Orange"),
-        ("Brown", "Brown"),
-        ("Gray", "Gray")
+        ("Red", () => Translations.ColorRed),
+        ("Green", () => Translations.ColorGreen),
+        ("Blue", () => Translations.ColorBlue),
+        ("Pink", () => Translations.ColorPink),
+        ("Purple", () => Translations.ColorPurple),
+        ("DeepPurple", () => Translations.ColorDeepPurple),
+        ("Indigo", () => Translations.ColorIndigo),
+        ("BlueGrey", () => Translations.ColorBlueGrey),
+        ("Cyan", () => Translations.ColorCyan),
+        ("Teal", () => Translations.ColorTeal),
+        ("LightGreen", () => Translations.ColorLightGreen),
+        ("Lime", () => Translations.ColorLime),
+        ("Yellow", () => Translations.ColorYellow),
+        ("Amber", () => Translations.ColorAmber),
+        ("Orange", () => Translations.ColorOrange),
+        ("DeepOrange", () => Translations.ColorDeepOrange),
+        ("Brown", () => Translations.ColorBrown),
+        ("Gray", () => Translations.ColorGray)
     ];
+
+    public static IReadOnlyList<MaterialColorGroup> DefaultGroups => s_defaultGroups.Value;
 
     public static IReadOnlyList<MaterialColorGroup> BuildGroups(ResourceDictionary? resources = null)
     {
@@ -35,8 +40,9 @@ public static class MaterialColorPalette
         }
 
         var result = new List<MaterialColorGroup>();
-        foreach (var (baseName, displayName) in Groups)
+        foreach (var (baseName, displayNameFactory) in Groups)
         {
+            var displayName = displayNameFactory();
             var group = new MaterialColorGroup(displayName);
             foreach (var shade in ShadeStops)
             {

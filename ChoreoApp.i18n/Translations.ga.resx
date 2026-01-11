@@ -192,4 +192,58 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>Rinceoirí</value>
   </data>
+  <data name="ColorAmber" xml:space="preserve">
+    <value>Ómra</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>Gorm</value>
+  </data>
+  <data name="ColorBlueGrey" xml:space="preserve">
+    <value>Gorm-liath</value>
+  </data>
+  <data name="ColorBrown" xml:space="preserve">
+    <value>Donn</value>
+  </data>
+  <data name="ColorCyan" xml:space="preserve">
+    <value>Cian</value>
+  </data>
+  <data name="ColorDeepOrange" xml:space="preserve">
+    <value>Oráiste dorcha</value>
+  </data>
+  <data name="ColorDeepPurple" xml:space="preserve">
+    <value>Corcra dorcha</value>
+  </data>
+  <data name="ColorGray" xml:space="preserve">
+    <value>Liath</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>Glas</value>
+  </data>
+  <data name="ColorIndigo" xml:space="preserve">
+    <value>Indígó</value>
+  </data>
+  <data name="ColorLightGreen" xml:space="preserve">
+    <value>Glas éadrom</value>
+  </data>
+  <data name="ColorLime" xml:space="preserve">
+    <value>Líomóid</value>
+  </data>
+  <data name="ColorOrange" xml:space="preserve">
+    <value>Oráiste</value>
+  </data>
+  <data name="ColorPink" xml:space="preserve">
+    <value>Bándearg</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>Corcra</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>Dearg</value>
+  </data>
+  <data name="ColorTeal" xml:space="preserve">
+    <value>Turcaid</value>
+  </data>
+  <data name="ColorYellow" xml:space="preserve">
+    <value>Buí</value>
+  </data>
 </root>

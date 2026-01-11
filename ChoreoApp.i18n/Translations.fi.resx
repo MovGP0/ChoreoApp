@@ -192,4 +192,58 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>Tanssijat</value>
   </data>
+  <data name="ColorAmber" xml:space="preserve">
+    <value>Meripihka</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>Sininen</value>
+  </data>
+  <data name="ColorBlueGrey" xml:space="preserve">
+    <value>Siniharmaa</value>
+  </data>
+  <data name="ColorBrown" xml:space="preserve">
+    <value>Ruskea</value>
+  </data>
+  <data name="ColorCyan" xml:space="preserve">
+    <value>Syaani</value>
+  </data>
+  <data name="ColorDeepOrange" xml:space="preserve">
+    <value>Tummanoranssi</value>
+  </data>
+  <data name="ColorDeepPurple" xml:space="preserve">
+    <value>Tummavioletti</value>
+  </data>
+  <data name="ColorGray" xml:space="preserve">
+    <value>Harmaa</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>Vihreä</value>
+  </data>
+  <data name="ColorIndigo" xml:space="preserve">
+    <value>Indigo</value>
+  </data>
+  <data name="ColorLightGreen" xml:space="preserve">
+    <value>Vaaleanvihreä</value>
+  </data>
+  <data name="ColorLime" xml:space="preserve">
+    <value>Lime</value>
+  </data>
+  <data name="ColorOrange" xml:space="preserve">
+    <value>Oranssi</value>
+  </data>
+  <data name="ColorPink" xml:space="preserve">
+    <value>Pinkki</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>Violetti</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>Punainen</value>
+  </data>
+  <data name="ColorTeal" xml:space="preserve">
+    <value>Turkoosi</value>
+  </data>
+  <data name="ColorYellow" xml:space="preserve">
+    <value>Keltainen</value>
+  </data>
 </root>

@@ -192,4 +192,58 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>Tanečníci</value>
   </data>
+  <data name="ColorAmber" xml:space="preserve">
+    <value>Jantar</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>Modrá</value>
+  </data>
+  <data name="ColorBlueGrey" xml:space="preserve">
+    <value>Modrošedá</value>
+  </data>
+  <data name="ColorBrown" xml:space="preserve">
+    <value>Hnědá</value>
+  </data>
+  <data name="ColorCyan" xml:space="preserve">
+    <value>Azurová</value>
+  </data>
+  <data name="ColorDeepOrange" xml:space="preserve">
+    <value>Tmavě oranžová</value>
+  </data>
+  <data name="ColorDeepPurple" xml:space="preserve">
+    <value>Tmavě fialová</value>
+  </data>
+  <data name="ColorGray" xml:space="preserve">
+    <value>Šedá</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>Zelená</value>
+  </data>
+  <data name="ColorIndigo" xml:space="preserve">
+    <value>Indigo</value>
+  </data>
+  <data name="ColorLightGreen" xml:space="preserve">
+    <value>Světle zelená</value>
+  </data>
+  <data name="ColorLime" xml:space="preserve">
+    <value>Limetková</value>
+  </data>
+  <data name="ColorOrange" xml:space="preserve">
+    <value>Oranžová</value>
+  </data>
+  <data name="ColorPink" xml:space="preserve">
+    <value>Růžová</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>Fialová</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>Červená</value>
+  </data>
+  <data name="ColorTeal" xml:space="preserve">
+    <value>Tyrkysová</value>
+  </data>
+  <data name="ColorYellow" xml:space="preserve">
+    <value>Žlutá</value>
+  </data>
 </root>

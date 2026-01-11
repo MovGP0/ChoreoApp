@@ -192,4 +192,58 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>Dançarinos</value>
   </data>
+  <data name="ColorAmber" xml:space="preserve">
+    <value>Âmbar</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>Azul</value>
+  </data>
+  <data name="ColorBlueGrey" xml:space="preserve">
+    <value>Azul acinzentado</value>
+  </data>
+  <data name="ColorBrown" xml:space="preserve">
+    <value>Castanho</value>
+  </data>
+  <data name="ColorCyan" xml:space="preserve">
+    <value>Ciano</value>
+  </data>
+  <data name="ColorDeepOrange" xml:space="preserve">
+    <value>Laranja escuro</value>
+  </data>
+  <data name="ColorDeepPurple" xml:space="preserve">
+    <value>Roxo escuro</value>
+  </data>
+  <data name="ColorGray" xml:space="preserve">
+    <value>Cinzento</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>Verde</value>
+  </data>
+  <data name="ColorIndigo" xml:space="preserve">
+    <value>Índigo</value>
+  </data>
+  <data name="ColorLightGreen" xml:space="preserve">
+    <value>Verde claro</value>
+  </data>
+  <data name="ColorLime" xml:space="preserve">
+    <value>Lima</value>
+  </data>
+  <data name="ColorOrange" xml:space="preserve">
+    <value>Laranja</value>
+  </data>
+  <data name="ColorPink" xml:space="preserve">
+    <value>Rosa</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>Roxo</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>Vermelho</value>
+  </data>
+  <data name="ColorTeal" xml:space="preserve">
+    <value>Turquesa</value>
+  </data>
+  <data name="ColorYellow" xml:space="preserve">
+    <value>Amarelo</value>
+  </data>
 </root>

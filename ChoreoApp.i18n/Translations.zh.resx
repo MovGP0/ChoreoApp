@@ -192,4 +192,58 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>舞者</value>
   </data>
+  <data name="ColorAmber" xml:space="preserve">
+    <value>琥珀</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>蓝色</value>
+  </data>
+  <data name="ColorBlueGrey" xml:space="preserve">
+    <value>蓝灰</value>
+  </data>
+  <data name="ColorBrown" xml:space="preserve">
+    <value>棕色</value>
+  </data>
+  <data name="ColorCyan" xml:space="preserve">
+    <value>青色</value>
+  </data>
+  <data name="ColorDeepOrange" xml:space="preserve">
+    <value>深橙</value>
+  </data>
+  <data name="ColorDeepPurple" xml:space="preserve">
+    <value>深紫</value>
+  </data>
+  <data name="ColorGray" xml:space="preserve">
+    <value>灰色</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>绿色</value>
+  </data>
+  <data name="ColorIndigo" xml:space="preserve">
+    <value>靛蓝</value>
+  </data>
+  <data name="ColorLightGreen" xml:space="preserve">
+    <value>浅绿</value>
+  </data>
+  <data name="ColorLime" xml:space="preserve">
+    <value>青柠</value>
+  </data>
+  <data name="ColorOrange" xml:space="preserve">
+    <value>橙色</value>
+  </data>
+  <data name="ColorPink" xml:space="preserve">
+    <value>粉色</value>
+  </data>
+  <data name="ColorPurple" xml:space="preserve">
+    <value>紫色</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>红色</value>
+  </data>
+  <data name="ColorTeal" xml:space="preserve">
+    <value>蓝绿</value>
+  </data>
+  <data name="ColorYellow" xml:space="preserve">
+    <value>黄色</value>
+  </data>
 </root>
