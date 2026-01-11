@@ -156,4 +156,40 @@
   <data name="SceneTimestampMillisecondsLabel" xml:space="preserve">
     <value>ms</value>
   </data>
+  <data name="CommonCancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="CommonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="DancerColorLabel" xml:space="preserve">
+    <value>Farbe</value>
+  </data>
+  <data name="DancerIconLabel" xml:space="preserve">
+    <value>Symbol</value>
+  </data>
+  <data name="DancerNameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="DancerNamePlaceholder" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="DancerPreviewLabel" xml:space="preserve">
+    <value>Vorschau</value>
+  </data>
+  <data name="DancerRoleLabel" xml:space="preserve">
+    <value>Rolle (Dame oder Herr)</value>
+  </data>
+  <data name="DancerShortcutLabel" xml:space="preserve">
+    <value>Abkürzung</value>
+  </data>
+  <data name="DancerShortcutPlaceholder" xml:space="preserve">
+    <value>Abkürzung</value>
+  </data>
+  <data name="DancerTitle" xml:space="preserve">
+    <value>Tänzer</value>
+  </data>
+  <data name="DancersTitle" xml:space="preserve">
+    <value>Tänzer</value>
+  </data>
 </root>

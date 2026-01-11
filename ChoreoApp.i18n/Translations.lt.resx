@@ -156,4 +156,40 @@
   <data name="SceneTimestampMillisecondsLabel" xml:space="preserve">
     <value>ms</value>
   </data>
+  <data name="CommonCancel" xml:space="preserve">
+    <value>Atšaukti</value>
+  </data>
+  <data name="CommonOk" xml:space="preserve">
+    <value>Gerai</value>
+  </data>
+  <data name="DancerColorLabel" xml:space="preserve">
+    <value>Spalva</value>
+  </data>
+  <data name="DancerIconLabel" xml:space="preserve">
+    <value>Piktograma</value>
+  </data>
+  <data name="DancerNameLabel" xml:space="preserve">
+    <value>Vardas</value>
+  </data>
+  <data name="DancerNamePlaceholder" xml:space="preserve">
+    <value>Vardas</value>
+  </data>
+  <data name="DancerPreviewLabel" xml:space="preserve">
+    <value>Peržiūra</value>
+  </data>
+  <data name="DancerRoleLabel" xml:space="preserve">
+    <value>Vaidmuo (dama arba ponas)</value>
+  </data>
+  <data name="DancerShortcutLabel" xml:space="preserve">
+    <value>Santrumpa</value>
+  </data>
+  <data name="DancerShortcutPlaceholder" xml:space="preserve">
+    <value>Santrumpa</value>
+  </data>
+  <data name="DancerTitle" xml:space="preserve">
+    <value>Šokėjas</value>
+  </data>
+  <data name="DancersTitle" xml:space="preserve">
+    <value>Šokėjai</value>
+  </data>
 </root>

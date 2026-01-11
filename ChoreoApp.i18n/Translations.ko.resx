@@ -156,4 +156,40 @@
   <data name="SceneTimestampMillisecondsLabel" xml:space="preserve">
     <value>밀리초</value>
   </data>
+  <data name="CommonCancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="CommonOk" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="DancerColorLabel" xml:space="preserve">
+    <value>색상</value>
+  </data>
+  <data name="DancerIconLabel" xml:space="preserve">
+    <value>아이콘</value>
+  </data>
+  <data name="DancerNameLabel" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="DancerNamePlaceholder" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="DancerPreviewLabel" xml:space="preserve">
+    <value>미리 보기</value>
+  </data>
+  <data name="DancerRoleLabel" xml:space="preserve">
+    <value>역할(여성 또는 남성)</value>
+  </data>
+  <data name="DancerShortcutLabel" xml:space="preserve">
+    <value>약어</value>
+  </data>
+  <data name="DancerShortcutPlaceholder" xml:space="preserve">
+    <value>약어</value>
+  </data>
+  <data name="DancerTitle" xml:space="preserve">
+    <value>댄서</value>
+  </data>
+  <data name="DancersTitle" xml:space="preserve">
+    <value>댄서</value>
+  </data>
 </root>

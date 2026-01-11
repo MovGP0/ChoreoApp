@@ -156,4 +156,40 @@
   <data name="SceneTimestampMillisecondsLabel" xml:space="preserve">
     <value>মিলিসেকেন্ড</value>
   </data>
+  <data name="CommonCancel" xml:space="preserve">
+    <value>বাতিল</value>
+  </data>
+  <data name="CommonOk" xml:space="preserve">
+    <value>ঠিক আছে</value>
+  </data>
+  <data name="DancerColorLabel" xml:space="preserve">
+    <value>রঙ</value>
+  </data>
+  <data name="DancerIconLabel" xml:space="preserve">
+    <value>আইকন</value>
+  </data>
+  <data name="DancerNameLabel" xml:space="preserve">
+    <value>নাম</value>
+  </data>
+  <data name="DancerNamePlaceholder" xml:space="preserve">
+    <value>নাম</value>
+  </data>
+  <data name="DancerPreviewLabel" xml:space="preserve">
+    <value>প্রিভিউ</value>
+  </data>
+  <data name="DancerRoleLabel" xml:space="preserve">
+    <value>ভূমিকা (লেডি বা জেন্টলম্যান)</value>
+  </data>
+  <data name="DancerShortcutLabel" xml:space="preserve">
+    <value>সংক্ষিপ্ত নাম</value>
+  </data>
+  <data name="DancerShortcutPlaceholder" xml:space="preserve">
+    <value>সংক্ষিপ্ত নাম</value>
+  </data>
+  <data name="DancerTitle" xml:space="preserve">
+    <value>নৃত্যশিল্পী</value>
+  </data>
+  <data name="DancersTitle" xml:space="preserve">
+    <value>নৃত্যশিল্পীরা</value>
+  </data>
 </root>

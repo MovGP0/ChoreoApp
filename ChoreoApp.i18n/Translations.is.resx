@@ -156,4 +156,40 @@
   <data name="SceneTimestampMillisecondsLabel" xml:space="preserve">
     <value>ms</value>
   </data>
+  <data name="CommonCancel" xml:space="preserve">
+    <value>Hætta við</value>
+  </data>
+  <data name="CommonOk" xml:space="preserve">
+    <value>Í lagi</value>
+  </data>
+  <data name="DancerColorLabel" xml:space="preserve">
+    <value>Litur</value>
+  </data>
+  <data name="DancerIconLabel" xml:space="preserve">
+    <value>Tákn</value>
+  </data>
+  <data name="DancerNameLabel" xml:space="preserve">
+    <value>Nafn</value>
+  </data>
+  <data name="DancerNamePlaceholder" xml:space="preserve">
+    <value>Nafn</value>
+  </data>
+  <data name="DancerPreviewLabel" xml:space="preserve">
+    <value>Forskoðun</value>
+  </data>
+  <data name="DancerRoleLabel" xml:space="preserve">
+    <value>Hlutverk (dama eða herra)</value>
+  </data>
+  <data name="DancerShortcutLabel" xml:space="preserve">
+    <value>Skammstöfun</value>
+  </data>
+  <data name="DancerShortcutPlaceholder" xml:space="preserve">
+    <value>Skammstöfun</value>
+  </data>
+  <data name="DancerTitle" xml:space="preserve">
+    <value>Dansari</value>
+  </data>
+  <data name="DancersTitle" xml:space="preserve">
+    <value>Dansarar</value>
+  </data>
 </root>

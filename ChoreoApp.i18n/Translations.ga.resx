@@ -156,4 +156,40 @@
   <data name="SceneTimestampMillisecondsLabel" xml:space="preserve">
     <value>ms</value>
   </data>
+  <data name="CommonCancel" xml:space="preserve">
+    <value>Cealaigh</value>
+  </data>
+  <data name="CommonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="DancerColorLabel" xml:space="preserve">
+    <value>Dath</value>
+  </data>
+  <data name="DancerIconLabel" xml:space="preserve">
+    <value>Deilbhín</value>
+  </data>
+  <data name="DancerNameLabel" xml:space="preserve">
+    <value>Ainm</value>
+  </data>
+  <data name="DancerNamePlaceholder" xml:space="preserve">
+    <value>Ainm</value>
+  </data>
+  <data name="DancerPreviewLabel" xml:space="preserve">
+    <value>Réamhamharc</value>
+  </data>
+  <data name="DancerRoleLabel" xml:space="preserve">
+    <value>Ról (bean nó fear)</value>
+  </data>
+  <data name="DancerShortcutLabel" xml:space="preserve">
+    <value>Giorrúchán</value>
+  </data>
+  <data name="DancerShortcutPlaceholder" xml:space="preserve">
+    <value>Giorrúchán</value>
+  </data>
+  <data name="DancerTitle" xml:space="preserve">
+    <value>Rinceoir</value>
+  </data>
+  <data name="DancersTitle" xml:space="preserve">
+    <value>Rinceoirí</value>
+  </data>
 </root>

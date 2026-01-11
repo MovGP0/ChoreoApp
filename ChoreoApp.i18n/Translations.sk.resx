@@ -156,4 +156,40 @@
   <data name="SceneTimestampMillisecondsLabel" xml:space="preserve">
     <value>ms</value>
   </data>
+  <data name="CommonCancel" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="CommonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="DancerColorLabel" xml:space="preserve">
+    <value>Farba</value>
+  </data>
+  <data name="DancerIconLabel" xml:space="preserve">
+    <value>Ikona</value>
+  </data>
+  <data name="DancerNameLabel" xml:space="preserve">
+    <value>Meno</value>
+  </data>
+  <data name="DancerNamePlaceholder" xml:space="preserve">
+    <value>Meno</value>
+  </data>
+  <data name="DancerPreviewLabel" xml:space="preserve">
+    <value>Náhľad</value>
+  </data>
+  <data name="DancerRoleLabel" xml:space="preserve">
+    <value>Rola (dáma alebo pán)</value>
+  </data>
+  <data name="DancerShortcutLabel" xml:space="preserve">
+    <value>Skratka</value>
+  </data>
+  <data name="DancerShortcutPlaceholder" xml:space="preserve">
+    <value>Skratka</value>
+  </data>
+  <data name="DancerTitle" xml:space="preserve">
+    <value>Tanečník</value>
+  </data>
+  <data name="DancersTitle" xml:space="preserve">
+    <value>Tanečníci</value>
+  </data>
 </root>

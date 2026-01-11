@@ -156,4 +156,40 @@
   <data name="SceneTimestampMillisecondsLabel" xml:space="preserve">
     <value>ms</value>
   </data>
+  <data name="CommonCancel" xml:space="preserve">
+    <value>Mégse</value>
+  </data>
+  <data name="CommonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="DancerColorLabel" xml:space="preserve">
+    <value>Szín</value>
+  </data>
+  <data name="DancerIconLabel" xml:space="preserve">
+    <value>Ikon</value>
+  </data>
+  <data name="DancerNameLabel" xml:space="preserve">
+    <value>Név</value>
+  </data>
+  <data name="DancerNamePlaceholder" xml:space="preserve">
+    <value>Név</value>
+  </data>
+  <data name="DancerPreviewLabel" xml:space="preserve">
+    <value>Előnézet</value>
+  </data>
+  <data name="DancerRoleLabel" xml:space="preserve">
+    <value>Szerep (hölgy vagy úr)</value>
+  </data>
+  <data name="DancerShortcutLabel" xml:space="preserve">
+    <value>Rövidítés</value>
+  </data>
+  <data name="DancerShortcutPlaceholder" xml:space="preserve">
+    <value>Rövidítés</value>
+  </data>
+  <data name="DancerTitle" xml:space="preserve">
+    <value>Táncos</value>
+  </data>
+  <data name="DancersTitle" xml:space="preserve">
+    <value>Táncosok</value>
+  </data>
 </root>

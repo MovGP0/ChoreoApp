@@ -258,6 +258,114 @@ namespace ChoreoApp.i18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string CommonCancel {
+            get {
+                return ResourceManager.GetString("CommonCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string CommonOk {
+            get {
+                return ResourceManager.GetString("CommonOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color.
+        /// </summary>
+        public static string DancerColorLabel {
+            get {
+                return ResourceManager.GetString("DancerColorLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Icon.
+        /// </summary>
+        public static string DancerIconLabel {
+            get {
+                return ResourceManager.GetString("DancerIconLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string DancerNameLabel {
+            get {
+                return ResourceManager.GetString("DancerNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string DancerNamePlaceholder {
+            get {
+                return ResourceManager.GetString("DancerNamePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview.
+        /// </summary>
+        public static string DancerPreviewLabel {
+            get {
+                return ResourceManager.GetString("DancerPreviewLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role (Lady or Gentleman).
+        /// </summary>
+        public static string DancerRoleLabel {
+            get {
+                return ResourceManager.GetString("DancerRoleLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Abbreviation.
+        /// </summary>
+        public static string DancerShortcutLabel {
+            get {
+                return ResourceManager.GetString("DancerShortcutLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Abbreviation.
+        /// </summary>
+        public static string DancerShortcutPlaceholder {
+            get {
+                return ResourceManager.GetString("DancerShortcutPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dancers.
+        /// </summary>
+        public static string DancersTitle {
+            get {
+                return ResourceManager.GetString("DancersTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dancer.
+        /// </summary>
+        public static string DancerTitle {
+            get {
+                return ResourceManager.GetString("DancerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dark mode.
         /// </summary>
         public static string DarkModeLabel {
