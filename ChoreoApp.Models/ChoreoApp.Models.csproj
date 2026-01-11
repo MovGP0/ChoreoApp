@@ -15,4 +15,30 @@
   <ItemGroup>
     <ProjectReference Include="..\ChoreoMasterMobile.Json\ChoreoMasterMobile.Json.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ChoreographyModel.*.cs">
+      <DependentUpon>ChoreographyModel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ChoreographyModelMapper.*.cs">
+      <DependentUpon>ChoreographyModelMapper.cs</DependentUpon>
+    </Compile>
+    <Compile Update="DancerModel.*.cs">
+      <DependentUpon>DancerModel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="FloorModel.*.cs">
+      <DependentUpon>FloorModel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="PositionModel.*.cs">
+      <DependentUpon>PositionModel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="RoleModel.*.cs">
+      <DependentUpon>RoleModel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="SceneModel.*.cs">
+      <DependentUpon>SceneModel.cs</DependentUpon>
+    </Compile>
+    <Compile Update="SettingsModel.*.cs">
+      <DependentUpon>SettingsModel.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

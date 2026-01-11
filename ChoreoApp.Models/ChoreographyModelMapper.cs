@@ -3,7 +3,7 @@ using DynamicData.Binding;
 
 namespace ChoreoApp.Models;
 
-public sealed class ChoreographyModelMapper
+public sealed partial class ChoreographyModelMapper
 {
     public ChoreographyModel Map(Choreography source)
     {
