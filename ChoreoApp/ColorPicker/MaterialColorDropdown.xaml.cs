@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using DynamicData;
+
 //using ChoreoApp.Settings.Models;
 
 namespace ChoreoApp.ColorPicker;
@@ -167,16 +169,13 @@ public partial class MaterialColorDropdown : ContentView
         FlatItems.Clear();
         foreach (var group in ItemsSource)
         {
-            foreach (var option in group)
-            {
-                FlatItems.Add(option);
-            }
+            FlatItems.AddRange(group);
         }
     }
 
     private void OnColorTapped(object? sender, TappedEventArgs e)
     {
-        if (sender is BindableObject bindable && bindable.BindingContext is MaterialColorOption option)
+        if (sender is BindableObject { BindingContext: MaterialColorOption option })
         {
             SelectedOption = option;
         }

@@ -49,6 +49,9 @@ public sealed partial class DancerSettingsViewModel : ReactiveObject, IActivatab
     [Reactive]
     private bool _canDeleteDancer;
 
+    [Reactive]
+    private bool _isDancerListOpen;
+
     public IReadOnlyList<MaterialColorGroup> ColorGroups { get; } = MaterialColorPalette.BuildGroups();
     public IReadOnlyList<IconOption> IconOptions { get; }
 
