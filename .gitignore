@@ -418,3 +418,6 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Other
+*.sync.lock
