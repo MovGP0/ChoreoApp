@@ -105,7 +105,19 @@
   <data name="DeleteSceneDialogNo" xml:space="preserve">
     <value>Ne</value>
   </data>
-  <data name="ChoreographyVariationPlaceholder" xml:space="preserve">
+    <data name="CopyScenePositionsDialogTitle" xml:space="preserve">
+    <value>Kopírovat pozice</value>
+  </data>
+  <data name="CopyScenePositionsDialogMessage" xml:space="preserve">
+    <value>Kopírovat pozice tanečníků z "{0}" do nové scény?</value>
+  </data>
+  <data name="CopyScenePositionsDialogConfirm" xml:space="preserve">
+    <value>Kopírovat</value>
+  </data>
+  <data name="CopyScenePositionsDialogCancel" xml:space="preserve">
+    <value>Nekopírovat</value>
+  </data>
+<data name="ChoreographyVariationPlaceholder" xml:space="preserve">
     <value>Variace</value>
   </data>
   <data name="SceneSectionTitle" xml:space="preserve">

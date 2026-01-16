@@ -105,7 +105,19 @@
   <data name="DeleteSceneDialogNo" xml:space="preserve">
     <value>Nee</value>
   </data>
-  <data name="ChoreographyVariationPlaceholder" xml:space="preserve">
+    <data name="CopyScenePositionsDialogTitle" xml:space="preserve">
+    <value>Positiounen kopéieren</value>
+  </data>
+  <data name="CopyScenePositionsDialogMessage" xml:space="preserve">
+    <value>D'Positioune vun den Dänzer vun "{0}" an déi nei Szen kopéieren?</value>
+  </data>
+  <data name="CopyScenePositionsDialogConfirm" xml:space="preserve">
+    <value>Kopéieren</value>
+  </data>
+  <data name="CopyScenePositionsDialogCancel" xml:space="preserve">
+    <value>Net kopéieren</value>
+  </data>
+<data name="ChoreographyVariationPlaceholder" xml:space="preserve">
     <value>Variatioun</value>
   </data>
   <data name="SceneSectionTitle" xml:space="preserve">

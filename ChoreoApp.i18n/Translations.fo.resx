@@ -105,7 +105,19 @@
   <data name="DeleteSceneDialogNo" xml:space="preserve">
     <value>Nei</value>
   </data>
-  <data name="ChoreographyVariationPlaceholder" xml:space="preserve">
+    <data name="CopyScenePositionsDialogTitle" xml:space="preserve">
+    <value>Avrita støður</value>
+  </data>
+  <data name="CopyScenePositionsDialogMessage" xml:space="preserve">
+    <value>Avrita støður hjá dansarunum frá "{0}" til nýggju senuna?</value>
+  </data>
+  <data name="CopyScenePositionsDialogConfirm" xml:space="preserve">
+    <value>Avrita</value>
+  </data>
+  <data name="CopyScenePositionsDialogCancel" xml:space="preserve">
+    <value>Ikki avrita</value>
+  </data>
+<data name="ChoreographyVariationPlaceholder" xml:space="preserve">
     <value>Frávik</value>
   </data>
   <data name="SceneSectionTitle" xml:space="preserve">

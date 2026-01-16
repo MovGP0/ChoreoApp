@@ -105,7 +105,19 @@
   <data name="DeleteSceneDialogNo" xml:space="preserve">
     <value>Nu</value>
   </data>
-  <data name="ChoreographyVariationPlaceholder" xml:space="preserve">
+    <data name="CopyScenePositionsDialogTitle" xml:space="preserve">
+    <value>Copiază pozițiile</value>
+  </data>
+  <data name="CopyScenePositionsDialogMessage" xml:space="preserve">
+    <value>Copiați pozițiile dansatorilor din "{0}" în scena nouă?</value>
+  </data>
+  <data name="CopyScenePositionsDialogConfirm" xml:space="preserve">
+    <value>Copiază</value>
+  </data>
+  <data name="CopyScenePositionsDialogCancel" xml:space="preserve">
+    <value>Nu copia</value>
+  </data>
+<data name="ChoreographyVariationPlaceholder" xml:space="preserve">
     <value>Variație</value>
   </data>
   <data name="SceneSectionTitle" xml:space="preserve">

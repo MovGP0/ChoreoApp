@@ -105,6 +105,18 @@
   <data name="DeleteSceneDialogNo" xml:space="preserve">
     <value>No</value>
   </data>
+  <data name="CopyScenePositionsDialogTitle" xml:space="preserve">
+    <value>Copy positions</value>
+  </data>
+  <data name="CopyScenePositionsDialogMessage" xml:space="preserve">
+    <value>Copy dancer positions from "{0}" to the new scene?</value>
+  </data>
+  <data name="CopyScenePositionsDialogConfirm" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="CopyScenePositionsDialogCancel" xml:space="preserve">
+    <value>Don't copy</value>
+  </data>
   <data name="ChoreographyVariationPlaceholder" xml:space="preserve">
     <value>Variation</value>
   </data>

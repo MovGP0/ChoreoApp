@@ -10,6 +10,52 @@
     <Setter Property="styling:RadioButtonAssist.AnimateOnChecked" Value="True" />
   </Style>
 
+  <Style x:Key="MaterialDesignContentRadioButton"
+         TargetType="styling:ContentRadioButton">
+    <Setter Property="RadioButtonStyle" Value="{StaticResource MaterialDesignRadioButton}" />
+    <Setter Property="Spacing" Value="8" />
+    <Setter Property="ControlTemplate">
+      <Setter.Value>
+        <ControlTemplate>
+          <Grid x:Name="Root"
+                ColumnDefinitions="Auto,*"
+                ColumnSpacing="{TemplateBinding Spacing}">
+            <Grid.Triggers>
+              <DataTrigger TargetType="Grid"
+                           Binding="{TemplateBinding IsEnabled}"
+                           Value="False">
+                <Setter Property="Opacity" Value="0.6" />
+              </DataTrigger>
+            </Grid.Triggers>
+            <RadioButton x:Name="PART_Radio"
+                         IsChecked="{TemplateBinding IsChecked}"
+                         GroupName="{TemplateBinding GroupName}"
+                         Value="{TemplateBinding Value}"
+                         Style="{TemplateBinding RadioButtonStyle}"
+                         TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                         VerticalOptions="Center">
+              <RadioButton.Triggers>
+                <Trigger TargetType="RadioButton"
+                         Property="IsEnabled"
+                         Value="False">
+                  <Setter Property="TextColor"
+                          Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                </Trigger>
+              </RadioButton.Triggers>
+            </RadioButton>
+            <ContentPresenter x:Name="PART_Content"
+                              Grid.Column="1"
+                              Content="{TemplateBinding RadioContent}"
+                              VerticalOptions="Center" />
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style TargetType="styling:ContentRadioButton"
+         BasedOn="{StaticResource MaterialDesignContentRadioButton}" />
+
   <Style TargetType="RadioButton"
          BasedOn="{StaticResource MaterialDesignRadioButton}" />
 </ResourceDictionary>

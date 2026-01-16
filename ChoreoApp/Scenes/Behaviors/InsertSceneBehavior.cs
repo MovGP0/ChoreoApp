@@ -1,30 +1,50 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
+using ChoreoApp.Main.Messages;
 using ChoreoApp.Models;
-using ChoreoMasterMobile.Json;
+using MessagePipe;
 using Colors = Microsoft.Maui.Graphics.Colors;
 
 namespace ChoreoApp.Scenes.Behaviors;
 
 public sealed class InsertSceneBehavior(
     Global.GlobalStateModel globalState,
-    IServiceProvider serviceProvider) :
+    IServiceProvider serviceProvider,
+    IPublisher<ShowDialogCommand> showDialogPublisher,
+    IPublisher<CloseDialogCommand> closeDialogPublisher) :
     IBehavior<ScenesPaneViewModel>
 {
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
     {
         viewModel
             .AddSceneBeforeCommand
-            .Subscribe(_ => InsertScene(viewModel, insertAfter: false))
+            .Subscribe(_ => HandleInsertScene(viewModel, insertAfter: false))
             .DisposeWith(disposables);
 
         viewModel
             .AddSceneAfterCommand
-            .Subscribe(_ => InsertScene(viewModel, insertAfter: true))
+            .Subscribe(_ => HandleInsertScene(viewModel, insertAfter: true))
             .DisposeWith(disposables);
     }
 
-    private void InsertScene(ScenesPaneViewModel viewModel, bool insertAfter)
+    private void HandleInsertScene(ScenesPaneViewModel viewModel, bool insertAfter)
+    {
+        var selectedScene = globalState.SelectedScene;
+        if (selectedScene is null)
+        {
+            InsertScene(viewModel, insertAfter, copyPositions: false);
+            return;
+        }
+
+        var dialogViewModel = new CopyScenePositionsDialogViewModel(
+            closeDialogPublisher,
+            selectedScene,
+            copyPositions => InsertScene(viewModel, insertAfter, copyPositions));
+        var dialogView = new CopyScenePositionsDialogView { ViewModel = dialogViewModel };
+        showDialogPublisher.Publish(new ShowDialogCommand(dialogView));
+    }
+
+    private void InsertScene(ScenesPaneViewModel viewModel, bool insertAfter, bool copyPositions)
     {
         var allScenes = globalState.Scenes;
         var selectedScene = globalState.SelectedScene;
@@ -36,6 +56,10 @@ public sealed class InsertSceneBehavior(
         var newSceneViewModel = serviceProvider.GetRequiredService<SceneViewModel>();
         newSceneViewModel.Name = name;
         newSceneViewModel.Color = color;
+        if (copyPositions && selectedScene is not null)
+        {
+            CopyPositions(selectedScene, newSceneViewModel);
+        }
         newSceneViewModel.Activator.Activate();
 
         allScenes.Insert(insertIndex, newSceneViewModel);
@@ -48,7 +72,12 @@ public sealed class InsertSceneBehavior(
             return;
         }
 
-        newSceneViewModel.Timestamp = InsertModelScene(choreography, newSceneViewModel, selectedScene, insertIndex);
+        var modelScene = InsertModelScene(choreography, newSceneViewModel, selectedScene, insertIndex);
+        if (copyPositions && selectedScene is not null)
+        {
+            CopyPositions(selectedScene, modelScene);
+        }
+        newSceneViewModel.Timestamp = modelScene.Timestamp;
         ReindexScenes(allScenes, choreography.Scenes);
     }
 
@@ -110,7 +139,7 @@ public sealed class InsertSceneBehavior(
         }
     }
 
-    private static TimeSpan? InsertModelScene(
+    private static SceneModel InsertModelScene(
         ChoreographyModel choreography,
         SceneViewModel newSceneViewModel,
         SceneViewModel? selectedScene,
@@ -127,15 +156,34 @@ public sealed class InsertSceneBehavior(
         var timestamp = CalculateTimestampBetweenScenes(scenes, insertIndex, selectedModelScene);
         var color = selectedModelScene?.Color ?? newSceneViewModel.Color;
 
-        scenes.Insert(insertIndex, new SceneModel
+        var newScene = new SceneModel
         {
             SceneId = newSceneViewModel.SceneId,
             Name = newSceneViewModel.Name,
             Color = color,
             Timestamp = timestamp
-        });
+        };
+        scenes.Insert(insertIndex, newScene);
 
-        return timestamp;
+        return newScene;
+    }
+
+    private static void CopyPositions(SceneViewModel source, SceneViewModel target)
+    {
+        target.Positions.Clear();
+        foreach (var position in source.Positions)
+        {
+            target.Positions.Add(position.Clone(CloneMode.Shallow));
+        }
+    }
+
+    private static void CopyPositions(SceneViewModel source, SceneModel target)
+    {
+        target.Positions.Clear();
+        foreach (var position in source.Positions)
+        {
+            target.Positions.Add(position.Clone(CloneMode.Shallow));
+        }
     }
 
     private static TimeSpan? CalculateTimestampBetweenViewModels(
