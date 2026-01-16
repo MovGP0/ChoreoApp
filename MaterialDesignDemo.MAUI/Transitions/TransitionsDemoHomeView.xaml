@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentView x:TypeArguments="transitions:TransitionsDemoViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:transitions="clr-namespace:MaterialDesignDemo.MAUI.Transitions"
+                          x:Class="MaterialDesignDemo.MAUI.Transitions.TransitionsDemoHomeView"
+                          x:DataType="transitions:TransitionsDemoViewModel">
+  <maui:ReactiveContentView.Resources>
+    <transitions:IndexEqualsConverter x:Key="IndexEqualsConverter" />
+    <transitions:NotBoolConverter x:Key="NotBoolConverter" />
+  </maui:ReactiveContentView.Resources>
+
+  <Grid RowDefinitions="Auto,*">
+    <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}"
+           Text="Transitions Demo" />
+
+    <Grid Grid.Row="1">
+      <transitions:Slide1IntroView IsVisible="{Binding SelectedIndex, Converter={StaticResource IndexEqualsConverter}, ConverterParameter=0}" />
+      <transitions:Slide2IntroView IsVisible="{Binding SelectedIndex, Converter={StaticResource IndexEqualsConverter}, ConverterParameter=1}" />
+      <transitions:Slide3IntroView IsVisible="{Binding SelectedIndex, Converter={StaticResource IndexEqualsConverter}, ConverterParameter=2}" />
+      <transitions:Slide4CombineTransitionsView IsVisible="{Binding SelectedIndex, Converter={StaticResource IndexEqualsConverter}, ConverterParameter=3}" />
+      <transitions:Slide5TransitioningContentView IsVisible="{Binding SelectedIndex, Converter={StaticResource IndexEqualsConverter}, ConverterParameter=4}" />
+      <transitions:Slide6OriginsView IsVisible="{Binding SelectedIndex, Converter={StaticResource IndexEqualsConverter}, ConverterParameter=5}" />
+      <transitions:Slide7MvvmView IsVisible="{Binding SelectedIndex, Converter={StaticResource IndexEqualsConverter}, ConverterParameter=6}" />
+    </Grid>
+  </Grid>
+</maui:ReactiveContentView>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentView x:TypeArguments="transitions:TransitionsDemoViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          xmlns:transitions="clr-namespace:MaterialDesignDemo.MAUI.Transitions"
+                          x:Class="MaterialDesignDemo.MAUI.Transitions.Slide6OriginsView"
+                          x:DataType="transitions:TransitionsDemoViewModel">
+  <Grid RowDefinitions="*,Auto" ColumnDefinitions="Auto,*" ColumnSpacing="16">
+    <VerticalStackLayout Margin="16" Spacing="12">
+      <styling:ContentButton Style="{StaticResource MaterialDesignRaisedButton}"
+                             Command="{Binding ShowFirstOriginCommand}">
+        <Label Text="First" />
+      </styling:ContentButton>
+      <styling:ContentButton Style="{StaticResource MaterialDesignRaisedButton}"
+                             Command="{Binding ShowSecondOriginCommand}">
+        <Label Text="Second" />
+      </styling:ContentButton>
+    </VerticalStackLayout>
+
+    <Grid Grid.Column="1">
+      <Border IsVisible="{Binding IsOriginsSecond, Converter={StaticResource NotBoolConverter}}"
+              BackgroundColor="#009688"
+              Padding="24">
+        <Label TextColor="White"
+               Text="You can set default transition origins or toggle views programmatically. This is the first panel."
+               LineBreakMode="WordWrap" />
+      </Border>
+
+      <Border IsVisible="{Binding IsOriginsSecond}"
+              BackgroundColor="#E64A19"
+              Padding="24">
+        <Label TextColor="White"
+               Text="This is the second panel, shown after clicking Second."
+               LineBreakMode="WordWrap" />
+      </Border>
+    </Grid>
+
+    <HorizontalStackLayout Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="End" Spacing="16">
+      <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                             Command="{Binding MovePreviousCommand}">
+        <styling:PackIcon Kind="StepBackward" />
+      </styling:ContentButton>
+      <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                             Command="{Binding MoveNextCommand}">
+        <styling:PackIcon Kind="StepForward" />
+      </styling:ContentButton>
+    </HorizontalStackLayout>
+  </Grid>
+</maui:ReactiveContentView>

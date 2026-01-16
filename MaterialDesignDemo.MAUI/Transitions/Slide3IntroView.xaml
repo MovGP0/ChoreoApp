@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentView x:TypeArguments="transitions:TransitionsDemoViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          xmlns:transitions="clr-namespace:MaterialDesignDemo.MAUI.Transitions"
+                          x:Class="MaterialDesignDemo.MAUI.Transitions.Slide3IntroView"
+                          x:DataType="transitions:TransitionsDemoViewModel">
+  <styling:ColorZone Mode="PrimaryDark">
+    <VerticalStackLayout Margin="64" HorizontalOptions="Center" VerticalOptions="Center" Spacing="24">
+      <Label Style="{StaticResource MaterialDesignHeadlineSmallTextBlock}"
+             Text="OK, we've seen some cool stuff. Let's take a look at some more transition types."
+             HorizontalTextAlignment="Center"
+             LineBreakMode="WordWrap" />
+
+      <HorizontalStackLayout HorizontalOptions="Center" Spacing="16">
+        <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                               Command="{Binding MovePreviousCommand}">
+          <styling:PackIcon Kind="StepBackward" />
+        </styling:ContentButton>
+        <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                               Command="{Binding MoveNextCommand}">
+          <styling:PackIcon Kind="StepForward" />
+        </styling:ContentButton>
+      </HorizontalStackLayout>
+    </VerticalStackLayout>
+  </styling:ColorZone>
+</maui:ReactiveContentView>

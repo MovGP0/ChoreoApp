@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentView x:TypeArguments="transitions:TransitionsDemoViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          xmlns:transitions="clr-namespace:MaterialDesignDemo.MAUI.Transitions"
+                          x:Class="MaterialDesignDemo.MAUI.Transitions.Slide7MvvmView"
+                          x:DataType="transitions:TransitionsDemoViewModel">
+  <styling:ColorZone Mode="Light">
+    <VerticalStackLayout Margin="64" Spacing="24" HorizontalOptions="Center" VerticalOptions="Center">
+      <Label Style="{StaticResource MaterialDesignHeadlineSmallTextBlock}"
+             Text="That's the end of the demo for now; a full MVVM demo coming soon!"
+             HorizontalTextAlignment="Center"
+             LineBreakMode="WordWrap" />
+
+      <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                             Command="{Binding MovePreviousCommand}">
+        <styling:PackIcon Kind="StepBackward" />
+      </styling:ContentButton>
+    </VerticalStackLayout>
+  </styling:ColorZone>
+</maui:ReactiveContentView>

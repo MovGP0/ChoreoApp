@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentView x:TypeArguments="transitions:TransitionsDemoViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          xmlns:transitions="clr-namespace:MaterialDesignDemo.MAUI.Transitions"
+                          x:Class="MaterialDesignDemo.MAUI.Transitions.Slide1IntroView"
+                          x:DataType="transitions:TransitionsDemoViewModel">
+  <styling:ColorZone Mode="Light">
+    <VerticalStackLayout Margin="16" VerticalOptions="Center" Spacing="12">
+      <Entry Style="{StaticResource MaterialDesignOutlinedEntry}"
+             Placeholder="Your name here"
+             Text="{Binding Name}" />
+
+      <Label Text="{Binding Name, StringFormat='Welcome to the transitions showcase! {0} Take the red pill to begin...'}"
+             LineBreakMode="WordWrap" />
+
+      <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                             HorizontalOptions="Center"
+                             Command="{Binding MoveNextCommand}">
+        <styling:PackIcon Kind="Pill" />
+      </styling:ContentButton>
+    </VerticalStackLayout>
+  </styling:ColorZone>
+</maui:ReactiveContentView>

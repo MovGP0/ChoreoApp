@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="toolTips:ToolTipsViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          xmlns:toolTips="clr-namespace:MaterialDesignDemo.MAUI.ToolTips"
+                          x:Class="MaterialDesignDemo.MAUI.ToolTips.ToolTipsPage"
+                          x:DataType="toolTips:ToolTipsViewModel">
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="24">
+      <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="ToolTip" />
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Default" />
+      <Button HorizontalOptions="Start"
+              Text="Example"
+              ToolTipProperties.Text="This a simple tooltip" />
+
+      <BoxView HeightRequest="1"
+               Color="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}" />
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Rich tool tips" />
+
+      <Grid ColumnDefinitions="*,320" ColumnSpacing="24">
+        <Grid Grid.Column="0">
+          <styling:PopupBox IsPopupOpen="{Binding IsPopupOpen}"
+                            PlacementMode="{Binding SelectedPopupBoxPlacementMode}"
+                            PopupAnimation="{Binding SelectedPopupAnimation}"
+                            PopupElevation="{Binding SelectedElevation}"
+                            PopupHorizontalOffset="{Binding PopupHorizontalOffset}"
+                            PopupMode="{Binding SelectedPopupBoxPopupMode}"
+                            PopupUniformCornerRadius="{Binding PopupUniformCornerRadius}"
+                            PopupVerticalOffset="{Binding PopupVerticalOffset}">
+            <styling:PopupBox.ToggleContent>
+              <styling:PackIcon WidthRequest="40"
+                               HeightRequest="40"
+                               Foreground="DodgerBlue"
+                               Kind="Information" />
+            </styling:PopupBox.ToggleContent>
+            <styling:PopupBox.PopupContent>
+              <Grid WidthRequest="312" Margin="16,12,16,8" RowDefinitions="Auto,4,*,12,Auto">
+                <Label Grid.Row="0"
+                       Style="{StaticResource MaterialDesignTitleSmallTextBlock}"
+                       Text="Rich tooltip" />
+                <Label Grid.Row="2"
+                       Text="Rich tooltips bring attention to a particular element or feature that warrants the user's focus. It supports multiple lines of informational text."
+                       LineBreakMode="WordWrap" />
+                <HorizontalStackLayout Grid.Row="4" Spacing="8">
+                  <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}">
+                    <Label Text="Action 1" />
+                  </styling:ContentButton>
+                  <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}">
+                    <Label Text="Action 2" />
+                  </styling:ContentButton>
+                </HorizontalStackLayout>
+              </Grid>
+            </styling:PopupBox.PopupContent>
+          </styling:PopupBox>
+        </Grid>
+
+        <styling:Card Grid.Column="1" Style="{StaticResource MaterialDesignOutlinedCard}">
+          <VerticalStackLayout Padding="16" Spacing="12">
+            <HorizontalStackLayout Spacing="8">
+              <styling:PackIcon Kind="Wrench" />
+              <Label Text="Properties" Style="{StaticResource MaterialDesignTitleSmallTextBlock}" />
+            </HorizontalStackLayout>
+
+            <styling:ContentButton Style="{StaticResource MaterialDesignRaisedButton}"
+                                   Command="{Binding ResetToDefaultsCommand}">
+              <HorizontalStackLayout Spacing="8">
+                <styling:PackIcon Kind="Reload" />
+                <Label Text="Reset" />
+              </HorizontalStackLayout>
+            </styling:ContentButton>
+
+            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto">
+              <Label Text="IsPopupOpen" VerticalOptions="Center" />
+              <Switch Grid.Column="1" IsToggled="{Binding IsPopupOpen}" />
+            </Grid>
+
+            <Label Text="PopupElevation" />
+            <Picker ItemsSource="{Binding Elevations}"
+                    SelectedItem="{Binding SelectedElevation}" />
+
+            <Label Text="PopupUniformCornerRadius" />
+            <Grid ColumnDefinitions="*,Auto">
+              <Slider Minimum="0" Maximum="24" Value="{Binding PopupUniformCornerRadius}" />
+              <Label Grid.Column="1" Text="{Binding PopupUniformCornerRadius, StringFormat='{0:F0}'}" />
+            </Grid>
+
+            <Label Text="PopupHorizontalOffset" />
+            <Grid ColumnDefinitions="*,Auto">
+              <Slider Minimum="-32" Maximum="32" Value="{Binding PopupHorizontalOffset}" />
+              <Label Grid.Column="1" Text="{Binding PopupHorizontalOffset, StringFormat='{0:F0}'}" />
+            </Grid>
+
+            <Label Text="PopupVerticalOffset" />
+            <Grid ColumnDefinitions="*,Auto">
+              <Slider Minimum="-32" Maximum="32" Value="{Binding PopupVerticalOffset}" />
+              <Label Grid.Column="1" Text="{Binding PopupVerticalOffset, StringFormat='{0:F0}'}" />
+            </Grid>
+
+            <Label Text="PlacementMode" />
+            <Picker ItemsSource="{Binding PopupBoxPlacementModes}"
+                    SelectedItem="{Binding SelectedPopupBoxPlacementMode}" />
+
+            <Label Text="PopupAnimation" />
+            <Picker ItemsSource="{Binding PopupAnimations}"
+                    SelectedItem="{Binding SelectedPopupAnimation}" />
+
+            <Label Text="PopupBoxPopupMode" />
+            <Picker ItemsSource="{Binding PopupBoxPopupModes}"
+                    SelectedItem="{Binding SelectedPopupBoxPopupMode}" />
+          </VerticalStackLayout>
+        </styling:Card>
+      </Grid>
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>
