@@ -30,6 +30,9 @@ public sealed class Settings
     [JsonPropertyName("GridLines")]
     public bool GridLines { get; set; }
 
+    [JsonPropertyName("SnapToGrid")]
+    public bool SnapToGrid { get; set; } = true;
+
     [JsonPropertyName("FloorColor")]
     [JsonConverter(typeof(ColorHexJsonConverter))]
     public Color FloorColor { get; set; } = Colors.Transparent;

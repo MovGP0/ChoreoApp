@@ -21,6 +21,7 @@ public sealed partial class SettingsModel : IEquatable<SettingsModel>
             && Transparency == other.Transparency
             && PositionsAtSide == other.PositionsAtSide
             && GridLines == other.GridLines
+            && SnapToGrid == other.SnapToGrid
             && FloorColor.Equals(other.FloorColor)
             && DancerSize == other.DancerSize
             && ShowTimestamps == other.ShowTimestamps
@@ -40,6 +41,7 @@ public sealed partial class SettingsModel : IEquatable<SettingsModel>
         hash.Add(Transparency);
         hash.Add(PositionsAtSide);
         hash.Add(GridLines);
+        hash.Add(SnapToGrid);
         hash.Add(FloorColor);
         hash.Add(DancerSize);
         hash.Add(ShowTimestamps);

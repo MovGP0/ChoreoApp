@@ -1,3 +1,5 @@
+using ChoreoApp.Models;
+
 namespace ChoreoApp.ChoreographySettings;
 
 public static class DependencyInjection
@@ -7,6 +9,7 @@ public static class DependencyInjection
         services.AddTransient<IViewFor<ChoreographySettingsViewModel>, ChoreographySettingsView>();
         services.AddTransient<ChoreographySettingsView>();
         services.AddTransient<ChoreographySettingsViewModel>();
+        services.AddTransient<IBehavior<SettingsModel>, Behaviors.LoadSettingsPreferencesBehavior>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.LoadChoreographySettingsBehavior>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateSelectedSceneBehavior>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateCommentBehavior>();
@@ -24,6 +27,7 @@ public static class DependencyInjection
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateDrawPathFromBehavior>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateDrawPathToBehavior>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateGridLinesBehavior>();
+        services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateSnapToGridBehavior>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateFloorColorBehavior>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateShowTimestampsBehavior>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdatePositionsAtSideBehavior>();

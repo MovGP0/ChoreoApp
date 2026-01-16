@@ -322,6 +322,17 @@
                           RowDefinitions="Auto"
                           ColumnSpacing="12"
                           RowSpacing="8">
+                        <Label Text="{x:Static i18n:Translations.ChoreographySnapToGridLabel}"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <CheckBox Grid.Column="1"
+                                  IsChecked="{Binding SnapToGrid}"
+                                  VerticalOptions="Center" />
+                    </Grid>
+                    <Grid ColumnDefinitions="*,Auto"
+                          RowDefinitions="Auto"
+                          ColumnSpacing="12"
+                          RowSpacing="8">
                         <Label Text="{x:Static i18n:Translations.ChoreographyTransparencyLabel}"
                                Grid.Column="0"
                                TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />

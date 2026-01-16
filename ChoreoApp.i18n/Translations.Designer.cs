@@ -186,6 +186,15 @@ namespace ChoreoApp.i18n {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Snap to grid.
+        /// </summary>
+        public static string ChoreographySnapToGridLabel {
+            get {
+                return ResourceManager.GetString("ChoreographySnapToGridLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Grid size.
         /// </summary>
         public static string ChoreographyGridSizeLabel {

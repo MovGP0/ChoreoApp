@@ -66,6 +66,9 @@
   <data name="ChoreographyGridLinesLabel" xml:space="preserve">
     <value>Ruudustiku jooned</value>
   </data>
+  <data name="ChoreographySnapToGridLabel" xml:space="preserve">
+    <value>Kinnita ruudustikule</value>
+  </data>
   <data name="ChoreographyGridSizeLabel" xml:space="preserve">
     <value>Ruudustiku suurus</value>
   </data>

@@ -730,6 +730,11 @@ public sealed class ScaleAroundDancerBehavior(
             return;
         }
 
+        if (!choreography.Settings.SnapToGrid)
+        {
+            return;
+        }
+
         var resolution = choreography.Settings.Resolution;
         if (resolution <= 0)
         {

@@ -4,12 +4,6 @@ namespace ChoreoApp.Models;
 
 public sealed partial class SettingsModel : ReactiveObject
 {
-    public SettingsModel()
-    {
-        ShowTimestamps = Preferences.Default.Get(SettingsPreferenceKeys.ShowTimestamps, true);
-        PositionsAtSide = Preferences.Default.Get(SettingsPreferenceKeys.PositionsAtSide, true);
-    }
-
     [Reactive]
     private int _animationMilliseconds;
 
@@ -26,10 +20,13 @@ public sealed partial class SettingsModel : ReactiveObject
     private decimal _transparency;
 
     [Reactive]
-    private bool _positionsAtSide;
+    private bool _positionsAtSide = true;
 
     [Reactive]
     private bool _gridLines;
+
+    [Reactive]
+    private bool _snapToGrid = true;
 
     [Reactive]
     private Color _floorColor = Colors.Transparent;
@@ -38,7 +35,7 @@ public sealed partial class SettingsModel : ReactiveObject
     private decimal _dancerSize;
 
     [Reactive]
-    private bool _showTimestamps;
+    private bool _showTimestamps = true;
 
     [Reactive]
     private string? _musicPathAbsolute;

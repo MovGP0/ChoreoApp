@@ -63,6 +63,9 @@ public sealed partial class ChoreographySettingsViewModel : ReactiveObject, IAct
     private bool _gridLines = true;
 
     [Reactive]
+    private bool _snapToGrid = true;
+
+    [Reactive]
     private Color _floorColor = Colors.Transparent;
 
     [Reactive]

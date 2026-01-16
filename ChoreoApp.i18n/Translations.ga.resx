@@ -66,6 +66,9 @@
   <data name="ChoreographyGridLinesLabel" xml:space="preserve">
     <value>Línte greille</value>
   </data>
+  <data name="ChoreographySnapToGridLabel" xml:space="preserve">
+    <value>Greamaigh leis an ngreille</value>
+  </data>
   <data name="ChoreographyGridSizeLabel" xml:space="preserve">
     <value>Méid na greille</value>
   </data>

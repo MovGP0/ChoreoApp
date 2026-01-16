@@ -23,6 +23,7 @@ public sealed class ChoreographySettingsMapper
         target.Transparency = ClampTransparency(settings.Transparency);
         target.PositionsAtSide = settings.PositionsAtSide;
         target.GridLines = settings.GridLines;
+        target.SnapToGrid = settings.SnapToGrid;
         target.FloorColor = settings.FloorColor;
         target.ShowTimestamps = settings.ShowTimestamps;
         if (source.Floor is not null)
@@ -52,6 +53,7 @@ public sealed class ChoreographySettingsMapper
         settings.Transparency = ClampTransparency(source.Transparency);
         settings.PositionsAtSide = source.PositionsAtSide;
         settings.GridLines = source.GridLines;
+        settings.SnapToGrid = source.SnapToGrid;
         settings.FloorColor = source.FloorColor;
         settings.ShowTimestamps = source.ShowTimestamps;
         target.Floor.SizeFront = ClampFloorSize(source.FloorFront);

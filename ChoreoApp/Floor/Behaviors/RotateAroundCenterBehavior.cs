@@ -568,6 +568,11 @@ public sealed class RotateAroundCenterBehavior(
             return;
         }
 
+        if (!choreography.Settings.SnapToGrid)
+        {
+            return;
+        }
+
         var resolution = choreography.Settings.Resolution;
         if (resolution <= 0)
         {

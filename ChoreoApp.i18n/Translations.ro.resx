@@ -66,6 +66,9 @@
   <data name="ChoreographyGridLinesLabel" xml:space="preserve">
     <value>Linii de grilă</value>
   </data>
+  <data name="ChoreographySnapToGridLabel" xml:space="preserve">
+    <value>Fixare la grilă</value>
+  </data>
   <data name="ChoreographyGridSizeLabel" xml:space="preserve">
     <value>Dimensiunea grilei</value>
   </data>

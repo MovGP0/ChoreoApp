@@ -66,6 +66,9 @@
   <data name="ChoreographyGridLinesLabel" xml:space="preserve">
     <value>Линии на мрежата</value>
   </data>
+  <data name="ChoreographySnapToGridLabel" xml:space="preserve">
+    <value>Прикачи на мрежа</value>
+  </data>
   <data name="ChoreographyGridSizeLabel" xml:space="preserve">
     <value>Големина на мрежата</value>
   </data>

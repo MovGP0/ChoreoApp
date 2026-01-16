@@ -405,6 +405,11 @@ public sealed class PlacePositionBehavior(
 
     private static void SnapToGrid(Choreography choreography, ref double positionX, ref double positionY)
     {
+        if (!choreography.Settings.SnapToGrid)
+        {
+            return;
+        }
+
         var resolution = choreography.Settings.Resolution;
         if (resolution <= 0)
         {

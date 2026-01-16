@@ -576,6 +576,11 @@ public sealed class ScalePositionsBehavior(
             return;
         }
 
+        if (!choreography.Settings.SnapToGrid)
+        {
+            return;
+        }
+
         var resolution = choreography.Settings.Resolution;
         if (resolution <= 0)
         {

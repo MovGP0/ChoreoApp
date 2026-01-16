@@ -45,6 +45,7 @@ public sealed class LoadChoreographySettingsBehavior(GlobalStateModel globalStat
         viewModel.Transparency = 0m;
         viewModel.PositionsAtSide = false;
         viewModel.GridLines = false;
+        viewModel.SnapToGrid = true;
         viewModel.FloorColor = Colors.Transparent;
         viewModel.ShowTimestamps = false;
         viewModel.HasSelectedScene = false;

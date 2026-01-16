@@ -15,6 +15,7 @@ public sealed partial class SettingsModel : ICloneable<SettingsModel>
             Transparency = Transparency,
             PositionsAtSide = PositionsAtSide,
             GridLines = GridLines,
+            SnapToGrid = SnapToGrid,
             FloorColor = FloorColor,
             DancerSize = DancerSize,
             ShowTimestamps = ShowTimestamps,
