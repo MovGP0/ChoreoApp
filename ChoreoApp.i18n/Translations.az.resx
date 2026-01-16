@@ -192,6 +192,30 @@
   <data name="DancerTitle" xml:space="preserve">
     <value>Rəqqas</value>
   </data>
+  <data name="DancerSwapSectionTitle" xml:space="preserve">
+    <value>Rəqqasları dəyiş</value>
+  </data>
+  <data name="DancerSwapFromLabel" xml:space="preserve">
+    <value>Birinci rəqqas</value>
+  </data>
+  <data name="DancerSwapToLabel" xml:space="preserve">
+    <value>İkinci rəqqas</value>
+  </data>
+  <data name="DancerSwapButton" xml:space="preserve">
+    <value>Dəyiş</value>
+  </data>
+  <data name="DancerSwapDialogTitle" xml:space="preserve">
+    <value>Rəqqasları dəyiş</value>
+  </data>
+  <data name="DancerSwapDialogMessage" xml:space="preserve">
+    <value>"{0}" və "{1}" rəqqaslarını dəyişmək?</value>
+  </data>
+  <data name="DancerSwapDialogConfirm" xml:space="preserve">
+    <value>Dəyiş</value>
+  </data>
+  <data name="DancerSwapDialogCancel" xml:space="preserve">
+    <value>Ləğv et</value>
+  </data>
   <data name="DancersTitle" xml:space="preserve">
     <value>Rəqqaslar</value>
   </data>

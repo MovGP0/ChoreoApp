@@ -192,6 +192,30 @@
   <data name="DancerTitle" xml:space="preserve">
     <value>Plesalec</value>
   </data>
+  <data name="DancerSwapSectionTitle" xml:space="preserve">
+    <value>Zamenjaj plesalca</value>
+  </data>
+  <data name="DancerSwapFromLabel" xml:space="preserve">
+    <value>Prvi plesalec</value>
+  </data>
+  <data name="DancerSwapToLabel" xml:space="preserve">
+    <value>Drugi plesalec</value>
+  </data>
+  <data name="DancerSwapButton" xml:space="preserve">
+    <value>Zamenjaj</value>
+  </data>
+  <data name="DancerSwapDialogTitle" xml:space="preserve">
+    <value>Zamenjaj plesalca</value>
+  </data>
+  <data name="DancerSwapDialogMessage" xml:space="preserve">
+    <value>Zamenjati plesalca "{0}" in "{1}"?</value>
+  </data>
+  <data name="DancerSwapDialogConfirm" xml:space="preserve">
+    <value>Zamenjaj</value>
+  </data>
+  <data name="DancerSwapDialogCancel" xml:space="preserve">
+    <value>Prekliči</value>
+  </data>
   <data name="DancersTitle" xml:space="preserve">
     <value>Plesalci</value>
   </data>

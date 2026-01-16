@@ -192,6 +192,30 @@
   <data name="DancerTitle" xml:space="preserve">
     <value>नर्तक</value>
   </data>
+  <data name="DancerSwapSectionTitle" xml:space="preserve">
+    <value>नर्तकों की अदला-बदली</value>
+  </data>
+  <data name="DancerSwapFromLabel" xml:space="preserve">
+    <value>पहला नर्तक</value>
+  </data>
+  <data name="DancerSwapToLabel" xml:space="preserve">
+    <value>दूसरा नर्तक</value>
+  </data>
+  <data name="DancerSwapButton" xml:space="preserve">
+    <value>अदला-बदली करें</value>
+  </data>
+  <data name="DancerSwapDialogTitle" xml:space="preserve">
+    <value>नर्तकों की अदला-बदली</value>
+  </data>
+  <data name="DancerSwapDialogMessage" xml:space="preserve">
+    <value>"{0}" और "{1}" नर्तकों की अदला-बदली करें?</value>
+  </data>
+  <data name="DancerSwapDialogConfirm" xml:space="preserve">
+    <value>अदला-बदली करें</value>
+  </data>
+  <data name="DancerSwapDialogCancel" xml:space="preserve">
+    <value>रद्द करें</value>
+  </data>
   <data name="DancersTitle" xml:space="preserve">
     <value>नर्तक</value>
   </data>

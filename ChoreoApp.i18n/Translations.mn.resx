@@ -192,6 +192,30 @@
   <data name="DancerTitle" xml:space="preserve">
     <value>Бүжигчин</value>
   </data>
+  <data name="DancerSwapSectionTitle" xml:space="preserve">
+    <value>Бүжигчдийг солих</value>
+  </data>
+  <data name="DancerSwapFromLabel" xml:space="preserve">
+    <value>Эхний бүжигчин</value>
+  </data>
+  <data name="DancerSwapToLabel" xml:space="preserve">
+    <value>Хоёр дахь бүжигчин</value>
+  </data>
+  <data name="DancerSwapButton" xml:space="preserve">
+    <value>Солих</value>
+  </data>
+  <data name="DancerSwapDialogTitle" xml:space="preserve">
+    <value>Бүжигчдийг солих</value>
+  </data>
+  <data name="DancerSwapDialogMessage" xml:space="preserve">
+    <value>"{0}" болон "{1}" бүжигчдийг солих уу?</value>
+  </data>
+  <data name="DancerSwapDialogConfirm" xml:space="preserve">
+    <value>Солих</value>
+  </data>
+  <data name="DancerSwapDialogCancel" xml:space="preserve">
+    <value>Цуцлах</value>
+  </data>
   <data name="DancersTitle" xml:space="preserve">
     <value>Бүжигчид</value>
   </data>

@@ -33,137 +33,163 @@
                    TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
         </Grid>
     </Shell.TitleView>
-    <styling:DrawerHost x:Name="Drawer"
-                        ResponsiveBreakpoint="900"
-                        OpenMode="Default"
-                        IsLeftDrawerOpen="{Binding IsDancerListOpen, Mode=TwoWay}">
-        <styling:DrawerHost.LeftDrawerContent>
-            <Border BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
-                    MaximumWidthRequest="420">
-                <Grid Padding="8"
+    <styling:DialogHost IsOpen="{Binding IsDialogOpen, Mode=TwoWay}"
+                        DialogContent="{Binding DialogContentView}">
+        <styling:DrawerHost x:Name="Drawer"
+                            ResponsiveBreakpoint="900"
+                            OpenMode="Default"
+                            IsLeftDrawerOpen="{Binding IsDancerListOpen, Mode=TwoWay}">
+            <styling:DrawerHost.LeftDrawerContent>
+                <Border BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+                        MaximumWidthRequest="420">
+                    <Grid Padding="8"
+                          RowDefinitions="*,Auto"
+                          RowSpacing="12">
+                        <CollectionView ItemsSource="{Binding Dancers}"
+                                        SelectionMode="Single"
+                                        SelectedItem="{Binding SelectedDancer, Mode=TwoWay}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout ItemSpacing="6"
+                                                   Orientation="Vertical" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:DancerModel">
+                                    <Border StrokeThickness="1"
+                                            Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
+                                            BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}"
+                                            Padding="8"
+                                            StrokeShape="RoundRectangle 6">
+                                        <Grid ColumnDefinitions="Auto,*,Auto"
+                                              ColumnSpacing="8">
+                                            <Image WidthRequest="28"
+                                                   HeightRequest="28"
+                                                   Source="{Binding Icon, Converter={StaticResource IconNameToImageSourceConverter}}"
+                                                   VerticalOptions="Center" />
+                                            <Label Grid.Column="1"
+                                                   Text="{Binding Name}"
+                                                   VerticalOptions="Center"
+                                                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                                            <BoxView Grid.Column="2"
+                                                     WidthRequest="14"
+                                                     HeightRequest="14"
+                                                     CornerRadius="3"
+                                                     VerticalOptions="Center"
+                                                     BackgroundColor="{Binding Color}" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <Grid Grid.Row="1"
+                              ColumnDefinitions="Auto,Auto,*"
+                              ColumnSpacing="8">
+                            <styling:ContentButton Grid.Column="0"
+                                                   Style="{StaticResource MaterialDesignIconButton}"
+                                                   Command="{Binding AddDancerCommand}">
+                                <styling:PackIcon Kind="AccountMultiplePlus" />
+                            </styling:ContentButton>
+                            <styling:ContentButton Grid.Column="1"
+                                                   Style="{StaticResource MaterialDesignIconButton}"
+                                                   Command="{Binding DeleteDancerCommand}"
+                                                   IsEnabled="{Binding CanDeleteDancer}">
+                                <styling:PackIcon Kind="AccountMultipleRemove" />
+                            </styling:ContentButton>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </styling:DrawerHost.LeftDrawerContent>
+            <styling:DrawerHost.MainContent>
+                <Grid Padding="16"
                       RowDefinitions="*,Auto"
                       RowSpacing="12">
-                    <CollectionView ItemsSource="{Binding Dancers}"
-                                    SelectionMode="Single"
-                                    SelectedItem="{Binding SelectedDancer, Mode=TwoWay}">
-                        <CollectionView.ItemsLayout>
-                            <LinearItemsLayout ItemSpacing="6"
-                                               Orientation="Vertical" />
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="models:DancerModel">
-                                <Border StrokeThickness="1"
-                                        Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
-                                        BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}"
-                                        Padding="8"
-                                        StrokeShape="RoundRectangle 6">
-                                    <Grid ColumnDefinitions="Auto,*,Auto"
-                                          ColumnSpacing="8">
-                                        <Image WidthRequest="28"
-                                               HeightRequest="28"
-                                               Source="{Binding Icon, Converter={StaticResource IconNameToImageSourceConverter}}"
-                                               VerticalOptions="Center" />
-                                        <Label Grid.Column="1"
-                                               Text="{Binding Name}"
-                                               VerticalOptions="Center"
-                                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
-                                        <BoxView Grid.Column="2"
-                                                 WidthRequest="14"
-                                                 HeightRequest="14"
-                                                 CornerRadius="3"
-                                                 VerticalOptions="Center"
-                                                 BackgroundColor="{Binding Color}" />
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                    <ScrollView x:DataType="dancers:DancerSettingsViewModel">
+                        <VerticalStackLayout Spacing="12">
+                            <Label Text="{x:Static i18n:Translations.DancerTitle}"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
 
-                    <Grid Grid.Row="1"
-                          ColumnDefinitions="Auto,Auto,*"
-                          ColumnSpacing="8">
-                        <styling:ContentButton Grid.Column="0"
-                                               Style="{StaticResource MaterialDesignIconButton}"
-                                               Command="{Binding AddDancerCommand}">
-                            <styling:PackIcon Kind="AccountMultiplePlus" />
-                        </styling:ContentButton>
-                        <styling:ContentButton Grid.Column="1"
-                                               Style="{StaticResource MaterialDesignIconButton}"
-                                               Command="{Binding DeleteDancerCommand}"
-                                               IsEnabled="{Binding CanDeleteDancer}">
-                            <styling:PackIcon Kind="AccountMultipleRemove" />
-                        </styling:ContentButton>
-                    </Grid>
-                </Grid>
-            </Border>
-        </styling:DrawerHost.LeftDrawerContent>
-        <styling:DrawerHost.MainContent>
-            <Grid Padding="16"
-                  RowDefinitions="*,Auto"
-                  RowSpacing="12">
-                <ScrollView x:DataType="dancers:DancerSettingsViewModel">
-                    <VerticalStackLayout Spacing="12">
-                        <Label Text="{x:Static i18n:Translations.DancerTitle}"
-                               FontSize="20"
-                               FontAttributes="Bold"
-                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
-
-                        <VerticalStackLayout Spacing="10"
-                                             IsEnabled="{Binding HasSelectedDancer}">
-                            <Label Text="{x:Static i18n:Translations.DancerRoleLabel}"
-                                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <Picker ItemsSource="{Binding Roles}"
-                                    x:DataType="{x:Null}"
-                                    SelectedItem="{Binding SelectedRole, Mode=TwoWay}"
-                                    ItemDisplayBinding="{Binding Name}" />
-
-                            <Label Text="{x:Static i18n:Translations.DancerNameLabel}"
-                                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <Entry Text="{Binding SelectedDancer.Name}"
-                                   Placeholder="{x:Static i18n:Translations.DancerNamePlaceholder}"
-                                   BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
-
-                            <Label Text="{x:Static i18n:Translations.DancerShortcutLabel}"
-                                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <Entry Text="{Binding SelectedDancer.Shortcut}"
-                                   Placeholder="{x:Static i18n:Translations.DancerShortcutPlaceholder}"
-                                   BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
-
-                            <Label Text="{x:Static i18n:Translations.DancerColorLabel}"
-                                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <colorPicker:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
-                                                                SelectedColor="{Binding SelectedDancer.Color}" />
-
-                            <Label Text="{x:Static i18n:Translations.DancerIconLabel}"
-                                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                            <Grid ColumnDefinitions="Auto,*"
-                                  ColumnSpacing="12">
-                                <Image Grid.Column="0"
-                                       WidthRequest="32"
-                                       HeightRequest="32"
-                                       Source="{Binding SelectedIconOption.ImageSource}" />
-                                <Picker Grid.Column="1"
+                            <VerticalStackLayout Spacing="10"
+                                                 IsEnabled="{Binding HasSelectedDancer}">
+                                <Label Text="{x:Static i18n:Translations.DancerRoleLabel}"
+                                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                                <Picker ItemsSource="{Binding Roles}"
                                         x:DataType="{x:Null}"
-                                        ItemsSource="{Binding IconOptions}"
-                                        SelectedItem="{Binding SelectedIconOption, Mode=TwoWay}"
-                                        ItemDisplayBinding="{Binding DisplayName}" />
-                            </Grid>
+                                        SelectedItem="{Binding SelectedRole, Mode=TwoWay}"
+                                        ItemDisplayBinding="{Binding Name}" />
 
+                                <Label Text="{x:Static i18n:Translations.DancerNameLabel}"
+                                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                                <Entry Text="{Binding SelectedDancer.Name}"
+                                       Placeholder="{x:Static i18n:Translations.DancerNamePlaceholder}"
+                                       BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+
+                                <Label Text="{x:Static i18n:Translations.DancerShortcutLabel}"
+                                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                                <Entry Text="{Binding SelectedDancer.Shortcut}"
+                                       Placeholder="{x:Static i18n:Translations.DancerShortcutPlaceholder}"
+                                       BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+
+                                <Label Text="{x:Static i18n:Translations.DancerColorLabel}"
+                                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                                <colorPicker:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
+                                                                    SelectedColor="{Binding SelectedDancer.Color}" />
+
+                                <Label Text="{x:Static i18n:Translations.DancerIconLabel}"
+                                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                                <Grid ColumnDefinitions="Auto,*"
+                                      ColumnSpacing="12">
+                                    <Image Grid.Column="0"
+                                           WidthRequest="32"
+                                           HeightRequest="32"
+                                           Source="{Binding SelectedIconOption.ImageSource}" />
+                                    <Picker Grid.Column="1"
+                                            x:DataType="{x:Null}"
+                                            ItemsSource="{Binding IconOptions}"
+                                            SelectedItem="{Binding SelectedIconOption, Mode=TwoWay}"
+                                            ItemDisplayBinding="{Binding DisplayName}" />
+                                </Grid>
+                            </VerticalStackLayout>
+
+                            <styling:Card Padding="12"
+                                          Style="{StaticResource MaterialDesignElevatedCard}">
+                                <VerticalStackLayout Spacing="10">
+                                    <Label Text="{x:Static i18n:Translations.DancerSwapSectionTitle}"
+                                           FontAttributes="Bold"
+                                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                                    <Label Text="{x:Static i18n:Translations.DancerSwapFromLabel}"
+                                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                                    <Picker ItemsSource="{Binding Dancers}"
+                                            x:DataType="{x:Null}"
+                                            SelectedItem="{Binding SwapFromDancer, Mode=TwoWay}"
+                                            ItemDisplayBinding="{Binding Name}" />
+                                    <Label Text="{x:Static i18n:Translations.DancerSwapToLabel}"
+                                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                                    <Picker ItemsSource="{Binding Dancers}"
+                                            x:DataType="{x:Null}"
+                                            SelectedItem="{Binding SwapToDancer, Mode=TwoWay}"
+                                            ItemDisplayBinding="{Binding Name}" />
+                                    <Button Text="{x:Static i18n:Translations.DancerSwapButton}"
+                                            Command="{Binding SwapDancersCommand}"
+                                            Style="{StaticResource MaterialDesignRaisedButton}" />
+                                </VerticalStackLayout>
+                            </styling:Card>
                         </VerticalStackLayout>
-                    </VerticalStackLayout>
-                </ScrollView>
+                    </ScrollView>
 
-                <HorizontalStackLayout Grid.Row="1"
-                                       Spacing="8"
-                                       HorizontalOptions="End">
-                    <Button Text="{x:Static i18n:Translations.CommonCancel}"
-                            Command="{Binding CancelCommand}"
-                            Style="{StaticResource MaterialDesignOutlinedButton}" />
-                    <Button Text="{x:Static i18n:Translations.CommonOk}"
-                            Command="{Binding SaveCommand}"
-                            Style="{StaticResource MaterialDesignRaisedButton}" />
-                </HorizontalStackLayout>
-            </Grid>
-        </styling:DrawerHost.MainContent>
-    </styling:DrawerHost>
+                    <HorizontalStackLayout Grid.Row="1"
+                                           Spacing="8"
+                                           HorizontalOptions="End">
+                        <Button Text="{x:Static i18n:Translations.CommonCancel}"
+                                Command="{Binding CancelCommand}"
+                                Style="{StaticResource MaterialDesignOutlinedButton}" />
+                        <Button Text="{x:Static i18n:Translations.CommonOk}"
+                                Command="{Binding SaveCommand}"
+                                Style="{StaticResource MaterialDesignRaisedButton}" />
+                    </HorizontalStackLayout>
+                </Grid>
+            </styling:DrawerHost.MainContent>
+        </styling:DrawerHost>
+    </styling:DialogHost>
 </maui:ReactiveContentPage>

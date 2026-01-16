@@ -192,6 +192,30 @@
   <data name="DancerTitle" xml:space="preserve">
     <value>댄서</value>
   </data>
+  <data name="DancerSwapSectionTitle" xml:space="preserve">
+    <value>무용수 교체</value>
+  </data>
+  <data name="DancerSwapFromLabel" xml:space="preserve">
+    <value>첫 번째 무용수</value>
+  </data>
+  <data name="DancerSwapToLabel" xml:space="preserve">
+    <value>두 번째 무용수</value>
+  </data>
+  <data name="DancerSwapButton" xml:space="preserve">
+    <value>교체</value>
+  </data>
+  <data name="DancerSwapDialogTitle" xml:space="preserve">
+    <value>무용수 교체</value>
+  </data>
+  <data name="DancerSwapDialogMessage" xml:space="preserve">
+    <value>"{0}"와 "{1}" 무용수를 교체할까요?</value>
+  </data>
+  <data name="DancerSwapDialogConfirm" xml:space="preserve">
+    <value>교체</value>
+  </data>
+  <data name="DancerSwapDialogCancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
   <data name="DancersTitle" xml:space="preserve">
     <value>댄서</value>
   </data>

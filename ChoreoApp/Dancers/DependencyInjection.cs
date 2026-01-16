@@ -9,10 +9,14 @@ public static class DependencyInjection
         services.AddTransient<DancerSettingsViewModel>();
         services.AddTransient<IBehavior<DancerSettingsViewModel>, Behaviors.LoadDancerSettingsBehavior>();
         services.AddTransient<IBehavior<DancerSettingsViewModel>, Behaviors.SelectedDancerStateBehavior>();
+        services.AddTransient<IBehavior<DancerSettingsViewModel>, Behaviors.SwapDancerSelectionBehavior>();
+        services.AddTransient<IBehavior<DancerSettingsViewModel>, Behaviors.ShowDancerDialogBehavior>();
+        services.AddTransient<IBehavior<DancerSettingsViewModel>, Behaviors.HideDancerDialogBehavior>();
         services.AddTransient<IBehavior<DancerSettingsViewModel>, Behaviors.SelectedIconBehavior>();
         services.AddTransient<IBehavior<DancerSettingsViewModel>, Behaviors.SelectedRoleBehavior>();
         services.AddTransient<IBehavior<DancerSettingsViewModel>, Behaviors.AddDancerBehavior>();
         services.AddTransient<IBehavior<DancerSettingsViewModel>, Behaviors.DeleteDancerBehavior>();
+        services.AddTransient<IBehavior<DancerSettingsViewModel>, Behaviors.SwapDancersBehavior>();
         services.AddTransient<IBehavior<DancerSettingsViewModel>, Behaviors.SaveDancerSettingsBehavior>();
         services.AddTransient<IBehavior<DancerSettingsViewModel>, Behaviors.CancelDancerSettingsBehavior>();
 

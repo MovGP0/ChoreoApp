@@ -192,6 +192,30 @@
   <data name="DancerTitle" xml:space="preserve">
     <value>Danseur</value>
   </data>
+  <data name="DancerSwapSectionTitle" xml:space="preserve">
+    <value>Permuter les danseurs</value>
+  </data>
+  <data name="DancerSwapFromLabel" xml:space="preserve">
+    <value>Premier danseur</value>
+  </data>
+  <data name="DancerSwapToLabel" xml:space="preserve">
+    <value>Deuxième danseur</value>
+  </data>
+  <data name="DancerSwapButton" xml:space="preserve">
+    <value>Permuter</value>
+  </data>
+  <data name="DancerSwapDialogTitle" xml:space="preserve">
+    <value>Permuter les danseurs</value>
+  </data>
+  <data name="DancerSwapDialogMessage" xml:space="preserve">
+    <value>Permuter les danseurs "{0}" et "{1}" ?</value>
+  </data>
+  <data name="DancerSwapDialogConfirm" xml:space="preserve">
+    <value>Permuter</value>
+  </data>
+  <data name="DancerSwapDialogCancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
   <data name="DancersTitle" xml:space="preserve">
     <value>Danseurs</value>
   </data>

@@ -192,6 +192,30 @@
   <data name="DancerTitle" xml:space="preserve">
     <value>Պարող</value>
   </data>
+  <data name="DancerSwapSectionTitle" xml:space="preserve">
+    <value>Փոխել պարողներին</value>
+  </data>
+  <data name="DancerSwapFromLabel" xml:space="preserve">
+    <value>Առաջին պարող</value>
+  </data>
+  <data name="DancerSwapToLabel" xml:space="preserve">
+    <value>Երկրորդ պարող</value>
+  </data>
+  <data name="DancerSwapButton" xml:space="preserve">
+    <value>Փոխել</value>
+  </data>
+  <data name="DancerSwapDialogTitle" xml:space="preserve">
+    <value>Փոխել պարողներին</value>
+  </data>
+  <data name="DancerSwapDialogMessage" xml:space="preserve">
+    <value>Փոխե՞լ «{0}» և «{1}» պարողներին։</value>
+  </data>
+  <data name="DancerSwapDialogConfirm" xml:space="preserve">
+    <value>Փոխել</value>
+  </data>
+  <data name="DancerSwapDialogCancel" xml:space="preserve">
+    <value>Չեղարկել</value>
+  </data>
   <data name="DancersTitle" xml:space="preserve">
     <value>Պարողները</value>
   </data>

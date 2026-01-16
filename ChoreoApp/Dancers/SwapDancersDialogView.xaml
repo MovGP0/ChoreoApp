@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentView x:TypeArguments="dancers:SwapDancersDialogViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          xmlns:dancers="clr-namespace:ChoreoApp.Dancers"
+                          xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
+                          x:DataType="dancers:SwapDancersDialogViewModel"
+                          x:Class="ChoreoApp.Dancers.SwapDancersDialogView">
+    <styling:Card Padding="16"
+                  Style="{StaticResource MaterialDesignElevatedCard}"
+                  BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}">
+        <VerticalStackLayout Spacing="16">
+            <Label Text="{x:Static i18n:Translations.DancerSwapDialogTitle}"
+                   FontAttributes="Bold"
+                   FontSize="18"
+                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+            <VerticalStackLayout Spacing="6">
+                <HorizontalStackLayout Spacing="8"
+                                       VerticalOptions="Center">
+                    <BoxView WidthRequest="12"
+                             HeightRequest="12"
+                             CornerRadius="6"
+                             BackgroundColor="{Binding FirstDancerColor}" />
+                    <Label Text="{Binding FirstDancerName}"
+                           VerticalOptions="Center"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="8"
+                                       VerticalOptions="Center">
+                    <BoxView WidthRequest="12"
+                             HeightRequest="12"
+                             CornerRadius="6"
+                             BackgroundColor="{Binding SecondDancerColor}" />
+                    <Label Text="{Binding SecondDancerName}"
+                           VerticalOptions="Center"
+                           TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+            <Label Text="{Binding Message}"
+                   TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+            <HorizontalStackLayout HorizontalOptions="End"
+                                   Spacing="8">
+                <Button Text="{x:Static i18n:Translations.DancerSwapDialogCancel}"
+                        Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
+                        Command="{Binding CancelCommand}" />
+                <Button Text="{x:Static i18n:Translations.DancerSwapDialogConfirm}"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Command="{Binding ConfirmSwapCommand}" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </styling:Card>
+</maui:ReactiveContentView>

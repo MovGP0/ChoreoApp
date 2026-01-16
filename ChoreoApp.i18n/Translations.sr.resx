@@ -195,6 +195,30 @@
   <data name="DancersTitle" xml:space="preserve">
     <value>Плесачи</value>
   </data>
+  <data name="DancerSwapSectionTitle" xml:space="preserve">
+    <value>Замени плесаче</value>
+  </data>
+  <data name="DancerSwapFromLabel" xml:space="preserve">
+    <value>Први плесач</value>
+  </data>
+  <data name="DancerSwapToLabel" xml:space="preserve">
+    <value>Други плесач</value>
+  </data>
+  <data name="DancerSwapButton" xml:space="preserve">
+    <value>Замени</value>
+  </data>
+  <data name="DancerSwapDialogTitle" xml:space="preserve">
+    <value>Замена плесача</value>
+  </data>
+  <data name="DancerSwapDialogMessage" xml:space="preserve">
+    <value>Заменити плесаче "{0}" и "{1}"?</value>
+  </data>
+  <data name="DancerSwapDialogConfirm" xml:space="preserve">
+    <value>Замени</value>
+  </data>
+  <data name="DancerSwapDialogCancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
   <data name="ColorAmber" xml:space="preserve">
     <value>Ћилибар</value>
   </data>

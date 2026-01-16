@@ -192,6 +192,30 @@
   <data name="DancerTitle" xml:space="preserve">
     <value>Χορευτής</value>
   </data>
+  <data name="DancerSwapSectionTitle" xml:space="preserve">
+    <value>Ανταλλαγή χορευτών</value>
+  </data>
+  <data name="DancerSwapFromLabel" xml:space="preserve">
+    <value>Πρώτος χορευτής</value>
+  </data>
+  <data name="DancerSwapToLabel" xml:space="preserve">
+    <value>Δεύτερος χορευτής</value>
+  </data>
+  <data name="DancerSwapButton" xml:space="preserve">
+    <value>Ανταλλαγή</value>
+  </data>
+  <data name="DancerSwapDialogTitle" xml:space="preserve">
+    <value>Ανταλλαγή χορευτών</value>
+  </data>
+  <data name="DancerSwapDialogMessage" xml:space="preserve">
+    <value>Να ανταλλαχθούν οι χορευτές "{0}" και "{1}";</value>
+  </data>
+  <data name="DancerSwapDialogConfirm" xml:space="preserve">
+    <value>Ανταλλαγή</value>
+  </data>
+  <data name="DancerSwapDialogCancel" xml:space="preserve">
+    <value>Ακύρωση</value>
+  </data>
   <data name="DancersTitle" xml:space="preserve">
     <value>Χορευτές</value>
   </data>

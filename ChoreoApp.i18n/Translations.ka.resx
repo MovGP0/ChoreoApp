@@ -192,6 +192,30 @@
   <data name="DancerTitle" xml:space="preserve">
     <value>მოცეკვავე</value>
   </data>
+  <data name="DancerSwapSectionTitle" xml:space="preserve">
+    <value>მოცეკვავეების გადაცვლა</value>
+  </data>
+  <data name="DancerSwapFromLabel" xml:space="preserve">
+    <value>პირველი მოცეკვავე</value>
+  </data>
+  <data name="DancerSwapToLabel" xml:space="preserve">
+    <value>მეორე მოცეკვავე</value>
+  </data>
+  <data name="DancerSwapButton" xml:space="preserve">
+    <value>გადაცვლა</value>
+  </data>
+  <data name="DancerSwapDialogTitle" xml:space="preserve">
+    <value>მოცეკვავეების გადაცვლა</value>
+  </data>
+  <data name="DancerSwapDialogMessage" xml:space="preserve">
+    <value>გადავცვალოთ მოცეკვავეები "{0}" და "{1}"?</value>
+  </data>
+  <data name="DancerSwapDialogConfirm" xml:space="preserve">
+    <value>გადაცვლა</value>
+  </data>
+  <data name="DancerSwapDialogCancel" xml:space="preserve">
+    <value>გაუქმება</value>
+  </data>
   <data name="DancersTitle" xml:space="preserve">
     <value>მოცეკვავეები</value>
   </data>

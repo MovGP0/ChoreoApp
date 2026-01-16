@@ -192,6 +192,30 @@
   <data name="DancerTitle" xml:space="preserve">
     <value>নৃত্যশিল্পী</value>
   </data>
+  <data name="DancerSwapSectionTitle" xml:space="preserve">
+    <value>নৃত্যশিল্পী অদলবদল</value>
+  </data>
+  <data name="DancerSwapFromLabel" xml:space="preserve">
+    <value>প্রথম নৃত্যশিল্পী</value>
+  </data>
+  <data name="DancerSwapToLabel" xml:space="preserve">
+    <value>দ্বিতীয় নৃত্যশিল্পী</value>
+  </data>
+  <data name="DancerSwapButton" xml:space="preserve">
+    <value>অদলবদল</value>
+  </data>
+  <data name="DancerSwapDialogTitle" xml:space="preserve">
+    <value>নৃত্যশিল্পী অদলবদল</value>
+  </data>
+  <data name="DancerSwapDialogMessage" xml:space="preserve">
+    <value>"{0}" ও "{1}" নৃত্যশিল্পী অদলবদল করবেন?</value>
+  </data>
+  <data name="DancerSwapDialogConfirm" xml:space="preserve">
+    <value>অদলবদল</value>
+  </data>
+  <data name="DancerSwapDialogCancel" xml:space="preserve">
+    <value>বাতিল</value>
+  </data>
   <data name="DancersTitle" xml:space="preserve">
     <value>নৃত্যশিল্পীরা</value>
   </data>

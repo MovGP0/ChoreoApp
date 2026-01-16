@@ -192,6 +192,30 @@
   <data name="DancerTitle" xml:space="preserve">
     <value>Dansator</value>
   </data>
+  <data name="DancerSwapSectionTitle" xml:space="preserve">
+    <value>Schimbă dansatorii</value>
+  </data>
+  <data name="DancerSwapFromLabel" xml:space="preserve">
+    <value>Primul dansator</value>
+  </data>
+  <data name="DancerSwapToLabel" xml:space="preserve">
+    <value>Al doilea dansator</value>
+  </data>
+  <data name="DancerSwapButton" xml:space="preserve">
+    <value>Schimbă</value>
+  </data>
+  <data name="DancerSwapDialogTitle" xml:space="preserve">
+    <value>Schimbă dansatorii</value>
+  </data>
+  <data name="DancerSwapDialogMessage" xml:space="preserve">
+    <value>Schimbă dansatorii „{0}” și „{1}”?</value>
+  </data>
+  <data name="DancerSwapDialogConfirm" xml:space="preserve">
+    <value>Schimbă</value>
+  </data>
+  <data name="DancerSwapDialogCancel" xml:space="preserve">
+    <value>Anulează</value>
+  </data>
   <data name="DancersTitle" xml:space="preserve">
     <value>Dansatori</value>
   </data>

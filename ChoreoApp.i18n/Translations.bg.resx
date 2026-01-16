@@ -192,6 +192,30 @@
   <data name="DancerTitle" xml:space="preserve">
     <value>Танцьор</value>
   </data>
+  <data name="DancerSwapSectionTitle" xml:space="preserve">
+    <value>Размяна на танцьори</value>
+  </data>
+  <data name="DancerSwapFromLabel" xml:space="preserve">
+    <value>Първи танцьор</value>
+  </data>
+  <data name="DancerSwapToLabel" xml:space="preserve">
+    <value>Втори танцьор</value>
+  </data>
+  <data name="DancerSwapButton" xml:space="preserve">
+    <value>Размени</value>
+  </data>
+  <data name="DancerSwapDialogTitle" xml:space="preserve">
+    <value>Размяна на танцьори</value>
+  </data>
+  <data name="DancerSwapDialogMessage" xml:space="preserve">
+    <value>Разменить танцьорите „{0}“ и „{1}“?</value>
+  </data>
+  <data name="DancerSwapDialogConfirm" xml:space="preserve">
+    <value>Размени</value>
+  </data>
+  <data name="DancerSwapDialogCancel" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
   <data name="DancersTitle" xml:space="preserve">
     <value>Танцьори</value>
   </data>

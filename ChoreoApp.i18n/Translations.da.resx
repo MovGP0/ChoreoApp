@@ -192,6 +192,30 @@
   <data name="DancerTitle" xml:space="preserve">
     <value>Danser</value>
   </data>
+  <data name="DancerSwapSectionTitle" xml:space="preserve">
+    <value>Byt dansere</value>
+  </data>
+  <data name="DancerSwapFromLabel" xml:space="preserve">
+    <value>Første danser</value>
+  </data>
+  <data name="DancerSwapToLabel" xml:space="preserve">
+    <value>Anden danser</value>
+  </data>
+  <data name="DancerSwapButton" xml:space="preserve">
+    <value>Byt</value>
+  </data>
+  <data name="DancerSwapDialogTitle" xml:space="preserve">
+    <value>Byt dansere</value>
+  </data>
+  <data name="DancerSwapDialogMessage" xml:space="preserve">
+    <value>Bytte danserne "{0}" og "{1}"?</value>
+  </data>
+  <data name="DancerSwapDialogConfirm" xml:space="preserve">
+    <value>Byt</value>
+  </data>
+  <data name="DancerSwapDialogCancel" xml:space="preserve">
+    <value>Annuller</value>
+  </data>
   <data name="DancersTitle" xml:space="preserve">
     <value>Dansere</value>
   </data>

@@ -52,6 +52,21 @@ public sealed partial class DancerSettingsViewModel : ReactiveObject, IActivatab
     [Reactive]
     private bool _isDancerListOpen;
 
+    [Reactive]
+    private DancerModel? _swapFromDancer;
+
+    [Reactive]
+    private DancerModel? _swapToDancer;
+
+    [Reactive]
+    private bool _canSwapDancers;
+
+    [Reactive]
+    private bool _isDialogOpen;
+
+    [Reactive]
+    private View? _dialogContentView;
+
     public IReadOnlyList<MaterialColorGroup> ColorGroups { get; } = MaterialColorPalette.DefaultGroups;
     public IReadOnlyList<IconOption> IconOptions { get; }
 
@@ -62,6 +77,11 @@ public sealed partial class DancerSettingsViewModel : ReactiveObject, IActivatab
 
     [ReactiveCommand(CanExecute = nameof(CanDeleteDancer))]
     private void DeleteDancer()
+    {
+    }
+
+    [ReactiveCommand(CanExecute = nameof(CanSwapDancers))]
+    private void SwapDancers()
     {
     }
 

@@ -192,6 +192,30 @@
   <data name="DancerTitle" xml:space="preserve">
     <value>Kërcëtar</value>
   </data>
+  <data name="DancerSwapSectionTitle" xml:space="preserve">
+    <value>Ndërro valltarët</value>
+  </data>
+  <data name="DancerSwapFromLabel" xml:space="preserve">
+    <value>Valltari i parë</value>
+  </data>
+  <data name="DancerSwapToLabel" xml:space="preserve">
+    <value>Valltari i dytë</value>
+  </data>
+  <data name="DancerSwapButton" xml:space="preserve">
+    <value>Ndërro</value>
+  </data>
+  <data name="DancerSwapDialogTitle" xml:space="preserve">
+    <value>Ndërro valltarët</value>
+  </data>
+  <data name="DancerSwapDialogMessage" xml:space="preserve">
+    <value>Ndërro valltarët "{0}" dhe "{1}"?</value>
+  </data>
+  <data name="DancerSwapDialogConfirm" xml:space="preserve">
+    <value>Ndërro</value>
+  </data>
+  <data name="DancerSwapDialogCancel" xml:space="preserve">
+    <value>Anulo</value>
+  </data>
   <data name="DancersTitle" xml:space="preserve">
     <value>Kërcëtarët</value>
   </data>

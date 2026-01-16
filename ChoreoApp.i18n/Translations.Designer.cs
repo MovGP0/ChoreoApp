@@ -537,6 +537,78 @@ namespace ChoreoApp.i18n {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Swap dancers.
+        /// </summary>
+        public static string DancerSwapSectionTitle {
+            get {
+                return ResourceManager.GetString("DancerSwapSectionTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to First dancer.
+        /// </summary>
+        public static string DancerSwapFromLabel {
+            get {
+                return ResourceManager.GetString("DancerSwapFromLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Second dancer.
+        /// </summary>
+        public static string DancerSwapToLabel {
+            get {
+                return ResourceManager.GetString("DancerSwapToLabel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Swap.
+        /// </summary>
+        public static string DancerSwapButton {
+            get {
+                return ResourceManager.GetString("DancerSwapButton", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Swap dancers.
+        /// </summary>
+        public static string DancerSwapDialogTitle {
+            get {
+                return ResourceManager.GetString("DancerSwapDialogTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Swap all properties of "{0}" and "{1}"? Their IDs will remain unchanged..
+        /// </summary>
+        public static string DancerSwapDialogMessage {
+            get {
+                return ResourceManager.GetString("DancerSwapDialogMessage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Swap.
+        /// </summary>
+        public static string DancerSwapDialogConfirm {
+            get {
+                return ResourceManager.GetString("DancerSwapDialogConfirm", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string DancerSwapDialogCancel {
+            get {
+                return ResourceManager.GetString("DancerSwapDialogCancel", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Dark mode.
         /// </summary>
         public static string DarkModeLabel {
