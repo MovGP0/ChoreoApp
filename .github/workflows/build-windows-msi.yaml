@@ -1,0 +1,138 @@
+﻿name: build-windows-msi
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Release tag to create/update (e.g. v1.2.3). If empty, uses run number."
+        required: false
+        default: ""
+      product_version:
+        description: "MSI product version (x.y.z)."
+        required: false
+        default: "1.0.0"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: msi-${{ github.event.inputs.release_tag || format('manual-{0}', github.run_number) }}
+  cancel-in-progress: false
+
+env:
+  DOTNET_VERSION: "10.0.x"
+  CONFIGURATION: "Release"
+  SOLUTION_PATH: "ChoreoApp.slnx"
+  PROJECT_PATH: "ChoreoApp/ChoreoApp.csproj"
+  TARGET_FRAMEWORK: "net10.0-windows10.0.19041.0"
+  WIX_VERSION: "6.0.2"
+
+jobs:
+  build:
+    runs-on: windows-2022
+    strategy:
+      fail-fast: false
+      matrix:
+        rid:
+          - win-x64
+          - win-x86
+          - win-arm64
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install MAUI workloads
+        shell: pwsh
+        run: |
+          dotnet workload install maui
+          dotnet workload restore "${{ env.SOLUTION_PATH }}" 
+
+      - name: Restore
+        shell: pwsh
+        run: |
+          dotnet restore "${{ env.SOLUTION_PATH }}" -p:TargetFramework="${{ env.TARGET_FRAMEWORK }}"
+
+      - name: Publish Windows (self-contained)
+        shell: pwsh
+        run: |
+          $publishDir = "artifacts/publish/${{ matrix.rid }}"
+          dotnet publish "${{ env.PROJECT_PATH }}" -c "${{ env.CONFIGURATION }}" -p:TargetFramework="${{ env.TARGET_FRAMEWORK }}" -p:GenerateAppxPackageOnBuild=false -r "${{ matrix.rid }}" --self-contained true -o $publishDir
+
+      - name: Determine MSI version
+        id: msi_version
+        shell: pwsh
+        run: |
+          $version = '${{ github.event.inputs.product_version }}'
+          if ([string]::IsNullOrWhiteSpace($version)) {
+            $tag = '${{ github.event.inputs.release_tag }}'
+            if (-not [string]::IsNullOrWhiteSpace($tag)) {
+              $tag = $tag.TrimStart('v')
+              if ($tag -match '^\d+\.\d+\.\d+$') {
+                $version = $tag
+              }
+            }
+          }
+          if ([string]::IsNullOrWhiteSpace($version)) {
+            $version = '1.0.0'
+          }
+          "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+
+      - name: Install WiX CLI (bin)
+        shell: pwsh
+        run: |
+          dotnet tool install --tool-path bin/wix wix --version "${{ env.WIX_VERSION }}"
+
+      - name: Build MSI
+        shell: pwsh
+        run: |
+          $publishDir = Resolve-Path "artifacts/publish/${{ matrix.rid }}"
+          $arch = switch ('${{ matrix.rid }}') {
+            'win-x64' { 'x64' }
+            'win-x86' { 'x86' }
+            'win-arm64' { 'arm64' }
+            default { throw "Unsupported RID: ${{ matrix.rid }}" }
+          }
+          $version = '${{ steps.msi_version.outputs.version }}'
+          $env:PATH = "$(Resolve-Path bin/wix);$env:PATH"
+          New-Item -ItemType Directory -Force -Path out | Out-Null
+          $msiOut = "out/ChoreoApp-${{ matrix.rid }}.msi"
+          wix build -arch $arch -define PublishDir=$publishDir -define ProductVersion=$version -define ProductName=ChoreoApp -define Manufacturer=ChoreoApp -out $msiOut "installer/ChoreoApp.wxs"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-msi-${{ matrix.rid }}
+          path: out/*.msi
+
+  release:
+    runs-on: windows-2022
+    needs: build
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: out
+
+      - name: Determine tag
+        id: tag
+        shell: pwsh
+        run: |
+          if ('${{ github.event.inputs.release_tag }}' -ne '') {
+            "tag=${{ github.event.inputs.release_tag }}" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          } else {
+            "tag=manual-${{ github.run_number }}" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          }
+
+      - name: Publish Release asset (MSI)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: ${{ steps.tag.outputs.tag }}
+          draft: true
+          prerelease: false
+          files: |
+            out/**/*.msi
