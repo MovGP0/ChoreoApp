@@ -15,7 +15,7 @@ public sealed partial class SettingsViewModel : ReactiveObject, IActivatableView
     public void Dispose() => Disposables.Dispose();
 
     public ViewModelActivator Activator { get; } = new();
-    public IReadOnlyList<MaterialColorGroup> ColorGroups { get; } = MaterialColorPalette.BuildGroups();
+    public IReadOnlyList<MaterialColorGroup> ColorGroups { get; } = MaterialColorPalette.DefaultGroups;
 
     [Reactive]
     private bool _isDarkMode;

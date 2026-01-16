@@ -1,10 +1,16 @@
-﻿using ChoreoApp.i18n;
+﻿using System.Runtime.CompilerServices;
+
+using ChoreoApp.i18n;
 
 namespace ChoreoApp.ColorPicker;
 
 public static class MaterialColorPalette
 {
     private static readonly Lazy<IReadOnlyList<MaterialColorGroup>> s_defaultGroups = new(() => BuildGroups());
+    private static readonly Lazy<IReadOnlyList<MaterialColorOption>> s_defaultFlatItems =
+        new(() => BuildFlatItems(s_defaultGroups.Value));
+    private static readonly ConditionalWeakTable<IReadOnlyList<MaterialColorGroup>, IReadOnlyList<MaterialColorOption>>
+        s_flatItemsCache = new();
     private static readonly int[] ShadeStops = [ 50, 100, 200, 300, 400, 500, 600, 700, 800, 900 ];
 
     private static readonly (string BaseName, Func<string> DisplayNameFactory)[] Groups =
@@ -30,8 +36,19 @@ public static class MaterialColorPalette
     ];
 
     public static IReadOnlyList<MaterialColorGroup> DefaultGroups => s_defaultGroups.Value;
+    public static IReadOnlyList<MaterialColorOption> DefaultFlatItems => s_defaultFlatItems.Value;
 
-    public static IReadOnlyList<MaterialColorGroup> BuildGroups(ResourceDictionary? resources = null)
+    public static IReadOnlyList<MaterialColorOption> GetFlatItems(IReadOnlyList<MaterialColorGroup> groups)
+    {
+        if (ReferenceEquals(groups, DefaultGroups))
+        {
+            return DefaultFlatItems;
+        }
+
+        return s_flatItemsCache.GetValue(groups, BuildFlatItems);
+    }
+
+    private static IReadOnlyList<MaterialColorGroup> BuildGroups(ResourceDictionary? resources = null)
     {
         resources ??= Application.Current?.Resources;
         if (resources is null)
@@ -60,5 +77,24 @@ public static class MaterialColorPalette
         }
 
         return result;
+    }
+
+    private static IReadOnlyList<MaterialColorOption> BuildFlatItems(IReadOnlyList<MaterialColorGroup> groups)
+    {
+        if (groups.Count == 0)
+        {
+            return [];
+        }
+
+        var items = new List<MaterialColorOption>();
+        foreach (var group in groups)
+        {
+            foreach (var option in group)
+            {
+                items.Add(option);
+            }
+        }
+
+        return items;
     }
 }

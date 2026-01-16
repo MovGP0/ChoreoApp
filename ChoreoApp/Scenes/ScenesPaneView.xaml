@@ -12,7 +12,7 @@
                           x:Class="ChoreoApp.Scenes.ScenesPaneView">
     <Border x:DataType="scenes:ScenesPaneViewModel"
             StrokeThickness="0"
-            BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
+            BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}"
             Padding="12,16"
             MaximumWidthRequest="600">
         <Grid RowDefinitions="*,Auto,Auto,Auto">

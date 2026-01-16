@@ -1,9 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using DynamicData;
-
-//using ChoreoApp.Settings.Models;
-
-namespace ChoreoApp.ColorPicker;
+﻿namespace ChoreoApp.ColorPicker;
 
 public partial class MaterialColorDropdown : ContentView
 {
@@ -14,7 +9,7 @@ public partial class MaterialColorDropdown : ContentView
         InitializeComponent();
     }
 
-    public ObservableCollection<MaterialColorOption> FlatItems { get; } = new();
+    public IReadOnlyList<MaterialColorOption> FlatItems => MaterialColorPalette.GetFlatItems(ItemsSource);
 
     public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(
         nameof(ItemsSource),
@@ -88,7 +83,7 @@ public partial class MaterialColorDropdown : ContentView
     {
         if (bindable is MaterialColorDropdown dropdown)
         {
-            dropdown.RebuildFlatItems();
+            dropdown.OnPropertyChanged(nameof(FlatItems));
             dropdown.UpdateSelectedOptionFromColor();
         }
     }
@@ -162,15 +157,6 @@ public partial class MaterialColorDropdown : ContentView
         }
 
         return null;
-    }
-
-    private void RebuildFlatItems()
-    {
-        FlatItems.Clear();
-        foreach (var group in ItemsSource)
-        {
-            FlatItems.AddRange(group);
-        }
     }
 
     private void OnColorTapped(object? sender, TappedEventArgs e)
