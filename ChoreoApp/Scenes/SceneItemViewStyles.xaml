@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:scenes="clr-namespace:ChoreoApp.Scenes"
+                    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+    <Style x:Key="SceneItemViewStyle"
+           TargetType="scenes:SceneItemView">
+        <Setter Property="UnselectedBackgroundColor"
+                Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
+        <Setter Property="SelectedBackgroundColor"
+                Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.PrimaryContainer}}" />
+        <Setter Property="UnselectedStrokeColor"
+                Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}" />
+        <Setter Property="SelectedStrokeColor"
+                Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+        <Setter Property="UnselectedTextColor"
+                Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+        <Setter Property="SelectedTextColor"
+                Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimaryContainer}}" />
+        <Setter Property="UnselectedTimestampTextColor"
+                Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+        <Setter Property="SelectedTimestampTextColor"
+                Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimaryContainer}}" />
+    </Style>
+</ResourceDictionary>
