@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="snackbars:SnackbarsViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          xmlns:snackbars="clr-namespace:MaterialDesignDemo.Maui.Snackbars"
+                          x:Class="MaterialDesignDemo.Maui.Snackbars.SnackbarsPage"
+                          x:DataType="snackbars:SnackbarsViewModel">
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="24">
+      <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="Snackbar" />
+
+      <styling:Card Style="{StaticResource MaterialDesignOutlinedCard}">
+        <VerticalStackLayout Padding="16" Spacing="12">
+          <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Example 1" />
+          <Label Text="Simple definition within XAML. Use the toggle to display the message." />
+          <Switch IsToggled="{Binding IsSimpleActive}" />
+          <styling:Snackbar IsActive="{Binding IsSimpleActive}">
+            <styling:SnackbarMessage Content="hello 1" />
+          </styling:Snackbar>
+        </VerticalStackLayout>
+      </styling:Card>
+
+      <styling:Card Style="{StaticResource MaterialDesignOutlinedCard}">
+        <VerticalStackLayout Padding="16" Spacing="12">
+          <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Example 2" />
+          <Label Text="Message with action button content." />
+          <Switch IsToggled="{Binding IsActionActive}" />
+          <styling:Snackbar IsActive="{Binding IsActionActive}">
+            <styling:SnackbarMessage Content="Hello 2" ActionContent="UNDO" />
+          </styling:Snackbar>
+        </VerticalStackLayout>
+      </styling:Card>
+
+      <styling:Card Style="{StaticResource MaterialDesignOutlinedCard}">
+        <VerticalStackLayout Padding="16" Spacing="12">
+          <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Example 3" />
+          <Label Text="Message queue for enqueueing messages." />
+          <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+            <Entry Grid.Column="0" Text="{Binding MessageText}" />
+            <styling:ContentButton Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}"
+                                   Command="{Binding SendQueuedCommand}">
+              <Label Text="Send" />
+            </styling:ContentButton>
+          </Grid>
+          <styling:Snackbar MessageQueue="{Binding MessageQueue}" />
+        </VerticalStackLayout>
+      </styling:Card>
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>

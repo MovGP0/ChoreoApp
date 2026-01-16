@@ -1,6 +1,6 @@
 using MaterialDesignThemes.Maui;
 
-namespace MaterialDesignDemo.MAUI.ToolTips;
+namespace MaterialDesignDemo.Maui.ToolTips;
 
 public sealed partial class ToolTipsViewModel : ReactiveObject, IActivatableViewModel
 {

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="theme:ThemeSettingsViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          xmlns:theme="clr-namespace:MaterialDesignDemo.Maui.ThemeSettings"
+                          x:Class="MaterialDesignDemo.Maui.ThemeSettings.ThemeSettingsPage"
+                          x:DataType="theme:ThemeSettingsViewModel">
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="16">
+      <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="Theme Settings" />
+
+      <HorizontalStackLayout Spacing="12">
+        <Label VerticalOptions="Center" Text="Light" />
+        <Switch IsToggled="{Binding IsDarkTheme}" />
+        <Label VerticalOptions="Center" Text="Dark" />
+      </HorizontalStackLayout>
+
+      <HorizontalStackLayout Spacing="12">
+        <Label VerticalOptions="Center" Text="Color Adjustment" />
+        <Switch IsToggled="{Binding IsColorAdjusted}" />
+      </HorizontalStackLayout>
+
+      <styling:PopupBox StaysOpen="True">
+        <styling:PopupBox.ToggleContent>
+          <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}">
+            <Label Text="Adjust" />
+          </styling:ContentButton>
+        </styling:PopupBox.ToggleContent>
+        <styling:PopupBox.PopupContent>
+          <Grid Padding="16" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto" RowSpacing="12">
+            <Label Grid.Row="0" Text="Desired Contrast Ratio" />
+            <Grid Grid.Row="0" Grid.Column="1" ColumnDefinitions="*,Auto" WidthRequest="180">
+              <Slider Minimum="1" Maximum="21" Value="{Binding DesiredContrastRatio}" />
+              <Label Grid.Column="1"
+                     Text="{Binding DesiredContrastRatio, StringFormat='{0:F1}'}"
+                     HorizontalTextAlignment="End"
+                     WidthRequest="48" />
+            </Grid>
+
+            <Label Grid.Row="1" Text="Contrast" />
+            <Picker Grid.Row="1" Grid.Column="1"
+                    ItemsSource="{Binding ContrastValues}"
+                    SelectedItem="{Binding ContrastValue}" />
+
+            <Label Grid.Row="2" Text="Color Selection" />
+            <Picker Grid.Row="2" Grid.Column="1"
+                    ItemsSource="{Binding ColorSelectionValues}"
+                    SelectedItem="{Binding ColorSelectionValue}" />
+          </Grid>
+        </styling:PopupBox.PopupContent>
+      </styling:PopupBox>
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>

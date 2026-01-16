@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="dataGrids:DataGridsViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:dataGrids="clr-namespace:MaterialDesignDemo.Maui.DataGrids"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          x:Class="MaterialDesignDemo.Maui.DataGrids.DataGridsPage"
+                          x:DataType="dataGrids:DataGridsViewModel">
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="16">
+      <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="DataGrid" />
+
+      <styling:Card>
+        <VerticalStackLayout Padding="16" Spacing="12">
+          <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Basic grid" />
+
+          <Grid ColumnDefinitions="80,*,120,80" RowDefinitions="Auto" ColumnSpacing="12">
+            <Label Text="ID" Style="{StaticResource MaterialDesignLabelLargeTextBlock}" />
+            <Label Grid.Column="1" Text="Name" Style="{StaticResource MaterialDesignLabelLargeTextBlock}" />
+            <Label Grid.Column="2" Text="Status" Style="{StaticResource MaterialDesignLabelLargeTextBlock}" />
+            <Label Grid.Column="3" Text="Count" Style="{StaticResource MaterialDesignLabelLargeTextBlock}" HorizontalTextAlignment="End" />
+          </Grid>
+
+          <BoxView HeightRequest="1" BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}" />
+
+          <CollectionView ItemsSource="{Binding Items}"
+                          SelectionMode="Single"
+                          SelectedItem="{Binding SelectedItem}">
+            <CollectionView.ItemTemplate>
+              <DataTemplate x:DataType="dataGrids:DataGridRow">
+                <Grid ColumnDefinitions="80,*,120,80" RowDefinitions="Auto" ColumnSpacing="12" Padding="0,6">
+                  <Label Text="{Binding Id}" Style="{StaticResource MaterialDesignBodyMediumTextBlock}" />
+                  <Label Grid.Column="1" Text="{Binding Name}" Style="{StaticResource MaterialDesignBodyMediumTextBlock}" />
+                  <Label Grid.Column="2" Text="{Binding Status}" Style="{StaticResource MaterialDesignBodyMediumTextBlock}" />
+                  <Label Grid.Column="3" Text="{Binding Count}" Style="{StaticResource MaterialDesignBodyMediumTextBlock}" HorizontalTextAlignment="End" />
+                </Grid>
+              </DataTemplate>
+            </CollectionView.ItemTemplate>
+          </CollectionView>
+        </VerticalStackLayout>
+      </styling:Card>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Selected item" />
+      <Label Style="{StaticResource MaterialDesignBodyMediumTextBlock}"
+             Text="{Binding SelectedItem.Name, StringFormat='Selected: {0}'}" />
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>

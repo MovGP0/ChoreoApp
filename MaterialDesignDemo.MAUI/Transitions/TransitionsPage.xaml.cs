@@ -1,6 +1,6 @@
 using System.Reactive.Disposables.Fluent;
 
-namespace MaterialDesignDemo.MAUI.Transitions;
+namespace MaterialDesignDemo.Maui.Transitions;
 
 public partial class TransitionsPage
 {

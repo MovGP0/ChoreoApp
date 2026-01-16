@@ -1,4 +1,4 @@
-namespace MaterialDesignDemo.MAUI.ToolTips;
+namespace MaterialDesignDemo.Maui.ToolTips;
 
 public static class DependencyInjection
 {

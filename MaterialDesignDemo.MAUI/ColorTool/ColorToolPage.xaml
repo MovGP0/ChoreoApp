@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="colorTool:ColorToolViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:colorTool="clr-namespace:MaterialDesignDemo.Maui.ColorTool"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:palette="clr-namespace:MaterialDesignDemo.Maui.PaletteSelector"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          x:Class="MaterialDesignDemo.Maui.ColorTool.ColorToolPage"
+                          x:DataType="colorTool:ColorToolViewModel">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <colorTool:ColorToHexConverter x:Key="ColorToHexConverter" />
+      <palette:ResourceColorConverter x:Key="ResourceColorConverter" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="24">
+      <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="ColorTool" />
+
+      <styling:Card>
+        <VerticalStackLayout Padding="16" Spacing="8">
+          <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Theme settings" />
+          <Label Text="Use the Theme tab to tweak base theme settings and observe how color changes are applied." />
+        </VerticalStackLayout>
+      </styling:Card>
+
+      <styling:Card>
+        <VerticalStackLayout Padding="16" Spacing="16">
+          <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Selected color" />
+          <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+            <BoxView WidthRequest="56" HeightRequest="56" BackgroundColor="{Binding SelectedColor}" />
+            <VerticalStackLayout Spacing="4">
+              <Label Text="{Binding SelectedColor, Converter={StaticResource ColorToHexConverter}}" />
+              <Label Text="Tap a swatch or use the picker to update." />
+            </VerticalStackLayout>
+          </Grid>
+          <styling:ColorPicker Color="{Binding SelectedColor}" />
+        </VerticalStackLayout>
+      </styling:Card>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="MD palette" />
+
+      <CollectionView ItemsSource="{Binding Swatches}" SelectionMode="None">
+        <CollectionView.ItemTemplate>
+          <DataTemplate x:DataType="colorTool:ColorToolSwatch">
+            <VerticalStackLayout Spacing="8">
+              <Label Text="{Binding Name}" Style="{StaticResource MaterialDesignTitleSmallTextBlock}" />
+              <FlexLayout BindableLayout.ItemsSource="{Binding ColorKeys}"
+                          Wrap="Wrap"
+                          Direction="Row"
+                          JustifyContent="Start"
+                          AlignItems="Start">
+                <BindableLayout.ItemTemplate>
+                  <DataTemplate x:DataType="x:String">
+                    <Button WidthRequest="32"
+                            HeightRequest="32"
+                            Margin="2"
+                            Padding="0"
+                            BackgroundColor="{Binding ., Converter={StaticResource ResourceColorConverter}}"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type colorTool:ColorToolPage}}, Path=BindingContext.SelectColorCommand}"
+                            CommandParameter="{Binding .}"
+                            CornerRadius="4" />
+                  </DataTemplate>
+                </BindableLayout.ItemTemplate>
+              </FlexLayout>
+            </VerticalStackLayout>
+          </DataTemplate>
+        </CollectionView.ItemTemplate>
+      </CollectionView>
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>

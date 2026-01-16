@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MaterialDesignDemo.Maui.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:MaterialDesignDemo.Maui.Buttons"
+    xmlns:cards="clr-namespace:MaterialDesignDemo.Maui.Cards"
+    xmlns:chips="clr-namespace:MaterialDesignDemo.Maui.Chips"
+    xmlns:comboBoxes="clr-namespace:MaterialDesignDemo.Maui.ComboBoxes"
+    xmlns:colorTool="clr-namespace:MaterialDesignDemo.Maui.ColorTool"
+    xmlns:colorZones="clr-namespace:MaterialDesignDemo.Maui.ColorZones"
+    xmlns:dataGrids="clr-namespace:MaterialDesignDemo.Maui.DataGrids"
+    xmlns:home="clr-namespace:MaterialDesignDemo.Maui.Home"
+    xmlns:palette="clr-namespace:MaterialDesignDemo.Maui.PaletteSelector"
+    xmlns:snackbars="clr-namespace:MaterialDesignDemo.Maui.Snackbars"
+    xmlns:theme="clr-namespace:MaterialDesignDemo.Maui.ThemeSettings"
+    xmlns:toolTips="clr-namespace:MaterialDesignDemo.Maui.ToolTips"
+    xmlns:toggles="clr-namespace:MaterialDesignDemo.Maui.Toggles"
+    xmlns:transitions="clr-namespace:MaterialDesignDemo.Maui.Transitions"
+    xmlns:trees="clr-namespace:MaterialDesignDemo.Maui.Trees"
+    xmlns:typography="clr-namespace:MaterialDesignDemo.Maui.Typography"
+    Title="MaterialDesignDemo.Maui">
+    <TabBar>
+        <ShellContent Title="Home" ContentTemplate="{DataTemplate home:HomePage}" Route="Home" />
+        <ShellContent Title="Palette" ContentTemplate="{DataTemplate palette:PaletteSelectorPage}" Route="Palette" />
+        <ShellContent Title="ColorTool" ContentTemplate="{DataTemplate colorTool:ColorToolPage}" Route="ColorTool" />
+        <ShellContent Title="Buttons" ContentTemplate="{DataTemplate buttons:ButtonsPage}" Route="Buttons" />
+        <ShellContent Title="Cards" ContentTemplate="{DataTemplate cards:CardsPage}" Route="Cards" />
+        <ShellContent Title="Chips" ContentTemplate="{DataTemplate chips:ChipsPage}" Route="Chips" />
+        <ShellContent Title="ColorZones" ContentTemplate="{DataTemplate colorZones:ColorZonesPage}" Route="ColorZones" />
+        <ShellContent Title="ComboBoxes" ContentTemplate="{DataTemplate comboBoxes:ComboBoxesPage}" Route="ComboBoxes" />
+        <ShellContent Title="DataGrids" ContentTemplate="{DataTemplate dataGrids:DataGridsPage}" Route="DataGrids" />
+        <ShellContent Title="Typography" ContentTemplate="{DataTemplate typography:TypographyPage}" Route="Typography" />
+        <ShellContent Title="Trees" ContentTemplate="{DataTemplate trees:TreesPage}" Route="Trees" />
+        <ShellContent Title="Transitions" ContentTemplate="{DataTemplate transitions:TransitionsPage}" Route="Transitions" />
+        <ShellContent Title="ToolTips" ContentTemplate="{DataTemplate toolTips:ToolTipsPage}" Route="ToolTips" />
+        <ShellContent Title="Toggles" ContentTemplate="{DataTemplate toggles:TogglesPage}" Route="Toggles" />
+        <ShellContent Title="Theme" ContentTemplate="{DataTemplate theme:ThemeSettingsPage}" Route="Theme" />
+        <ShellContent Title="Snackbars" ContentTemplate="{DataTemplate snackbars:SnackbarsPage}" Route="Snackbars" />
+    </TabBar>
+</Shell>

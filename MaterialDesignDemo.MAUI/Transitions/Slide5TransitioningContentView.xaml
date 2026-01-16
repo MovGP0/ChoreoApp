@@ -4,8 +4,8 @@
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                           xmlns:maui="using:ReactiveUI.Maui"
                           xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
-                          xmlns:transitions="clr-namespace:MaterialDesignDemo.MAUI.Transitions"
-                          x:Class="MaterialDesignDemo.MAUI.Transitions.Slide5TransitioningContentView"
+                          xmlns:transitions="clr-namespace:MaterialDesignDemo.Maui.Transitions"
+                          x:Class="MaterialDesignDemo.Maui.Transitions.Slide5TransitioningContentView"
                           x:DataType="transitions:TransitionsDemoViewModel">
   <Grid Padding="24" RowDefinitions="Auto,Auto,Auto" RowSpacing="24">
     <styling:Card Style="{StaticResource MaterialDesignElevatedCard}">

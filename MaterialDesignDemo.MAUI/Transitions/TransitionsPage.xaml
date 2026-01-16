@@ -3,8 +3,8 @@
                           xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                           xmlns:maui="using:ReactiveUI.Maui"
-                          xmlns:transitions="clr-namespace:MaterialDesignDemo.MAUI.Transitions"
-                          x:Class="MaterialDesignDemo.MAUI.Transitions.TransitionsPage"
+                          xmlns:transitions="clr-namespace:MaterialDesignDemo.Maui.Transitions"
+                          x:Class="MaterialDesignDemo.Maui.Transitions.TransitionsPage"
                           x:DataType="transitions:TransitionsDemoViewModel">
   <transitions:TransitionsDemoHomeView />
 </maui:ReactiveContentPage>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="comboBoxes:ComboBoxesViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:comboBoxes="clr-namespace:MaterialDesignDemo.Maui.ComboBoxes"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          x:Class="MaterialDesignDemo.Maui.ComboBoxes.ComboBoxesPage"
+                          x:DataType="comboBoxes:ComboBoxesViewModel">
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="16">
+      <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="ComboBox" />
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Default" />
+      <Picker Title="Select a planet"
+              ItemsSource="{Binding Items}"
+              SelectedItem="{Binding SelectedItem}" />
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Disabled" />
+      <Picker Title="Disabled"
+              ItemsSource="{Binding Items}"
+              SelectedItem="{Binding SelectedItem}"
+              IsEnabled="False" />
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Styled" />
+      <styling:Card>
+        <VerticalStackLayout Padding="16" Spacing="8">
+          <Label Text="Picker inside a card" />
+          <Picker Title="Planets"
+                  ItemsSource="{Binding Items}"
+                  SelectedItem="{Binding SelectedItem}" />
+        </VerticalStackLayout>
+      </styling:Card>
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="colorZones:ColorZonesViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:colorZones="clr-namespace:MaterialDesignDemo.Maui.ColorZones"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          x:Class="MaterialDesignDemo.Maui.ColorZones.ColorZonesPage"
+                          x:DataType="colorZones:ColorZonesViewModel">
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="16">
+      <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="ColorZone" />
+
+      <styling:ColorZone Mode="Standard" CornerRadius="8">
+        <VerticalStackLayout Padding="16" Spacing="8">
+          <Label Text="Standard" />
+          <Label Text="Surface and OnSurface colors" />
+        </VerticalStackLayout>
+      </styling:ColorZone>
+
+      <styling:ColorZone Mode="PrimaryMid" CornerRadius="8">
+        <VerticalStackLayout Padding="16" Spacing="8">
+          <Label Text="Primary Mid" TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}" />
+          <Label Text="Primary / OnPrimary" TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}" />
+        </VerticalStackLayout>
+      </styling:ColorZone>
+
+      <styling:ColorZone Mode="SecondaryMid" CornerRadius="8">
+        <VerticalStackLayout Padding="16" Spacing="8">
+          <Label Text="Secondary Mid" TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSecondary}}" />
+          <Label Text="Secondary / OnSecondary" TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSecondary}}" />
+        </VerticalStackLayout>
+      </styling:ColorZone>
+
+      <styling:ColorZone Mode="TertiaryMid" CornerRadius="8">
+        <VerticalStackLayout Padding="16" Spacing="8">
+          <Label Text="Tertiary Mid" TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnTertiary}}" />
+          <Label Text="Tertiary / OnTertiary" TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnTertiary}}" />
+        </VerticalStackLayout>
+      </styling:ColorZone>
+
+      <styling:ColorZone Mode="Dark" CornerRadius="8">
+        <VerticalStackLayout Padding="16" Spacing="8">
+          <Label Text="Dark" TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+          <Label Text="SurfaceVariant / OnSurfaceVariant" TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+        </VerticalStackLayout>
+      </styling:ColorZone>
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>

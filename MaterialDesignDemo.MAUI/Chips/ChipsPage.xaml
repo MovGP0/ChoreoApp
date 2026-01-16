@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="chips:ChipsViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:chips="clr-namespace:MaterialDesignDemo.Maui.Chips"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          x:Class="MaterialDesignDemo.Maui.Chips.ChipsPage"
+                          x:DataType="chips:ChipsViewModel">
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="24">
+      <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="Chip" />
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Action" />
+      <FlexLayout Wrap="Wrap" Direction="Row" AlignItems="Center" JustifyContent="Start">
+        <styling:Chip Margin="0,0,12,12">
+          <styling:Chip.Icon>
+            <Image WidthRequest="24" HeightRequest="24" Source="contact.png" />
+          </styling:Chip.Icon>
+          <Label Text="James Willock" />
+        </styling:Chip>
+        <styling:Chip Margin="0,0,12,12">
+          <Label Text="Example Chip" />
+        </styling:Chip>
+        <styling:Chip Margin="0,0,12,12">
+          <styling:Chip.Icon>
+            <Label Text="A" />
+          </styling:Chip.Icon>
+          <Label Text="ANZ Bank" />
+        </styling:Chip>
+        <styling:Chip Margin="0,0,12,12"
+                      IconBackground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}"
+                      IconForeground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}">
+          <styling:Chip.Icon>
+            <styling:PackIcon Kind="Twitter" />
+          </styling:Chip.Icon>
+          <Label Text="Twitter" />
+        </styling:Chip>
+      </FlexLayout>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Deletable" />
+      <FlexLayout Wrap="Wrap" Direction="Row" AlignItems="Center" JustifyContent="Start">
+        <styling:Chip Margin="0,0,12,12" IsDeletable="True" DeleteToolTip="Remove chip">
+          <styling:Chip.Icon>
+            <Image WidthRequest="24" HeightRequest="24" Source="contact.png" />
+          </styling:Chip.Icon>
+          <Label Text="Deletable" />
+        </styling:Chip>
+        <styling:Chip Margin="0,0,12,12" IsDeletable="True">
+          <Label Text="Example Chip" />
+        </styling:Chip>
+      </FlexLayout>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Outlined" />
+      <FlexLayout Wrap="Wrap" Direction="Row" AlignItems="Center" JustifyContent="Start">
+        <styling:Chip Margin="0,0,12,12" Style="{StaticResource MaterialDesignOutlineChip}">
+          <styling:Chip.Icon>
+            <Image WidthRequest="24" HeightRequest="24" Source="contact.png" />
+          </styling:Chip.Icon>
+          <Label Text="James Willock" />
+        </styling:Chip>
+        <styling:Chip Margin="0,0,12,12" Style="{StaticResource MaterialDesignOutlineChip}">
+          <Label Text="Example Chip" />
+        </styling:Chip>
+        <styling:Chip Margin="0,0,12,12" Style="{StaticResource MaterialDesignOutlineChip}">
+          <styling:Chip.Icon>
+            <styling:PackIcon Kind="Twitter" />
+          </styling:Chip.Icon>
+          <Label Text="Twitter" />
+        </styling:Chip>
+      </FlexLayout>
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>

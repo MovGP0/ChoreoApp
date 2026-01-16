@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="toggles:TogglesViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          xmlns:toggles="clr-namespace:MaterialDesignDemo.Maui.Toggles"
+                          x:Class="MaterialDesignDemo.Maui.Toggles.TogglesPage"
+                          x:DataType="toggles:TogglesViewModel">
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="24">
+      <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="Toggles" />
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Action" />
+      <HorizontalStackLayout Spacing="12">
+        <CheckBox IsChecked="True"
+                  Style="{StaticResource MaterialDesignActionLightCheckBox}"
+                  ToolTipProperties.Text="MaterialDesignActionLightCheckBox" />
+        <CheckBox Style="{StaticResource MaterialDesignActionCheckBox}"
+                  ToolTipProperties.Text="MaterialDesignActionCheckBox" />
+        <CheckBox Style="{StaticResource MaterialDesignActionDarkCheckBox}"
+                  ToolTipProperties.Text="MaterialDesignActionDarkCheckBox" />
+        <CheckBox Style="{StaticResource MaterialDesignActionSecondaryCheckBox}"
+                  ToolTipProperties.Text="MaterialDesignActionSecondaryCheckBox" />
+      </HorizontalStackLayout>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Tool toggles" />
+      <HorizontalStackLayout Spacing="8">
+        <styling:ContentRadioButton GroupName="Align"
+                                    IsChecked="True">
+          <styling:PackIcon Kind="FormatAlignLeft" />
+        </styling:ContentRadioButton>
+        <styling:ContentRadioButton GroupName="Align">
+          <styling:PackIcon Kind="FormatAlignCenter" />
+        </styling:ContentRadioButton>
+        <styling:ContentRadioButton GroupName="Align">
+          <styling:PackIcon Kind="FormatAlignRight" />
+        </styling:ContentRadioButton>
+        <styling:ContentRadioButton GroupName="Align">
+          <styling:PackIcon Kind="FormatAlignJustify" />
+        </styling:ContentRadioButton>
+      </HorizontalStackLayout>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Radiobuttons" />
+      <HorizontalStackLayout Spacing="16">
+        <styling:ContentRadioButton IsChecked="True">
+          <Label Text="Radio" VerticalOptions="Center" />
+        </styling:ContentRadioButton>
+        <styling:ContentRadioButton>
+          <Label Text="Ga Ga" VerticalOptions="Center" />
+        </styling:ContentRadioButton>
+        <styling:ContentRadioButton IsEnabled="False">
+          <Label Text="Disabled" VerticalOptions="Center" />
+        </styling:ContentRadioButton>
+        <styling:ContentRadioButton>
+          <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+            <styling:PackIcon Kind="Circle" WidthRequest="18" HeightRequest="18" />
+            <Label Text="Custom size" VerticalOptions="Center" />
+          </HorizontalStackLayout>
+        </styling:ContentRadioButton>
+      </HorizontalStackLayout>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Checkboxes" />
+      <HorizontalStackLayout Spacing="16">
+        <HorizontalStackLayout Spacing="8">
+          <CheckBox Style="{StaticResource MaterialDesignCheckBox}" />
+          <Label Text="Check" VerticalOptions="Center" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout Spacing="8">
+          <CheckBox Style="{StaticResource MaterialDesignCheckBox}" />
+          <Label Text="Mate" VerticalOptions="Center" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout Spacing="8">
+          <CheckBox IsChecked="True"
+                    IsEnabled="False"
+                    Style="{StaticResource MaterialDesignCheckBox}" />
+          <Label Text="Disabled" VerticalOptions="Center" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout Spacing="8">
+          <CheckBox IsChecked="True"
+                    Style="{StaticResource MaterialDesignSecondaryCheckBox}" />
+          <Label Text="Secondary" VerticalOptions="Center" />
+        </HorizontalStackLayout>
+      </HorizontalStackLayout>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Switch" />
+      <HorizontalStackLayout Spacing="16">
+        <Switch Style="{StaticResource MaterialDesign3ToggleSwitchStyle}" />
+        <Switch IsEnabled="False" Style="{StaticResource MaterialDesign3ToggleSwitchStyle}" />
+        <Switch IsToggled="True" Style="{StaticResource MaterialDesign3ToggleSwitchStyle}" />
+      </HorizontalStackLayout>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Tabs" />
+      <HorizontalStackLayout Spacing="8">
+        <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}">
+          <Label Text="FIRST" />
+        </styling:ContentButton>
+        <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}">
+          <Label Text="SECOND" />
+        </styling:ContentButton>
+        <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}">
+          <Label Text="THIRD" />
+        </styling:ContentButton>
+      </HorizontalStackLayout>
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>

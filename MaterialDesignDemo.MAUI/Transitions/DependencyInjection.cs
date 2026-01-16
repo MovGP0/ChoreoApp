@@ -1,4 +1,4 @@
-namespace MaterialDesignDemo.MAUI.Transitions;
+namespace MaterialDesignDemo.Maui.Transitions;
 
 public static class DependencyInjection
 {

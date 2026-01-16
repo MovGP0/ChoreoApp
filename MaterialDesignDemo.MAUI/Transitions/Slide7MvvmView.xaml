@@ -4,8 +4,8 @@
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                           xmlns:maui="using:ReactiveUI.Maui"
                           xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
-                          xmlns:transitions="clr-namespace:MaterialDesignDemo.MAUI.Transitions"
-                          x:Class="MaterialDesignDemo.MAUI.Transitions.Slide7MvvmView"
+                          xmlns:transitions="clr-namespace:MaterialDesignDemo.Maui.Transitions"
+                          x:Class="MaterialDesignDemo.Maui.Transitions.Slide7MvvmView"
                           x:DataType="transitions:TransitionsDemoViewModel">
   <styling:ColorZone Mode="Light">
     <VerticalStackLayout Margin="64" Spacing="24" HorizontalOptions="Center" VerticalOptions="Center">

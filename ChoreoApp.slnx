@@ -28,6 +28,7 @@
     <Project Path="ChoreoApp.Models.Tests/ChoreoApp.Models.Tests.csproj" />
     <Project Path="ChoreoApp.Algorithms.Tests/ChoreoApp.Algorithms.Tests.csproj" />
     <Project Path="ChoreoApp/ChoreoApp.csproj" />
+    <Project Path="MaterialDesignDemo.Maui/MaterialDesignDemo.Maui.csproj" />
     <Project Path="ChoreoMasterMobile.Json.Tests/ChoreoMasterMobile.Json.Tests.csproj" />
     <Project Path="ChoreoMasterMobile.Json/ChoreoMasterMobile.Json.csproj" />
     <Project Path="MaterialColorUtilities/MaterialColorUtilities.csproj" />

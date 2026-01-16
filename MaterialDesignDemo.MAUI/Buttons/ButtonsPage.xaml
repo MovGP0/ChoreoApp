@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="buttons:ButtonsViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:buttons="clr-namespace:MaterialDesignDemo.Maui.Buttons"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          x:Class="MaterialDesignDemo.Maui.Buttons.ButtonsPage"
+                          x:DataType="buttons:ButtonsViewModel">
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="24">
+      <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="Button" />
+
+      <HorizontalStackLayout Spacing="12">
+        <Label VerticalOptions="Center" Text="Enabled" />
+        <Switch IsToggled="{Binding ControlsEnabled}" />
+      </HorizontalStackLayout>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Floating action" />
+      <HorizontalStackLayout Spacing="12">
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
+          <styling:PackIcon WidthRequest="24" HeightRequest="24" Kind="Alarm" />
+        </styling:ContentButton>
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
+          <styling:PackIcon WidthRequest="24" HeightRequest="24" Kind="Alarm" />
+        </styling:ContentButton>
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryButton}">
+          <styling:PackIcon WidthRequest="24" HeightRequest="24" Kind="Alarm" />
+        </styling:ContentButton>
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignFloatingActionButton}">
+          <styling:PackIcon WidthRequest="24" HeightRequest="24" Kind="Alarm" />
+        </styling:ContentButton>
+      </HorizontalStackLayout>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Raised" />
+      <HorizontalStackLayout Spacing="12">
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignRaisedLightButton}">
+          <Label Text="LIGHT" />
+        </styling:ContentButton>
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignRaisedButton}">
+          <Label Text="MID" />
+        </styling:ContentButton>
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignRaisedDarkButton}">
+          <Label Text="DARK" />
+        </styling:ContentButton>
+      </HorizontalStackLayout>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Flat" />
+      <HorizontalStackLayout Spacing="12">
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignFlatLightButton}">
+          <Label Text="LIGHT" />
+        </styling:ContentButton>
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignFlatButton}">
+          <Label Text="MID" />
+        </styling:ContentButton>
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignFlatDarkButton}">
+          <Label Text="DARK" />
+        </styling:ContentButton>
+      </HorizontalStackLayout>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Outlined" />
+      <HorizontalStackLayout Spacing="12">
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignOutlinedLightButton}">
+          <Label Text="LIGHT" />
+        </styling:ContentButton>
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignOutlinedButton}">
+          <Label Text="MID" />
+        </styling:ContentButton>
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignOutlinedDarkButton}">
+          <Label Text="DARK" />
+        </styling:ContentButton>
+      </HorizontalStackLayout>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Icon" />
+      <HorizontalStackLayout Spacing="12">
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignIconButton}">
+          <styling:PackIcon WidthRequest="20" HeightRequest="20" Kind="Pencil" />
+        </styling:ContentButton>
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignIconForegroundButton}">
+          <styling:PackIcon WidthRequest="20" HeightRequest="20" Kind="Pencil" />
+        </styling:ContentButton>
+        <styling:ContentButton IsEnabled="{Binding ControlsEnabled}" Style="{StaticResource MaterialDesignToolButton}">
+          <styling:PackIcon WidthRequest="20" HeightRequest="20" Kind="DotsHorizontal" />
+        </styling:ContentButton>
+      </HorizontalStackLayout>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Split buttons" />
+      <HorizontalStackLayout Spacing="16">
+        <styling:SplitButton IsEnabled="{Binding ControlsEnabled}" Content="Split"
+                             Style="{StaticResource MaterialDesignRaisedSplitButton}">
+          <styling:SplitButton.PopupContent>
+            <VerticalStackLayout Padding="12" Spacing="8">
+              <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}">
+                <Label Text="Option 1" />
+              </styling:ContentButton>
+              <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}">
+                <Label Text="Option 2" />
+              </styling:ContentButton>
+            </VerticalStackLayout>
+          </styling:SplitButton.PopupContent>
+        </styling:SplitButton>
+
+        <styling:SplitButton IsEnabled="{Binding ControlsEnabled}" Content="Outline"
+                             Style="{StaticResource MaterialDesignOutlinedSplitButton}">
+          <styling:SplitButton.PopupContent>
+            <VerticalStackLayout Padding="12" Spacing="8">
+              <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}">
+                <Label Text="Primary" />
+              </styling:ContentButton>
+              <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}">
+                <Label Text="Secondary" />
+              </styling:ContentButton>
+            </VerticalStackLayout>
+          </styling:SplitButton.PopupContent>
+        </styling:SplitButton>
+
+        <styling:SplitButton IsEnabled="{Binding ControlsEnabled}" Content="Flat"
+                             Style="{StaticResource MaterialDesignFlatSplitButton}">
+          <styling:SplitButton.PopupContent>
+            <VerticalStackLayout Padding="12" Spacing="8">
+              <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}">
+                <Label Text="A" />
+              </styling:ContentButton>
+              <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}">
+                <Label Text="B" />
+              </styling:ContentButton>
+            </VerticalStackLayout>
+          </styling:SplitButton.PopupContent>
+        </styling:SplitButton>
+      </HorizontalStackLayout>
+
+      <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="PopupBox" />
+      <styling:PopupBox IsEnabled="{Binding ControlsEnabled}" StaysOpen="True">
+        <styling:PopupBox.ToggleContent>
+          <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}">
+            <Label Text="Open" />
+          </styling:ContentButton>
+        </styling:PopupBox.ToggleContent>
+        <styling:PopupBox.PopupContent>
+          <VerticalStackLayout Padding="16" Spacing="8">
+            <Label Text="Options" Style="{StaticResource MaterialDesignTitleSmallTextBlock}" />
+            <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}">
+              <Label Text="Save" />
+            </styling:ContentButton>
+            <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}">
+              <Label Text="Cancel" />
+            </styling:ContentButton>
+          </VerticalStackLayout>
+        </styling:PopupBox.PopupContent>
+      </styling:PopupBox>
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>

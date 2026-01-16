@@ -4,8 +4,8 @@
                           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                           xmlns:maui="using:ReactiveUI.Maui"
                           xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
-                          xmlns:toolTips="clr-namespace:MaterialDesignDemo.MAUI.ToolTips"
-                          x:Class="MaterialDesignDemo.MAUI.ToolTips.ToolTipsPage"
+                          xmlns:toolTips="clr-namespace:MaterialDesignDemo.Maui.ToolTips"
+                          x:Class="MaterialDesignDemo.Maui.ToolTips.ToolTipsPage"
                           x:DataType="toolTips:ToolTipsViewModel">
   <ScrollView>
     <VerticalStackLayout Padding="24" Spacing="24">

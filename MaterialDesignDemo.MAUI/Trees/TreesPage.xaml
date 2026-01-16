@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="trees:TreesViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          xmlns:trees="clr-namespace:MaterialDesignDemo.Maui.Trees"
+                          x:Class="MaterialDesignDemo.Maui.Trees.TreesPage"
+                          x:DataType="trees:TreesViewModel">
+  <maui:ReactiveContentPage.Resources>
+    <trees:IntToIndentConverter x:Key="IntToIndentConverter" />
+  </maui:ReactiveContentPage.Resources>
+
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="24">
+      <Label Text="Trees"
+             Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" />
+
+      <Grid ColumnDefinitions="*,*" ColumnSpacing="24">
+        <VerticalStackLayout Grid.Column="0" Spacing="12">
+          <Label Text="Basic Tree View"
+                 Style="{StaticResource MaterialDesignTitleMediumTextBlock}" />
+          <CollectionView ItemsSource="{Binding BasicNodes}">
+            <CollectionView.ItemTemplate>
+              <DataTemplate x:DataType="trees:TreeNode">
+                <Grid Padding="4,2">
+                  <Label Text="{Binding Name}">
+                    <Label.Margin>
+                      <Thickness Left="{Binding Depth, Converter={StaticResource IntToIndentConverter}}" />
+                    </Label.Margin>
+                  </Label>
+                </Grid>
+              </DataTemplate>
+            </CollectionView.ItemTemplate>
+          </CollectionView>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Column="1" Spacing="12">
+          <Label Text="MVVM/Binding"
+                 Style="{StaticResource MaterialDesignTitleMediumTextBlock}" />
+          <CollectionView ItemsSource="{Binding MovieNodes}"
+                          SelectedItem="{Binding SelectedMovieNode}">
+            <CollectionView.ItemTemplate>
+              <DataTemplate x:DataType="trees:TreeNode">
+                <Grid Padding="4,2">
+                  <Label Text="{Binding Name}">
+                    <Label.Margin>
+                      <Thickness Left="{Binding Depth, Converter={StaticResource IntToIndentConverter}}" />
+                    </Label.Margin>
+                  </Label>
+                </Grid>
+              </DataTemplate>
+            </CollectionView.ItemTemplate>
+          </CollectionView>
+
+          <HorizontalStackLayout HorizontalOptions="End" Spacing="8">
+            <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                                   Command="{Binding AddNodeCommand}">
+              <styling:PackIcon Kind="Add" />
+            </styling:ContentButton>
+            <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                                   Command="{Binding RemoveSelectedNodeCommand}">
+              <styling:PackIcon Kind="Remove" />
+            </styling:ContentButton>
+          </HorizontalStackLayout>
+        </VerticalStackLayout>
+      </Grid>
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="palette:PaletteSelectorViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:palette="clr-namespace:MaterialDesignDemo.Maui.PaletteSelector"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          x:Class="MaterialDesignDemo.Maui.PaletteSelector.PaletteSelectorPage"
+                          x:DataType="palette:PaletteSelectorViewModel">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <palette:ResourceColorConverter x:Key="ResourceColorConverter" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="24">
+      <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="Palette" />
+
+      <styling:Card>
+        <VerticalStackLayout Padding="16" Spacing="12">
+          <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Current palette" />
+          <Grid ColumnDefinitions="*,*,*,*,*" ColumnSpacing="8" HeightRequest="48">
+            <BoxView BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+            <BoxView Grid.Column="1" BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}" />
+            <BoxView Grid.Column="2" BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Tertiary}}" />
+            <BoxView Grid.Column="3" BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}" />
+            <BoxView Grid.Column="4" BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Error}}" />
+          </Grid>
+          <Label Text="This is your current palette. Configure your initial palette in App.xaml; it can be changed at runtime." />
+          <Label Text="{Binding LastApplied}" />
+        </VerticalStackLayout>
+      </styling:Card>
+
+      <styling:Card>
+        <VerticalStackLayout Padding="16" Spacing="8">
+          <Label Style="{StaticResource MaterialDesignTitleMediumTextBlock}" Text="Theme settings" />
+          <Label Text="Use the Theme tab to tweak base theme settings and observe how palette changes are applied." />
+        </VerticalStackLayout>
+      </styling:Card>
+
+      <CollectionView ItemsSource="{Binding Swatches}">
+        <CollectionView.ItemsLayout>
+          <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="12" VerticalItemSpacing="12" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+          <DataTemplate x:DataType="palette:PaletteSwatch">
+            <styling:Card WidthRequest="240">
+              <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*">
+                <Label Grid.ColumnSpan="2"
+                       Margin="12,10,12,4"
+                       Text="{Binding Name}"
+                       Style="{StaticResource MaterialDesignTitleSmallTextBlock}" />
+
+                <Button Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="8,4,4,8"
+                        Padding="8"
+                        BackgroundColor="{Binding PrimaryColorKey, Converter={StaticResource ResourceColorConverter}}"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type palette:PaletteSelectorPage}}, Path=BindingContext.ApplyPrimaryCommand}"
+                        CommandParameter="{Binding .}"
+                        CornerRadius="8"
+                        Text="Primary"
+                        TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}" />
+
+                <Button Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="4,4,8,8"
+                        Padding="8"
+                        BackgroundColor="{Binding SecondaryColorKey, Converter={StaticResource ResourceColorConverter}}"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type palette:PaletteSelectorPage}}, Path=BindingContext.ApplySecondaryCommand}"
+                        CommandParameter="{Binding .}"
+                        CornerRadius="8"
+                        IsVisible="{Binding HasSecondary}"
+                        Text="Secondary"
+                        TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSecondary}}" />
+              </Grid>
+            </styling:Card>
+          </DataTemplate>
+        </CollectionView.ItemTemplate>
+      </CollectionView>
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>

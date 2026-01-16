@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="home:HomeViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          xmlns:home="clr-namespace:MaterialDesignDemo.Maui.Home"
+                          x:Class="MaterialDesignDemo.Maui.Home.HomePage"
+                          x:DataType="home:HomeViewModel">
+  <Grid RowDefinitions="Auto,*">
+    <Grid Margin="16"
+          HorizontalOptions="Center"
+          VerticalOptions="Start"
+          ColumnDefinitions="Auto,*">
+      <Image WidthRequest="100"
+             HeightRequest="100"
+             Source="ms_icon_310x310.png"
+             Aspect="AspectFit"
+             SemanticProperties.Description="Material Design logo" />
+
+      <VerticalStackLayout Grid.Column="1"
+                           Margin="24,0,0,0"
+                           VerticalOptions="Center"
+                           Spacing="8">
+        <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}"
+               Text="Welcome to Material Design In XAML Toolkit"
+               LineBreakMode="WordWrap"
+               SemanticProperties.HeadingLevel="Level1" />
+
+        <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}"
+                               Command="{Binding OpenExploreCommand}">
+          <HorizontalStackLayout Spacing="8">
+            <styling:PackIcon Kind="Binoculars" />
+            <Label Text="EXPLORE" VerticalOptions="Center" />
+          </HorizontalStackLayout>
+        </styling:ContentButton>
+      </VerticalStackLayout>
+    </Grid>
+
+    <Grid Grid.Row="1">
+      <ScrollView Margin="0,0,0,32"
+                  HorizontalOptions="Center"
+                  VerticalOptions="End"
+                  Orientation="Horizontal"
+                  HorizontalScrollBarVisibility="Always"
+                  VerticalScrollBarVisibility="Never">
+        <HorizontalStackLayout Spacing="8">
+          <styling:Card WidthRequest="420"
+                        HeightRequest="270"
+                        Margin="4,2,8,16"
+                        Style="{StaticResource MaterialDesignElevatedCard}">
+            <Grid RowDefinitions="Auto,*,Auto,Auto"
+                  ColumnDefinitions="200,*">
+              <Image Grid.RowSpan="4"
+                     Source="contact.png"
+                     Aspect="AspectFill" />
+
+              <Label Grid.Column="1"
+                     Margin="16,16,16,2"
+                     Style="{StaticResource MaterialDesignHeadlineSmallTextBlock}"
+                     Text="Get In Touch" />
+
+              <Label Grid.Row="1"
+                     Grid.Column="1"
+                     Margin="16,0,16,8"
+                     Text="Say hello, make a feature request, or raise a bug through one of these channels:"
+                     TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}"
+                     LineBreakMode="WordWrap" />
+
+              <Border Grid.Row="2"
+                      Grid.Column="1"
+                      Margin="0,8,0,0"
+                      Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
+                      StrokeThickness="1">
+                <Grid Margin="8" ColumnDefinitions="*,*">
+                  <styling:ContentButton Grid.Column="0"
+                                         Style="{StaticResource MaterialDesignFlatButton}"
+                                         Command="{Binding OpenGitHubCommand}"
+                                         HorizontalOptions="Start">
+                    <HorizontalStackLayout Spacing="8">
+                      <styling:PackIcon Kind="Github" />
+                      <Label Text="GitHub" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                  </styling:ContentButton>
+
+                  <styling:ContentButton Grid.Column="1"
+                                         Style="{StaticResource MaterialDesignFlatButton}"
+                                         Command="{Binding OpenTwitterCommand}"
+                                         HorizontalOptions="End">
+                    <HorizontalStackLayout Spacing="8">
+                      <styling:PackIcon Kind="Twitter" />
+                      <Label Text="Twitter" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                  </styling:ContentButton>
+                </Grid>
+              </Border>
+
+              <Border Grid.Row="3"
+                      Grid.Column="1"
+                      Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
+                      StrokeThickness="1">
+                <Grid Margin="8" ColumnDefinitions="*,*">
+                  <styling:ContentButton Grid.Column="0"
+                                         Style="{StaticResource MaterialDesignFlatButton}"
+                                         Command="{Binding OpenChatCommand}"
+                                         HorizontalOptions="Start">
+                    <HorizontalStackLayout Spacing="8">
+                      <styling:PackIcon Kind="Message" />
+                      <Label Text="Chat" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                  </styling:ContentButton>
+
+                  <styling:ContentButton Grid.Column="1"
+                                         Style="{StaticResource MaterialDesignFlatButton}"
+                                         Command="{Binding OpenEmailCommand}"
+                                         HorizontalOptions="End">
+                    <HorizontalStackLayout Spacing="8">
+                      <styling:PackIcon Kind="Email" />
+                      <Label Text="Email" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                  </styling:ContentButton>
+                </Grid>
+              </Border>
+            </Grid>
+          </styling:Card>
+
+          <styling:Card WidthRequest="420"
+                        HeightRequest="270"
+                        Margin="8,2,4,16"
+                        Style="{StaticResource MaterialDesignElevatedCard}">
+            <Grid RowDefinitions="Auto,Auto"
+                  ColumnDefinitions="200,*">
+              <styling:PackIcon WidthRequest="160"
+                               HeightRequest="160"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               Kind="Github" />
+
+              <VerticalStackLayout Grid.Column="1">
+                <Label Margin="16,16,16,8"
+                       Style="{StaticResource MaterialDesignHeadlineSmallTextBlock}"
+                       Text="Open Source" />
+
+                <Label Margin="16,0,16,8"
+                       Text="This project is completely open source. If you like it and want to say thanks you could hit the GitHub Star button, tweet or post about it, or tell your mum about it!"
+                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}"
+                       LineBreakMode="WordWrap" />
+              </VerticalStackLayout>
+
+              <Border Grid.Row="1"
+                      Grid.ColumnSpan="2"
+                      Padding="8"
+                      Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
+                      StrokeThickness="1">
+                <Grid ColumnDefinitions="*,Auto">
+                  <Label Grid.Column="0"
+                         Margin="16"
+                         VerticalOptions="Center"
+                         Text="Feel like you want to make a donation? It would be gratefully received. Click the button to donate via Open Collective."
+                         TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}"
+                         LineBreakMode="WordWrap" />
+
+                  <styling:ContentButton Grid.Column="1"
+                                         Style="{StaticResource MaterialDesignFlatButton}"
+                                         Command="{Binding OpenDonateCommand}">
+                    <HorizontalStackLayout Spacing="8">
+                      <styling:PackIcon Kind="Gift" />
+                      <Label Text="Donate" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                  </styling:ContentButton>
+                </Grid>
+              </Border>
+            </Grid>
+          </styling:Card>
+        </HorizontalStackLayout>
+      </ScrollView>
+
+      <styling:PopupBox Margin="32"
+                        HorizontalOptions="End"
+                        VerticalOptions="End"
+                        Style="{StaticResource MaterialDesignPopupBox}">
+        <VerticalStackLayout Spacing="8">
+          <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                                 Command="{Binding OpenGitHubCommand}"
+                                 ToolTipProperties.Text="GitHub">
+            <styling:PackIcon Kind="Github" />
+          </styling:ContentButton>
+
+          <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}"
+                                 Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}"
+                                 Command="{Binding OpenTwitterCommand}"
+                                 ToolTipProperties.Text="Twitter">
+            <styling:PackIcon Kind="Twitter" />
+          </styling:ContentButton>
+
+          <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}"
+                                 Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSecondary}}"
+                                 Command="{Binding OpenChatCommand}"
+                                 ToolTipProperties.Text="Chat">
+            <styling:PackIcon Kind="Message" />
+          </styling:ContentButton>
+
+          <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Tertiary}}"
+                                 Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnTertiary}}"
+                                 Command="{Binding OpenEmailCommand}"
+                                 ToolTipProperties.Text="Email">
+            <styling:PackIcon Kind="Email" />
+          </styling:ContentButton>
+
+          <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+                                 BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.PrimaryContainer}}"
+                                 Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimaryContainer}}"
+                                 Command="{Binding OpenDonateCommand}"
+                                 ToolTipProperties.Text="Donate">
+            <styling:PackIcon Kind="Gift" />
+          </styling:ContentButton>
+        </VerticalStackLayout>
+      </styling:PopupBox>
+    </Grid>
+  </Grid>
+</maui:ReactiveContentPage>

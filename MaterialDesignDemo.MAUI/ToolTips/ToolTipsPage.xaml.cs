@@ -1,6 +1,6 @@
 using System.Reactive.Disposables.Fluent;
 
-namespace MaterialDesignDemo.MAUI.ToolTips;
+namespace MaterialDesignDemo.Maui.ToolTips;
 
 public partial class ToolTipsPage
 {

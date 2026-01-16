@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace MaterialDesignDemo.MAUI.Transitions;
+namespace MaterialDesignDemo.Maui.Transitions;
 
 public sealed class IndexEqualsConverter : IValueConverter
 {
