@@ -27,69 +27,7 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="scenes:SceneViewModel">
-                        <Border x:Name="SceneCard"
-                                StrokeThickness="1"
-                                Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
-                                BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}"
-                                Padding="10"
-                                StrokeShape="RoundRectangle 6">
-                            <Border.Triggers>
-                                <DataTrigger TargetType="Border"
-                                             Binding="{Binding IsSelected}"
-                                             Value="True">
-                                    <Setter Property="BackgroundColor"
-                                            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.PrimaryContainer}}" />
-                                    <Setter Property="Stroke"
-                                            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
-                                    <Setter Property="StrokeThickness"
-                                            Value="2" />
-                                    <Setter TargetName="SceneName"
-                                            Property="Label.TextColor"
-                                            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimaryContainer}}" />
-                                    <Setter TargetName="SceneTimestamp"
-                                            Property="Label.TextColor"
-                                            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimaryContainer}}" />
-                                </DataTrigger>
-                            </Border.Triggers>
-                            <Grid x:Name="SceneContent"
-                                  RowDefinitions="Auto,0"
-                                  ColumnDefinitions="Auto,*"
-                                  Padding="4">
-                                <Grid.Triggers>
-                                    <DataTrigger TargetType="Grid"
-                                                 Binding="{Binding Source={x:Reference Root}, Path=BindingContext.ShowTimestamps, x:DataType=scenes:ScenesPaneViewModel}"
-                                                 Value="True">
-                                        <Setter Property="RowDefinitions"
-                                                Value="Auto,Auto" />
-                                    </DataTrigger>
-                                </Grid.Triggers>
-                                <BoxView Grid.Row="0"
-                                         Grid.Column="0"
-                                         WidthRequest="12"
-                                         HeightRequest="12"
-                                         CornerRadius="3"
-                                         VerticalOptions="Center"
-                                         BackgroundColor="{Binding Color}" />
-                                <Label x:Name="SceneName"
-                                       Text="{Binding Name}"
-                                       FontAttributes="Bold"
-                                       Grid.Row="0"
-                                       Grid.Column="1"
-                                       VerticalOptions="Center"
-                                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
-                                       BackgroundColor="Transparent" />
-                                <Label x:Name="SceneTimestamp"
-                                       Grid.Row="1"
-                                       Grid.Column="1"
-                                       Text="{Binding Timestamp, StringFormat='{0:mm\\:ss\\.fff}'}"
-                                       IsVisible="{Binding Source={x:Reference Root}, Path=BindingContext.ShowTimestamps, x:DataType=scenes:ScenesPaneViewModel}"
-                                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}"
-                                       BackgroundColor="Transparent" />
-                            </Grid>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SelectSceneCommand}"/>
-                            </Border.GestureRecognizers>
-                        </Border>
+                        <scenes:SceneItemView ShowTimestamps="{Binding Source={x:Reference Root}, Path=BindingContext.ShowTimestamps, x:DataType=scenes:ScenesPaneViewModel}" />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
