@@ -25,6 +25,16 @@ env:
 jobs:
   build:
     runs-on: windows-2022
+    strategy:
+      fail-fast: false
+      matrix:
+        rid:
+          - win-x64
+          - win-x86
+          - win-arm64
+        self_contained:
+          - true
+          - false
     steps:
       - uses: actions/checkout@v4
 
@@ -47,13 +57,31 @@ jobs:
       - name: Publish Windows
         shell: pwsh
         run: |
-          dotnet publish "${{ env.PROJECT_PATH }}" -c "${{ env.CONFIGURATION }}" -p:TargetFramework="${{ env.TARGET_FRAMEWORK }}" -p:GenerateAppxPackageOnBuild=false -o artifacts/windows
+          $publishDir = "artifacts/windows/${{ matrix.rid }}/${{ matrix.self_contained }}"
+          dotnet publish "${{ env.PROJECT_PATH }}" -c "${{ env.CONFIGURATION }}" -p:TargetFramework="${{ env.TARGET_FRAMEWORK }}" -p:GenerateAppxPackageOnBuild=false -r "${{ matrix.rid }}" --self-contained "${{ matrix.self_contained }}" -o $publishDir
 
       - name: Zip
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path out | Out-Null
-          Compress-Archive -Path 'artifacts/windows/*' -DestinationPath 'out/windows.zip' -Force
+          $selfContainedLabel = if ('${{ matrix.self_contained }}' -eq 'true') { 'self-contained' } else { 'framework-dependent' }
+          $zipName = "windows-${{ matrix.rid }}-$selfContainedLabel.zip"
+          Compress-Archive -Path "artifacts/windows/${{ matrix.rid }}/${{ matrix.self_contained }}/*" -DestinationPath "out/$zipName" -Force
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-${{ matrix.rid }}-${{ matrix.self_contained }}
+          path: out/*.zip
+
+  release:
+    runs-on: windows-2022
+    needs: build
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: out
 
       - name: Determine tag
         id: tag
@@ -73,4 +101,4 @@ jobs:
           draft: true
           prerelease: false
           files: |
-            out/windows.zip
+            out/**/*.zip
