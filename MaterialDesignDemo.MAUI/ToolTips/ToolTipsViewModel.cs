@@ -1,4 +1,5 @@
 using MaterialDesignThemes.Maui;
+using ThemeElevation = MaterialDesignThemes.Maui.Elevation;
 
 namespace MaterialDesignDemo.Maui.ToolTips;
 
@@ -6,7 +7,7 @@ public sealed partial class ToolTipsViewModel : ReactiveObject, IActivatableView
 {
     public ViewModelActivator Activator { get; } = new();
 
-    public IReadOnlyList<Elevation> Elevations { get; } = Enum.GetValues<Elevation>();
+    public IReadOnlyList<ThemeElevation> Elevations { get; } = Enum.GetValues<ThemeElevation>();
     public IReadOnlyList<PopupBoxPlacementMode> PopupBoxPlacementModes { get; } = Enum.GetValues<PopupBoxPlacementMode>();
     public IReadOnlyList<PopupAnimation> PopupAnimations { get; } = Enum.GetValues<PopupAnimation>();
     public IReadOnlyList<PopupBoxPopupMode> PopupBoxPopupModes { get; } = Enum.GetValues<PopupBoxPopupMode>();
@@ -15,7 +16,7 @@ public sealed partial class ToolTipsViewModel : ReactiveObject, IActivatableView
     private bool _isPopupOpen;
 
     [Reactive]
-    private Elevation _selectedElevation = Elevation.Dp6;
+    private ThemeElevation _selectedElevation = ThemeElevation.Dp6;
 
     [Reactive]
     private PopupBoxPlacementMode _selectedPopupBoxPlacementMode = PopupBoxPlacementMode.BottomAndAlignCentres;
@@ -39,7 +40,7 @@ public sealed partial class ToolTipsViewModel : ReactiveObject, IActivatableView
     private void ResetToDefaults()
     {
         IsPopupOpen = false;
-        SelectedElevation = Elevation.Dp6;
+        SelectedElevation = ThemeElevation.Dp6;
         SelectedPopupBoxPlacementMode = PopupBoxPlacementMode.BottomAndAlignCentres;
         SelectedPopupAnimation = PopupAnimation.Fade;
         SelectedPopupBoxPopupMode = PopupBoxPopupMode.Click;

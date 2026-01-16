@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView x:Class="MaterialDesignDemo.Maui.Dialogs.Views.Sample4DialogView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dialogs="clr-namespace:MaterialDesignDemo.Maui.Dialogs"
+             xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+             x:DataType="dialogs:DialogsViewModel">
+  <Border Padding="24"
+          BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Surface}}"
+          Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
+          StrokeThickness="1">
+    <VerticalStackLayout Spacing="16">
+      <Label Style="{StaticResource MaterialDesignTitleLargeTextBlock}" Text="Send feedback" />
+      <Editor Placeholder="Tell us what you think" AutoSize="TextChanges" HeightRequest="120" />
+      <HorizontalStackLayout Spacing="12" HorizontalOptions="End">
+        <styling:ContentButton Style="{StaticResource MaterialDesignTextButton}"
+                               Command="{Binding CloseDialogCommand}">
+          <Label Text="Cancel" />
+        </styling:ContentButton>
+        <styling:ContentButton Style="{StaticResource MaterialDesignTextButton}"
+                               Command="{Binding CloseDialogCommand}">
+          <Label Text="Send" />
+        </styling:ContentButton>
+      </HorizontalStackLayout>
+    </VerticalStackLayout>
+  </Border>
+</ContentView>

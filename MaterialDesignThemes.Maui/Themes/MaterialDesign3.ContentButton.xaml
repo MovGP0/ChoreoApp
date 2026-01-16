@@ -90,6 +90,10 @@
     </Setter>
   </Style>
 
+  <Style x:Key="MaterialDesignContainedButton"
+         TargetType="styling:ContentButton"
+         BasedOn="{StaticResource MaterialDesignRaisedButton}" />
+
   <Style x:Key="MaterialDesignRaisedLightButton"
          TargetType="styling:ContentButton"
          BasedOn="{StaticResource MaterialDesignRaisedButton}">
@@ -168,6 +172,10 @@
       </VisualStateGroupList>
     </Setter>
   </Style>
+
+  <Style x:Key="MaterialDesignTextButton"
+         TargetType="styling:ContentButton"
+         BasedOn="{StaticResource MaterialDesignFlatButton}" />
 
   <Style x:Key="MaterialDesignFlatLightButton"
          TargetType="styling:ContentButton"

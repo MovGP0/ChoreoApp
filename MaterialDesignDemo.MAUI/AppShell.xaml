@@ -10,6 +10,13 @@
     xmlns:colorTool="clr-namespace:MaterialDesignDemo.Maui.ColorTool"
     xmlns:colorZones="clr-namespace:MaterialDesignDemo.Maui.ColorZones"
     xmlns:dataGrids="clr-namespace:MaterialDesignDemo.Maui.DataGrids"
+    xmlns:dialogs="clr-namespace:MaterialDesignDemo.Maui.Dialogs"
+    xmlns:docs="clr-namespace:MaterialDesignDemo.Maui.DocumentationLinks"
+    xmlns:drawers="clr-namespace:MaterialDesignDemo.Maui.Drawers"
+    xmlns:elevation="clr-namespace:MaterialDesignDemo.Maui.Elevation"
+    xmlns:expander="clr-namespace:MaterialDesignDemo.Maui.Expander"
+    xmlns:fields="clr-namespace:MaterialDesignDemo.Maui.Fields"
+    xmlns:fieldsLineUp="clr-namespace:MaterialDesignDemo.Maui.FieldsLineUp"
     xmlns:home="clr-namespace:MaterialDesignDemo.Maui.Home"
     xmlns:palette="clr-namespace:MaterialDesignDemo.Maui.PaletteSelector"
     xmlns:snackbars="clr-namespace:MaterialDesignDemo.Maui.Snackbars"
@@ -30,6 +37,13 @@
         <ShellContent Title="ColorZones" ContentTemplate="{DataTemplate colorZones:ColorZonesPage}" Route="ColorZones" />
         <ShellContent Title="ComboBoxes" ContentTemplate="{DataTemplate comboBoxes:ComboBoxesPage}" Route="ComboBoxes" />
         <ShellContent Title="DataGrids" ContentTemplate="{DataTemplate dataGrids:DataGridsPage}" Route="DataGrids" />
+        <ShellContent Title="Dialogs" ContentTemplate="{DataTemplate dialogs:DialogsPage}" Route="Dialogs" />
+        <ShellContent Title="Docs" ContentTemplate="{DataTemplate docs:DocumentationLinksPage}" Route="Docs" />
+        <ShellContent Title="Drawers" ContentTemplate="{DataTemplate drawers:DrawersPage}" Route="Drawers" />
+        <ShellContent Title="Elevation" ContentTemplate="{DataTemplate elevation:ElevationPage}" Route="Elevation" />
+        <ShellContent Title="Expander" ContentTemplate="{DataTemplate expander:ExpanderPage}" Route="Expander" />
+        <ShellContent Title="Fields" ContentTemplate="{DataTemplate fields:FieldsPage}" Route="Fields" />
+        <ShellContent Title="Fields LineUp" ContentTemplate="{DataTemplate fieldsLineUp:FieldsLineUpPage}" Route="FieldsLineUp" />
         <ShellContent Title="Typography" ContentTemplate="{DataTemplate typography:TypographyPage}" Route="Typography" />
         <ShellContent Title="Trees" ContentTemplate="{DataTemplate trees:TreesPage}" Route="Trees" />
         <ShellContent Title="Transitions" ContentTemplate="{DataTemplate transitions:TransitionsPage}" Route="Transitions" />

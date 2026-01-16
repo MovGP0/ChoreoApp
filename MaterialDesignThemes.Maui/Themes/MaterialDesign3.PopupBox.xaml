@@ -3,11 +3,19 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
 
-  <styling:PackIcon x:Key="MaterialDesignPopupBoxToggleContent"
-                    WidthRequest="24"
-                    HeightRequest="24"
-                    Kind="DotsVertical"
-                    Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+  <DataTemplate x:Key="MaterialDesignPopupBoxToggleContentTemplate">
+    <styling:PackIcon WidthRequest="24"
+                      HeightRequest="24"
+                      Kind="DotsVertical"
+                      ForegroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+  </DataTemplate>
+
+  <DataTemplate x:Key="MaterialDesignToolForegroundPopupBoxToggleContentTemplate">
+    <styling:PackIcon WidthRequest="24"
+                      HeightRequest="24"
+                      Kind="DotsVertical"
+                      ForegroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}" />
+  </DataTemplate>
 
   <Style x:Key="MaterialDesignPopupBox"
          TargetType="styling:PopupBox">
@@ -18,7 +26,9 @@
     <Setter Property="PopupVerticalOffset" Value="0" />
     <Setter Property="PopupAnimation" Value="Fade" />
     <Setter Property="PopupMode" Value="Click" />
-    <Setter Property="ToggleContent" Value="{StaticResource MaterialDesignPopupBoxToggleContent}" />
+    <Setter Property="ToggleContent" Value="True" />
+    <Setter Property="ToggleContentTemplate"
+            Value="{StaticResource MaterialDesignPopupBoxToggleContentTemplate}" />
     <Setter Property="ControlTemplate">
       <ControlTemplate>
         <Grid RowDefinitions="Auto,Auto"
@@ -57,6 +67,18 @@
         </Grid>
       </ControlTemplate>
     </Setter>
+  </Style>
+
+  <Style x:Key="MaterialDesignToolPopupBox"
+         TargetType="styling:PopupBox"
+         BasedOn="{StaticResource MaterialDesignPopupBox}" />
+
+  <Style x:Key="MaterialDesignToolForegroundPopupBox"
+         TargetType="styling:PopupBox"
+         BasedOn="{StaticResource MaterialDesignToolPopupBox}">
+    <Setter Property="ToggleContent" Value="True" />
+    <Setter Property="ToggleContentTemplate"
+            Value="{StaticResource MaterialDesignToolForegroundPopupBoxToggleContentTemplate}" />
   </Style>
 
   <Style TargetType="styling:PopupBox"

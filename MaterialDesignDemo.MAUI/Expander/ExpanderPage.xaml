@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="expander:ExpanderViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:expander="clr-namespace:MaterialDesignDemo.Maui.Expander"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          x:Class="MaterialDesignDemo.Maui.Expander.ExpanderPage"
+                          x:DataType="expander:ExpanderViewModel">
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="16">
+      <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="Expander" />
+
+      <styling:Card>
+        <VerticalStackLayout>
+      <styling:Expander>
+        <styling:Expander.Header>
+          <Label Text="Expander A" />
+        </styling:Expander.Header>
+        <VerticalStackLayout Padding="16" Spacing="8">
+          <Label Text="Your content" />
+          <Label Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
+        </VerticalStackLayout>
+      </styling:Expander>
+
+          <BoxView HeightRequest="1" BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}" />
+
+          <styling:Expander>
+            <styling:Expander.Header>
+              <Label Text="Expander B" />
+            </styling:Expander.Header>
+            <VerticalStackLayout Padding="16" Spacing="8">
+              <Label Text="Your content" />
+              <Label Text="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+            </VerticalStackLayout>
+          </styling:Expander>
+        </VerticalStackLayout>
+      </styling:Card>
+
+      <styling:Expander>
+        <styling:Expander.Header>
+          <Label Text="Standalone expander" />
+        </styling:Expander.Header>
+        <VerticalStackLayout Padding="16" Spacing="8">
+          <Label Text="Your content" />
+          <Label Text="Ut enim ad minim veniam, quis nostrud exercitation." />
+        </VerticalStackLayout>
+      </styling:Expander>
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>

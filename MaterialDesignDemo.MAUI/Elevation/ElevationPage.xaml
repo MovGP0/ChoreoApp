@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="elevation:ElevationViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:elevation="clr-namespace:MaterialDesignDemo.Maui.Elevation"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          x:Class="MaterialDesignDemo.Maui.Elevation.ElevationPage"
+                          x:DataType="elevation:ElevationViewModel">
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="16">
+      <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="Elevation" />
+      <Label Style="{StaticResource MaterialDesignBodyMediumTextBlock}"
+             Text="Elevated controls have default elevation set, but the elevation can be overridden." />
+
+      <HorizontalStackLayout Spacing="12">
+        <styling:ContentButton Style="{StaticResource MaterialDesignContainedButton}"
+                               styling:ElevationAssist.Elevation="Dp2">
+          <Label Text="2 dp" />
+        </styling:ContentButton>
+        <styling:ContentButton Style="{StaticResource MaterialDesignContainedButton}"
+                               styling:ElevationAssist.Elevation="Dp8">
+          <Label Text="8 dp" />
+        </styling:ContentButton>
+        <styling:ContentButton Style="{StaticResource MaterialDesignContainedButton}"
+                               styling:ElevationAssist.Elevation="Dp12">
+          <Label Text="12 dp" />
+        </styling:ContentButton>
+      </HorizontalStackLayout>
+
+      <HorizontalStackLayout Spacing="12">
+        <styling:Card styling:ElevationAssist.Elevation="Dp0"
+                      Padding="16">
+          <Label Text="0 dp" HorizontalOptions="Center" />
+        </styling:Card>
+        <styling:Card styling:ElevationAssist.Elevation="Dp4"
+                      Padding="16">
+          <Label Text="4 dp" HorizontalOptions="Center" />
+        </styling:Card>
+        <styling:Card styling:ElevationAssist.Elevation="Dp12"
+                      Padding="16">
+          <Label Text="12 dp" HorizontalOptions="Center" />
+        </styling:Card>
+      </HorizontalStackLayout>
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>

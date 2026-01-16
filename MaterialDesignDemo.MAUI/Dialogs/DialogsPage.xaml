@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="dialogs:DialogsViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:dialogs="clr-namespace:MaterialDesignDemo.Maui.Dialogs"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          x:Class="MaterialDesignDemo.Maui.Dialogs.DialogsPage"
+                          x:DataType="dialogs:DialogsViewModel">
+  <styling:DialogHost IsOpen="{Binding IsDialogOpen, Mode=TwoWay}"
+                      DialogContent="{Binding DialogContent}">
+
+    <ScrollView>
+      <VerticalStackLayout Padding="24" Spacing="16">
+        <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="Dialogs" />
+        <Label Style="{StaticResource MaterialDesignBodyMediumTextBlock}"
+               Text="DialogHost renders modal content above the page." />
+
+        <styling:ContentButton Style="{StaticResource MaterialDesignOutlinedButton}"
+                               Command="{Binding OpenSampleDialogCommand}">
+          <Label Text="Open sample dialog" />
+        </styling:ContentButton>
+
+        <styling:ContentButton Style="{StaticResource MaterialDesignOutlinedButton}"
+                               Command="{Binding OpenMessageDialogCommand}">
+          <Label Text="Open message dialog" />
+        </styling:ContentButton>
+
+        <styling:ContentButton Style="{StaticResource MaterialDesignOutlinedButton}"
+                               Command="{Binding OpenProgressDialogCommand}">
+          <Label Text="Open progress dialog" />
+        </styling:ContentButton>
+
+        <styling:ContentButton Style="{StaticResource MaterialDesignOutlinedButton}"
+                               Command="{Binding OpenSample4DialogCommand}">
+          <Label Text="Open sample 4 dialog" />
+        </styling:ContentButton>
+      </VerticalStackLayout>
+    </ScrollView>
+  </styling:DialogHost>
+</maui:ReactiveContentPage>

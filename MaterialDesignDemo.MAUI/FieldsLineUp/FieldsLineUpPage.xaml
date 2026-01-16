@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="lineUp:FieldsLineUpViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:lineUp="clr-namespace:MaterialDesignDemo.Maui.FieldsLineUp"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          x:Class="MaterialDesignDemo.Maui.FieldsLineUp.FieldsLineUpPage"
+                          x:DataType="lineUp:FieldsLineUpViewModel">
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="16">
+      <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="Field line up" />
+      <Label Style="{StaticResource MaterialDesignBodyMediumTextBlock}"
+             Text="Use this page to compare how field styles align." />
+
+      <Grid ColumnDefinitions="Auto,*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="16" RowSpacing="12">
+        <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MaterialDesignLabelLargeTextBlock}" Text="Default" />
+        <Label Grid.Row="0" Grid.Column="2" Style="{StaticResource MaterialDesignLabelLargeTextBlock}" Text="Outlined" />
+
+        <Label Grid.Row="1" Grid.Column="0" VerticalOptions="Center" Text="Text" />
+        <Entry Grid.Row="1" Grid.Column="1" Placeholder="Text" Style="{StaticResource MaterialDesignEntry}" />
+        <Entry Grid.Row="1" Grid.Column="2" Placeholder="Text" Style="{StaticResource MaterialDesignOutlinedEntry}" />
+
+        <Label Grid.Row="2" Grid.Column="0" VerticalOptions="Center" Text="Password" />
+        <Entry Grid.Row="2" Grid.Column="1" Placeholder="Password" IsPassword="True" Style="{StaticResource MaterialDesignPasswordEntry}" />
+        <Entry Grid.Row="2" Grid.Column="2" Placeholder="Password" IsPassword="True" Style="{StaticResource MaterialDesignOutlinedPasswordEntry}" />
+
+        <Label Grid.Row="3" Grid.Column="0" VerticalOptions="Center" Text="Picker" />
+        <Picker Grid.Row="3" Grid.Column="1" Title="Pick" Style="{StaticResource MaterialDesignEntry}" />
+        <Picker Grid.Row="3" Grid.Column="2" Title="Pick" Style="{StaticResource MaterialDesignOutlinedEntry}" />
+      </Grid>
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>

@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<maui:ReactiveContentPage x:TypeArguments="drawers:DrawersViewModel"
+                          xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                          xmlns:drawers="clr-namespace:MaterialDesignDemo.Maui.Drawers"
+                          xmlns:maui="using:ReactiveUI.Maui"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
+                          x:Class="MaterialDesignDemo.Maui.Drawers.DrawersPage"
+                          x:DataType="drawers:DrawersViewModel">
+  <ScrollView>
+    <VerticalStackLayout Padding="24" Spacing="16">
+      <Label Style="{StaticResource MaterialDesignHeadlineMediumTextBlock}" Text="Drawer" />
+
+      <HorizontalStackLayout Spacing="12">
+        <Label VerticalOptions="Center" Text="Primary overlay" />
+        <Switch IsToggled="{Binding IsPrimaryOverlay}" />
+      </HorizontalStackLayout>
+
+      <HorizontalStackLayout Spacing="12">
+        <Label VerticalOptions="Center" Text="Open mode" />
+        <Picker Title="Select open mode"
+                ItemsSource="{Binding OpenModes}"
+                SelectedItem="{Binding OpenMode}" />
+      </HorizontalStackLayout>
+
+      <styling:Card>
+        <styling:DrawerHost x:Name="DrawerHost"
+                            HeightRequest="420"
+                            OpenMode="{Binding OpenMode}"
+                            IsLeftDrawerOpen="{Binding IsLeftDrawerOpen, Mode=TwoWay}"
+                            IsTopDrawerOpen="{Binding IsTopDrawerOpen, Mode=TwoWay}"
+                            IsRightDrawerOpen="{Binding IsRightDrawerOpen, Mode=TwoWay}"
+                            IsBottomDrawerOpen="{Binding IsBottomDrawerOpen, Mode=TwoWay}">
+          <styling:DrawerHost.Style>
+            <Style TargetType="styling:DrawerHost">
+              <Setter Property="OverlayBackground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Scrim}}" />
+              <Style.Triggers>
+                <DataTrigger TargetType="styling:DrawerHost" Binding="{Binding IsPrimaryOverlay}" Value="True">
+                  <Setter Property="OverlayBackground" Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </styling:DrawerHost.Style>
+
+          <styling:DrawerHost.LeftDrawerContent>
+            <VerticalStackLayout Padding="16" Spacing="8">
+              <Label Text="Left drawer" Style="{StaticResource MaterialDesignTitleMediumTextBlock}" />
+              <styling:ContentButton Style="{StaticResource MaterialDesignTextButton}"
+                                     Command="{Binding CloseAllCommand}">
+                <Label Text="Close all" />
+              </styling:ContentButton>
+            </VerticalStackLayout>
+          </styling:DrawerHost.LeftDrawerContent>
+
+          <styling:DrawerHost.TopDrawerContent>
+            <VerticalStackLayout Padding="16" Spacing="8">
+              <Label Text="Top drawer" Style="{StaticResource MaterialDesignTitleMediumTextBlock}" />
+              <styling:ContentButton Style="{StaticResource MaterialDesignTextButton}"
+                                     Command="{Binding CloseAllCommand}">
+                <Label Text="Close all" />
+              </styling:ContentButton>
+            </VerticalStackLayout>
+          </styling:DrawerHost.TopDrawerContent>
+
+          <styling:DrawerHost.RightDrawerContent>
+            <VerticalStackLayout Padding="16" Spacing="8">
+              <Label Text="Right drawer" Style="{StaticResource MaterialDesignTitleMediumTextBlock}" />
+              <styling:ContentButton Style="{StaticResource MaterialDesignTextButton}"
+                                     Command="{Binding CloseAllCommand}">
+                <Label Text="Close all" />
+              </styling:ContentButton>
+            </VerticalStackLayout>
+          </styling:DrawerHost.RightDrawerContent>
+
+          <styling:DrawerHost.BottomDrawerContent>
+            <VerticalStackLayout Padding="16" Spacing="8">
+              <Label Text="Bottom drawer" Style="{StaticResource MaterialDesignTitleMediumTextBlock}" />
+              <styling:ContentButton Style="{StaticResource MaterialDesignTextButton}"
+                                     Command="{Binding CloseAllCommand}">
+                <Label Text="Close all" />
+              </styling:ContentButton>
+            </VerticalStackLayout>
+          </styling:DrawerHost.BottomDrawerContent>
+
+          <styling:DrawerHost.MainContent>
+            <Grid Padding="16" RowDefinitions="Auto,Auto" ColumnDefinitions="*,*" ColumnSpacing="12" RowSpacing="12">
+              <styling:ContentButton Grid.Row="0" Grid.Column="0"
+                                     Style="{StaticResource MaterialDesignOutlinedButton}"
+                                     Command="{Binding OpenLeftCommand}">
+                <Label Text="Open left" />
+              </styling:ContentButton>
+              <styling:ContentButton Grid.Row="0" Grid.Column="1"
+                                     Style="{StaticResource MaterialDesignOutlinedButton}"
+                                     Command="{Binding OpenRightCommand}">
+                <Label Text="Open right" />
+              </styling:ContentButton>
+              <styling:ContentButton Grid.Row="1" Grid.Column="0"
+                                     Style="{StaticResource MaterialDesignOutlinedButton}"
+                                     Command="{Binding OpenTopCommand}">
+                <Label Text="Open top" />
+              </styling:ContentButton>
+              <styling:ContentButton Grid.Row="1" Grid.Column="1"
+                                     Style="{StaticResource MaterialDesignOutlinedButton}"
+                                     Command="{Binding OpenBottomCommand}">
+                <Label Text="Open bottom" />
+              </styling:ContentButton>
+            </Grid>
+          </styling:DrawerHost.MainContent>
+        </styling:DrawerHost>
+      </styling:Card>
+    </VerticalStackLayout>
+  </ScrollView>
+</maui:ReactiveContentPage>
