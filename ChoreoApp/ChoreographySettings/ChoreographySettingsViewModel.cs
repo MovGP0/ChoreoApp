@@ -1,5 +1,4 @@
 using System.Globalization;
-using ChoreoApp.ColorPicker;
 
 namespace ChoreoApp.ChoreographySettings;
 
@@ -29,7 +28,6 @@ public sealed partial class ChoreographySettingsViewModel : ReactiveObject, IAct
 
     public IReadOnlyList<int> FloorSizeOptions { get; }
     public IReadOnlyList<GridSizeOption> GridSizeOptions { get; }
-    public IReadOnlyList<MaterialColorGroup> ColorGroups { get; } = MaterialColorPalette.DefaultGroups;
 
     public int GridResolution
     {

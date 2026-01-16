@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Globalization;
 using System.Resources;
-using ChoreoApp.ColorPicker;
 using ChoreoApp.i18n;
 using ChoreoApp.Models;
 using DynamicData.Binding;
@@ -67,7 +66,6 @@ public sealed partial class DancerSettingsViewModel : ReactiveObject, IActivatab
     [Reactive]
     private View? _dialogContentView;
 
-    public IReadOnlyList<MaterialColorGroup> ColorGroups { get; } = MaterialColorPalette.DefaultGroups;
     public IReadOnlyList<IconOption> IconOptions { get; }
 
     [ReactiveCommand]

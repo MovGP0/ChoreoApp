@@ -6,7 +6,7 @@
                           xmlns:settings="clr-namespace:ChoreoApp.Settings"
                           xmlns:conv="clr-namespace:ChoreoApp.Settings.Converters"
                           xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
-                          xmlns:colorPicker="clr-namespace:ChoreoApp.ColorPicker"
+                          xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
                           x:DataType="settings:SettingsViewModel"
                           x:Class="ChoreoApp.Settings.SettingsPage">
     <maui:ReactiveContentPage.Resources>
@@ -63,9 +63,8 @@
                         Style="{StaticResource MaterialDesign3ToggleSwitchStyle}"
                         IsToggled="{Binding UsePrimaryColor, Mode=TwoWay}" />
             </Grid>
-            <colorPicker:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
-                                                    IsEnabled="{Binding UsePrimaryColor}"
-                                                    SelectedColor="{Binding PrimaryColor, Mode=TwoWay}" />
+            <styling:SkiaColorPicker IsEnabled="{Binding UsePrimaryColor}"
+                                     Color="{Binding PrimaryColor, Mode=TwoWay}" />
 
             <Grid ColumnDefinitions="*,Auto"
                   RowDefinitions="Auto"
@@ -81,9 +80,8 @@
                         Style="{StaticResource MaterialDesign3ToggleSwitchStyle}"
                         IsToggled="{Binding UseSecondaryColor, Mode=TwoWay}" />
             </Grid>
-            <colorPicker:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
-                                                    IsEnabled="{Binding UseSecondaryColor}"
-                                                    SelectedColor="{Binding SecondaryColor, Mode=TwoWay}" />
+            <styling:SkiaColorPicker IsEnabled="{Binding UseSecondaryColor}"
+                                     Color="{Binding SecondaryColor, Mode=TwoWay}" />
 
             <Grid ColumnDefinitions="*,Auto"
                   RowDefinitions="Auto"
@@ -99,9 +97,8 @@
                         Style="{StaticResource MaterialDesign3ToggleSwitchStyle}"
                         IsToggled="{Binding UseTertiaryColor, Mode=TwoWay}" />
             </Grid>
-            <colorPicker:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
-                                                    IsEnabled="{Binding UseTertiaryColor}"
-                                                    SelectedColor="{Binding TertiaryColor, Mode=TwoWay}" />
+            <styling:SkiaColorPicker IsEnabled="{Binding UseTertiaryColor}"
+                                     Color="{Binding TertiaryColor, Mode=TwoWay}" />
         </VerticalStackLayout>
     </ScrollView>
 </maui:ReactiveContentPage>

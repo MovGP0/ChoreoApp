@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="MaterialDesign3.Slider.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <Style x:Key="MaterialDesignSkiaColorPicker"
+         TargetType="styling:SkiaColorPicker">
+    <Setter Property="BackgroundColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}" />
+    <Setter Property="Padding" Value="12" />
+    <Setter Property="WheelMinimumWidth" Value="160" />
+    <Setter Property="WheelMinimumHeight" Value="160" />
+    <Setter Property="ValueSliderPosition" Value="Bottom" />
+    <Setter Property="SliderMinimumTrackColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+    <Setter Property="SliderMaximumTrackColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}" />
+    <Setter Property="SliderThumbColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}" />
+    <Setter Property="SelectionThumbSize" Value="18" />
+    <Setter Property="SelectionStrokeColor"
+            Value="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
+    <Setter Property="SelectionStrokeThickness" Value="2" />
+  </Style>
+
+  <Style TargetType="styling:SkiaColorPicker"
+         BasedOn="{StaticResource MaterialDesignSkiaColorPicker}" />
+</ResourceDictionary>

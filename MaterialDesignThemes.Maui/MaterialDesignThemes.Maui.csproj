@@ -23,6 +23,8 @@
     <PackageReference Include="PolySharp" />
     <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" />
     <PackageReference Include="Sharpnado.Maui.Shadows" />
+    <PackageReference Include="SkiaSharp.Views.Maui.Core" />
+    <PackageReference Include="SkiaSharp.Views.Maui.Controls" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MaterialColorUtilities\MaterialColorUtilities.csproj" />

@@ -7,7 +7,6 @@
                           xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
                           xmlns:settings="clr-namespace:ChoreoApp.ChoreographySettings"
                           xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
-                          xmlns:colorPicker="clr-namespace:ChoreoApp.ColorPicker"
                           xmlns:conv="clr-namespace:ChoreoApp.ChoreographySettings.Converters"
                           BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                           x:DataType="settings:ChoreographySettingsViewModel"
@@ -138,8 +137,7 @@
                     </Grid>
                     <Label Text="{x:Static i18n:Translations.SceneColorLabel}"
                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                    <colorPicker:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
-                                                        SelectedColor="{Binding SceneColor}" />
+                    <styling:SkiaColorPicker Color="{Binding SceneColor}" />
                 </VerticalStackLayout>
             </styling:Card>
 
@@ -349,8 +347,7 @@
                     </Grid>
                     <Label Text="{x:Static i18n:Translations.ChoreographyFloorColorLabel}"
                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                    <colorPicker:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
-                                                        SelectedColor="{Binding FloorColor}" />
+                    <styling:SkiaColorPicker Color="{Binding FloorColor}" />
                 </VerticalStackLayout>
             </styling:Card>
         </VerticalStackLayout>

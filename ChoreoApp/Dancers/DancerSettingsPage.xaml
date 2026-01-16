@@ -6,7 +6,6 @@
                           xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
                           xmlns:dancers="clr-namespace:ChoreoApp.Dancers"
                           xmlns:i18n="clr-namespace:ChoreoApp.i18n;assembly=ChoreoApp.i18n"
-                          xmlns:colorPicker="clr-namespace:ChoreoApp.ColorPicker"
                           xmlns:conv="clr-namespace:ChoreoApp.Dancers.Converters"
                           xmlns:models="clr-namespace:ChoreoApp.Models;assembly=ChoreoApp.Models"
                           x:DataType="dancers:DancerSettingsViewModel"
@@ -133,8 +132,7 @@
 
                                 <Label Text="{x:Static i18n:Translations.DancerColorLabel}"
                                        TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
-                                <colorPicker:MaterialColorDropdown ItemsSource="{Binding ColorGroups}"
-                                                                    SelectedColor="{Binding SelectedDancer.Color}" />
+                                <styling:SkiaColorPicker Color="{Binding SelectedDancer.Color}" />
 
                                 <Label Text="{x:Static i18n:Translations.DancerIconLabel}"
                                        TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
