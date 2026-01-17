@@ -13,7 +13,7 @@ git refs migrate --ref-format=files
 ## Prerequisites
 - .NET 10 SDK or higher installed
 ```shell
-winget install Microsoft.DotNet.SDK.10
+winget install -e --id "Microsoft.DotNet.SDK.10" --source winget --accept-source-agreements --accept-package-agreements
 ```
 
 - MAUI workload installed
@@ -29,6 +29,18 @@ dotnet workload install android
 Install current Java Development Kit (JDK)
 ```shell
 winget install -e --id Microsoft.OpenJDK.21
+```
+
+Wix Installer
+```powershell
+dotnet tool install --global wix --version 6.0.2
+wix --help
+```
+
+Psake
+```powershell
+Install-Module psake
+Import-Module psake
 ```
 
 ## Build for Windows
