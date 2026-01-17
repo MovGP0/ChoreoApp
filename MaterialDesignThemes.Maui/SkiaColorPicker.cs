@@ -36,6 +36,8 @@ public sealed class SkiaColorPicker : ContentView
 
     public SkiaColorPicker()
     {
+        MaximumWidthRequest = 240d;
+
         _wheelView = new SKCanvasView
         {
             EnableTouchEvents = true
