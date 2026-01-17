@@ -19,7 +19,7 @@
     <!-- Display name -->
     <ApplicationTitle>ChoreoApp</ApplicationTitle>
     <!-- App Identifier -->
-    <ApplicationId>com.companyname.choreoapp</ApplicationId>
+    <ApplicationId>io.github.choreoapp</ApplicationId>
     <!-- Versions -->
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>

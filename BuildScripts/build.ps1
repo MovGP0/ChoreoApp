@@ -77,33 +77,42 @@ function Invoke-DotNet
 
 Task Default -Depends Build
 
-Task Validate
+Task Validate -Action `
 {
     Assert-PlatformSupport
 }
 
-Task Restore -Depends Validate
+Task Restore -Depends Validate -Action `
 {
     $framework = Get-TargetFramework
-    Invoke-DotNet @(
+    $rid = Get-RuntimeIdentifier
+
+    $restoreArgs = @(
         'restore',
-        $solutionPath,
-        '-p:TargetFramework=' + $framework
+        $projectPath,
+        "-p:TargetFramework=$framework"
     )
+
+    if ($rid)
+    {
+        $restoreArgs += "-p:RuntimeIdentifier=$rid"
+    }
+
+    Invoke-DotNet $restoreArgs
 }
 
-Task Build -Depends Restore
+Task Build -Depends Restore -Action `
 {
     $framework = Get-TargetFramework
     Invoke-DotNet @(
         'build',
-        $solutionPath,
+        $projectPath,
         '-c', $Configuration,
-        '-p:TargetFramework=' + $framework
+        '-f', $framework
     )
 }
 
-Task Publish -Depends Restore
+Task Publish -Depends Restore -Action `
 {
     $framework = Get-TargetFramework
     $rid = Get-RuntimeIdentifier
@@ -125,6 +134,15 @@ Task Publish -Depends Restore
         '-o', $outputPath
     )
 
+    if ($Platform -eq 'Windows')
+    {
+        $args += @(
+            '-p:UseMonoRuntime=false',
+            '-p:GenerateAppxPackageOnBuild=false',
+            '-p:WindowsPackageType=None'
+        )
+    }
+
     if ($rid)
     {
         $args += @('-r', $rid, '--self-contained', 'true')
@@ -133,7 +151,7 @@ Task Publish -Depends Restore
     Invoke-DotNet $args
 }
 
-Task Installer -Depends Publish
+Task Installer -Depends Publish -Action `
 {
     $rid = Get-RuntimeIdentifier
     if (-not $rid)

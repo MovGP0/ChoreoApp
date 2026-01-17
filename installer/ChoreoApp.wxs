@@ -6,7 +6,7 @@
     Manufacturer="$(var.Manufacturer)"
     Version="$(var.ProductVersion)"
     UpgradeCode="f10d60f4-25f7-4584-9e25-a679fe58f3ef"
-    InstallScope="perUser">
+    Scope="perUser">
     <MajorUpgrade DowngradeErrorMessage="A newer version of $(var.ProductName) is already installed." />
     <MediaTemplate />
     <StandardDirectory Id="LocalAppDataFolder">

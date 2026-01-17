@@ -60,3 +60,31 @@ dotnet build ChoreoApp.slnx `
     -p:AndroidSdkDirectory="$env:LOCALAPPDATA\Local\Android\Sdk" `
     -p:AcceptAndroidSdkLicenses=True;
 ```
+
+### Windows MSIX signing (dev cert)
+- Create a dev certificate and get its thumbprint:
+```powershell
+.\scripts\Create-DevCert.ps1
+```
+- Use the printed thumbprint when publishing (required for MSIX packaging):
+```powershell
+dotnet publish .\ChoreoApp\ChoreoApp.csproj --output .\publish\win10\ --framework net10.0-windows10.0.19041.0 --self-contained --nologo -p:PackageCertificateThumbprint=YOUR_THUMBPRINT_HERE
+```
+- Publish as a single-file self-contained app (Windows):
+```powershell
+dotnet publish .\ChoreoApp\ChoreoApp.csproj --output .\publish\win10\ --framework net10.0-windows10.0.19041.0 --self-contained --nologo -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:WindowsPackageType=None -p:GenerateAppxPackageOnBuild=false -p:PackageCertificateThumbprint=YOUR_THUMBPRINT_HERE
+```
+- MSIX output location:
+`.\ChoreoApp\bin\Release\net10.0-windows10.0.19041.0\win-x64\AppPackages\`
+
+> [!note]
+> For the `net10.0-windows10.0.19041.0` target, Android SDK and Mono are not required.
+
+### Android APK publish
+```powershell
+dotnet publish .\ChoreoApp\ChoreoApp.csproj --output .\publish\android\ --framework net10.0-android --configuration Release --nologo -p:AndroidPackageFormat=apk -p:AndroidSdkDirectory="$env:LOCALAPPDATA\Android\Sdk"
+```
+
+APK output locations:
+- `.\ChoreoApp\bin\Release\net10.0-android\io.github.choreoapp-Signed.apk`
+- `.\ChoreoApp\bin\Release\net10.0-android\publish\io.github.choreoapp-Signed.apk`
