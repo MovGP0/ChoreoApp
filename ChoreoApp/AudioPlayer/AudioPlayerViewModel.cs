@@ -80,7 +80,10 @@ public sealed partial class AudioPlayerViewModel : ReactiveObject, IActivatableV
     [ReactiveCommand]
     private Task TogglePlayPauseAsync()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
 
         var player = Player;
 
@@ -145,7 +148,10 @@ public sealed partial class AudioPlayerViewModel : ReactiveObject, IActivatableV
     [ReactiveCommand(CanExecute = nameof(CanLinkSceneToPosition))]
     private Task LinkSceneToPositionAsync()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
 
         // Handled by the link behavior.
         return Task.CompletedTask;

@@ -74,32 +74,47 @@ public sealed partial class DancerSettingsViewModel : ReactiveObject, IActivatab
     [ReactiveCommand]
     private void AddDancer()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
     }
 
     [ReactiveCommand(CanExecute = nameof(CanDeleteDancer))]
     private void DeleteDancer()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
     }
 
     [ReactiveCommand(CanExecute = nameof(CanSwapDancers))]
     private void SwapDancers()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
     }
 
     [ReactiveCommand]
     private async Task CancelAsync()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
         await Task.CompletedTask;
     }
 
     [ReactiveCommand]
     private async Task SaveAsync()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
         await Task.CompletedTask;
     }
 

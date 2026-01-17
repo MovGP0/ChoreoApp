@@ -55,7 +55,11 @@ public sealed partial class CopyScenePositionsDialogViewModel : ReactiveObject, 
     [ReactiveCommand]
     private void ConfirmCopy()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
+
         CloseDialog();
         _decisionPublisher.Publish(new CopyScenePositionsDecisionEvent(CopyScenePositionsDecision.CopyPositions));
     }
@@ -63,7 +67,11 @@ public sealed partial class CopyScenePositionsDialogViewModel : ReactiveObject, 
     [ReactiveCommand]
     private void DeclineCopy()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
+
         CloseDialog();
         _decisionPublisher.Publish(new CopyScenePositionsDecisionEvent(CopyScenePositionsDecision.KeepPositions));
     }

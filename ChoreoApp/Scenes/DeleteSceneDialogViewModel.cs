@@ -50,7 +50,10 @@ public sealed partial class DeleteSceneDialogViewModel : ReactiveObject, IActiva
     [ReactiveCommand]
     private void ConfirmDelete()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
 
         if (_scene is null)
         {
@@ -65,7 +68,11 @@ public sealed partial class DeleteSceneDialogViewModel : ReactiveObject, IActiva
     [ReactiveCommand]
     private void Cancel()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
+
         CloseDialog();
     }
 

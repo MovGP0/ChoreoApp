@@ -109,21 +109,33 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
     [ReactiveCommand]
     private Task OpenAudioAsync()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
+
         return Task.CompletedTask;
     }
 
     [ReactiveCommand]
     private Task OpenImageAsync()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
+
         return Task.CompletedTask;
     }
 
     [ReactiveCommand]
     private void OpenChoreographySettings()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
+
         IsChoreographySettingsOpen = true;
     }
 

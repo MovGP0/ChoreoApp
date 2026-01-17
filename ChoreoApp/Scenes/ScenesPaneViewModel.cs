@@ -76,13 +76,19 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     [ReactiveCommand]
     private void AddSceneBefore()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
     }
 
     [ReactiveCommand]
     private void AddSceneAfter()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
     }
 
     internal void RefreshScenes()
@@ -117,7 +123,10 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     [ReactiveCommand(CanExecute = nameof(CanNavigateToSettings))]
     private async Task NavigateToSettingsAsync()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
 
         if (Shell.Current is { } shell)
         {
@@ -128,7 +137,10 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     [ReactiveCommand(CanExecute = nameof(CanNavigateToDancerSettings))]
     private async Task NavigateToDancerSettingsAsync()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
 
         if (Shell.Current is { } shell)
         {
@@ -139,21 +151,30 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     [ReactiveCommand]
     private Task OpenChoreoAsync()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
         return Task.CompletedTask;
     }
 
     [ReactiveCommand(CanExecute = nameof(CanSaveChoreo))]
     private Task SaveChoreoAsync()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
         return Task.CompletedTask;
     }
 
     [ReactiveCommand(CanExecute = nameof(CanDeleteScene))]
     private void DeleteScene()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
 
         if (SelectedScene is null)
         {

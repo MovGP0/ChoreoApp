@@ -55,7 +55,11 @@ public sealed partial class SwapDancersDialogViewModel : ReactiveObject, IActiva
     [ReactiveCommand]
     private void ConfirmSwap()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
+
         SwapProperties(_firstDancer, _secondDancer);
         CloseDialog();
     }
@@ -63,7 +67,11 @@ public sealed partial class SwapDancersDialogViewModel : ReactiveObject, IActiva
     [ReactiveCommand]
     private void Cancel()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
+
         CloseDialog();
     }
 

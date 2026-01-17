@@ -79,7 +79,10 @@ public partial class MainPage: IDisposable
 
     private void OnBurgerClicked(object? sender, EventArgs e)
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
         Drawer.IsLeftDrawerOpen = HamburgerButton.IsChecked;
     }
 }

@@ -40,7 +40,11 @@ public sealed partial class SceneViewModel: ReactiveObject, IActivatableViewMode
     [ReactiveCommand]
     private void SelectScene()
     {
-        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        if (_hapticFeedback.IsSupported)
+        {
+            _hapticFeedback.Perform(HapticFeedbackType.Click);
+        }
+
         IsSelected = true;
     }
 
