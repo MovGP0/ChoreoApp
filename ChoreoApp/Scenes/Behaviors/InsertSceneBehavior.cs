@@ -2,6 +2,7 @@ using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Main.Messages;
 using ChoreoApp.Models;
+using ChoreoApp.Scenes.Events;
 using MessagePipe;
 using Colors = Microsoft.Maui.Graphics.Colors;
 
@@ -9,6 +10,7 @@ namespace ChoreoApp.Scenes.Behaviors;
 
 public sealed class InsertSceneBehavior(
     Global.GlobalStateModel globalState,
+    IHapticFeedback hapticFeedback,
     IServiceProvider serviceProvider,
     IPublisher<ShowDialogCommand> showDialogPublisher,
     IPublisher<CloseDialogCommand> closeDialogPublisher) :
@@ -38,6 +40,7 @@ public sealed class InsertSceneBehavior(
 
         var dialogViewModel = new CopyScenePositionsDialogViewModel(
             closeDialogPublisher,
+            hapticFeedback,
             selectedScene,
             copyPositions => InsertScene(viewModel, insertAfter, copyPositions));
         var dialogView = new CopyScenePositionsDialogView { ViewModel = dialogViewModel };

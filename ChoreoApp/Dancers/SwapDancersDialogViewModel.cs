@@ -11,13 +11,16 @@ public sealed partial class SwapDancersDialogViewModel : ReactiveObject, IActiva
     private readonly IPublisher<CloseDancerDialogCommand> _closeDialogPublisher;
     private readonly DancerModel _firstDancer;
     private readonly DancerModel _secondDancer;
+    private readonly IHapticFeedback _hapticFeedback;
 
     public SwapDancersDialogViewModel(
         IPublisher<CloseDancerDialogCommand> closeDialogPublisher,
+        IHapticFeedback hapticFeedback,
         DancerModel firstDancer,
         DancerModel secondDancer)
     {
         _closeDialogPublisher = closeDialogPublisher;
+        _hapticFeedback = hapticFeedback;
         _firstDancer = firstDancer;
         _secondDancer = secondDancer;
 
@@ -52,6 +55,7 @@ public sealed partial class SwapDancersDialogViewModel : ReactiveObject, IActiva
     [ReactiveCommand]
     private void ConfirmSwap()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
         SwapProperties(_firstDancer, _secondDancer);
         CloseDialog();
     }
@@ -59,6 +63,7 @@ public sealed partial class SwapDancersDialogViewModel : ReactiveObject, IActiva
     [ReactiveCommand]
     private void Cancel()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
         CloseDialog();
     }
 

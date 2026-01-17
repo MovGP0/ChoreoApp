@@ -16,12 +16,13 @@ namespace ChoreoApp.Floor.Behaviors;
 public sealed class MovePositionsBehavior(
     Global.GlobalStateModel globalState,
     ApplicationStateMachine stateMachine,
+    IVibration vibration,
     IPublisher<RedrawFloorCommand> redrawFloorPublisher,
     ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber)
     : IBehavior<FloorCanvasViewModel>
 {
     private const float PointerMoveThreshold = 6f;
-
+    private static readonly TimeSpan DragVibrationDuration = TimeSpan.FromMilliseconds(20);
     private readonly Dictionary<long, Point> _touchStartPositions = new();
     private readonly HashSet<long> _touchMoved = new();
 
@@ -344,6 +345,7 @@ public sealed class MovePositionsBehavior(
         globalState.SelectionRectangle = null;
         stateMachine.TryApply(new MovePositionsDragStartedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
+        vibration.Vibrate(DragVibrationDuration);
     }
 
     private void UpdateDrag(Point floorPoint)
@@ -383,6 +385,7 @@ public sealed class MovePositionsBehavior(
         _lastDragFloorPoint = null;
         stateMachine.TryApply(new MovePositionsDragCompletedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
+        vibration.Cancel();
     }
 
     private void StartSelection(Point floorPoint)
@@ -426,6 +429,8 @@ public sealed class MovePositionsBehavior(
 
     private void ClearSelection()
     {
+        var wasDragActive = _dragActive;
+
         globalState.SelectedPositions.Clear();
         globalState.SelectionRectangle = null;
         _selectionActive = false;
@@ -433,6 +438,11 @@ public sealed class MovePositionsBehavior(
         _dragStartPositions.Clear();
         _dragStartFloorPoint = null;
         _lastDragFloorPoint = null;
+        if (wasDragActive)
+        {
+            vibration.Cancel();
+        }
+
         ResetPointerState();
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }

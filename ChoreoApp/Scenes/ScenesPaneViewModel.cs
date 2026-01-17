@@ -15,14 +15,17 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     private readonly GlobalStateModel _globalState;
     private readonly IPublisher<Main.Messages.ShowDialogCommand> _showDialogPublisher;
     private readonly IPublisher<Main.Messages.CloseDialogCommand> _closeDialogPublisher;
+    private readonly IHapticFeedback _hapticFeedback;
 
     public ScenesPaneViewModel(
         GlobalStateModel globalState,
         IEnumerable<IBehavior<ScenesPaneViewModel>> behaviors,
+        IHapticFeedback hapticFeedback,
         IPublisher<Main.Messages.ShowDialogCommand> showDialogPublisher,
         IPublisher<Main.Messages.CloseDialogCommand> closeDialogPublisher)
     {
         _globalState = globalState;
+        _hapticFeedback = hapticFeedback;
         _showDialogPublisher = showDialogPublisher;
         _closeDialogPublisher = closeDialogPublisher;
 
@@ -73,11 +76,13 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     [ReactiveCommand]
     private void AddSceneBefore()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
     }
 
     [ReactiveCommand]
     private void AddSceneAfter()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
     }
 
     internal void RefreshScenes()
@@ -112,6 +117,8 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     [ReactiveCommand(CanExecute = nameof(CanNavigateToSettings))]
     private async Task NavigateToSettingsAsync()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
+
         if (Shell.Current is { } shell)
         {
             await shell.GoToAsync(nameof(SettingsPage));
@@ -121,6 +128,8 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     [ReactiveCommand(CanExecute = nameof(CanNavigateToDancerSettings))]
     private async Task NavigateToDancerSettingsAsync()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
+
         if (Shell.Current is { } shell)
         {
             await shell.GoToAsync(nameof(DancerSettingsPage));
@@ -128,20 +137,34 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     }
 
     [ReactiveCommand]
-    private Task OpenChoreoAsync() => Task.CompletedTask;
+    private Task OpenChoreoAsync()
+    {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        return Task.CompletedTask;
+    }
 
     [ReactiveCommand(CanExecute = nameof(CanSaveChoreo))]
-    private Task SaveChoreoAsync() => Task.CompletedTask;
+    private Task SaveChoreoAsync()
+    {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
+        return Task.CompletedTask;
+    }
 
     [ReactiveCommand(CanExecute = nameof(CanDeleteScene))]
     private void DeleteScene()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
+
         if (SelectedScene is null)
         {
             return;
         }
 
-        var dialogViewModel = new DeleteSceneDialogViewModel(_globalState, _closeDialogPublisher, SelectedScene);
+        var dialogViewModel = new DeleteSceneDialogViewModel(
+            _globalState,
+            _closeDialogPublisher,
+            _hapticFeedback,
+            SelectedScene);
         var dialogView = new DeleteSceneDialogView { ViewModel = dialogViewModel };
         _showDialogPublisher.Publish(new Main.Messages.ShowDialogCommand(dialogView));
     }
@@ -154,5 +177,3 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
             && File.Exists(path);
     }
 }
-
-

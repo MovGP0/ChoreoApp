@@ -1,7 +1,6 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Models;
-using ChoreoApp.Settings;
 using MessagePipe;
 
 namespace ChoreoApp.AudioPlayer.Behaviors;

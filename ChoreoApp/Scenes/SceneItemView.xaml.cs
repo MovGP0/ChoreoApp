@@ -1,6 +1,5 @@
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
-using ReactiveUI;
 using ReactiveUI.Maui;
 
 namespace ChoreoApp.Scenes;

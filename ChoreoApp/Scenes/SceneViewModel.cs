@@ -5,8 +5,14 @@ namespace ChoreoApp.Scenes;
 
 public sealed partial class SceneViewModel: ReactiveObject, IActivatableViewModel
 {
-    public SceneViewModel(IEnumerable<IBehavior<SceneViewModel>> behaviors)
+    private readonly IHapticFeedback _hapticFeedback;
+
+    public SceneViewModel(
+        IEnumerable<IBehavior<SceneViewModel>> behaviors,
+        IHapticFeedback hapticFeedback)
     {
+        _hapticFeedback = hapticFeedback;
+
         this.WhenActivated(disposables =>
         {
             foreach (var behavior in behaviors)
@@ -34,6 +40,7 @@ public sealed partial class SceneViewModel: ReactiveObject, IActivatableViewMode
     [ReactiveCommand]
     private void SelectScene()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
         IsSelected = true;
     }
 

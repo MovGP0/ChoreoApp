@@ -16,11 +16,13 @@ namespace ChoreoApp.Floor.Behaviors;
 public sealed class ScalePositionsBehavior(
     Global.GlobalStateModel globalState,
     ApplicationStateMachine stateMachine,
+    IVibration vibration,
     IPublisher<RedrawFloorCommand> redrawFloorPublisher,
     ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber)
     : IBehavior<FloorCanvasViewModel>
 {
     private const float PointerMoveThreshold = 6f;
+    private static readonly TimeSpan DragVibrationDuration = TimeSpan.FromMilliseconds(20);
 
     private readonly Dictionary<long, Point> _touchStartPositions = new();
     private readonly HashSet<long> _touchMoved = new();
@@ -405,6 +407,7 @@ public sealed class ScalePositionsBehavior(
         globalState.SelectionRectangle = null;
         stateMachine.TryApply(new ScalePositionsDragStartedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
+        vibration.Vibrate(DragVibrationDuration);
     }
 
     private void UpdateScale(Point floorPoint)
@@ -451,10 +454,13 @@ public sealed class ScalePositionsBehavior(
         _lastScaleFloorPoint = null;
         stateMachine.TryApply(new ScalePositionsDragCompletedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
+        vibration.Cancel();
     }
 
     private void ClearSelection()
     {
+        var wasScaleActive = _scaleActive;
+
         globalState.SelectedPositions.Clear();
         globalState.SelectionRectangle = null;
         _selectionActive = false;
@@ -463,6 +469,11 @@ public sealed class ScalePositionsBehavior(
         _scaleCenter = null;
         _scaleStartDistance = null;
         _lastScaleFloorPoint = null;
+        if (wasScaleActive)
+        {
+            vibration.Cancel();
+        }
+
         ResetPointerState();
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }

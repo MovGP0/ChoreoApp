@@ -17,6 +17,7 @@ public sealed class ScaleAroundDancerBehavior(
     Global.GlobalStateModel globalState,
     ApplicationStateMachine stateMachine,
     TimeProvider timeProvider,
+    IVibration vibration,
     IPublisher<RedrawFloorCommand> redrawFloorPublisher,
     ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber)
     : IBehavior<FloorCanvasViewModel>
@@ -24,8 +25,8 @@ public sealed class ScaleAroundDancerBehavior(
     private const float PointerMoveThreshold = 6f;
     private const float DoubleTapDistanceThreshold = 12f;
     private const int DoubleTapTimeThresholdMs = 400;
+    private static readonly TimeSpan DragVibrationDuration = TimeSpan.FromMilliseconds(20);
 
-    private readonly TimeProvider _timeProvider = timeProvider;
     private readonly Dictionary<long, Point> _touchStartPositions = new();
     private readonly HashSet<long> _touchMoved = new();
 
@@ -464,6 +465,7 @@ public sealed class ScaleAroundDancerBehavior(
         globalState.SelectionRectangle = null;
         stateMachine.TryApply(new ScaleAroundDancerDragStartedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
+        vibration.Vibrate(DragVibrationDuration);
     }
 
     private void UpdateRotation(Point floorPoint)
@@ -510,6 +512,7 @@ public sealed class ScaleAroundDancerBehavior(
         _lastRotationFloorPoint = null;
         stateMachine.TryApply(new ScaleAroundDancerDragCompletedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
+        vibration.Cancel();
     }
 
     private void CancelRotation()
@@ -525,10 +528,13 @@ public sealed class ScaleAroundDancerBehavior(
         _rotationStartAngle = null;
         _lastRotationFloorPoint = null;
         stateMachine.TryApply(new ScaleAroundDancerDragCompletedTrigger());
+        vibration.Cancel();
     }
 
     private void ClearSelection()
     {
+        var wasRotationActive = _rotationActive;
+
         globalState.SelectedPositions.Clear();
         globalState.SelectionRectangle = null;
         _selectionActive = false;
@@ -538,6 +544,11 @@ public sealed class ScaleAroundDancerBehavior(
         _rotationStartAngle = null;
         _lastRotationFloorPoint = null;
         _rotationAnchorPosition = null;
+        if (wasRotationActive)
+        {
+            vibration.Cancel();
+        }
+
         ResetTapState();
         ResetPointerState();
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
@@ -578,7 +589,7 @@ public sealed class ScaleAroundDancerBehavior(
         }
 
         isTapOnPosition = true;
-        var now = _timeProvider.GetUtcNow();
+        var now = timeProvider.GetUtcNow();
         var isDoubleTap = _lastTapTimestamp is not null
             && _lastTapViewPoint is not null
             && _lastTapPosition == hitPosition

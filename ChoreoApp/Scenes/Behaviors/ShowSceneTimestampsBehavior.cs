@@ -1,9 +1,7 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
-using System.Reactive.Linq;
 using ChoreoApp.ChoreographySettings.Messages;
 using ChoreoApp.Global;
-using ChoreoApp.Settings;
 using MessagePipe;
 
 namespace ChoreoApp.Scenes.Behaviors;

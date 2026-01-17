@@ -1,6 +1,5 @@
 using ChoreoApp.Logging;
 using ChoreoApp.Models;
-using ChoreoApp.Settings;
 using Microsoft.Extensions.Logging;
 using MaterialDesignThemes.Maui;
 using MaterialColorUtilities;

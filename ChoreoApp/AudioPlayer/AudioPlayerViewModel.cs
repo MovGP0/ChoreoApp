@@ -5,9 +5,14 @@ namespace ChoreoApp.AudioPlayer;
 public sealed partial class AudioPlayerViewModel : ReactiveObject, IActivatableViewModel
 {
     private const double DefaultPreparationSeconds = 4d;
+    private readonly IHapticFeedback _hapticFeedback;
 
-    public AudioPlayerViewModel(IEnumerable<IBehavior<AudioPlayerViewModel>> behaviors)
+    public AudioPlayerViewModel(
+        IEnumerable<IBehavior<AudioPlayerViewModel>> behaviors,
+        IHapticFeedback hapticFeedback)
     {
+        _hapticFeedback = hapticFeedback;
+
         this.WhenActivated(disposables =>
         {
             foreach (var behavior in behaviors)
@@ -75,6 +80,8 @@ public sealed partial class AudioPlayerViewModel : ReactiveObject, IActivatableV
     [ReactiveCommand]
     private Task TogglePlayPauseAsync()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
+
         var player = Player;
 
         if (player is null)
@@ -138,6 +145,8 @@ public sealed partial class AudioPlayerViewModel : ReactiveObject, IActivatableV
     [ReactiveCommand(CanExecute = nameof(CanLinkSceneToPosition))]
     private Task LinkSceneToPositionAsync()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
+
         // Handled by the link behavior.
         return Task.CompletedTask;
     }

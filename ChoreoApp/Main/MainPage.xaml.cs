@@ -12,14 +12,17 @@ public partial class MainPage: IDisposable
 {
     private static readonly ILogger Logger = AppLogger.CreateLogger<MainPage>();
     private CompositeDisposable Disposables { get; } = new();
+    private readonly IHapticFeedback _hapticFeedback;
     public void Dispose() => Disposables.Dispose();
 
     public MainPage(
         MainViewModel viewModel,
         ScenesPaneViewModel scenesVm,
         FloorCanvasViewModel floorVm,
-        ChoreographySettings.ChoreographySettingsViewModel choreographySettingsViewModel)
+        ChoreographySettings.ChoreographySettingsViewModel choreographySettingsViewModel,
+        IHapticFeedback hapticFeedback)
     {
+        _hapticFeedback = hapticFeedback;
         try
         {
             InitializeComponent();
@@ -76,6 +79,7 @@ public partial class MainPage: IDisposable
 
     private void OnBurgerClicked(object? sender, EventArgs e)
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
         Drawer.IsLeftDrawerOpen = HamburgerButton.IsChecked;
     }
 }

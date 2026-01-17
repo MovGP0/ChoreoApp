@@ -3,7 +3,6 @@ using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.Floor.Messages;
 using ChoreoApp.Models;
-using ChoreoApp.Settings;
 using MessagePipe;
 
 namespace ChoreoApp.ChoreographySettings.Behaviors;

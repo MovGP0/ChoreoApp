@@ -5,7 +5,6 @@ using ChoreoApp.ChoreographySettings.Messages;
 using ChoreoApp.Floor.Messages;
 using ChoreoApp.Global;
 using ChoreoApp.Models;
-using ChoreoApp.Settings;
 using MessagePipe;
 
 namespace ChoreoApp.ChoreographySettings.Behaviors;

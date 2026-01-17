@@ -16,10 +16,12 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
         IEnumerable<IBehavior<MainViewModel>> behaviors,
         GlobalStateModel globalState,
         ApplicationStateMachine stateMachine,
-        AudioPlayerViewModel audioPlayerViewModel)
+        AudioPlayerViewModel audioPlayerViewModel,
+        IHapticFeedback hapticFeedback)
     {
         _globalState = globalState;
         _stateMachine = stateMachine;
+        _hapticFeedback = hapticFeedback;
         AudioPlayerViewModel = audioPlayerViewModel;
 
         ModeOptions = BuildModeOptions();
@@ -74,6 +76,7 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
     private const double DefaultNavWidth = 280d;
     private readonly GlobalStateModel _globalState;
     private readonly ApplicationStateMachine _stateMachine;
+    private readonly IHapticFeedback _hapticFeedback;
 
     public ViewModelActivator Activator { get; } = new();
     public AudioPlayerViewModel AudioPlayerViewModel { get; }
@@ -106,18 +109,21 @@ public sealed partial class MainViewModel : ReactiveObject, IActivatableViewMode
     [ReactiveCommand]
     private Task OpenAudioAsync()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
         return Task.CompletedTask;
     }
 
     [ReactiveCommand]
     private Task OpenImageAsync()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
         return Task.CompletedTask;
     }
 
     [ReactiveCommand]
     private void OpenChoreographySettings()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
         IsChoreographySettingsOpen = true;
     }
 

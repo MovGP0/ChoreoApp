@@ -4,7 +4,6 @@ using System.Reactive.Linq;
 using ChoreoApp.Global;
 using ChoreoApp.Main.Messages;
 using ChoreoApp.Models;
-using ChoreoApp.Settings;
 using MessagePipe;
 
 namespace ChoreoApp.Main.Behaviors;

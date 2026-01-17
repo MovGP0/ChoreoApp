@@ -10,15 +10,18 @@ public sealed partial class DeleteSceneDialogViewModel : ReactiveObject, IActiva
 {
     private readonly GlobalStateModel _globalState;
     private readonly IPublisher<CloseDialogCommand> _closeDialogPublisher;
+    private readonly IHapticFeedback _hapticFeedback;
     private readonly SceneViewModel? _scene;
 
     public DeleteSceneDialogViewModel(
         GlobalStateModel globalState,
         IPublisher<CloseDialogCommand> closeDialogPublisher,
+        IHapticFeedback hapticFeedback,
         SceneViewModel? scene)
     {
         _globalState = globalState;
         _closeDialogPublisher = closeDialogPublisher;
+        _hapticFeedback = hapticFeedback;
         _scene = scene;
 
         var name = scene?.Name;
@@ -47,6 +50,8 @@ public sealed partial class DeleteSceneDialogViewModel : ReactiveObject, IActiva
     [ReactiveCommand]
     private void ConfirmDelete()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
+
         if (_scene is null)
         {
             CloseDialog();
@@ -60,6 +65,7 @@ public sealed partial class DeleteSceneDialogViewModel : ReactiveObject, IActiva
     [ReactiveCommand]
     private void Cancel()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
         CloseDialog();
     }
 

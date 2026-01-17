@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using ChoreoApp.i18n;
 using ChoreoApp.Main.Messages;
+using ChoreoApp.Scenes.Events;
 using MessagePipe;
 
 namespace ChoreoApp.Scenes;
@@ -8,18 +9,22 @@ namespace ChoreoApp.Scenes;
 public sealed partial class CopyScenePositionsDialogViewModel : ReactiveObject, IActivatableViewModel
 {
     private readonly IPublisher<CloseDialogCommand> _closeDialogPublisher;
-    private readonly Action<bool> _onDecision;
+    private readonly IPublisher<CopyScenePositionsDecisionEvent> _decisionPublisher;
+    private readonly IHapticFeedback _hapticFeedback;
 
     public CopyScenePositionsDialogViewModel(
         IPublisher<CloseDialogCommand> closeDialogPublisher,
-        SceneViewModel? selectedScene,
-        Action<bool> onDecision)
+        IPublisher<CopyScenePositionsDecisionEvent> decisionPublisher,
+        IHapticFeedback hapticFeedback,
+        SceneViewModel? selectedScene)
     {
         ArgumentNullException.ThrowIfNull(closeDialogPublisher);
-        ArgumentNullException.ThrowIfNull(onDecision);
+        ArgumentNullException.ThrowIfNull(decisionPublisher);
+        ArgumentNullException.ThrowIfNull(hapticFeedback);
 
         _closeDialogPublisher = closeDialogPublisher;
-        _onDecision = onDecision;
+        _hapticFeedback = hapticFeedback;
+        _decisionPublisher = decisionPublisher;
 
         var name = selectedScene?.Name;
         if (string.IsNullOrWhiteSpace(name))
@@ -50,15 +55,17 @@ public sealed partial class CopyScenePositionsDialogViewModel : ReactiveObject, 
     [ReactiveCommand]
     private void ConfirmCopy()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
         CloseDialog();
-        _onDecision(true);
+        _decisionPublisher.Publish(new CopyScenePositionsDecisionEvent(CopyScenePositionsDecision.CopyPositions));
     }
 
     [ReactiveCommand]
     private void DeclineCopy()
     {
+        _hapticFeedback.Perform(HapticFeedbackType.Click);
         CloseDialog();
-        _onDecision(false);
+        _decisionPublisher.Publish(new CopyScenePositionsDecisionEvent(CopyScenePositionsDecision.KeepPositions));
     }
 
     private void CloseDialog()

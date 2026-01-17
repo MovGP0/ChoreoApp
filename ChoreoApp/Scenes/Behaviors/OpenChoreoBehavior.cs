@@ -2,7 +2,6 @@ using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.AudioPlayer;
 using ChoreoApp.Models;
-using ChoreoApp.Settings;
 using ChoreoMasterMobile.Json;
 using MessagePipe;
 

@@ -3,7 +3,6 @@ using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Algorithms.Hungarian;
 using ChoreoApp.Floor.Messages;
-using ChoreoApp.Models;
 using ChoreoApp.StateMachine;
 using ChoreoApp.StateMachine.States;
 using MessagePipe;

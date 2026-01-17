@@ -6,6 +6,7 @@ using MessagePipe;
 namespace ChoreoApp.Dancers.Behaviors;
 
 public sealed class SwapDancersBehavior(
+    IHapticFeedback hapticFeedback,
     IPublisher<ShowDancerDialogCommand> showDialogPublisher,
     IPublisher<CloseDancerDialogCommand> closeDialogPublisher):
     IBehavior<DancerSettingsViewModel>
@@ -31,6 +32,7 @@ public sealed class SwapDancersBehavior(
 
         var dialogViewModel = new SwapDancersDialogViewModel(
             closeDialogPublisher,
+            hapticFeedback,
             viewModel.SwapFromDancer,
             viewModel.SwapToDancer);
         var dialogView = new SwapDancersDialogView { ViewModel = dialogViewModel };

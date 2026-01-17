@@ -85,6 +85,11 @@ global using Microsoft.Extensions.DependencyInjection;
   - Add `x:DataType` on views and `DataTemplate` roots where bindings are used.
   - For bindings that use `Source=...`, keep `MauiEnableXamlCBindingWithSourceCompilation` set to `true` in project files.
   - If a binding cannot be compiled safely (e.g., attached-property bindings), opt out with `x:DataType="{x:Null}"` on that binding or container.
+- Haptics & vibration:
+  - `IHapticFeedback` and `IVibration` are registered in `ChoreoApp/MauiProgram.cs`. Inject into ViewModels/Behaviors that handle input.
+  - Use `hapticFeedback.Perform(HapticFeedbackType.Click)` for click actions and `HapticFeedbackType.LongPress` for long-press actions.
+  - For drag operations, use `vibration.Vibrate(TimeSpan)` and call `vibration.Cancel()` when the drag completes or cancels.
+  - Android requires `<uses-permission android:name="android.permission.VIBRATE" />` in `ChoreoApp/Platforms/Android/AndroidManifest.xml`.
 
 ## ReactiveUI Specific
 - The documentation for ReactiveUI can be found at https://reactiveui.net/docs/
