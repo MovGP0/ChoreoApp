@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:buttons="clr-namespace:MaterialDesignDemo.Maui.Buttons"
+    xmlns:splitButtons="clr-namespace:MaterialDesignDemo.Maui.SplitButtons"
     xmlns:cards="clr-namespace:MaterialDesignDemo.Maui.Cards"
     xmlns:chips="clr-namespace:MaterialDesignDemo.Maui.Chips"
     xmlns:comboBoxes="clr-namespace:MaterialDesignDemo.Maui.ComboBoxes"
@@ -32,6 +33,7 @@
         <ShellContent Title="Palette" ContentTemplate="{DataTemplate palette:PaletteSelectorPage}" Route="Palette" />
         <ShellContent Title="ColorTool" ContentTemplate="{DataTemplate colorTool:ColorToolPage}" Route="ColorTool" />
         <ShellContent Title="Buttons" ContentTemplate="{DataTemplate buttons:ButtonsPage}" Route="Buttons" />
+        <ShellContent Title="Split Buttons" ContentTemplate="{DataTemplate splitButtons:SplitButtonsPage}" Route="SplitButtons" />
         <ShellContent Title="Cards" ContentTemplate="{DataTemplate cards:CardsPage}" Route="Cards" />
         <ShellContent Title="Chips" ContentTemplate="{DataTemplate chips:ChipsPage}" Route="Chips" />
         <ShellContent Title="ColorZones" ContentTemplate="{DataTemplate colorZones:ColorZonesPage}" Route="ColorZones" />

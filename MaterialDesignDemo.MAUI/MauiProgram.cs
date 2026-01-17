@@ -15,6 +15,7 @@ using MaterialDesignDemo.Maui.FieldsLineUp;
 using MaterialDesignDemo.Maui.Home;
 using MaterialDesignDemo.Maui.PaletteSelector;
 using MaterialDesignDemo.Maui.Snackbars;
+using MaterialDesignDemo.Maui.SplitButtons;
 using MaterialDesignDemo.Maui.ThemeSettings;
 using MaterialDesignDemo.Maui.ToolTips;
 using MaterialDesignDemo.Maui.Toggles;
@@ -47,6 +48,7 @@ public static class MauiProgram
         builder.Services.AddPaletteSelector();
         builder.Services.AddColorTool();
         builder.Services.AddButtons();
+        builder.Services.AddSplitButtons();
         builder.Services.AddCards();
         builder.Services.AddChips();
         builder.Services.AddColorZones();

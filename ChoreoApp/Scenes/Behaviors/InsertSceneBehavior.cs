@@ -13,9 +13,15 @@ public sealed class InsertSceneBehavior(
     IHapticFeedback hapticFeedback,
     IServiceProvider serviceProvider,
     IPublisher<ShowDialogCommand> showDialogPublisher,
-    IPublisher<CloseDialogCommand> closeDialogPublisher) :
+    IPublisher<CloseDialogCommand> closeDialogPublisher,
+    IPublisher<CopyScenePositionsDecisionEvent> copyScenePositionsDecisionPublisher,
+    ISubscriber<CopyScenePositionsDecisionEvent> copyScenePositionsDecisionSubscriber) :
     IBehavior<ScenesPaneViewModel>
 {
+    private bool _awaitingCopyDecision;
+    private bool _pendingInsertAfter;
+    private ScenesPaneViewModel? _pendingViewModel;
+
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
     {
         viewModel
@@ -26,6 +32,10 @@ public sealed class InsertSceneBehavior(
         viewModel
             .AddSceneAfterCommand
             .Subscribe(_ => HandleInsertScene(viewModel, insertAfter: true))
+            .DisposeWith(disposables);
+
+        copyScenePositionsDecisionSubscriber
+            .Subscribe(HandleCopyScenePositionsDecision)
             .DisposeWith(disposables);
     }
 
@@ -38,13 +48,34 @@ public sealed class InsertSceneBehavior(
             return;
         }
 
+        _pendingViewModel = viewModel;
+        _pendingInsertAfter = insertAfter;
+        _awaitingCopyDecision = true;
+
         var dialogViewModel = new CopyScenePositionsDialogViewModel(
             closeDialogPublisher,
+            copyScenePositionsDecisionPublisher,
             hapticFeedback,
-            selectedScene,
-            copyPositions => InsertScene(viewModel, insertAfter, copyPositions));
+            selectedScene);
         var dialogView = new CopyScenePositionsDialogView { ViewModel = dialogViewModel };
         showDialogPublisher.Publish(new ShowDialogCommand(dialogView));
+    }
+
+    private void HandleCopyScenePositionsDecision(CopyScenePositionsDecisionEvent decisionEvent)
+    {
+        if (!_awaitingCopyDecision || _pendingViewModel is null)
+        {
+            return;
+        }
+
+        var viewModel = _pendingViewModel;
+        var insertAfter = _pendingInsertAfter;
+        var copyPositions = decisionEvent.Decision == CopyScenePositionsDecision.CopyPositions;
+
+        _awaitingCopyDecision = false;
+        _pendingViewModel = null;
+
+        InsertScene(viewModel, insertAfter, copyPositions);
     }
 
     private void InsertScene(ScenesPaneViewModel viewModel, bool insertAfter, bool copyPositions)
