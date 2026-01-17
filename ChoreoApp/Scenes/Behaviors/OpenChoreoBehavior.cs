@@ -10,6 +10,7 @@ namespace ChoreoApp.Scenes.Behaviors;
 public sealed class OpenChoreoBehavior(
     Global.GlobalStateModel globalState,
     Floor.IFloorRenderGate renderGate,
+    IPreferences preferences,
     IPublisher<OpenAudioFileCommand> openAudioPublisher,
     IPublisher<CloseAudioFileCommand> closeAudioPublisher) : IBehavior<ScenesPaneViewModel>
 {
@@ -72,7 +73,7 @@ public sealed class OpenChoreoBehavior(
     {
         await renderGate.WaitForFirstRenderAsync(cancellationToken);
 
-        var storedPath = Preferences.Default.Get(SettingsPreferenceKeys.LastOpenedChoreoFile, string.Empty);
+        var storedPath = preferences.Get(SettingsPreferenceKeys.LastOpenedChoreoFile, string.Empty);
         if (string.IsNullOrWhiteSpace(storedPath) || !File.Exists(storedPath))
         {
             return;
@@ -89,7 +90,7 @@ public sealed class OpenChoreoBehavior(
         MainThread.BeginInvokeOnMainThread(() =>
         {
             globalState.Choreography = mapped;
-            Preferences.Default.Set(SettingsPreferenceKeys.LastOpenedChoreoFile, path);
+            preferences.Set(SettingsPreferenceKeys.LastOpenedChoreoFile, path);
         });
 
         await TryLoadAudioAsync(path, mapped.Settings, cancellationToken);
@@ -117,7 +118,7 @@ public sealed class OpenChoreoBehavior(
 
         if (!candidates.Any())
         {
-            var storedAudioPath = Preferences.Default.Get(SettingsPreferenceKeys.LastOpenedAudioFile, string.Empty);
+            var storedAudioPath = preferences.Get(SettingsPreferenceKeys.LastOpenedAudioFile, string.Empty);
             if (!string.IsNullOrWhiteSpace(storedAudioPath))
             {
                 candidates.Add(storedAudioPath);

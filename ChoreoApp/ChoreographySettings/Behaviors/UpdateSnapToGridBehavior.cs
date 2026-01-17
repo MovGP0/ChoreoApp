@@ -10,12 +10,13 @@ namespace ChoreoApp.ChoreographySettings.Behaviors;
 
 public sealed class UpdateSnapToGridBehavior(
     GlobalStateModel globalState,
+    IPreferences preferences,
     IPublisher<RedrawFloorCommand> redrawFloorPublisher):
     IBehavior<ChoreographySettingsViewModel>
 {
     public void Activate(ChoreographySettingsViewModel viewModel, CompositeDisposable disposables)
     {
-        var snapToGrid = Preferences.Default.Get(SettingsPreferenceKeys.SnapToGrid, true);
+        var snapToGrid = preferences.Get(SettingsPreferenceKeys.SnapToGrid, true);
         viewModel.SnapToGrid = snapToGrid;
 
         if (globalState.Choreography is { } choreography)
@@ -34,7 +35,7 @@ public sealed class UpdateSnapToGridBehavior(
                 }
 
                 choreography.Settings.SnapToGrid = value;
-                Preferences.Default.Set(SettingsPreferenceKeys.SnapToGrid, value);
+                preferences.Set(SettingsPreferenceKeys.SnapToGrid, value);
                 redrawFloorPublisher.Publish(new());
             })
             .DisposeWith(disposables);

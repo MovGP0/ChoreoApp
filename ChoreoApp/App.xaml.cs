@@ -10,9 +10,12 @@ namespace ChoreoApp;
 public partial class App
 {
     private static readonly ILogger Logger = AppLogger.CreateLogger<App>();
+    private readonly IPreferences _preferences;
 
-    public App()
+    public App(IPreferences preferences)
     {
+        _preferences = preferences;
+
         try
         {
             InitializeComponent();
@@ -37,24 +40,24 @@ public partial class App
         return new Window(new AppShell());
     }
 
-    private static void ApplyStoredTheme(Application application)
+    private void ApplyStoredTheme(Application application)
     {
-        var useSystem = Preferences.Default.Get(SettingsPreferenceKeys.UseSystemTheme, true);
-        var storedTheme = Preferences.Default.Get(SettingsPreferenceKeys.Theme, "Light");
+        var useSystem = _preferences.Get(SettingsPreferenceKeys.UseSystemTheme, true);
+        var storedTheme = _preferences.Get(SettingsPreferenceKeys.Theme, "Light");
         var appTheme = storedTheme == "Dark" ? AppTheme.Dark : AppTheme.Light;
 
         if (useSystem)
         {
             application.UserAppTheme = AppTheme.Unspecified;
-            SetMaterialScheme(application.RequestedTheme);
+            SetMaterialScheme(application.RequestedTheme, _preferences);
             return;
         }
 
         application.UserAppTheme = appTheme;
-        SetMaterialScheme(appTheme);
+        SetMaterialScheme(appTheme, _preferences);
     }
 
-    private static void OnRequestedThemeChanged(object? sender, AppThemeChangedEventArgs e)
+    private void OnRequestedThemeChanged(object? sender, AppThemeChangedEventArgs e)
     {
         if (Current is not { } application)
         {
@@ -63,8 +66,8 @@ public partial class App
 
         Logger.LogInformation("Theme changed to {Theme}.", e.RequestedTheme);
 
-        var useSystem = Preferences.Default.Get(SettingsPreferenceKeys.UseSystemTheme, true);
-        Preferences.Default.Set(SettingsPreferenceKeys.Theme, e.RequestedTheme == AppTheme.Dark ? "Dark" : "Light");
+        var useSystem = _preferences.Get(SettingsPreferenceKeys.UseSystemTheme, true);
+        _preferences.Set(SettingsPreferenceKeys.Theme, e.RequestedTheme == AppTheme.Dark ? "Dark" : "Light");
 
         if (useSystem)
         {
@@ -75,10 +78,10 @@ public partial class App
             application.UserAppTheme = e.RequestedTheme;
         }
 
-        SetMaterialScheme(e.RequestedTheme);
+        SetMaterialScheme(e.RequestedTheme, _preferences);
     }
 
-    private static void SetMaterialScheme(AppTheme theme)
+    private static void SetMaterialScheme(AppTheme theme, IPreferences preferences)
     {
         if (Current is not { } application)
         {
@@ -105,9 +108,9 @@ public partial class App
         var contrast = 0.5;
         var defaultSource = Hct.FromInt(Color.ArgbFromColor(Color.FromRgb(0x19, 0x76, 0xD2)));
 
-        var usePrimary = Preferences.Default.Get(SettingsPreferenceKeys.UsePrimaryColor, false);
-        var useSecondary = Preferences.Default.Get(SettingsPreferenceKeys.UseSecondaryColor, false);
-        var useTertiary = Preferences.Default.Get(SettingsPreferenceKeys.UseTertiaryColor, false);
+        var usePrimary = preferences.Get(SettingsPreferenceKeys.UsePrimaryColor, false);
+        var useSecondary = preferences.Get(SettingsPreferenceKeys.UseSecondaryColor, false);
+        var useTertiary = preferences.Get(SettingsPreferenceKeys.UseTertiaryColor, false);
 
         if (!usePrimary)
         {
@@ -119,19 +122,19 @@ public partial class App
             useTertiary = false;
         }
 
-        var scheme = BuildScheme(defaultSource, isDark, contrast, usePrimary, useSecondary, useTertiary);
+        var scheme = BuildScheme(defaultSource, isDark, contrast, usePrimary, useSecondary, useTertiary, preferences);
 
         materialDictionary.SetScheme(scheme);
     }
 
-    public static void UpdateMaterialScheme()
+    public static void UpdateMaterialScheme(IPreferences preferences)
     {
         if (Current is not { } application)
         {
             return;
         }
 
-        SetMaterialScheme(application.UserAppTheme);
+        SetMaterialScheme(application.UserAppTheme, preferences);
     }
 
     private static SchemeContent BuildScheme(
@@ -140,9 +143,10 @@ public partial class App
         double contrast,
         bool usePrimary,
         bool useSecondary,
-        bool useTertiary)
+        bool useTertiary,
+        IPreferences preferences)
     {
-        var primaryColor = TryGetColor(SettingsPreferenceKeys.PrimaryColor, defaultSource);
+        var primaryColor = TryGetColor(SettingsPreferenceKeys.PrimaryColor, defaultSource, preferences);
 
         if (!usePrimary)
         {
@@ -151,11 +155,11 @@ public partial class App
 
         if (useSecondary)
         {
-            var secondaryColor = TryGetColor(SettingsPreferenceKeys.SecondaryColor, primaryColor);
+            var secondaryColor = TryGetColor(SettingsPreferenceKeys.SecondaryColor, primaryColor, preferences);
 
             if (useTertiary)
             {
-                var tertiaryColor = TryGetColor(SettingsPreferenceKeys.TertiaryColor, secondaryColor);
+                var tertiaryColor = TryGetColor(SettingsPreferenceKeys.TertiaryColor, secondaryColor, preferences);
                 return new SchemeContent(primaryColor, secondaryColor, tertiaryColor, isDark, contrast, SpecVersion.Spec2025, Platform.Phone);
             }
 
@@ -165,9 +169,9 @@ public partial class App
         return new SchemeContent(primaryColor, isDark, contrast, SpecVersion.Spec2025, Platform.Phone);
     }
 
-    private static Hct TryGetColor(string preferenceKey, Hct fallback)
+    private static Hct TryGetColor(string preferenceKey, Hct fallback, IPreferences preferences)
     {
-        var stored = Preferences.Default.Get(preferenceKey, string.Empty);
+        var stored = preferences.Get(preferenceKey, string.Empty);
         if (!string.IsNullOrWhiteSpace(stored) && Color.TryParse(stored, out var color))
         {
             return Hct.FromInt(Color.ArgbFromColor(color));

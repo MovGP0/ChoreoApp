@@ -24,7 +24,8 @@ public sealed class DrawFloorBehavior(
     ISubscriber<DrawFloorCommand> drawFloorCommandSubscriber,
     ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber,
     ISubscriber<AudioPlayerPositionChangedEvent> audioPositionSubscriber,
-    IFloorRenderGate renderGate):
+    IFloorRenderGate renderGate,
+    IPreferences preferences):
     IBehavior<FloorCanvasViewModel>
 {
     private readonly Dictionary<int, SKColor> _roleBorderColors = new();
@@ -581,14 +582,14 @@ public sealed class DrawFloorBehavior(
             paint.StrokeWidth = 2f;
 
             if (previous?.Positions is not null
-                && Preferences.Default.Get(SettingsPreferenceKeys.DrawPathFrom, true))
+                && preferences.Get(SettingsPreferenceKeys.DrawPathFrom, true))
             {
                 paint.PathEffect = SKPathEffect.CreateDash([6f, 6f], 0f);
                 DrawCurvesBetweenScenes(previous, current, paint, useDarkerColor: true);
             }
 
             if (next?.Positions is not null
-                && Preferences.Default.Get(SettingsPreferenceKeys.DrawPathTo, true))
+                && preferences.Get(SettingsPreferenceKeys.DrawPathTo, true))
             {
                 paint.PathEffect = null;
                 DrawCurvesBetweenScenes(current, next, paint, useDarkerColor: false);

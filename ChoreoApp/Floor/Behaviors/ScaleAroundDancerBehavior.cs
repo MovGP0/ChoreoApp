@@ -515,7 +515,10 @@ public sealed class ScaleAroundDancerBehavior(
         _lastRotationFloorPoint = null;
         stateMachine.TryApply(new ScaleAroundDancerDragCompletedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
-        vibration.Cancel();
+        if (vibration.IsSupported)
+        {
+            vibration.Cancel();
+        }
     }
 
     private void CancelRotation()
@@ -531,7 +534,10 @@ public sealed class ScaleAroundDancerBehavior(
         _rotationStartAngle = null;
         _lastRotationFloorPoint = null;
         stateMachine.TryApply(new ScaleAroundDancerDragCompletedTrigger());
-        vibration.Cancel();
+        if (vibration.IsSupported)
+        {
+            vibration.Cancel();
+        }
     }
 
     private void ClearSelection()
@@ -547,7 +553,7 @@ public sealed class ScaleAroundDancerBehavior(
         _rotationStartAngle = null;
         _lastRotationFloorPoint = null;
         _rotationAnchorPosition = null;
-        if (wasRotationActive)
+        if (wasRotationActive && vibration.IsSupported)
         {
             vibration.Cancel();
         }

@@ -10,12 +10,13 @@ namespace ChoreoApp.ChoreographySettings.Behaviors;
 
 public sealed class UpdatePositionsAtSideBehavior(
     GlobalStateModel globalState,
+    IPreferences preferences,
     IPublisher<RedrawFloorCommand> redrawFloorPublisher):
     IBehavior<ChoreographySettingsViewModel>
 {
     public void Activate(ChoreographySettingsViewModel viewModel, CompositeDisposable disposables)
     {
-        globalState.Choreography.Settings.PositionsAtSide = Preferences.Default.Get(SettingsPreferenceKeys.PositionsAtSide, true);
+        globalState.Choreography.Settings.PositionsAtSide = preferences.Get(SettingsPreferenceKeys.PositionsAtSide, true);
 
         viewModel
             .WhenAnyValue(vm => vm.PositionsAtSide)

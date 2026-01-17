@@ -388,7 +388,10 @@ public sealed class MovePositionsBehavior(
         _lastDragFloorPoint = null;
         stateMachine.TryApply(new MovePositionsDragCompletedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
-        vibration.Cancel();
+        if (vibration.IsSupported)
+        {
+            vibration.Cancel();
+        }
     }
 
     private void StartSelection(Point floorPoint)
@@ -441,7 +444,7 @@ public sealed class MovePositionsBehavior(
         _dragStartPositions.Clear();
         _dragStartFloorPoint = null;
         _lastDragFloorPoint = null;
-        if (wasDragActive)
+        if (wasDragActive && vibration.IsSupported)
         {
             vibration.Cancel();
         }

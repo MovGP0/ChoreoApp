@@ -11,6 +11,7 @@ namespace ChoreoApp.Main.Behaviors;
 public sealed class OpenSvgFileBehavior(
     GlobalStateModel globalState,
     Floor.IFloorRenderGate renderGate,
+    IPreferences preferences,
     ISubscriber<OpenSvgFileCommand> subscriber) : IBehavior<MainViewModel>
 {
     public void Activate(MainViewModel viewModel, CompositeDisposable disposables)
@@ -41,7 +42,7 @@ public sealed class OpenSvgFileBehavior(
     {
         await renderGate.WaitForFirstRenderAsync(cancellationToken);
 
-        var storedPath = Preferences.Default.Get(SettingsPreferenceKeys.LastOpenedSvgFile, string.Empty);
+        var storedPath = preferences.Get(SettingsPreferenceKeys.LastOpenedSvgFile, string.Empty);
         if (string.IsNullOrWhiteSpace(storedPath) || !File.Exists(storedPath))
         {
             return;
@@ -63,7 +64,7 @@ public sealed class OpenSvgFileBehavior(
         {
             globalState.SvgDocument = document;
             globalState.SvgFilePath = path;
-            Preferences.Default.Set(SettingsPreferenceKeys.LastOpenedSvgFile, path);
+            preferences.Set(SettingsPreferenceKeys.LastOpenedSvgFile, path);
         });
 
         previous?.Dispose();

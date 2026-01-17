@@ -11,13 +11,14 @@ namespace ChoreoApp.ChoreographySettings.Behaviors;
 
 public sealed class UpdateShowTimestampsBehavior(
     GlobalStateModel globalState,
+    IPreferences preferences,
     IPublisher<RedrawFloorCommand> redrawFloorPublisher,
     IPublisher<ShowTimestampsChangedEvent> showTimestampsChangedPublisher):
     IBehavior<ChoreographySettingsViewModel>
 {
     public void Activate(ChoreographySettingsViewModel viewModel, CompositeDisposable disposables)
     {
-        globalState.Choreography.Settings.ShowTimestamps = Preferences.Default.Get(SettingsPreferenceKeys.ShowTimestamps, true);
+        globalState.Choreography.Settings.ShowTimestamps = preferences.Get(SettingsPreferenceKeys.ShowTimestamps, true);
 
         viewModel
             .WhenAnyValue(vm => vm.ShowTimestamps)

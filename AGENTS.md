@@ -91,6 +91,7 @@ global using Microsoft.Extensions.DependencyInjection;
 - Use `HapticFeedbackType.Click` for click actions and `HapticFeedbackType.LongPress` for long-press actions.
   - For drag operations, use `vibration.Vibrate(TimeSpan)` and call `vibration.Cancel()` when the drag completes or cancels.
 - Android requires `<uses-permission android:name="android.permission.VIBRATE" />` in `ChoreoApp/Platforms/Android/AndroidManifest.xml`.
+- `IHapticFeedback` and `IVibration` may not be supported on all platforms and might throw exceptions when called; always check `IsSupported` before use.
 
 **Example:**
 ```csharp
@@ -103,6 +104,11 @@ if (hapticFeedback.IsSupported)
 if (vibration.IsSupported)
 {
     vibration.Vibrate(TimeSpan.FromMilliseconds(100));
+}
+
+if (vibration.IsSupported)
+{
+    vibration.Cancel();
 }
 ```
 

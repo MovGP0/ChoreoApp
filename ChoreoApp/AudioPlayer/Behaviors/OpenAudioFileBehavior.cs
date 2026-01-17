@@ -6,7 +6,8 @@ using MessagePipe;
 namespace ChoreoApp.AudioPlayer.Behaviors;
 
 public sealed class OpenAudioFileBehavior(
-    ISubscriber<OpenAudioFileCommand> subscriber):
+    ISubscriber<OpenAudioFileCommand> subscriber,
+    IPreferences preferences):
     IBehavior<AudioPlayerViewModel>
 {
     public void Activate(AudioPlayerViewModel viewModel, CompositeDisposable disposables)
@@ -16,7 +17,7 @@ public sealed class OpenAudioFileBehavior(
             .DisposeWith(disposables);
     }
 
-    private static void HandleOpen(
+    private void HandleOpen(
         AudioPlayerViewModel viewModel,
         OpenAudioFileCommand command)
     {
@@ -29,6 +30,6 @@ public sealed class OpenAudioFileBehavior(
         viewModel.Title = Path.GetFileName(filePath);
 
         viewModel.StreamFactory = () => Task.FromResult<Stream>(File.OpenRead(filePath));
-        Preferences.Default.Set(SettingsPreferenceKeys.LastOpenedAudioFile, filePath);
+        preferences.Set(SettingsPreferenceKeys.LastOpenedAudioFile, filePath);
     }
 }

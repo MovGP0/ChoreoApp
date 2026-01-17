@@ -16,16 +16,19 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
     private readonly IPublisher<Main.Messages.ShowDialogCommand> _showDialogPublisher;
     private readonly IPublisher<Main.Messages.CloseDialogCommand> _closeDialogPublisher;
     private readonly IHapticFeedback _hapticFeedback;
+    private readonly IPreferences _preferences;
 
     public ScenesPaneViewModel(
         GlobalStateModel globalState,
         IEnumerable<IBehavior<ScenesPaneViewModel>> behaviors,
         IHapticFeedback hapticFeedback,
+        IPreferences preferences,
         IPublisher<Main.Messages.ShowDialogCommand> showDialogPublisher,
         IPublisher<Main.Messages.CloseDialogCommand> closeDialogPublisher)
     {
         _globalState = globalState;
         _hapticFeedback = hapticFeedback;
+        _preferences = preferences;
         _showDialogPublisher = showDialogPublisher;
         _closeDialogPublisher = closeDialogPublisher;
 
@@ -192,7 +195,7 @@ public sealed partial class ScenesPaneViewModel : ReactiveObject, IActivatableVi
 
     private void UpdateCanSave()
     {
-        var path = Preferences.Default.Get(SettingsPreferenceKeys.LastOpenedChoreoFile, string.Empty);
+        var path = _preferences.Get(SettingsPreferenceKeys.LastOpenedChoreoFile, string.Empty);
         CanSaveChoreo = _globalState.Choreography is not null
             && !string.IsNullOrWhiteSpace(path)
             && File.Exists(path);

@@ -5,7 +5,7 @@ using ChoreoApp.Models;
 
 namespace ChoreoApp.Settings.Behaviors;
 
-public sealed class SwitchDarkLightModeBehavior : IBehavior<SettingsViewModel>
+public sealed class SwitchDarkLightModeBehavior(IPreferences preferences) : IBehavior<SettingsViewModel>
 {
     public void Activate(SettingsViewModel viewModel, CompositeDisposable disposables)
     {
@@ -25,9 +25,9 @@ public sealed class SwitchDarkLightModeBehavior : IBehavior<SettingsViewModel>
                 }
 
                 var theme = isDark ? "Dark" : "Light";
-                Preferences.Default.Set(SettingsPreferenceKeys.Theme, theme);
+                preferences.Set(SettingsPreferenceKeys.Theme, theme);
                 application.UserAppTheme = isDark ? AppTheme.Dark : AppTheme.Light;
-                App.UpdateMaterialScheme();
+                App.UpdateMaterialScheme(preferences);
             })
             .DisposeWith(disposables);
 
@@ -36,7 +36,7 @@ public sealed class SwitchDarkLightModeBehavior : IBehavior<SettingsViewModel>
             .Skip(1)
             .Subscribe(useSystem =>
             {
-                Preferences.Default.Set(SettingsPreferenceKeys.UseSystemTheme, useSystem);
+                preferences.Set(SettingsPreferenceKeys.UseSystemTheme, useSystem);
 
                 if (Application.Current is not { } application)
                 {
@@ -46,15 +46,15 @@ public sealed class SwitchDarkLightModeBehavior : IBehavior<SettingsViewModel>
                 if (useSystem)
                 {
                     application.UserAppTheme = AppTheme.Unspecified;
-                    App.UpdateMaterialScheme();
+                    App.UpdateMaterialScheme(preferences);
                     return;
                 }
 
                 var isDark = viewModel.IsDarkMode;
                 var theme = isDark ? "Dark" : "Light";
-                Preferences.Default.Set(SettingsPreferenceKeys.Theme, theme);
+                preferences.Set(SettingsPreferenceKeys.Theme, theme);
                 application.UserAppTheme = isDark ? AppTheme.Dark : AppTheme.Light;
-                App.UpdateMaterialScheme();
+                App.UpdateMaterialScheme(preferences);
             })
             .DisposeWith(disposables);
     }

@@ -10,6 +10,7 @@ namespace ChoreoApp.Main.Behaviors;
 
 public sealed class OpenImageBehavior(
     GlobalStateModel globalState,
+    IPreferences preferences,
     IPublisher<OpenSvgFileCommand> publisher)
     : IBehavior<MainViewModel>
 {
@@ -71,7 +72,7 @@ public sealed class OpenImageBehavior(
         {
             globalState.SvgDocument = null;
             globalState.SvgFilePath = null;
-            Preferences.Default.Remove(SettingsPreferenceKeys.LastOpenedSvgFile);
+            preferences.Remove(SettingsPreferenceKeys.LastOpenedSvgFile);
         });
 
         previous?.Dispose();

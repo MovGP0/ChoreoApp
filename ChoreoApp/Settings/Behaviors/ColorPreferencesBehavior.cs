@@ -5,7 +5,7 @@ using ChoreoApp.Models;
 
 namespace ChoreoApp.Settings.Behaviors;
 
-public sealed class ColorPreferencesBehavior : IBehavior<SettingsViewModel>
+public sealed class ColorPreferencesBehavior(IPreferences preferences) : IBehavior<SettingsViewModel>
 {
     public void Activate(SettingsViewModel viewModel, CompositeDisposable disposables)
     {
@@ -14,16 +14,16 @@ public sealed class ColorPreferencesBehavior : IBehavior<SettingsViewModel>
             .Skip(1)
             .Subscribe(enabled =>
             {
-                Preferences.Default.Set(SettingsPreferenceKeys.UsePrimaryColor, enabled);
+                preferences.Set(SettingsPreferenceKeys.UsePrimaryColor, enabled);
 
                 if (!enabled)
                 {
-                    Preferences.Default.Remove(SettingsPreferenceKeys.PrimaryColor);
+                    preferences.Remove(SettingsPreferenceKeys.PrimaryColor);
                     viewModel.UseSecondaryColor = false;
                     viewModel.UseTertiaryColor = false;
                 }
 
-                App.UpdateMaterialScheme();
+                App.UpdateMaterialScheme(preferences);
             })
             .DisposeWith(disposables);
 
@@ -38,15 +38,15 @@ public sealed class ColorPreferencesBehavior : IBehavior<SettingsViewModel>
                     return;
                 }
 
-                Preferences.Default.Set(SettingsPreferenceKeys.UseSecondaryColor, enabled);
+                preferences.Set(SettingsPreferenceKeys.UseSecondaryColor, enabled);
 
                 if (!enabled)
                 {
-                    Preferences.Default.Remove(SettingsPreferenceKeys.SecondaryColor);
+                    preferences.Remove(SettingsPreferenceKeys.SecondaryColor);
                     viewModel.UseTertiaryColor = false;
                 }
 
-                App.UpdateMaterialScheme();
+                App.UpdateMaterialScheme(preferences);
             })
             .DisposeWith(disposables);
 
@@ -61,14 +61,14 @@ public sealed class ColorPreferencesBehavior : IBehavior<SettingsViewModel>
                     return;
                 }
 
-                Preferences.Default.Set(SettingsPreferenceKeys.UseTertiaryColor, enabled);
+                preferences.Set(SettingsPreferenceKeys.UseTertiaryColor, enabled);
 
                 if (!enabled)
                 {
-                    Preferences.Default.Remove(SettingsPreferenceKeys.TertiaryColor);
+                    preferences.Remove(SettingsPreferenceKeys.TertiaryColor);
                 }
 
-                App.UpdateMaterialScheme();
+                App.UpdateMaterialScheme(preferences);
             })
             .DisposeWith(disposables);
 
@@ -82,8 +82,8 @@ public sealed class ColorPreferencesBehavior : IBehavior<SettingsViewModel>
                     return;
                 }
 
-                Preferences.Default.Set(SettingsPreferenceKeys.PrimaryColor, color.ToArgbHex());
-                App.UpdateMaterialScheme();
+                preferences.Set(SettingsPreferenceKeys.PrimaryColor, color.ToArgbHex());
+                App.UpdateMaterialScheme(preferences);
             })
             .DisposeWith(disposables);
 
@@ -97,8 +97,8 @@ public sealed class ColorPreferencesBehavior : IBehavior<SettingsViewModel>
                     return;
                 }
 
-                Preferences.Default.Set(SettingsPreferenceKeys.SecondaryColor, color.ToArgbHex());
-                App.UpdateMaterialScheme();
+                preferences.Set(SettingsPreferenceKeys.SecondaryColor, color.ToArgbHex());
+                App.UpdateMaterialScheme(preferences);
             })
             .DisposeWith(disposables);
 
@@ -112,8 +112,8 @@ public sealed class ColorPreferencesBehavior : IBehavior<SettingsViewModel>
                     return;
                 }
 
-                Preferences.Default.Set(SettingsPreferenceKeys.TertiaryColor, color.ToArgbHex());
-                App.UpdateMaterialScheme();
+                preferences.Set(SettingsPreferenceKeys.TertiaryColor, color.ToArgbHex());
+                App.UpdateMaterialScheme(preferences);
             })
             .DisposeWith(disposables);
     }

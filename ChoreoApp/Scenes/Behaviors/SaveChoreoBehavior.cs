@@ -5,7 +5,7 @@ using ChoreoMasterMobile.Json;
 
 namespace ChoreoApp.Scenes.Behaviors;
 
-public sealed class SaveChoreoBehavior(Global.GlobalStateModel globalState) : IBehavior<ScenesPaneViewModel>
+public sealed class SaveChoreoBehavior(Global.GlobalStateModel globalState, IPreferences preferences) : IBehavior<ScenesPaneViewModel>
 {
     private static readonly ChoreographyModelMapper Mapper = new();
     private static readonly SceneMapper SceneMapper = new();
@@ -25,7 +25,7 @@ public sealed class SaveChoreoBehavior(Global.GlobalStateModel globalState) : IB
             return Task.CompletedTask;
         }
 
-        var path = Preferences.Default.Get(SettingsPreferenceKeys.LastOpenedChoreoFile, string.Empty);
+        var path = preferences.Get(SettingsPreferenceKeys.LastOpenedChoreoFile, string.Empty);
         if (string.IsNullOrWhiteSpace(path))
         {
             return Task.CompletedTask;

@@ -457,7 +457,10 @@ public sealed class ScalePositionsBehavior(
         _lastScaleFloorPoint = null;
         stateMachine.TryApply(new ScalePositionsDragCompletedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
-        vibration.Cancel();
+        if (vibration.IsSupported)
+        {
+            vibration.Cancel();
+        }
     }
 
     private void ClearSelection()
@@ -472,7 +475,7 @@ public sealed class ScalePositionsBehavior(
         _scaleCenter = null;
         _scaleStartDistance = null;
         _lastScaleFloorPoint = null;
-        if (wasScaleActive)
+        if (wasScaleActive && vibration.IsSupported)
         {
             vibration.Cancel();
         }

@@ -450,7 +450,10 @@ public sealed class RotateAroundCenterBehavior(
         _lastRotationFloorPoint = null;
         stateMachine.TryApply(new RotateAroundCenterRotationCompletedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
-        vibration.Cancel();
+        if (vibration.IsSupported)
+        {
+            vibration.Cancel();
+        }
     }
 
     private void ClearSelection()
@@ -465,7 +468,7 @@ public sealed class RotateAroundCenterBehavior(
         _rotationCenter = null;
         _rotationStartAngle = null;
         _lastRotationFloorPoint = null;
-        if (wasRotationActive)
+        if (wasRotationActive && vibration.IsSupported)
         {
             vibration.Cancel();
         }
