@@ -465,7 +465,10 @@ public sealed class ScaleAroundDancerBehavior(
         globalState.SelectionRectangle = null;
         stateMachine.TryApply(new ScaleAroundDancerDragStartedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
-        vibration.Vibrate(DragVibrationDuration);
+        if (vibration.IsSupported)
+        {
+            vibration.Vibrate(DragVibrationDuration);
+        }
     }
 
     private void UpdateRotation(Point floorPoint)

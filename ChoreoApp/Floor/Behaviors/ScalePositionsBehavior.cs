@@ -407,7 +407,10 @@ public sealed class ScalePositionsBehavior(
         globalState.SelectionRectangle = null;
         stateMachine.TryApply(new ScalePositionsDragStartedTrigger());
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
-        vibration.Vibrate(DragVibrationDuration);
+        if (vibration.IsSupported)
+        {
+            vibration.Vibrate(DragVibrationDuration);
+        }
     }
 
     private void UpdateScale(Point floorPoint)
