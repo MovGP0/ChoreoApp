@@ -84,6 +84,9 @@
   <data name="ChoreographyShowTimestampsLabel" xml:space="preserve">
     <value>Zeitstempel anzeigen</value>
   </data>
+  <data name="ChoreographyShowLegendLabel" xml:space="preserve">
+    <value>Legende anzeigen</value>
+  </data>
   <data name="ChoreographySubtitlePlaceholder" xml:space="preserve">
     <value>Untertitel</value>
   </data>

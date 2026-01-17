@@ -84,6 +84,9 @@
   <data name="ChoreographyShowTimestampsLabel" xml:space="preserve">
     <value>Zaman damgalarını göster</value>
   </data>
+  <data name="ChoreographyShowLegendLabel" xml:space="preserve">
+    <value>Açıklamayı göster</value>
+  </data>
   <data name="ChoreographySubtitlePlaceholder" xml:space="preserve">
     <value>Alt başlık</value>
   </data>

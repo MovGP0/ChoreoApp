@@ -84,6 +84,9 @@
   <data name="ChoreographyShowTimestampsLabel" xml:space="preserve">
     <value>টাইমস্ট্যাম্প দেখান</value>
   </data>
+  <data name="ChoreographyShowLegendLabel" xml:space="preserve">
+    <value>লেজেন্ড দেখান</value>
+  </data>
   <data name="ChoreographySubtitlePlaceholder" xml:space="preserve">
     <value>সাবটাইটেল</value>
   </data>

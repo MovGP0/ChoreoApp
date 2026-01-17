@@ -84,6 +84,9 @@
   <data name="ChoreographyShowTimestampsLabel" xml:space="preserve">
     <value>Pokaži časovne žige</value>
   </data>
+  <data name="ChoreographyShowLegendLabel" xml:space="preserve">
+    <value>Prikaži legendo</value>
+  </data>
   <data name="ChoreographySubtitlePlaceholder" xml:space="preserve">
     <value>Podnaslov</value>
   </data>

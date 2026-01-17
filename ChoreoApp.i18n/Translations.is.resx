@@ -84,6 +84,9 @@
   <data name="ChoreographyShowTimestampsLabel" xml:space="preserve">
     <value>Sýna tímastimpla</value>
   </data>
+  <data name="ChoreographyShowLegendLabel" xml:space="preserve">
+    <value>Sýna skýringu</value>
+  </data>
   <data name="ChoreographySubtitlePlaceholder" xml:space="preserve">
     <value>Undirtitill</value>
   </data>

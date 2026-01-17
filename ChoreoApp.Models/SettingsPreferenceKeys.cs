@@ -22,4 +22,5 @@ public static class SettingsPreferenceKeys
     public const string PositionsAtSide = "PositionsAtSide";
     public const string ShowTimestamps = "ShowTimestamps";
     public const string SnapToGrid = "SnapToGrid";
+    public const string ShowLegend = "ShowLegend";
 }

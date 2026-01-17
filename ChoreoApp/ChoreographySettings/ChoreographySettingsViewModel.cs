@@ -73,6 +73,9 @@ public sealed partial class ChoreographySettingsViewModel : ReactiveObject, IAct
     private bool _positionsAtSide = true;
 
     [Reactive]
+    private bool _showLegend;
+
+    [Reactive]
     private decimal _transparency;
 
     [Reactive]

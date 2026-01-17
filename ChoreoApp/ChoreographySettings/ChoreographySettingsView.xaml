@@ -148,7 +148,7 @@
                            FontSize="18"
                            TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}" />
                     <Grid ColumnDefinitions="*,Auto"
-                          RowDefinitions="Auto,Auto,Auto,Auto"
+                          RowDefinitions="Auto,Auto,Auto,Auto,Auto"
                           ColumnSpacing="12"
                           RowSpacing="8">
                         <Label Text="{x:Static i18n:Translations.ChoreographyDrawPathFromLabel}"
@@ -185,6 +185,15 @@
                         <CheckBox Grid.Row="3"
                                   Grid.Column="1"
                                   IsChecked="{Binding PositionsAtSide}"
+                                  VerticalOptions="Center" />
+
+                        <Label Text="{x:Static i18n:Translations.ChoreographyShowLegendLabel}"
+                               Grid.Row="4"
+                               Grid.Column="0"
+                               TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+                        <CheckBox Grid.Row="4"
+                                  Grid.Column="1"
+                                  IsChecked="{Binding ShowLegend}"
                                   VerticalOptions="Center" />
                     </Grid>
                 </VerticalStackLayout>

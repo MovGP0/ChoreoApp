@@ -229,6 +229,12 @@ namespace ChoreoApp.i18n {
                 return ResourceManager.GetString("ChoreographyShowTimestampsLabel", resourceCulture);
             }
         }
+
+        public static string ChoreographyShowLegendLabel {
+            get {
+                return ResourceManager.GetString("ChoreographyShowLegendLabel", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Snap to grid.

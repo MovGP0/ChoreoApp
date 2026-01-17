@@ -30,6 +30,7 @@ public static class DependencyInjection
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateSnapToGridBehavior>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateFloorColorBehavior>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateShowTimestampsBehavior>();
+        services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateShowLegendBehavior>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdatePositionsAtSideBehavior>();
         services.AddTransient<IBehavior<ChoreographySettingsViewModel>, Behaviors.UpdateTransparencyBehavior>();
         return services;

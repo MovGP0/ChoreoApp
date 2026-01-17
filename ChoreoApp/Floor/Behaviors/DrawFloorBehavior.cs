@@ -157,6 +157,10 @@ public sealed class DrawFloorBehavior(
             : null;
         DrawPositions(scenePositions, currentScene, nextScene, _currentAudioSeconds, selectedPositionsSet);
         DrawSelectionRectangle(globalState.SelectionRectangle);
+        if (scenePositions is not null && preferences.Get(SettingsPreferenceKeys.ShowLegend, false))
+        {
+            DrawLegendTable(scenePositions, currentScene, nextScene, _currentAudioSeconds);
+        }
 
         canvas.Restore();
 
@@ -351,6 +355,185 @@ public sealed class DrawFloorBehavior(
             {
                 float textY = y + font.Metrics.CapHeight / 2f;
                 canvas.DrawText(text, x, textY, align, font, labelPaint);
+            }
+        }
+
+        void DrawLegendTable(
+            IReadOnlyList<Position> positions,
+            Scene? currentScene,
+            Scene? nextScene,
+            double? currentAudioSeconds)
+        {
+            if (positions.Count == 0)
+            {
+                return;
+            }
+
+            double? interpolationT = null;
+            Dictionary<string, Position>? nextPositionsByDancer = null;
+
+            if (currentAudioSeconds.HasValue
+                && currentScene?.Timestamp is { } currentTimestamp
+                && nextScene?.Timestamp is { } nextTimestamp
+                && nextScene.Positions is not null)
+            {
+                double startSeconds = currentTimestamp.TotalSeconds;
+                double endSeconds = nextTimestamp.TotalSeconds;
+                double duration = endSeconds - startSeconds;
+                if (duration > 0d)
+                {
+                    double rawT = (currentAudioSeconds.Value - startSeconds) / duration;
+                    if (rawT >= 0d && rawT <= 1d)
+                    {
+                        interpolationT = rawT;
+                        nextPositionsByDancer = BuildPositionsByDancerKey(nextScene);
+                    }
+                }
+            }
+
+            var entries = new List<(SKColor Color, string Shortcut, string Name, double X, double Y)>();
+            foreach (var position in positions)
+            {
+                if (position.Dancer is not { } dancer)
+                {
+                    continue;
+                }
+
+                double drawX = position.X;
+                double drawY = position.Y;
+
+                if (interpolationT is { } t
+                    && nextPositionsByDancer is not null
+                    && GetDancerKey(dancer) is { } dancerKey
+                    && nextPositionsByDancer.TryGetValue(dancerKey, out var nextPosition))
+                {
+                    var curve1X = position.Curve1X;
+                    var curve1Y = position.Curve1Y;
+                    var curve2X = position.Curve2X;
+                    var curve2Y = position.Curve2Y;
+
+                    if (curve1X is null || curve1Y is null)
+                    {
+                        drawX = Lerp(position.X, nextPosition.X, t);
+                        drawY = Lerp(position.Y, nextPosition.Y, t);
+                    }
+                    else if (curve2X is null || curve2Y is null)
+                    {
+                        drawX = QuadraticBezier(position.X, curve1X.Value, nextPosition.X, t);
+                        drawY = QuadraticBezier(position.Y, curve1Y.Value, nextPosition.Y, t);
+                    }
+                    else
+                    {
+                        drawX = CubicBezier(position.X, curve1X.Value, curve2X.Value, nextPosition.X, t);
+                        drawY = CubicBezier(position.Y, curve1Y.Value, curve2Y.Value, nextPosition.Y, t);
+                    }
+                }
+
+                entries.Add((
+                    ApplyTransparency(dancer.Color.ToSKColor(), settings.Transparency),
+                    dancer.Shortcut ?? string.Empty,
+                    dancer.Name ?? string.Empty,
+                    drawX,
+                    drawY));
+            }
+
+            if (entries.Count == 0)
+            {
+                return;
+            }
+
+            float padding = 8f * uiScale;
+            float rowSpacing = 6f * uiScale;
+            float columnSpacing = 10f * uiScale;
+            float squareSize = 10f * uiScale;
+            float margin = 48f * uiScale;
+
+            using var font = new SKFont();
+            font.Size = 14f * uiScale;
+            font.Edging = SKFontEdging.Antialias;
+
+            using var textPaint = new SKPaint();
+            textPaint.Color = GetColor(MaterialDesignColorKey.OnSurface);
+            textPaint.IsAntialias = true;
+
+            using var squarePaint = new SKPaint();
+            squarePaint.Style = SKPaintStyle.Fill;
+            squarePaint.IsAntialias = true;
+
+            using var borderPaint = new SKPaint();
+            borderPaint.Color = GetColor(MaterialDesignColorKey.OutlineVariant);
+            borderPaint.Style = SKPaintStyle.Stroke;
+            borderPaint.IsAntialias = true;
+            borderPaint.StrokeWidth = 1f * uiScale;
+
+            var textHeight = font.Metrics.Descent - font.Metrics.Ascent;
+            float rowHeight = Math.Max(squareSize, textHeight);
+            float baselineOffset = (rowHeight - textHeight) / 2f - font.Metrics.Ascent;
+
+            var legendRows = entries
+                .Select(entry => (
+                    entry.Color,
+                    entry.Shortcut,
+                    entry.Name,
+                    PositionText: $"({entry.X.ToString("0.##", CultureInfo.CurrentUICulture)}, " +
+                                  $"{entry.Y.ToString("0.##", CultureInfo.CurrentUICulture)})"))
+                .OrderBy(entry => entry.Shortcut, StringComparer.CurrentCultureIgnoreCase)
+                .ThenBy(entry => entry.Name, StringComparer.CurrentCultureIgnoreCase)
+                .ToList();
+
+            float shortcutWidth = legendRows.Max(row => string.IsNullOrWhiteSpace(row.Shortcut)
+                ? 0f
+                : font.MeasureText(row.Shortcut));
+            float nameWidth = legendRows.Max(row => string.IsNullOrWhiteSpace(row.Name)
+                ? 0f
+                : font.MeasureText(row.Name));
+            float positionWidth = legendRows.Max(row => font.MeasureText(row.PositionText));
+
+            float tableWidth = padding * 2f
+                               + squareSize
+                               + columnSpacing
+                               + shortcutWidth
+                               + columnSpacing
+                               + nameWidth
+                               + columnSpacing
+                               + positionWidth;
+            float tableHeight = padding * 2f
+                                + legendRows.Count * rowHeight
+                                + (legendRows.Count - 1) * rowSpacing;
+
+            float tableX = floorRect.Right + margin;
+            float tableY = floorRect.Top;
+
+            var tableRect = new SKRect(tableX, tableY, tableX + tableWidth, tableY + tableHeight);
+            canvas.DrawRect(tableRect, borderPaint);
+
+            float squareX = tableX + padding;
+            float shortcutX = squareX + squareSize + columnSpacing;
+            float nameX = shortcutX + shortcutWidth + columnSpacing;
+            float positionX = nameX + nameWidth + columnSpacing;
+
+            for (int index = 0; index < legendRows.Count; index++)
+            {
+                var row = legendRows[index];
+                float rowTop = tableY + padding + index * (rowHeight + rowSpacing);
+                float squareY = rowTop + (rowHeight - squareSize) / 2f;
+                var squareRect = new SKRect(squareX, squareY, squareX + squareSize, squareY + squareSize);
+
+                squarePaint.Color = row.Color;
+                canvas.DrawRect(squareRect, squarePaint);
+
+                float baseline = rowTop + baselineOffset;
+                if (!string.IsNullOrWhiteSpace(row.Shortcut))
+                {
+                    canvas.DrawText(row.Shortcut, shortcutX, baseline, font, textPaint);
+                }
+
+                if (!string.IsNullOrWhiteSpace(row.Name))
+                {
+                    canvas.DrawText(row.Name, nameX, baseline, font, textPaint);
+                }
+
+                canvas.DrawText(row.PositionText, positionX, baseline, font, textPaint);
             }
         }
 
