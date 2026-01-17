@@ -7,6 +7,39 @@
                           xmlns:home="clr-namespace:MaterialDesignDemo.Maui.Home"
                           x:Class="MaterialDesignDemo.Maui.Home.HomePage"
                           x:DataType="home:HomeViewModel">
+  <maui:ReactiveContentPage.Resources>
+    <ResourceDictionary>
+      <Style x:Key="HomeIconTextButton"
+             TargetType="styling:ContentButton"
+             BasedOn="{StaticResource MaterialDesignFlatButton}">
+        <Setter Property="Padding" Value="6,2" />
+        <Setter Property="HeightRequest" Value="30" />
+        <Setter Property="MinimumHeightRequest" Value="30" />
+      </Style>
+      <Style x:Key="HomeCircleIconButton"
+             TargetType="styling:ContentButton"
+             BasedOn="{StaticResource MaterialDesignIconButton}">
+        <Setter Property="WidthRequest" Value="40" />
+        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="MinimumWidthRequest" Value="40" />
+        <Setter Property="MinimumHeightRequest" Value="40" />
+        <Setter Property="CornerRadius" Value="20" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+      </Style>
+      <Style x:Key="HomeFabButton"
+             TargetType="styling:ContentButton"
+             BasedOn="{StaticResource MaterialDesignFloatingActionButton}">
+        <Setter Property="WidthRequest" Value="56" />
+        <Setter Property="HeightRequest" Value="56" />
+        <Setter Property="MinimumWidthRequest" Value="56" />
+        <Setter Property="MinimumHeightRequest" Value="56" />
+        <Setter Property="CornerRadius" Value="28" />
+        <Setter Property="Padding" Value="0" />
+      </Style>
+    </ResourceDictionary>
+  </maui:ReactiveContentPage.Resources>
   <Grid RowDefinitions="Auto,*">
     <Grid Margin="16"
           HorizontalOptions="Center"
@@ -28,10 +61,14 @@
                SemanticProperties.HeadingLevel="Level1" />
 
         <styling:ContentButton Style="{StaticResource MaterialDesignFlatButton}"
-                               Command="{Binding OpenExploreCommand}">
+                               Command="{Binding OpenExploreCommand}"
+                               HorizontalOptions="Center"
+                               Padding="16,8"
+                               HeightRequest="40"
+                               MinimumHeightRequest="40">
           <HorizontalStackLayout Spacing="8">
-            <styling:PackIcon Kind="Binoculars" />
-            <Label Text="EXPLORE" VerticalOptions="Center" />
+            <styling:PackIcon WidthRequest="20" HeightRequest="20" Kind="Binoculars" />
+            <Label Text="EXPLORE" VerticalOptions="Center" FontSize="14" />
           </HorizontalStackLayout>
         </styling:ContentButton>
       </VerticalStackLayout>
@@ -74,22 +111,22 @@
                       StrokeThickness="1">
                 <Grid Margin="8" ColumnDefinitions="*,*">
                   <styling:ContentButton Grid.Column="0"
-                                         Style="{StaticResource MaterialDesignFlatButton}"
+                                         Style="{StaticResource HomeIconTextButton}"
                                          Command="{Binding OpenGitHubCommand}"
                                          HorizontalOptions="Start">
                     <HorizontalStackLayout Spacing="8">
-                      <styling:PackIcon Kind="Github" />
-                      <Label Text="GitHub" VerticalOptions="Center" />
+                      <styling:PackIcon WidthRequest="14" HeightRequest="14" Kind="Github" />
+                      <Label Text="GitHub" VerticalOptions="Center" FontSize="12" />
                     </HorizontalStackLayout>
                   </styling:ContentButton>
 
                   <styling:ContentButton Grid.Column="1"
-                                         Style="{StaticResource MaterialDesignFlatButton}"
+                                         Style="{StaticResource HomeIconTextButton}"
                                          Command="{Binding OpenTwitterCommand}"
                                          HorizontalOptions="End">
                     <HorizontalStackLayout Spacing="8">
-                      <styling:PackIcon Kind="Twitter" />
-                      <Label Text="Twitter" VerticalOptions="Center" />
+                      <styling:PackIcon WidthRequest="14" HeightRequest="14" Kind="Twitter" />
+                      <Label Text="Twitter" VerticalOptions="Center" FontSize="12" />
                     </HorizontalStackLayout>
                   </styling:ContentButton>
                 </Grid>
@@ -101,22 +138,22 @@
                       StrokeThickness="1">
                 <Grid Margin="8" ColumnDefinitions="*,*">
                   <styling:ContentButton Grid.Column="0"
-                                         Style="{StaticResource MaterialDesignFlatButton}"
+                                         Style="{StaticResource HomeIconTextButton}"
                                          Command="{Binding OpenChatCommand}"
                                          HorizontalOptions="Start">
                     <HorizontalStackLayout Spacing="8">
-                      <styling:PackIcon Kind="Message" />
-                      <Label Text="Chat" VerticalOptions="Center" />
+                      <styling:PackIcon WidthRequest="14" HeightRequest="14" Kind="Message" />
+                      <Label Text="Chat" VerticalOptions="Center" FontSize="12" />
                     </HorizontalStackLayout>
                   </styling:ContentButton>
 
                   <styling:ContentButton Grid.Column="1"
-                                         Style="{StaticResource MaterialDesignFlatButton}"
+                                         Style="{StaticResource HomeIconTextButton}"
                                          Command="{Binding OpenEmailCommand}"
                                          HorizontalOptions="End">
                     <HorizontalStackLayout Spacing="8">
-                      <styling:PackIcon Kind="Email" />
-                      <Label Text="Email" VerticalOptions="Center" />
+                      <styling:PackIcon WidthRequest="14" HeightRequest="14" Kind="Email" />
+                      <Label Text="Email" VerticalOptions="Center" FontSize="12" />
                     </HorizontalStackLayout>
                   </styling:ContentButton>
                 </Grid>
@@ -129,12 +166,15 @@
                         Margin="8,2,4,16"
                         Style="{StaticResource MaterialDesignElevatedCard}">
             <Grid RowDefinitions="Auto,Auto"
-                  ColumnDefinitions="200,*">
-              <styling:PackIcon WidthRequest="160"
-                               HeightRequest="160"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"
-                               Kind="Github" />
+                  ColumnDefinitions="260,*">
+
+              <styling:PackIcon WidthRequest="260"
+                                HeightRequest="260"
+                                Width="260"
+                                Height="260"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Kind="Github" />
 
               <VerticalStackLayout Grid.Column="1">
                 <Label Margin="16,16,16,8"
@@ -142,6 +182,7 @@
                        Text="Open Source" />
 
                 <Label Margin="16,0,16,8"
+                       FontSize="12"
                        Text="This project is completely open source. If you like it and want to say thanks you could hit the GitHub Star button, tweet or post about it, or tell your mum about it!"
                        TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}"
                        LineBreakMode="WordWrap" />
@@ -149,22 +190,24 @@
 
               <Border Grid.Row="1"
                       Grid.ColumnSpan="2"
-                      Padding="8"
+                      Padding="8,4"
                       Stroke="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OutlineVariant}}"
                       StrokeThickness="1">
                 <Grid ColumnDefinitions="*,Auto">
                   <Label Grid.Column="0"
-                         Margin="16"
+                         Margin="12,4,8,4"
                          VerticalOptions="Center"
+                         FontSize="12"
                          Text="Feel like you want to make a donation? It would be gratefully received. Click the button to donate via Open Collective."
                          TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}"
                          LineBreakMode="WordWrap" />
 
                   <styling:ContentButton Grid.Column="1"
                                          Style="{StaticResource MaterialDesignFlatButton}"
-                                         Command="{Binding OpenDonateCommand}">
+                                         Command="{Binding OpenDonateCommand}"
+                                         VerticalOptions="Center">
                     <HorizontalStackLayout Spacing="8">
-                      <styling:PackIcon Kind="Gift" />
+                      <styling:PackIcon WidthRequest="16" HeightRequest="16" Kind="Gift" />
                       <Label Text="Donate" VerticalOptions="Center" />
                     </HorizontalStackLayout>
                   </styling:ContentButton>
@@ -178,44 +221,65 @@
       <styling:PopupBox Margin="32"
                         HorizontalOptions="End"
                         VerticalOptions="End"
-                        Style="{StaticResource MaterialDesignPopupBox}">
+                        Style="{StaticResource MaterialDesignPopupBox}"
+                        ToggleContentTemplate="{x:Null}">
+        <styling:PopupBox.ToggleContent>
+          <Border WidthRequest="56"
+                  HeightRequest="56"
+                  BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}">
+            <Border.StrokeShape>
+              <RoundRectangle CornerRadius="28" />
+            </Border.StrokeShape>
+            <styling:PackIcon WidthRequest="24"
+                              HeightRequest="24"
+                              Kind="Plus"
+                              VerticalOptions="Center"
+                              HorizontalOptions="Center"
+                              ForegroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}" />
+          </Border>
+        </styling:PopupBox.ToggleContent>
         <VerticalStackLayout Spacing="8">
-          <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+          <styling:ContentButton Style="{StaticResource HomeCircleIconButton}"
                                  Command="{Binding OpenGitHubCommand}"
-                                 ToolTipProperties.Text="GitHub">
-            <styling:PackIcon Kind="Github" />
+                                 ToolTipProperties.Text="GitHub"
+                                 HorizontalOptions="Center">
+            <styling:PackIcon WidthRequest="18" HeightRequest="18" Kind="Github" />
           </styling:ContentButton>
 
-          <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+          <styling:ContentButton Style="{StaticResource HomeCircleIconButton}"
                                  BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Primary}}"
                                  Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}"
                                  Command="{Binding OpenTwitterCommand}"
-                                 ToolTipProperties.Text="Twitter">
-            <styling:PackIcon Kind="Twitter" />
+                                 ToolTipProperties.Text="Twitter"
+                                 HorizontalOptions="Center">
+            <styling:PackIcon WidthRequest="18" HeightRequest="18" Kind="Twitter" />
           </styling:ContentButton>
 
-          <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+          <styling:ContentButton Style="{StaticResource HomeCircleIconButton}"
                                  BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Secondary}}"
                                  Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSecondary}}"
                                  Command="{Binding OpenChatCommand}"
-                                 ToolTipProperties.Text="Chat">
-            <styling:PackIcon Kind="Message" />
+                                 ToolTipProperties.Text="Chat"
+                                 HorizontalOptions="Center">
+            <styling:PackIcon WidthRequest="18" HeightRequest="18" Kind="Message" />
           </styling:ContentButton>
 
-          <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+          <styling:ContentButton Style="{StaticResource HomeCircleIconButton}"
                                  BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.Tertiary}}"
                                  Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnTertiary}}"
                                  Command="{Binding OpenEmailCommand}"
-                                 ToolTipProperties.Text="Email">
-            <styling:PackIcon Kind="Email" />
+                                 ToolTipProperties.Text="Email"
+                                 HorizontalOptions="Center">
+            <styling:PackIcon WidthRequest="18" HeightRequest="18" Kind="Email" />
           </styling:ContentButton>
 
-          <styling:ContentButton Style="{StaticResource MaterialDesignIconButton}"
+          <styling:ContentButton Style="{StaticResource HomeCircleIconButton}"
                                  BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.PrimaryContainer}}"
                                  Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimaryContainer}}"
                                  Command="{Binding OpenDonateCommand}"
-                                 ToolTipProperties.Text="Donate">
-            <styling:PackIcon Kind="Gift" />
+                                 ToolTipProperties.Text="Donate"
+                                 HorizontalOptions="Center">
+            <styling:PackIcon WidthRequest="18" HeightRequest="18" Kind="Gift" />
           </styling:ContentButton>
         </VerticalStackLayout>
       </styling:PopupBox>

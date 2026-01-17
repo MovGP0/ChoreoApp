@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Shell
     x:Class="MaterialDesignDemo.Maui.AppShell"
+    x:Name="ShellRoot"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:buttons="clr-namespace:MaterialDesignDemo.Maui.Buttons"
@@ -21,37 +22,157 @@
     xmlns:home="clr-namespace:MaterialDesignDemo.Maui.Home"
     xmlns:palette="clr-namespace:MaterialDesignDemo.Maui.PaletteSelector"
     xmlns:snackbars="clr-namespace:MaterialDesignDemo.Maui.Snackbars"
+    xmlns:styling="clr-namespace:MaterialDesignThemes.Maui;assembly=MaterialDesignThemes.Maui"
     xmlns:theme="clr-namespace:MaterialDesignDemo.Maui.ThemeSettings"
     xmlns:toolTips="clr-namespace:MaterialDesignDemo.Maui.ToolTips"
     xmlns:toggles="clr-namespace:MaterialDesignDemo.Maui.Toggles"
     xmlns:transitions="clr-namespace:MaterialDesignDemo.Maui.Transitions"
     xmlns:trees="clr-namespace:MaterialDesignDemo.Maui.Trees"
     xmlns:typography="clr-namespace:MaterialDesignDemo.Maui.Typography"
+    FlyoutBehavior="Flyout"
+    FlyoutWidth="280"
     Title="MaterialDesignDemo.Maui">
-    <TabBar>
-        <ShellContent Title="Home" ContentTemplate="{DataTemplate home:HomePage}" Route="Home" />
-        <ShellContent Title="Palette" ContentTemplate="{DataTemplate palette:PaletteSelectorPage}" Route="Palette" />
-        <ShellContent Title="ColorTool" ContentTemplate="{DataTemplate colorTool:ColorToolPage}" Route="ColorTool" />
-        <ShellContent Title="Buttons" ContentTemplate="{DataTemplate buttons:ButtonsPage}" Route="Buttons" />
-        <ShellContent Title="Split Buttons" ContentTemplate="{DataTemplate splitButtons:SplitButtonsPage}" Route="SplitButtons" />
-        <ShellContent Title="Cards" ContentTemplate="{DataTemplate cards:CardsPage}" Route="Cards" />
-        <ShellContent Title="Chips" ContentTemplate="{DataTemplate chips:ChipsPage}" Route="Chips" />
-        <ShellContent Title="ColorZones" ContentTemplate="{DataTemplate colorZones:ColorZonesPage}" Route="ColorZones" />
-        <ShellContent Title="ComboBoxes" ContentTemplate="{DataTemplate comboBoxes:ComboBoxesPage}" Route="ComboBoxes" />
-        <ShellContent Title="DataGrids" ContentTemplate="{DataTemplate dataGrids:DataGridsPage}" Route="DataGrids" />
-        <ShellContent Title="Dialogs" ContentTemplate="{DataTemplate dialogs:DialogsPage}" Route="Dialogs" />
-        <ShellContent Title="Docs" ContentTemplate="{DataTemplate docs:DocumentationLinksPage}" Route="Docs" />
-        <ShellContent Title="Drawers" ContentTemplate="{DataTemplate drawers:DrawersPage}" Route="Drawers" />
-        <ShellContent Title="Elevation" ContentTemplate="{DataTemplate elevation:ElevationPage}" Route="Elevation" />
-        <ShellContent Title="Expander" ContentTemplate="{DataTemplate expander:ExpanderPage}" Route="Expander" />
-        <ShellContent Title="Fields" ContentTemplate="{DataTemplate fields:FieldsPage}" Route="Fields" />
-        <ShellContent Title="Fields LineUp" ContentTemplate="{DataTemplate fieldsLineUp:FieldsLineUpPage}" Route="FieldsLineUp" />
-        <ShellContent Title="Typography" ContentTemplate="{DataTemplate typography:TypographyPage}" Route="Typography" />
-        <ShellContent Title="Trees" ContentTemplate="{DataTemplate trees:TreesPage}" Route="Trees" />
-        <ShellContent Title="Transitions" ContentTemplate="{DataTemplate transitions:TransitionsPage}" Route="Transitions" />
-        <ShellContent Title="ToolTips" ContentTemplate="{DataTemplate toolTips:ToolTipsPage}" Route="ToolTips" />
-        <ShellContent Title="Toggles" ContentTemplate="{DataTemplate toggles:TogglesPage}" Route="Toggles" />
-        <ShellContent Title="Theme" ContentTemplate="{DataTemplate theme:ThemeSettingsPage}" Route="Theme" />
-        <ShellContent Title="Snackbars" ContentTemplate="{DataTemplate snackbars:SnackbarsPage}" Route="Snackbars" />
-    </TabBar>
+    <Shell.FlyoutHeader>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <SearchBar Placeholder="Search"
+                       BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}"
+                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
+                       PlaceholderColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
+        </VerticalStackLayout>
+    </Shell.FlyoutHeader>
+
+    <Shell.TitleView>
+        <styling:ColorZone Padding="12"
+                           styling:ElevationAssist.Elevation="Dp4"
+                           Mode="PrimaryMid">
+            <Grid ColumnDefinitions="Auto,*,Auto"
+                  VerticalOptions="Center">
+                <HorizontalStackLayout Spacing="12"
+                                       VerticalOptions="Center">
+                    <styling:ContentButton Command="{Binding ToggleFlyoutCommand, Source={x:Reference ShellRoot}}"
+                                           Style="{StaticResource MaterialDesignToolButton}"
+                                           Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}">
+                        <styling:PackIcon Kind="Menu" />
+                    </styling:ContentButton>
+                    <styling:ContentButton Command="{Binding NavigateBackCommand, Source={x:Reference ShellRoot}}"
+                                           IsEnabled="{Binding CanNavigateBack, Source={x:Reference ShellRoot}}"
+                                           Style="{StaticResource MaterialDesignToolButton}"
+                                           Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}">
+                        <styling:PackIcon Kind="ArrowLeft" />
+                    </styling:ContentButton>
+                    <styling:ContentButton Command="{Binding NavigateForwardCommand, Source={x:Reference ShellRoot}}"
+                                           IsEnabled="{Binding CanNavigateForward, Source={x:Reference ShellRoot}}"
+                                           Style="{StaticResource MaterialDesignToolButton}"
+                                           Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}">
+                        <styling:PackIcon Kind="ArrowRight" />
+                    </styling:ContentButton>
+                    <styling:ContentButton Command="{Binding NavigateHomeCommand, Source={x:Reference ShellRoot}}"
+                                           Style="{StaticResource MaterialDesignToolButton}"
+                                           Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}">
+                        <styling:PackIcon Kind="Home" />
+                    </styling:ContentButton>
+                </HorizontalStackLayout>
+
+                <Label Grid.Column="1"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       FontSize="20"
+                       Text="Material Design in XAML Toolkit"
+                       TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}" />
+
+                <styling:PopupBox Grid.Column="2"
+                                  PlacementMode="BottomAndAlignRightEdges"
+                                  StaysOpen="False">
+                    <styling:PopupBox.ToggleContent>
+                        <styling:ContentButton Style="{StaticResource MaterialDesignToolButton}"
+                                               Foreground="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnPrimary}}">
+                            <styling:PackIcon Kind="Cog" />
+                        </styling:ContentButton>
+                    </styling:PopupBox.ToggleContent>
+                    <styling:PopupBox.PopupContent>
+                        <VerticalStackLayout Padding="12" Spacing="8">
+                            <Label Style="{StaticResource MaterialDesignTitleSmallTextBlock}" Text="Settings" />
+                            <styling:ContentButton Command="{Binding NavigateThemeCommand, Source={x:Reference ShellRoot}}"
+                                                   Style="{StaticResource MaterialDesignFlatButton}">
+                                <Label Text="Theme settings" />
+                            </styling:ContentButton>
+                        </VerticalStackLayout>
+                    </styling:PopupBox.PopupContent>
+                </styling:PopupBox>
+            </Grid>
+        </styling:ColorZone>
+    </Shell.TitleView>
+
+    <FlyoutItem Title="Home" Route="Home">
+        <ShellContent ContentTemplate="{DataTemplate home:HomePage}" Route="HomePage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Palette" Route="Palette">
+        <ShellContent ContentTemplate="{DataTemplate palette:PaletteSelectorPage}" Route="PalettePage" />
+    </FlyoutItem>
+    <FlyoutItem Title="ColorTool" Route="ColorTool">
+        <ShellContent ContentTemplate="{DataTemplate colorTool:ColorToolPage}" Route="ColorToolPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Buttons" Route="Buttons">
+        <ShellContent ContentTemplate="{DataTemplate buttons:ButtonsPage}" Route="ButtonsPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Split Buttons" Route="SplitButtons">
+        <ShellContent ContentTemplate="{DataTemplate splitButtons:SplitButtonsPage}" Route="SplitButtonsPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Cards" Route="Cards">
+        <ShellContent ContentTemplate="{DataTemplate cards:CardsPage}" Route="CardsPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Chips" Route="Chips">
+        <ShellContent ContentTemplate="{DataTemplate chips:ChipsPage}" Route="ChipsPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="ColorZones" Route="ColorZones">
+        <ShellContent ContentTemplate="{DataTemplate colorZones:ColorZonesPage}" Route="ColorZonesPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="ComboBoxes" Route="ComboBoxes">
+        <ShellContent ContentTemplate="{DataTemplate comboBoxes:ComboBoxesPage}" Route="ComboBoxesPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="DataGrids" Route="DataGrids">
+        <ShellContent ContentTemplate="{DataTemplate dataGrids:DataGridsPage}" Route="DataGridsPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Dialogs" Route="Dialogs">
+        <ShellContent ContentTemplate="{DataTemplate dialogs:DialogsPage}" Route="DialogsPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Docs" Route="Docs">
+        <ShellContent ContentTemplate="{DataTemplate docs:DocumentationLinksPage}" Route="DocsPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Drawers" Route="Drawers">
+        <ShellContent ContentTemplate="{DataTemplate drawers:DrawersPage}" Route="DrawersPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Elevation" Route="Elevation">
+        <ShellContent ContentTemplate="{DataTemplate elevation:ElevationPage}" Route="ElevationPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Expander" Route="Expander">
+        <ShellContent ContentTemplate="{DataTemplate expander:ExpanderPage}" Route="ExpanderPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Fields" Route="Fields">
+        <ShellContent ContentTemplate="{DataTemplate fields:FieldsPage}" Route="FieldsPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Fields LineUp" Route="FieldsLineUp">
+        <ShellContent ContentTemplate="{DataTemplate fieldsLineUp:FieldsLineUpPage}" Route="FieldsLineUpPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Typography" Route="Typography">
+        <ShellContent ContentTemplate="{DataTemplate typography:TypographyPage}" Route="TypographyPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Trees" Route="Trees">
+        <ShellContent ContentTemplate="{DataTemplate trees:TreesPage}" Route="TreesPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Transitions" Route="Transitions">
+        <ShellContent ContentTemplate="{DataTemplate transitions:TransitionsPage}" Route="TransitionsPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="ToolTips" Route="ToolTips">
+        <ShellContent ContentTemplate="{DataTemplate toolTips:ToolTipsPage}" Route="ToolTipsPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Toggles" Route="Toggles">
+        <ShellContent ContentTemplate="{DataTemplate toggles:TogglesPage}" Route="TogglesPage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Theme" Route="Theme">
+        <ShellContent ContentTemplate="{DataTemplate theme:ThemeSettingsPage}" Route="ThemePage" />
+    </FlyoutItem>
+    <FlyoutItem Title="Snackbars" Route="Snackbars">
+        <ShellContent ContentTemplate="{DataTemplate snackbars:SnackbarsPage}" Route="SnackbarsPage" />
+    </FlyoutItem>
 </Shell>
