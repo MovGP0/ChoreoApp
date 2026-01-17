@@ -36,10 +36,10 @@
             </Style>
         </ResourceDictionary>
     </maui:ReactiveContentView.Resources>
-    <ScrollView>
+    <ScrollView BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}">
         <VerticalStackLayout Spacing="4"
                              Padding="4">
-            <styling:Card Padding="4" Style="{StaticResource MaterialDesignElevatedCard}">
+            <styling:Card Padding="4" Style="{DynamicResource MaterialDesignElevatedCard}">
                 <VerticalStackLayout Spacing="12"
                                      IsEnabled="{Binding HasSelectedScene}">
                     <Label Text="{x:Static i18n:Translations.SceneSectionTitle}"
@@ -54,6 +54,7 @@
                     <Editor Placeholder="{x:Static i18n:Translations.SceneTextLabel}"
                             Text="{Binding SceneText}"
                             AutoSize="TextChanges"
+                            MinimumHeightRequest="36"
                             TextColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurface}}"
                             BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceVariant}}"
                             PlaceholderColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.OnSurfaceVariant}}" />
