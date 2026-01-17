@@ -1,4 +1,7 @@
 <Solution>
+    <Folder Name="/BuildScripts/">
+        <File Path="BuildScripts/build.ps1" />
+    </Folder>
     <Folder Name="/GitHub/" />
     <Folder Name="/GitHub/Workflows/">
         <File Path=".github/workflows/build-android.yaml" />
@@ -12,6 +15,7 @@
         <File Path=".gitattributes" />
         <File Path=".gitignore" />
         <File Path="AGENTS.md" />
+        <File Path="build.ps1" />
         <File Path="Directory.Build.props" />
         <File Path="Directory.Packages.props" />
         <File Path="LICENSE" />
