@@ -14,7 +14,8 @@
             <conv:BooleanNegationConverter x:Key="BooleanNegationConverter" />
         </ResourceDictionary>
     </maui:ReactiveContentPage.Resources>
-    <ScrollView x:DataType="settings:SettingsViewModel">
+    <ScrollView x:DataType="settings:SettingsViewModel"
+                BackgroundColor="{DynamicResource Key={x:Static styling:MaterialDesignColorKey.SurfaceContainerLow}}">
         <VerticalStackLayout Padding="24"
                              Spacing="20">
             <Label Text="{x:Static i18n:Translations.SettingsTitle}"

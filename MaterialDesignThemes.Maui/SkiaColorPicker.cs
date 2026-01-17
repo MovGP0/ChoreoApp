@@ -72,6 +72,7 @@ public sealed class SkiaColorPicker : ContentView
 
         _hsb = Color.ToHsb();
         _isInitialized = true;
+        UpdateEnabledState();
         UpdateWheelMinimumSize();
         UpdateSliderAppearance();
         UpdateSliderValue();
@@ -273,6 +274,11 @@ public sealed class SkiaColorPicker : ContentView
 
     private void OnValueSliderValueChanged(object? sender, ValueChangedEventArgs<double> e)
     {
+        if (!IsEnabled)
+        {
+            return;
+        }
+
         if (_isUpdatingFromSlider)
         {
             return;
@@ -284,6 +290,11 @@ public sealed class SkiaColorPicker : ContentView
 
     private void OnWheelTouch(object? sender, SKTouchEventArgs e)
     {
+        if (!IsEnabled)
+        {
+            return;
+        }
+
         switch (e.ActionType)
         {
             case SKTouchAction.Pressed:
@@ -309,6 +320,29 @@ public sealed class SkiaColorPicker : ContentView
                 }
                 break;
         }
+    }
+
+    protected override void OnPropertyChanged(string? propertyName = null)
+    {
+        base.OnPropertyChanged(propertyName);
+
+        if (propertyName is not null && propertyName != IsEnabledProperty.PropertyName)
+        {
+            return;
+        }
+
+        UpdateEnabledState();
+    }
+
+    private void UpdateEnabledState()
+    {
+        var isEnabled = IsEnabled;
+        InputTransparent = !isEnabled;
+        _wheelView.IsEnabled = isEnabled;
+        _wheelView.InputTransparent = !isEnabled;
+        _wheelView.EnableTouchEvents = isEnabled;
+        _valueSlider.IsEnabled = isEnabled;
+        _valueSlider.InputTransparent = !isEnabled;
     }
 
     private void TryUpdateFromTouch(SKPoint location)
