@@ -1,60 +1,55 @@
-using ChoreoApp.Floor;
-using ChoreoApp.Floor.Behaviors;
-using ChoreoApp.Floor.Messages;
-using ChoreoApp.Global;
-using ChoreoApp.Models;
-using ChoreoApp.Scenes;
-using ChoreoApp.Scenes.Behaviors;
-using ChoreoApp.Settings;
-using ChoreoApp.Settings.Behaviors;
-using ChoreoApp.StateMachine;
-using ChoreoApp.StateMachine.Triggers;
-using MaterialDesignThemes.Maui;
-using NSubstitute;
-using Shouldly;
-using SkiaSharp;
-using SkiaSharp.Views.Maui;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 
-namespace ChoreoApp.Components.Tests.Floor;
+using ChoreoApp.Floor;
+using ChoreoApp.Floor.Messages;
+using ChoreoApp.Global;
+using ChoreoApp.Scenes;
+using ChoreoApp.StateMachine;
+using MaterialDesignThemes.Maui;
+using NSubstitute;
+using SkiaSharp;
+using SkiaSharp.Views.Maui;
 
-internal sealed class TestContext : IDisposable
+namespace ChoreoApp.Components.Tests.Floor.Behaviors;
+
+internal sealed class FloorBehaviorTestContext<TBehavior> : IDisposable
+    where TBehavior : class, IBehavior<FloorCanvasViewModel>
 {
     private readonly ServiceProvider _serviceProvider;
-    private readonly IDisposable _floorActivation;
-    private readonly IDisposable _scenesActivation;
+    private readonly IDisposable _activation;
     private readonly SKRect _floorBounds;
 
-    private TestContext(
+    private FloorBehaviorTestContext(
         ServiceProvider serviceProvider,
         GlobalStateModel globalState,
         ApplicationStateMachine stateMachine,
-        FloorCanvasViewModel floorViewModel,
-        ScenesPaneViewModel scenesPaneViewModel,
+        FloorCanvasViewModel viewModel,
         ISKCanvasView canvasView,
-        IDisposable floorActivation,
-        IDisposable scenesActivation,
+        IDisposable activation,
         SKRect floorBounds)
     {
         _serviceProvider = serviceProvider;
         GlobalState = globalState;
         StateMachine = stateMachine;
-        FloorViewModel = floorViewModel;
-        ScenesPaneViewModel = scenesPaneViewModel;
+        ViewModel = viewModel;
         CanvasView = canvasView;
-        _floorActivation = floorActivation;
-        _scenesActivation = scenesActivation;
+        _activation = activation;
         _floorBounds = floorBounds;
     }
 
     public GlobalStateModel GlobalState { get; }
     public ApplicationStateMachine StateMachine { get; }
-    public FloorCanvasViewModel FloorViewModel { get; }
-    public ScenesPaneViewModel ScenesPaneViewModel { get; }
+    public FloorCanvasViewModel ViewModel { get; }
     public ISKCanvasView CanvasView { get; }
 
-    public static TestContext Create()
+    public T GetRequiredService<T>() where T : notnull => _serviceProvider.GetRequiredService<T>();
+
+    public static FloorBehaviorTestContext<TBehavior> Create(Action<ServiceCollection>? configureServices = null)
     {
+        RxApp.MainThreadScheduler = ImmediateScheduler.Instance;
+        RxApp.TaskpoolScheduler = ImmediateScheduler.Instance;
+
         var services = new ServiceCollection();
         services.AddMessagePipe();
 
@@ -70,75 +65,73 @@ internal sealed class TestContext : IDisposable
         services.AddSingleton(preferences);
         services.AddSingleton(haptic);
         services.AddSingleton(vibration);
-        services.AddSingleton<SettingsViewModel>();
-        services.AddTransient<IBehavior<SettingsViewModel>, LoadSettingsPreferencesBehavior>();
-        services.AddTransient<IBehavior<SettingsViewModel>, SwitchDarkLightModeBehavior>();
-        services.AddTransient<IBehavior<SettingsViewModel>, ColorPreferencesBehavior>();
+        services.AddSingleton<Settings.SettingsViewModel>();
         services.AddSingleton<GlobalStateModel>();
         services.AddSingleton<IGlobalStateModel>(sp => sp.GetRequiredService<GlobalStateModel>());
         services.AddApplicationStateMachine();
 
-        services.AddTransient<IBehavior<FloorCanvasViewModel>, MovePositionsBehavior>();
-        services.AddTransient<FloorCanvasViewModel>();
-
-        services.AddTransient<IBehavior<ScenesPaneViewModel>, LoadScenesBehavior>();
-        services.AddTransient<ScenesPaneViewModel>();
+        services.AddSingleton<TBehavior>();
+        services.AddSingleton<IBehavior<FloorCanvasViewModel>>(sp => sp.GetRequiredService<TBehavior>());
+        services.AddSingleton<FloorCanvasViewModel>();
         services.AddTransient<SceneViewModel>();
+
+        configureServices?.Invoke(services);
 
         var serviceProvider = services.BuildServiceProvider();
         var globalState = serviceProvider.GetRequiredService<GlobalStateModel>();
         var stateMachine = serviceProvider.GetRequiredService<ApplicationStateMachine>();
-        var floorViewModel = serviceProvider.GetRequiredService<FloorCanvasViewModel>();
-        var scenesPaneViewModel = serviceProvider.GetRequiredService<ScenesPaneViewModel>();
+        var viewModel = serviceProvider.GetRequiredService<FloorCanvasViewModel>();
+
         var canvasView = Substitute.For<ISKCanvasView>();
-        canvasView.Width.Returns(100);
-        canvasView.Height.Returns(100);
+        canvasView.Width.Returns(100d);
+        canvasView.Height.Returns(100d);
         canvasView.CanvasSize.Returns(new SKSize(100, 100));
 
+        viewModel.CanvasView = canvasView;
         var floorBounds = new SKRect(0, 0, 100, 100);
-        floorViewModel.CanvasView = canvasView;
-        floorViewModel.UpdateFloorBounds(floorBounds, new SKSize(100, 100));
+        viewModel.UpdateFloorBounds(floorBounds, new SKSize(100, 100));
 
-        var floorActivation = floorViewModel.Activator.Activate();
-        var scenesActivation = scenesPaneViewModel.Activator.Activate();
+        var activation = viewModel.Activator.Activate();
 
-        return new TestContext(
+        return new FloorBehaviorTestContext<TBehavior>(
             serviceProvider,
             globalState,
             stateMachine,
-            floorViewModel,
-            scenesPaneViewModel,
+            viewModel,
             canvasView,
-            floorActivation,
-            scenesActivation,
+            activation,
             floorBounds);
     }
 
-    public void LoadChoreography(ChoreographyModel choreography)
+    public SceneViewModel CreateSceneViewModel(Models.SceneModel scene)
     {
-        GlobalState.Choreography = choreography;
+        var viewModel = _serviceProvider.GetRequiredService<SceneViewModel>();
+        viewModel.SceneId = scene.SceneId;
+        viewModel.Name = scene.Name;
+        viewModel.FixedPositions = scene.FixedPositions;
 
-        SpinWait.SpinUntil(
-            () => GlobalState.SelectedScene is { Positions.Count: > 0 },
-            TimeSpan.FromSeconds(1)).ShouldBeTrue();
+        foreach (var position in scene.Positions)
+        {
+            viewModel.Positions.Add(position);
+        }
+
+        return viewModel;
     }
 
-    public void EnableMoveMode()
+    public void LoadChoreography(Models.ChoreographyModel choreography, SceneViewModel selectedScene)
     {
-        GlobalState.InteractionMode = InteractionMode.Move;
-        StateMachine.TryApply(new MovePositionsStartedTrigger()).ShouldBeTrue();
+        GlobalState.Choreography = choreography;
+        GlobalState.SelectedScene = selectedScene;
+        GlobalState.Scenes.Clear();
+        GlobalState.Scenes.Add(selectedScene);
     }
 
     public void SelectByRectangle(Point startFloorPoint, Point endFloorPoint)
     {
-        var startView = ToViewPoint(startFloorPoint);
-        var endView = ToViewPoint(endFloorPoint);
-        SendPointer(startView, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command));
-        SendPointer(endView, vm => vm.PointerMovedCommand, command => new PointerMovedCommand(CanvasView, command));
-        SendPointer(endView, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command));
+        DragFromFloorTo(startFloorPoint, endFloorPoint);
     }
 
-    public void DragFromTo(Point startFloorPoint, Point endFloorPoint)
+    public void DragFromFloorTo(Point startFloorPoint, Point endFloorPoint)
     {
         var startView = ToViewPoint(startFloorPoint);
         var endView = ToViewPoint(endFloorPoint);
@@ -147,7 +140,13 @@ internal sealed class TestContext : IDisposable
         SendPointer(endView, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command));
     }
 
-    public void ClickInView(Point viewPoint)
+    public void ClickFloorPoint(Point floorPoint)
+    {
+        var viewPoint = ToViewPoint(floorPoint);
+        ClickViewPoint(viewPoint);
+    }
+
+    public void ClickViewPoint(Point viewPoint)
     {
         SendPointer(viewPoint, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command));
         SendPointer(viewPoint, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command));
@@ -155,9 +154,8 @@ internal sealed class TestContext : IDisposable
 
     public void Dispose()
     {
-        _floorActivation.Dispose();
-        _scenesActivation.Dispose();
-        FloorViewModel.CanvasView = null;
+        ViewModel.CanvasView = null;
+        _activation.Dispose();
         _serviceProvider.Dispose();
     }
 
@@ -167,7 +165,7 @@ internal sealed class TestContext : IDisposable
         Func<PointerEventArgs, TCommand> commandFactory)
     {
         var args = new TestPointerEventArgs(viewPoint);
-        commandSelector(FloorViewModel)
+        commandSelector(ViewModel)
             .Execute(commandFactory(args))
             .FirstAsync()
             .Wait();
@@ -186,17 +184,12 @@ internal sealed class TestContext : IDisposable
         var x = centerX + floorPoint.X * scale;
         var y = centerY - floorPoint.Y * scale;
         var canvasPoint = new SKPoint((float)x, (float)y);
-        var transformed = FloorViewModel.TransformationMatrix.MapPoint(canvasPoint);
+        var transformed = ViewModel.TransformationMatrix.MapPoint(canvasPoint);
 
         var (scaleX, scaleY) = GetCanvasScale();
         var viewX = transformed.X / scaleX;
         var viewY = transformed.Y / scaleY;
         return new Point(viewX, viewY);
-    }
-
-    public void TranslateView(float deltaX, float deltaY)
-    {
-        FloorViewModel.TransformationMatrix = SKMatrix.CreateTranslation(deltaX, deltaY);
     }
 
     private (float ScaleX, float ScaleY) GetCanvasScale()

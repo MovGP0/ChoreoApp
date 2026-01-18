@@ -1,8 +1,6 @@
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reflection;
-using System.Threading;
-using ChoreoApp.Components.Tests.Floor;
 using ChoreoApp.Floor;
 using ChoreoApp.Floor.Behaviors;
 using ChoreoApp.Floor.Messages;

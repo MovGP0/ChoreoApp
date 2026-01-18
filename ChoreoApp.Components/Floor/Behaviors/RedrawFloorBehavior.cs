@@ -1,6 +1,7 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
+using System.Runtime.InteropServices;
 using ChoreoApp.AudioPlayer.Messages;
 using ChoreoApp.Floor.Messages;
 using ChoreoApp.Scenes;
@@ -49,7 +50,21 @@ public sealed class RedrawFloorBehavior(
             return;
         }
 
-        if (MainThread.IsMainThread)
+        var isMainThread = false;
+        try
+        {
+            isMainThread = MainThread.IsMainThread;
+        }
+        catch (COMException)
+        {
+            isMainThread = true;
+        }
+        catch (TypeInitializationException)
+        {
+            isMainThread = true;
+        }
+
+        if (isMainThread)
         {
             viewModel.CanvasView.InvalidateSurface();
             return;
