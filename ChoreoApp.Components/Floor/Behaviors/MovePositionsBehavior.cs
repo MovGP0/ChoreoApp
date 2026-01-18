@@ -9,7 +9,6 @@ using MaterialDesignThemes.Maui;
 using MessagePipe;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
-using SkiaSharp.Views.Maui.Controls;
 using Position = ChoreoApp.Models.PositionModel;
 
 namespace ChoreoApp.Floor.Behaviors;
@@ -81,7 +80,7 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(command.CanvasView as SKCanvasView);
+        var position = command.EventArgs.GetPosition(command.CanvasView as Element);
         if (position is null || command.EventArgs.Button != ButtonsMask.Primary)
         {
             ResetPointerState();
@@ -118,7 +117,7 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(command.CanvasView as SKCanvasView);
+        var position = command.EventArgs.GetPosition(command.CanvasView as Element);
         if (position is null)
         {
             return;
@@ -162,7 +161,7 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        var position =  command.EventArgs.GetPosition(viewModel.CanvasView as SKCanvasView);
+        var position =  command.EventArgs.GetPosition(viewModel.CanvasView as Element);
         if (position is not null && TryGetFloorPoint(viewModel, position.Value, out var floorPoint))
         {
             if (_dragActive)

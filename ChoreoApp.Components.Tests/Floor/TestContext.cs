@@ -14,6 +14,8 @@ using NSubstitute;
 using Shouldly;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
+using System.Reactive.Linq;
+using System.Threading;
 
 namespace ChoreoApp.Components.Tests.Floor;
 
@@ -116,7 +118,10 @@ internal sealed class TestContext : IDisposable
     public void LoadChoreography(ChoreographyModel choreography)
     {
         GlobalState.Choreography = choreography;
-        GlobalState.SelectedScene.ShouldNotBeNull();
+
+        SpinWait.SpinUntil(
+            () => GlobalState.SelectedScene is { Positions.Count: > 0 },
+            TimeSpan.FromSeconds(1)).ShouldBeTrue();
     }
 
     public void EnableMoveMode()
@@ -165,7 +170,8 @@ internal sealed class TestContext : IDisposable
         var args = new TestPointerEventArgs(viewPoint);
         commandSelector(FloorViewModel)
             .Execute(commandFactory(args))
-            .Subscribe();
+            .FirstAsync()
+            .Wait();
     }
 
     private Point ToViewPoint(Point floorPoint)

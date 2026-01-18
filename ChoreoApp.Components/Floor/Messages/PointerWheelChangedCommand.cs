@@ -1,5 +1,5 @@
-using SkiaSharp.Views.Maui.Controls;
+using SkiaSharp.Views.Maui;
 
 namespace ChoreoApp.Floor.Messages;
 
-public sealed record PointerWheelChangedCommand(SKCanvasView CanvasView, double Delta, Point? Position);
+public sealed record PointerWheelChangedCommand(ISKCanvasView CanvasView, double Delta, Point? Position);

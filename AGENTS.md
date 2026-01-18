@@ -258,6 +258,13 @@ public sealed class SomeViewModel(
     }
 }
 ```
+- When a new behavior is implemented, make sure there is also a BDD unit test that tests that behavior
+  - The test context should only have that single behavior registered in the DI and no other behaviors
+  - Make sure that when we test properties of ViewModels, those ViewModels might need to be singleton,
+    such that we test the properties of the correct instance
+  - note that commands of view models execute async.
+    we need to wait until commands processed before we can continue or assert the state
+  - make sure the test execute successfully without failing
 
 ## Event Handler
 - When registering an event handler, the handler also needs to be disposed.

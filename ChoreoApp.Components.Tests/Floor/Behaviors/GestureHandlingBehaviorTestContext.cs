@@ -1,5 +1,7 @@
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
+using System.Reflection;
+using System.Threading;
 using ChoreoApp.Components.Tests.Floor;
 using ChoreoApp.Floor;
 using ChoreoApp.Floor.Behaviors;
@@ -8,6 +10,7 @@ using ChoreoApp.Global;
 using ChoreoApp.Settings;
 using ChoreoApp.StateMachine;
 using NSubstitute;
+using Shouldly;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 
@@ -17,15 +20,18 @@ internal sealed class GestureHandlingBehaviorTestContext : IDisposable
 {
     private readonly ServiceProvider _serviceProvider;
     private readonly IDisposable _activation;
+    private readonly GestureHandlingBehavior _gestureHandlingBehavior;
 
     private GestureHandlingBehaviorTestContext(
         ServiceProvider serviceProvider,
         FloorCanvasViewModel viewModel,
-        ISKCanvasView canvasView)
+        ISKCanvasView canvasView,
+        GestureHandlingBehavior gestureHandlingBehavior)
     {
         _serviceProvider = serviceProvider;
         ViewModel = viewModel;
         CanvasView = canvasView;
+        _gestureHandlingBehavior = gestureHandlingBehavior;
         ViewModel.CanvasView = canvasView;
         _activation = ViewModel.Activator.Activate();
     }
@@ -58,7 +64,8 @@ internal sealed class GestureHandlingBehaviorTestContext : IDisposable
         services.AddSingleton<IGlobalStateModel>(sp => sp.GetRequiredService<GlobalStateModel>());
         services.AddApplicationStateMachine();
 
-        services.AddTransient<IBehavior<FloorCanvasViewModel>, GestureHandlingBehavior>();
+        services.AddSingleton<GestureHandlingBehavior>();
+        services.AddSingleton<IBehavior<FloorCanvasViewModel>>(sp => sp.GetRequiredService<GestureHandlingBehavior>());
         services.AddSingleton<FloorCanvasViewModel>();
 
         var canvasView = Substitute.For<ISKCanvasView>();
@@ -68,7 +75,8 @@ internal sealed class GestureHandlingBehaviorTestContext : IDisposable
 
         var provider = services.BuildServiceProvider();
         var viewModel = provider.GetRequiredService<FloorCanvasViewModel>();
-        return new GestureHandlingBehaviorTestContext(provider, viewModel, canvasView);
+        var behavior = provider.GetRequiredService<GestureHandlingBehavior>();
+        return new GestureHandlingBehaviorTestContext(provider, viewModel, canvasView, behavior);
     }
 
     public void SendPointerPressed(Point viewPoint)
@@ -89,10 +97,63 @@ internal sealed class GestureHandlingBehaviorTestContext : IDisposable
             .Wait();
     }
 
+    public void SendPointerWheelChanged(int delta, Point? position)
+    {
+        ViewModel.PointerWheelChangedCommand
+            .Execute(new PointerWheelChangedCommand(CanvasView, delta, position))
+            .FirstAsync()
+            .Wait();
+    }
+
+    public void SendTouchPressed(long id, Point viewPoint)
+    {
+        SendTouch(id, viewPoint, SKTouchAction.Pressed, true);
+    }
+
+    public void SendTouchMoved(long id, Point viewPoint)
+    {
+        SendTouch(id, viewPoint, SKTouchAction.Moved, true);
+    }
+
+    public void SendTouchReleased(long id, Point viewPoint)
+    {
+        SendTouch(id, viewPoint, SKTouchAction.Released, false);
+    }
+
+    public void WaitForScaleChange(Func<float, bool> predicate)
+    {
+        SpinWait.SpinUntil(
+            () => predicate(ViewModel.TransformationMatrix.ScaleX),
+            TimeSpan.FromSeconds(1)).ShouldBeTrue();
+    }
+
     public void Dispose()
     {
         ViewModel.CanvasView = null;
         _activation.Dispose();
         _serviceProvider.Dispose();
+    }
+
+    private void SendTouch(long id, Point viewPoint, SKTouchAction actionType, bool inContact)
+    {
+        var args = new SKTouchEventArgs(
+            id,
+            actionType,
+            SKMouseButton.Left,
+            SKTouchDeviceType.Touch,
+            new SKPoint((float)viewPoint.X, (float)viewPoint.Y),
+            inContact);
+
+        InvokeHandleTouch(new TouchCommand(CanvasView, args));
+    }
+
+    private void InvokeHandleTouch(TouchCommand command)
+    {
+        var method = typeof(GestureHandlingBehavior).GetMethod(
+            "HandleTouch",
+            BindingFlags.Instance | BindingFlags.NonPublic);
+
+        method.ShouldNotBeNull();
+        method.Invoke(_gestureHandlingBehavior, [ViewModel, command]);
     }
 }
