@@ -34,7 +34,7 @@ public sealed partial class FloorCanvasViewModel : ReactiveObject, IActivatableV
     public IPublisher<DrawFloorCommand> DrawFloorCommandPublisher { get; }
     public ISKCanvasView? CanvasView { get; set; }
 
-    public SKMatrix TransformationMatrix { get; internal set; } = SKMatrix.CreateIdentity();
+    public SKMatrix TransformationMatrix { get; set; } = SKMatrix.CreateIdentity();
 
     internal bool HasFloorBounds => _hasFloorBounds;
     internal SKRect FloorBounds => _floorBounds;

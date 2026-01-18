@@ -4,9 +4,12 @@
     <IsPackable>false</IsPackable>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UseMaui>true</UseMaui>
+    <EnableMauiResizetizer>false</EnableMauiResizetizer>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChoreoApp\ChoreoApp.csproj" TargetFramework="net10.0-windows10.0.19041.0" />
+    <ProjectReference Include="..\ChoreoApp\ChoreoApp.csproj"
+                      TargetFramework="net10.0-windows10.0.19041.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="LightBDD.Framework" />

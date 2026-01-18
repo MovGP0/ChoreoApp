@@ -5,6 +5,7 @@ using ChoreoApp.Algorithms.Hungarian;
 using ChoreoApp.Floor.Messages;
 using ChoreoApp.StateMachine;
 using ChoreoApp.StateMachine.States;
+using MaterialDesignThemes.Maui;
 using MessagePipe;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;

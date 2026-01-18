@@ -47,4 +47,31 @@ public partial class MovePositions_feature
             Then_only_that_position_should_move,
             Then_cleanup_resources);
     }
+
+    [Scenario(DisplayName = "Should select positions with mouse drag rectangle")]
+    public void SelectPositionsWithMouseDragRectangle()
+    {
+        Runner.RunScenario(
+            Given_dependency_injection_is_configured,
+            Given_a_choreography_with_positions_is_loaded,
+            Given_move_mode_is_active,
+            Then_move_state_should_be_active,
+            When_the_user_selects_positions_with_mouse_rectangle,
+            Then_the_expected_positions_should_be_selected,
+            Then_cleanup_resources);
+    }
+
+    [Scenario(DisplayName = "Should select positions with mouse drag rectangle after translation")]
+    public void SelectPositionsWithMouseDragRectangleAfterTranslation()
+    {
+        Runner.RunScenario(
+            Given_dependency_injection_is_configured,
+            Given_a_choreography_with_positions_is_loaded,
+            Given_move_mode_is_active,
+            Then_move_state_should_be_active,
+            Given_the_view_is_translated,
+            When_the_user_selects_positions_with_mouse_rectangle,
+            Then_the_expected_positions_should_be_selected,
+            Then_cleanup_resources);
+    }
 }

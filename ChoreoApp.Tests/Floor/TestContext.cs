@@ -7,6 +7,7 @@ using ChoreoApp.Scenes;
 using ChoreoApp.Scenes.Behaviors;
 using ChoreoApp.StateMachine;
 using ChoreoApp.StateMachine.Triggers;
+using MaterialDesignThemes.Maui;
 using NSubstitute;
 using Shouldly;
 using SkiaSharp;
@@ -179,6 +180,31 @@ internal sealed class TestContext : IDisposable
         var centerY = _floorBounds.Top + (float)(height / 2d);
         var x = centerX + floorPoint.X * scale;
         var y = centerY - floorPoint.Y * scale;
-        return new Point(x, y);
+        var canvasPoint = new SKPoint((float)x, (float)y);
+        var transformed = FloorViewModel.TransformationMatrix.MapPoint(canvasPoint);
+
+        var (scaleX, scaleY) = GetCanvasScale();
+        var viewX = transformed.X / scaleX;
+        var viewY = transformed.Y / scaleY;
+        return new Point(viewX, viewY);
+    }
+
+    public void TranslateView(float deltaX, float deltaY)
+    {
+        FloorViewModel.TransformationMatrix = SKMatrix.CreateTranslation(deltaX, deltaY);
+    }
+
+    private (float ScaleX, float ScaleY) GetCanvasScale()
+    {
+        if (!CanvasView.IsValid())
+        {
+            return (1f, 1f);
+        }
+
+        var width = CanvasView.Width;
+        var height = CanvasView.Height;
+        var scaleX = CanvasView.CanvasSize.Width / (float)width;
+        var scaleY = CanvasView.CanvasSize.Height / (float)height;
+        return (scaleX, scaleY);
     }
 }

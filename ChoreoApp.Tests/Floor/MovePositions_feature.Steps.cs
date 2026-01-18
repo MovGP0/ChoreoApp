@@ -1,4 +1,5 @@
 using ChoreoApp.Models;
+using ChoreoApp.StateMachine.States;
 using LightBDD.XUnit2;
 using Shouldly;
 
@@ -40,10 +41,28 @@ public partial class MovePositions_feature : FeatureFixture
         _context.EnableMoveMode();
     }
 
+    private void Then_move_state_should_be_active()
+    {
+        _context.ShouldNotBeNull();
+        _context.StateMachine.State.ShouldBeOfType<MovePositionsState>();
+    }
+
     private void When_the_user_selects_positions_with_rectangle()
     {
         _context.ShouldNotBeNull();
         _context.SelectByRectangle(new Point(-2, 2), new Point(2, 0));
+    }
+
+    private void When_the_user_selects_positions_with_mouse_rectangle()
+    {
+        _context.ShouldNotBeNull();
+        _context.SelectByRectangle(new Point(-2, 2), new Point(2, 0));
+    }
+
+    private void Given_the_view_is_translated()
+    {
+        _context.ShouldNotBeNull();
+        _context.TranslateView(10f, -12f);
     }
 
     private void When_the_user_drags_a_selected_position_by_delta()
@@ -105,6 +124,19 @@ public partial class MovePositions_feature : FeatureFixture
         _context.ShouldNotBeNull();
         _context.GlobalState.SelectedPositions.ShouldContain(_first);
         _context.GlobalState.SelectedPositions.Count.ShouldBe(1);
+    }
+
+    private void Then_the_expected_positions_should_be_selected()
+    {
+        _context.ShouldNotBeNull();
+        _first.ShouldNotBeNull();
+        _second.ShouldNotBeNull();
+        _third.ShouldNotBeNull();
+
+        _context.GlobalState.SelectedPositions.ShouldContain(_first);
+        _context.GlobalState.SelectedPositions.ShouldContain(_second);
+        _context.GlobalState.SelectedPositions.ShouldNotContain(_third);
+        _context.GlobalState.SelectedPositions.Count.ShouldBe(2);
     }
 
     private void Then_cleanup_resources()

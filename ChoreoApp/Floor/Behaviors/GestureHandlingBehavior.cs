@@ -5,6 +5,7 @@ using ChoreoApp.Floor.Messages;
 using ChoreoApp.StateMachine;
 using ChoreoApp.StateMachine.States;
 using ChoreoApp.StateMachine.Triggers;
+using MaterialDesignThemes.Maui;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
