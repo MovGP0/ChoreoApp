@@ -43,8 +43,6 @@ internal sealed class FloorBehaviorTestContext<TBehavior> : IDisposable
     public FloorCanvasViewModel ViewModel { get; }
     public ISKCanvasView CanvasView { get; }
 
-    public T GetRequiredService<T>() where T : notnull => _serviceProvider.GetRequiredService<T>();
-
     public static FloorBehaviorTestContext<TBehavior> Create(Action<ServiceCollection>? configureServices = null)
     {
         RxApp.MainThreadScheduler = ImmediateScheduler.Instance;

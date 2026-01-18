@@ -53,7 +53,7 @@ public sealed class PlacePositionBehavior(
 
     private void HandlePointerPressed(PointerPressedCommand command)
     {
-        var position = command.EventArgs.GetPosition(command.CanvasView as SKCanvasView);
+        var position = GetPointerPosition(command);
         if (position is null || command.EventArgs.Button != ButtonsMask.Primary)
         {
             _pointerPressedPosition = null;
@@ -72,7 +72,7 @@ public sealed class PlacePositionBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(command.CanvasView as SKCanvasView);
+        var position = GetPointerPosition(command);
         if (position is null)
         {
             return;
@@ -101,7 +101,7 @@ public sealed class PlacePositionBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(canvasView as SKCanvasView);
+        var position = GetPointerPosition(command, canvasView);
         var shouldPlace = !_pointerMoved
             && position is not null
             && command.EventArgs.Button == ButtonsMask.Primary;
@@ -491,5 +491,20 @@ public sealed class PlacePositionBehavior(
         var scaleX = canvasView.CanvasSize.Width / (float)width;
         var scaleY = canvasView.CanvasSize.Height / (float)height;
         return (scaleX, scaleY);
+    }
+
+    private static Point? GetPointerPosition(PointerPressedCommand command)
+    {
+        return command.EventArgs.GetPosition(command.CanvasView as Element);
+    }
+
+    private static Point? GetPointerPosition(PointerMovedCommand command)
+    {
+        return command.EventArgs.GetPosition(command.CanvasView as Element);
+    }
+
+    private static Point? GetPointerPosition(PointerReleasedCommand command, ISKCanvasView canvasView)
+    {
+        return command.EventArgs.GetPosition(canvasView as Element);
     }
 }

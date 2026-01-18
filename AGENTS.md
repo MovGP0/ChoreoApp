@@ -40,6 +40,8 @@ font.Size = 12;
 - Arrange/Act/Assert comments; name subject/result accordingly.
 - For behavior scenarios, prefer LightBDD with xUnit: use `FeatureFixture`, `[Scenario]`, and clear Given/When/Then step names.
 - Use NSubstitute for mocking interfaces in unit tests.
+- For pointer input, use `TestPointerEventArgs` to override `PointerEventArgs.GetPosition(...)` so it returns a deterministic point even when `relativeTo` is `null`.
+- For `ISKCanvasView` in tests, use an `NSubstitute` stub with `Width`, `Height`, and `CanvasSize` configured (no `Element`-derived test canvas).
 - References: NSubstitute manual https://nsubstitute.github.io/ and LightBDD manual https://github.com/LightBDD/LightBDD/wiki/Quick-Start.
 
 ## Commit & Pull Request Guidelines
@@ -53,6 +55,7 @@ font.Size = 12;
 
 ## Tool usage
 - When available, prefer tools (e.g. Rider) for creating, listing, inspecting and editing files.
+- After every `bd sync`, check `.git` for stale rebase state folders (e.g., `rebase-merge` or `rebase-apply`) and delete them if present to avoid false rebase detection in Rider.
 
 ## Scripts
 - `scripts/Create-DevCert.ps1` creates the development signing certificate and prints its thumbprint.

@@ -83,7 +83,7 @@ public sealed class ScalePositionsBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(command.CanvasView as SKCanvasView);
+        var position = GetPointerPosition(command);
         if (position is null || command.EventArgs.Button != ButtonsMask.Primary)
         {
             ResetPointerState();
@@ -120,7 +120,7 @@ public sealed class ScalePositionsBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(command.CanvasView as SKCanvasView);
+        var position = GetPointerPosition(command);
         if (position is null)
         {
             return;
@@ -164,7 +164,7 @@ public sealed class ScalePositionsBehavior(
             return;
         }
 
-        var position =  command.EventArgs.GetPosition(viewModel.CanvasView as SKCanvasView);
+        var position = GetPointerPosition(command, viewModel.CanvasView);
         if (position is not null && TryGetFloorPoint(viewModel, position.Value, out var floorPoint))
         {
             if (_scaleActive)
@@ -689,5 +689,20 @@ public sealed class ScalePositionsBehavior(
         var x = point.X / scaleX;
         var y = point.Y / scaleY;
         return new Point(x, y);
+    }
+
+    private static Point? GetPointerPosition(PointerPressedCommand command)
+    {
+        return command.EventArgs.GetPosition(command.CanvasView as Element);
+    }
+
+    private static Point? GetPointerPosition(PointerMovedCommand command)
+    {
+        return command.EventArgs.GetPosition(command.CanvasView as Element);
+    }
+
+    private static Point? GetPointerPosition(PointerReleasedCommand command, ISKCanvasView? canvasView)
+    {
+        return command.EventArgs.GetPosition(canvasView as Element);
     }
 }
