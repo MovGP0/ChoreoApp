@@ -44,6 +44,33 @@ font.Size = 12;
 - For `ISKCanvasView` in tests, use an `NSubstitute` stub with `Width`, `Height`, and `CanvasSize` configured (no `Element`-derived test canvas).
 - References: NSubstitute manual https://nsubstitute.github.io/ and LightBDD manual https://github.com/LightBDD/LightBDD/wiki/Quick-Start.
 
+### Shouldy
+- Use Shouldy for assertions. 
+- Use one assertion only, but you may use `ShouldSatisfyAllConditions` when multiple assertions are required:
+```csharp
+result.ShouldSatisfyAllConditions(
+    () => /* first assertion */,
+    () => /* second assertion */,
+    () => /* third assertion */,
+    // add more assertions as required
+);
+```
+- You may also nest assertions:
+```csharp
+result.ShouldSatisfyAllConditions(
+    () => result.Value.ShouldNotBeNull().ShouldBe("foobar"),
+    // add more assertions as required
+);
+```
+Tipps: 
+- if there is no `result` variable, use a `"result"` string
+- if you need to assert a state before we are finished, aggregate the assertion in a `List<Action>`
+```csharp
+List<Action> assertions = new();
+assertions.Add(() => foo.ShouldBe(5));
+"result".ShouldSatisfyAllConditions(assertions);
+```
+
 ## Commit & Pull Request Guidelines
 - Commits: short, imperative subjects (≈50 chars); group logical changes; include context in body when needed. Current history is minimal—keep it tidy.
 - PRs: describe motivation and behavior changes; link issues/work items; include screenshots or recordings for UI changes (Windows/Android). Note required workloads or tooling changes in the description.
