@@ -2,7 +2,7 @@ using LightBDD.Framework;
 using LightBDD.Framework.Scenarios;
 using LightBDD.XUnit2;
 
-namespace ChoreoApp.Tests.Floor;
+namespace ChoreoApp.Components.Tests.Floor;
 
 [FeatureDescription(
     @"In order to edit choreography positions

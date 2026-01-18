@@ -5,18 +5,17 @@ using ChoreoApp.Global;
 using ChoreoApp.Models;
 using ChoreoApp.Scenes;
 using ChoreoApp.Scenes.Behaviors;
-using ChoreoApp.StateMachine;
-using ChoreoApp.StateMachine.Triggers;
 using ChoreoApp.Settings;
 using ChoreoApp.Settings.Behaviors;
+using ChoreoApp.StateMachine;
+using ChoreoApp.StateMachine.Triggers;
 using MaterialDesignThemes.Maui;
 using NSubstitute;
 using Shouldly;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
-using SkiaSharp.Views.Maui.Controls;
 
-namespace ChoreoApp.Tests.Floor;
+namespace ChoreoApp.Components.Tests.Floor;
 
 internal sealed class TestContext : IDisposable
 {
@@ -130,24 +129,24 @@ internal sealed class TestContext : IDisposable
     {
         var startView = ToViewPoint(startFloorPoint);
         var endView = ToViewPoint(endFloorPoint);
-        SendTouch(1, SKTouchAction.Pressed, startView, true);
-        SendTouch(1, SKTouchAction.Moved, endView, true);
-        SendTouch(1, SKTouchAction.Released, endView, false);
+        SendPointer(startView, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command));
+        SendPointer(endView, vm => vm.PointerMovedCommand, command => new PointerMovedCommand(CanvasView, command));
+        SendPointer(endView, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command));
     }
 
     public void DragFromTo(Point startFloorPoint, Point endFloorPoint)
     {
         var startView = ToViewPoint(startFloorPoint);
         var endView = ToViewPoint(endFloorPoint);
-        SendTouch(2, SKTouchAction.Pressed, startView, true);
-        SendTouch(2, SKTouchAction.Moved, endView, true);
-        SendTouch(2, SKTouchAction.Released, endView, false);
+        SendPointer(startView, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command));
+        SendPointer(endView, vm => vm.PointerMovedCommand, command => new PointerMovedCommand(CanvasView, command));
+        SendPointer(endView, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command));
     }
 
     public void ClickInView(Point viewPoint)
     {
-        SendTouch(3, SKTouchAction.Pressed, viewPoint, true);
-        SendTouch(3, SKTouchAction.Released, viewPoint, false);
+        SendPointer(viewPoint, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command));
+        SendPointer(viewPoint, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command));
     }
 
     public void Dispose()
@@ -158,19 +157,14 @@ internal sealed class TestContext : IDisposable
         _serviceProvider.Dispose();
     }
 
-    private void SendTouch(long id, SKTouchAction action, Point viewPoint, bool inContact)
+    private void SendPointer<TCommand>(
+        Point viewPoint,
+        Func<FloorCanvasViewModel, IReactiveCommand<TCommand, TCommand>> commandSelector,
+        Func<PointerEventArgs, TCommand> commandFactory)
     {
-        var args = new SKTouchEventArgs(
-            id,
-            action,
-            SKMouseButton.Left,
-            SKTouchDeviceType.Touch,
-            new SKPoint((float)viewPoint.X, (float)viewPoint.Y),
-            inContact);
-
-        FloorViewModel
-            .TouchCommand
-            .Execute(new TouchCommand(CanvasView, args))
+        var args = new TestPointerEventArgs(viewPoint);
+        commandSelector(FloorViewModel)
+            .Execute(commandFactory(args))
             .Subscribe();
     }
 

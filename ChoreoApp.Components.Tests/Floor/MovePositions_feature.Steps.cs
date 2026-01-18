@@ -3,7 +3,7 @@ using ChoreoApp.StateMachine.States;
 using LightBDD.XUnit2;
 using Shouldly;
 
-namespace ChoreoApp.Tests.Floor;
+namespace ChoreoApp.Components.Tests.Floor;
 
 public partial class MovePositions_feature : FeatureFixture
 {

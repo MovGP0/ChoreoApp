@@ -286,6 +286,19 @@ public partial class SomeControl: IDisposable
 }
 ```
 
+## MessagePipe
+- Documentation: https://github.com/Cysharp/MessagePipe
+- Use the Publisher/Subscriber pattern to communicate between components.
+- Inject `IPublisher<T>` to publish and `ISubscriber<T>` to receive messages.
+- Prefer `record` types for commands and events.
+- Message naming uses suffixes based on role (`Command`, `Event`, `Query`, `Response`).
+    - Examples: `UpdateSceneCommand`, `SceneUpdatedEvent`, `GetScenesQuery`, `ScenesListResponse`.
+- Place messages (Commands, Events, Queries, and Responses) in a `Messages/` folder.
+
+**Unit Testing:**
+- Don't use mocks for `IPublisher<T>` and `ISubscriber<T>`.
+- Register `serviceCollection.AddMessagePipe()` to the service collection and resolve `IPublisher<T>` and `ISubcriber<T>` from the DI.
+
 ## Bindings
 - Example for dynamic bindings:
 ```xaml
