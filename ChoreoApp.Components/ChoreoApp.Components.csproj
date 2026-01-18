@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>
+      net10.0;
+      net10.0-android;
+      net10.0-ios;
+      net10.0-maccatalyst;
+      net10.0-windows10.0.19041.0
+    </TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <UseMaui>true</UseMaui>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
+    <RootNamespace>ChoreoApp</RootNamespace>
+
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+    <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Controls" />
+    <PackageReference Include="Microsoft.Maui.Essentials" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+    <PackageReference Include="ReactiveUI.Maui" />
+    <PackageReference Include="SkiaSharp" />
+    <PackageReference Include="SkiaSharp.Views.Maui.Controls" />
+    <PackageReference Include="Microsoft.Maui.Controls.Foldable" />
+    <PackageReference Include="MessagePipe" />
+    <PackageReference Include="Plugin.Maui.Audio" />
+    <PackageReference Include="Riok.Mapperly" />
+    <PackageReference Include="SkiaSharp.Extended" />
+    <PackageReference Include="Svg.Skia" />
+    <PackageReference Include="Sharpnado.Maui.Shadows" />
+    <PackageReference Include="CommunityToolkit.Maui" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChoreoApp.Models\ChoreoApp.Models.csproj" />
+    <ProjectReference Include="..\ChoreoApp.i18n\ChoreoApp.i18n.csproj" />
+    <ProjectReference Include="..\ChoreoApp.Algorithms\ChoreoApp.Algorithms.csproj" />
+    <ProjectReference Include="..\ChoreoApp.StateMachine\ChoreoApp.StateMachine.csproj" />
+    <ProjectReference Include="..\MaterialDesignThemes.Maui\MaterialDesignThemes.Maui.csproj" />
+    <ProjectReference Include="..\ChoreoMasterMobile.Json\ChoreoMasterMobile.Json.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0-windows10.0.19041.0'">
+    <Page Remove="**\*.xaml" />
+    <ApplicationDefinition Remove="**\*.xaml" />
+  </ItemGroup>
+</Project>

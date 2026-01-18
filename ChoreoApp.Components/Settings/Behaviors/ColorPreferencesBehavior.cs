@@ -2,6 +2,7 @@ using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.Models;
+using ChoreoApp.Settings;
 
 namespace ChoreoApp.Settings.Behaviors;
 
@@ -23,7 +24,10 @@ public sealed class ColorPreferencesBehavior(IPreferences preferences) : IBehavi
                     viewModel.UseTertiaryColor = false;
                 }
 
-                App.UpdateMaterialScheme(preferences);
+                if (Application.Current is { } application)
+                {
+                    MaterialSchemeHelper.UpdateMaterialScheme(application, preferences);
+                }
             })
             .DisposeWith(disposables);
 
@@ -46,7 +50,10 @@ public sealed class ColorPreferencesBehavior(IPreferences preferences) : IBehavi
                     viewModel.UseTertiaryColor = false;
                 }
 
-                App.UpdateMaterialScheme(preferences);
+                if (Application.Current is { } application)
+                {
+                    MaterialSchemeHelper.UpdateMaterialScheme(application, preferences);
+                }
             })
             .DisposeWith(disposables);
 
@@ -68,7 +75,10 @@ public sealed class ColorPreferencesBehavior(IPreferences preferences) : IBehavi
                     preferences.Remove(SettingsPreferenceKeys.TertiaryColor);
                 }
 
-                App.UpdateMaterialScheme(preferences);
+                if (Application.Current is { } application)
+                {
+                    MaterialSchemeHelper.UpdateMaterialScheme(application, preferences);
+                }
             })
             .DisposeWith(disposables);
 
@@ -83,7 +93,10 @@ public sealed class ColorPreferencesBehavior(IPreferences preferences) : IBehavi
                 }
 
                 preferences.Set(SettingsPreferenceKeys.PrimaryColor, color.ToArgbHex());
-                App.UpdateMaterialScheme(preferences);
+                if (Application.Current is { } application)
+                {
+                    MaterialSchemeHelper.UpdateMaterialScheme(application, preferences);
+                }
             })
             .DisposeWith(disposables);
 
@@ -98,7 +111,10 @@ public sealed class ColorPreferencesBehavior(IPreferences preferences) : IBehavi
                 }
 
                 preferences.Set(SettingsPreferenceKeys.SecondaryColor, color.ToArgbHex());
-                App.UpdateMaterialScheme(preferences);
+                if (Application.Current is { } application)
+                {
+                    MaterialSchemeHelper.UpdateMaterialScheme(application, preferences);
+                }
             })
             .DisposeWith(disposables);
 
@@ -113,7 +129,10 @@ public sealed class ColorPreferencesBehavior(IPreferences preferences) : IBehavi
                 }
 
                 preferences.Set(SettingsPreferenceKeys.TertiaryColor, color.ToArgbHex());
-                App.UpdateMaterialScheme(preferences);
+                if (Application.Current is { } application)
+                {
+                    MaterialSchemeHelper.UpdateMaterialScheme(application, preferences);
+                }
             })
             .DisposeWith(disposables);
     }

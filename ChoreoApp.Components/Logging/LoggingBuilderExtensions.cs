@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 
-namespace ChoreoApp;
+namespace ChoreoApp.Logging;
 
 public static class LoggingBuilderExtensions
 {

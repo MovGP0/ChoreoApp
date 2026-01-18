@@ -73,6 +73,7 @@
     <PackageReference Include="CommunityToolkit.Maui" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ChoreoApp.Components\ChoreoApp.Components.csproj" />
     <ProjectReference Include="..\ChoreoApp.Models\ChoreoApp.Models.csproj" />
     <ProjectReference Include="..\ChoreoApp.i18n\ChoreoApp.i18n.csproj" />
     <ProjectReference Include="..\ChoreoApp.Algorithms\ChoreoApp.Algorithms.csproj" />
@@ -82,31 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images\" />
-  </ItemGroup>
-  <ItemGroup>
-    <MauiXaml Update="Settings\SettingsPage.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
-    <MauiXaml Update="Main\MainPage.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
-    <MauiXaml Update="Dancers\DancerSettingsPage.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Settings\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Main\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Dancers\DancerSettingsPage.xaml.cs">
-      <DependentUpon>DancerSettingsPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
 </Project>
 

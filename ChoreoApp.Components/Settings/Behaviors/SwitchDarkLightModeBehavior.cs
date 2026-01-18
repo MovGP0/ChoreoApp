@@ -27,7 +27,7 @@ public sealed class SwitchDarkLightModeBehavior(IPreferences preferences) : IBeh
                 var theme = isDark ? "Dark" : "Light";
                 preferences.Set(SettingsPreferenceKeys.Theme, theme);
                 application.UserAppTheme = isDark ? AppTheme.Dark : AppTheme.Light;
-                App.UpdateMaterialScheme(preferences);
+                MaterialSchemeHelper.UpdateMaterialScheme(application, preferences);
             })
             .DisposeWith(disposables);
 
@@ -46,7 +46,7 @@ public sealed class SwitchDarkLightModeBehavior(IPreferences preferences) : IBeh
                 if (useSystem)
                 {
                     application.UserAppTheme = AppTheme.Unspecified;
-                    App.UpdateMaterialScheme(preferences);
+                    MaterialSchemeHelper.UpdateMaterialScheme(application, preferences);
                     return;
                 }
 
@@ -54,7 +54,7 @@ public sealed class SwitchDarkLightModeBehavior(IPreferences preferences) : IBeh
                 var theme = isDark ? "Dark" : "Light";
                 preferences.Set(SettingsPreferenceKeys.Theme, theme);
                 application.UserAppTheme = isDark ? AppTheme.Dark : AppTheme.Light;
-                App.UpdateMaterialScheme(preferences);
+                MaterialSchemeHelper.UpdateMaterialScheme(application, preferences);
             })
             .DisposeWith(disposables);
     }

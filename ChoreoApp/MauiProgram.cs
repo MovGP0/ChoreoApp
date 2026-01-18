@@ -3,6 +3,7 @@ using ChoreoApp.AudioPlayer;
 using ChoreoApp.ChoreographySettings;
 using ChoreoApp.Dancers;
 using ChoreoApp.Floor;
+using ChoreoApp.Logging;
 using ChoreoApp.Main;
 using ChoreoApp.Scenes;
 using ChoreoApp.Settings;
