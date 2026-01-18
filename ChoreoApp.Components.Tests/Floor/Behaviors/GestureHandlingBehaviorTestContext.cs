@@ -1,9 +1,12 @@
+using System.Reactive.Concurrency;
+using System.Reactive.Linq;
+using ChoreoApp.Components.Tests.Floor;
 using ChoreoApp.Floor;
 using ChoreoApp.Floor.Behaviors;
 using ChoreoApp.Floor.Messages;
+using ChoreoApp.Global;
+using ChoreoApp.Settings;
 using ChoreoApp.StateMachine;
-using ChoreoApp.StateMachine.Transitions;
-using MessagePipe;
 using NSubstitute;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
@@ -13,6 +16,7 @@ namespace ChoreoApp.Components.Tests.Floor.Behaviors;
 internal sealed class GestureHandlingBehaviorTestContext : IDisposable
 {
     private readonly ServiceProvider _serviceProvider;
+    private readonly IDisposable _activation;
 
     private GestureHandlingBehaviorTestContext(
         ServiceProvider serviceProvider,
@@ -23,7 +27,7 @@ internal sealed class GestureHandlingBehaviorTestContext : IDisposable
         ViewModel = viewModel;
         CanvasView = canvasView;
         ViewModel.CanvasView = canvasView;
-        ViewModel.Activator.Activate();
+        _activation = ViewModel.Activator.Activate();
     }
 
     public FloorCanvasViewModel ViewModel { get; }
@@ -31,17 +35,31 @@ internal sealed class GestureHandlingBehaviorTestContext : IDisposable
 
     public static GestureHandlingBehaviorTestContext Create()
     {
+        RxApp.MainThreadScheduler = ImmediateScheduler.Instance;
+        RxApp.TaskpoolScheduler = ImmediateScheduler.Instance;
+
         var services = new ServiceCollection();
         services.AddMessagePipe();
 
-        var globalState = Substitute.For<IGlobalStateModel>();
-        services.AddSingleton(globalState);
-        services.AddSingleton(new ApplicationStateMachine(globalState, Array.Empty<StateTransition>()));
-        services.AddTransient<IBehavior<FloorCanvasViewModel>, GestureHandlingBehavior>();
+        var preferences = Substitute.For<IPreferences>();
+        preferences.Get(Arg.Any<string>(), Arg.Any<string>()).Returns(string.Empty);
 
-        services.AddTransient(sp => new FloorCanvasViewModel(
-            sp.GetRequiredService<IPublisher<DrawFloorCommand>>(),
-            sp.GetRequiredService<IEnumerable<IBehavior<FloorCanvasViewModel>>>()));
+        var haptic = Substitute.For<IHapticFeedback>();
+        haptic.IsSupported.Returns(false);
+
+        var vibration = Substitute.For<IVibration>();
+        vibration.IsSupported.Returns(false);
+
+        services.AddSingleton(preferences);
+        services.AddSingleton(haptic);
+        services.AddSingleton(vibration);
+        services.AddSingleton<SettingsViewModel>();
+        services.AddSingleton<GlobalStateModel>();
+        services.AddSingleton<IGlobalStateModel>(sp => sp.GetRequiredService<GlobalStateModel>());
+        services.AddApplicationStateMachine();
+
+        services.AddTransient<IBehavior<FloorCanvasViewModel>, GestureHandlingBehavior>();
+        services.AddSingleton<FloorCanvasViewModel>();
 
         var canvasView = Substitute.For<ISKCanvasView>();
         canvasView.Width.Returns(100d);
@@ -55,28 +73,26 @@ internal sealed class GestureHandlingBehaviorTestContext : IDisposable
 
     public void SendPointerPressed(Point viewPoint)
     {
-        SendPointer(viewPoint, vm => vm.PointerPressedCommand, args => new PointerPressedCommand(CanvasView, args));
+        var args = new TestPointerEventArgs(viewPoint);
+        ViewModel.PointerPressedCommand
+            .Execute(new PointerPressedCommand(CanvasView, args))
+            .FirstAsync()
+            .Wait();
     }
 
     public void SendPointerMoved(Point viewPoint)
     {
-        SendPointer(viewPoint, vm => vm.PointerMovedCommand, args => new PointerMovedCommand(CanvasView, args));
+        var args = new TestPointerEventArgs(viewPoint);
+        ViewModel.PointerMovedCommand
+            .Execute(new PointerMovedCommand(CanvasView, args))
+            .FirstAsync()
+            .Wait();
     }
 
     public void Dispose()
     {
         ViewModel.CanvasView = null;
+        _activation.Dispose();
         _serviceProvider.Dispose();
-    }
-
-    private void SendPointer<TCommand>(
-        Point viewPoint,
-        Func<FloorCanvasViewModel, IReactiveCommand<TCommand, TCommand>> commandSelector,
-        Func<PointerEventArgs, TCommand> commandFactory)
-    {
-        var args = new TestPointerEventArgs(viewPoint);
-        commandSelector(ViewModel)
-            .Execute(commandFactory(args))
-            .Subscribe();
     }
 }

@@ -38,9 +38,17 @@ public sealed class GestureHandlingBehaviorTests : FeatureFixture
     private void Then_the_view_should_translate()
     {
         _context.ShouldNotBeNull();
-        var matrix = _context.ViewModel.TransformationMatrix;
-        matrix.TransX.ShouldBe(20f, 0.001f);
-        matrix.TransY.ShouldBe(15f, 0.001f);
+
+        var translated = SpinWait.SpinUntil(
+            () =>
+            {
+                var matrix = _context.ViewModel.TransformationMatrix;
+                return Math.Abs(matrix.TransX - 20f) < 0.001f
+                       && Math.Abs(matrix.TransY - 15f) < 0.001f;
+            },
+            TimeSpan.FromSeconds(1));
+
+        translated.ShouldBeTrue();
     }
 
     private void Then_cleanup_resources()
