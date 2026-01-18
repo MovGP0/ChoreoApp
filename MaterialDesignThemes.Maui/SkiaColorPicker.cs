@@ -15,13 +15,13 @@ public sealed class SkiaColorPicker : ContentView
 
     private static readonly SKColor[] s_hueColors =
     [
-        new SKColor(255, 0, 0),
-        new SKColor(255, 255, 0),
-        new SKColor(0, 255, 0),
-        new SKColor(0, 255, 255),
-        new SKColor(0, 0, 255),
-        new SKColor(255, 0, 255),
-        new SKColor(255, 0, 0)
+        new(255, 0, 0),
+        new(255, 255, 0),
+        new(0, 255, 0),
+        new(0, 255, 255),
+        new(0, 0, 255),
+        new(255, 0, 255),
+        new(255, 0, 0)
     ];
 
     private readonly Grid _layoutGrid;
@@ -376,7 +376,7 @@ public sealed class SkiaColorPicker : ContentView
         UpdateSliderValue();
         _wheelView.InvalidateSurface();
 
-        if (oldColor != newColor)
+        if (!Equals(oldColor, newColor))
         {
             ColorChanged?.Invoke(this, new ColorChangedEventArgs(oldColor, newColor));
         }
@@ -594,8 +594,15 @@ public sealed class SkiaColorPicker : ContentView
 
     private float GetCanvasScale(SKImageInfo info)
     {
-        var widthScale = (float)(info.Width / Math.Max(1d, _wheelView.Width));
-        var heightScale = (float)(info.Height / Math.Max(1d, _wheelView.Height));
+        if (!_wheelView.IsValid())
+        {
+            return 1f;
+        }
+
+        var width = _wheelView.Width;
+        var height = _wheelView.Height;
+        var widthScale = (float)(info.Width / width);
+        var heightScale = (float)(info.Height / height);
         return Math.Min(widthScale, heightScale);
     }
 

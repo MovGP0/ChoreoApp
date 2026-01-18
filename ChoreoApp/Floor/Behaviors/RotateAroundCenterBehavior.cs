@@ -661,14 +661,13 @@ public sealed class RotateAroundCenterBehavior(
 
     private static (float ScaleX, float ScaleY) GetCanvasScale(ISKCanvasView canvasView)
     {
-        var width = canvasView.Width;
-        var height = canvasView.Height;
-
-        if (width <= 0 || height <= 0)
+        if (!canvasView.IsValid())
         {
             return (1f, 1f);
         }
 
+        var width = canvasView.Width;
+        var height = canvasView.Height;
         var scaleX = canvasView.CanvasSize.Width / (float)width;
         var scaleY = canvasView.CanvasSize.Height / (float)height;
         return (scaleX, scaleY);

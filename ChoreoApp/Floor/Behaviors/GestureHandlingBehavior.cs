@@ -132,6 +132,7 @@ public sealed class GestureHandlingBehavior(
         var deltaX = position.Value.X - _lastPointerPosition.Value.X;
         var deltaY = position.Value.Y - _lastPointerPosition.Value.Y;
 
+        stateMachine.TryApply(new PanStartedTrigger());
         ApplyTranslation(viewModel, command.CanvasView, deltaX, deltaY);
         _lastPointerPosition = position.Value;
         InvalidateCanvas(viewModel);
@@ -144,6 +145,7 @@ public sealed class GestureHandlingBehavior(
             return;
         }
 
+        stateMachine.TryApply(new PanCompletedTrigger());
         _lastPointerPosition = null;
     }
 
@@ -363,14 +365,13 @@ public sealed class GestureHandlingBehavior(
 
     private static (float ScaleX, float ScaleY) GetCanvasScale(ISKCanvasView canvasView)
     {
-        var width = canvasView.Width;
-        var height = canvasView.Height;
-
-        if (width <= 0 || height <= 0)
+        if (!canvasView.IsValid())
         {
             return (1f, 1f);
         }
 
+        var width = canvasView.Width;
+        var height = canvasView.Height;
         var scaleX = canvasView.CanvasSize.Width / (float)width;
         var scaleY = canvasView.CanvasSize.Height / (float)height;
         return (scaleX, scaleY);
