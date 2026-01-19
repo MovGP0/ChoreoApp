@@ -1,13 +1,13 @@
 using ChoreoApp.Floor.Behaviors;
 using ChoreoApp.Global;
 using ChoreoApp.Models;
+using ChoreoApp.StateMachine.States;
 using ChoreoApp.StateMachine.Triggers;
 using LightBDD.Framework;
 using LightBDD.Framework.Scenarios;
 using LightBDD.XUnit2;
 using Microsoft.Extensions.Logging;
 using Shouldly;
-using Xunit.Abstractions;
 
 namespace ChoreoApp.Components.Tests.Floor.Behaviors;
 
@@ -15,7 +15,7 @@ namespace ChoreoApp.Components.Tests.Floor.Behaviors;
     @"In order to rotate around a dancer
 As a user
 I want to rotate the selection around a tapped dancer")]
-public sealed class ScaleAroundDancerBehaviorTests(ITestOutputHelper testOutputHelper) : FeatureFixture
+public sealed class ScaleAroundDancerBehaviorTests : FeatureFixture
 {
     private FloorBehaviorTestContext<ScaleAroundDancerBehavior>? _context;
     private TestTimeProvider? _timeProvider;
@@ -37,6 +37,20 @@ public sealed class ScaleAroundDancerBehaviorTests(ITestOutputHelper testOutputH
             Then_cleanup_resources);
     }
 
+    [Scenario(DisplayName = "Should rotate around tapped dancer with mouse")]
+    public void RotateAroundTappedDancerWithMouse()
+    {
+        Runner.RunScenario(
+            Given_a_scale_around_dancer_context,
+            Given_a_choreography_with_positions_is_loaded,
+            Given_rotate_around_dancer_mode_is_active,
+            When_the_user_selects_positions_with_rectangle,
+            When_the_user_double_clicks_a_dancer,
+            When_the_user_rotates_the_selection_with_mouse,
+            Then_selected_positions_should_rotate_around_anchor,
+            Then_cleanup_resources);
+    }
+
     private void Given_a_scale_around_dancer_context()
     {
         _timeProvider = new TestTimeProvider(new DateTimeOffset(2025, 1, 1, 0, 0, 0, TimeSpan.Zero));
@@ -46,7 +60,7 @@ public sealed class ScaleAroundDancerBehaviorTests(ITestOutputHelper testOutputH
             services.AddLogging(logger =>
             {
                 logger.SetMinimumLevel(LogLevel.Debug);
-                logger.AddXUnit(testOutputHelper);
+                logger.AddXUnit(TestOutput);
             });
         });
     }
@@ -81,6 +95,16 @@ public sealed class ScaleAroundDancerBehaviorTests(ITestOutputHelper testOutputH
         _context.ShouldNotBeNull();
         _timeProvider.ShouldNotBeNull();
 
+        _context.TapFloorPoint(new Point(-1, 1));
+        _timeProvider.Advance(TimeSpan.FromMilliseconds(100));
+        _context.TapFloorPoint(new Point(-1, 1));
+    }
+
+    private void When_the_user_double_clicks_a_dancer()
+    {
+        _context.ShouldNotBeNull();
+        _timeProvider.ShouldNotBeNull();
+
         _context.ClickFloorPoint(new Point(-1, 1));
         _timeProvider.Advance(TimeSpan.FromMilliseconds(100));
         _context.ClickFloorPoint(new Point(-1, 1));
@@ -89,7 +113,19 @@ public sealed class ScaleAroundDancerBehaviorTests(ITestOutputHelper testOutputH
     private void When_the_user_rotates_the_selection()
     {
         _context.ShouldNotBeNull();
-        _context.DragFromFloorTo(new Point(-1, 2), new Point(0, 1));
+        _context.DragFromFloorToUsingTouch(
+            new Point(-1, 2),
+            new Point(0, 1),
+            state => state is ScaleAroundDancerDragStartState);
+    }
+
+    private void When_the_user_rotates_the_selection_with_mouse()
+    {
+        _context.ShouldNotBeNull();
+        _context.DragFromFloorTo(
+            new Point(-1, 2),
+            new Point(0, 1),
+            state => state is ScaleAroundDancerDragStartState);
     }
 
     private void Then_selected_positions_should_rotate_around_anchor()
@@ -98,12 +134,23 @@ public sealed class ScaleAroundDancerBehaviorTests(ITestOutputHelper testOutputH
         _second.ShouldNotBeNull();
         _third.ShouldNotBeNull();
 
-        _first.X.ShouldBe(-1d, 0.0001);
-        _first.Y.ShouldBe(1d, 0.0001);
-        _second.X.ShouldBe(-1d, 0.0001);
-        _second.Y.ShouldBe(-1d, 0.0001);
-        _third.X.ShouldBe(3d, 0.0001);
-        _third.Y.ShouldBe(-2d, 0.0001);
+        var rotated = SpinWait.SpinUntil(
+            () =>
+                Math.Abs(_first.X - -1d) < 0.0001
+                && Math.Abs(_first.Y - 1d) < 0.0001
+                && Math.Abs(_second.X - -1d) < 0.0001
+                && Math.Abs(_second.Y - -1d) < 0.0001
+                && Math.Abs(_third.X - 3d) < 0.0001
+                && Math.Abs(_third.Y - -2d) < 0.0001,
+            TimeSpan.FromSeconds(1));
+
+        if (!rotated)
+        {
+            TestOutput.WriteLine(
+                $"Actual positions: first=({_first.X:F4}, {_first.Y:F4}) second=({_second.X:F4}, {_second.Y:F4}) third=({_third.X:F4}, {_third.Y:F4})");
+        }
+
+        rotated.ShouldBeTrue();
     }
 
     private void Then_cleanup_resources()

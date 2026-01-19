@@ -119,7 +119,7 @@ public sealed class ScalePositionsBehavior(
             return;
         }
 
-        if (_pointerPressedPosition is null || command.EventArgs.Button != ButtonsMask.Primary)
+        if (_pointerPressedPosition is null)
         {
             return;
         }

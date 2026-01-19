@@ -1,13 +1,13 @@
 using ChoreoApp.Floor.Behaviors;
 using ChoreoApp.Global;
 using ChoreoApp.Models;
+using ChoreoApp.StateMachine.States;
 using ChoreoApp.StateMachine.Triggers;
 using LightBDD.Framework;
 using LightBDD.Framework.Scenarios;
 using LightBDD.XUnit2;
 using Microsoft.Extensions.Logging;
 using Shouldly;
-using Xunit.Abstractions;
 
 namespace ChoreoApp.Components.Tests.Floor.Behaviors;
 
@@ -15,7 +15,7 @@ namespace ChoreoApp.Components.Tests.Floor.Behaviors;
     @"In order to adjust dancer placements
 As a user
 I want dragging to move selected positions")]
-public sealed class MovePositionsBehaviorTests(ITestOutputHelper testOutputHelper) : FeatureFixture
+public sealed class MovePositionsBehaviorTests : FeatureFixture
 {
     private FloorBehaviorTestContext<MovePositionsBehavior>? _context;
     private PositionModel? _first;
@@ -35,6 +35,19 @@ public sealed class MovePositionsBehaviorTests(ITestOutputHelper testOutputHelpe
             Given_move_mode_is_active,
             When_the_user_selects_positions_with_rectangle,
             When_the_user_drags_a_selected_position_by_delta,
+            Then_selected_positions_should_move_by_delta,
+            Then_cleanup_resources);
+    }
+
+    [Scenario(DisplayName = "Should move selected positions by drag delta with mouse")]
+    public void MoveSelectedPositionsByDragDeltaWithMouse()
+    {
+        Runner.RunScenario(
+            Given_a_move_positions_context,
+            Given_a_choreography_with_positions_is_loaded,
+            Given_move_mode_is_active,
+            When_the_user_selects_positions_with_rectangle,
+            When_the_user_drags_a_selected_position_by_delta_with_mouse,
             Then_selected_positions_should_move_by_delta,
             Then_cleanup_resources);
     }
@@ -59,7 +72,7 @@ public sealed class MovePositionsBehaviorTests(ITestOutputHelper testOutputHelpe
             services.AddLogging(logger =>
             {
                 logger.SetMinimumLevel(LogLevel.Debug);
-                logger.AddXUnit(testOutputHelper);
+                logger.AddXUnit(TestOutput);
             });
         });
     }
@@ -97,13 +110,27 @@ public sealed class MovePositionsBehaviorTests(ITestOutputHelper testOutputHelpe
         _context.ShouldNotBeNull();
         _first.ShouldNotBeNull();
         _dragDelta = new Point(1.5, -1.0);
-        _context.DragFromFloorTo(_startFirst, new Point(_startFirst.X + _dragDelta.X, _startFirst.Y + _dragDelta.Y));
+        _context.DragFromFloorToUsingTouch(
+            _startFirst,
+            new Point(_startFirst.X + _dragDelta.X, _startFirst.Y + _dragDelta.Y),
+            state => state is MovePositionsDragState);
+    }
+
+    private void When_the_user_drags_a_selected_position_by_delta_with_mouse()
+    {
+        _context.ShouldNotBeNull();
+        _first.ShouldNotBeNull();
+        _dragDelta = new Point(1.5, -1.0);
+        _context.DragFromFloorTo(
+            _startFirst,
+            new Point(_startFirst.X + _dragDelta.X, _startFirst.Y + _dragDelta.Y),
+            state => state is MovePositionsDragState);
     }
 
     private void When_the_user_clicks_outside_of_positions()
     {
         _context.ShouldNotBeNull();
-        _context.ClickViewPoint(new Point(200, 200));
+        _context.ClickFloorPoint(new Point(4, 4));
     }
 
     private void Then_selected_positions_should_move_by_delta()
@@ -112,19 +139,28 @@ public sealed class MovePositionsBehaviorTests(ITestOutputHelper testOutputHelpe
         _second.ShouldNotBeNull();
         _third.ShouldNotBeNull();
 
-        _first.X.ShouldBe(_startFirst.X + _dragDelta.X, 0.0001);
-        _first.Y.ShouldBe(_startFirst.Y + _dragDelta.Y, 0.0001);
-        _second.X.ShouldBe(_startSecond.X + _dragDelta.X, 0.0001);
-        _second.Y.ShouldBe(_startSecond.Y + _dragDelta.Y, 0.0001);
-        _third.X.ShouldBe(_startThird.X, 0.0001);
-        _third.Y.ShouldBe(_startThird.Y, 0.0001);
+        var moved = SpinWait.SpinUntil(
+            () =>
+                Math.Abs(_first.X - (_startFirst.X + _dragDelta.X)) < 0.0001
+                && Math.Abs(_first.Y - (_startFirst.Y + _dragDelta.Y)) < 0.0001
+                && Math.Abs(_second.X - (_startSecond.X + _dragDelta.X)) < 0.0001
+                && Math.Abs(_second.Y - (_startSecond.Y + _dragDelta.Y)) < 0.0001
+                && Math.Abs(_third.X - _startThird.X) < 0.0001
+                && Math.Abs(_third.Y - _startThird.Y) < 0.0001,
+            TimeSpan.FromSeconds(1));
+
+        moved.ShouldBeTrue();
     }
 
     private void Then_the_selection_should_be_cleared()
     {
         _context.ShouldNotBeNull();
-        _context.GlobalState.SelectedPositions.Count.ShouldBe(0);
-        _context.GlobalState.SelectionRectangle.ShouldBeNull();
+        var cleared = SpinWait.SpinUntil(
+            () => _context.GlobalState.SelectedPositions.Count == 0
+                  && _context.GlobalState.SelectionRectangle is null,
+            TimeSpan.FromSeconds(1));
+
+        cleared.ShouldBeTrue();
     }
 
     private void Then_cleanup_resources()

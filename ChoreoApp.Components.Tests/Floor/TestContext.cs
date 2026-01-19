@@ -136,24 +136,33 @@ internal sealed class TestContext : IDisposable
     {
         var startView = ToViewPoint(startFloorPoint);
         var endView = ToViewPoint(endFloorPoint);
-        SendPointer(startView, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command));
-        SendPointer(endView, vm => vm.PointerMovedCommand, command => new PointerMovedCommand(CanvasView, command));
-        SendPointer(endView, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command));
+        SendPointer(startView, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command), isInContact: true);
+        SpinWait.SpinUntil(() => false, TimeSpan.FromMilliseconds(10));
+        SendPointer(endView, vm => vm.PointerMovedCommand, command => new PointerMovedCommand(CanvasView, command), isInContact: true);
+        SpinWait.SpinUntil(() => false, TimeSpan.FromMilliseconds(10));
+        SendPointer(endView, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command), isInContact: false);
+        SpinWait.SpinUntil(
+            () => GlobalState.SelectionRectangle is null
+                  && GlobalState.SelectedPositions.Count > 0,
+            TimeSpan.FromSeconds(1));
     }
 
     public void DragFromTo(Point startFloorPoint, Point endFloorPoint)
     {
         var startView = ToViewPoint(startFloorPoint);
         var endView = ToViewPoint(endFloorPoint);
-        SendPointer(startView, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command));
-        SendPointer(endView, vm => vm.PointerMovedCommand, command => new PointerMovedCommand(CanvasView, command));
-        SendPointer(endView, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command));
+        SendPointer(startView, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command), isInContact: true);
+        SpinWait.SpinUntil(() => false, TimeSpan.FromMilliseconds(10));
+        SendPointer(endView, vm => vm.PointerMovedCommand, command => new PointerMovedCommand(CanvasView, command), isInContact: true);
+        SpinWait.SpinUntil(() => false, TimeSpan.FromMilliseconds(10));
+        SendPointer(endView, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command), isInContact: false);
     }
 
     public void ClickInView(Point viewPoint)
     {
-        SendPointer(viewPoint, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command));
-        SendPointer(viewPoint, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command));
+        SendPointer(viewPoint, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command), isInContact: true);
+        SpinWait.SpinUntil(() => false, TimeSpan.FromMilliseconds(10));
+        SendPointer(viewPoint, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command), isInContact: false);
     }
 
     public void Dispose()
@@ -167,9 +176,10 @@ internal sealed class TestContext : IDisposable
     private void SendPointer<TCommand>(
         Point viewPoint,
         Func<FloorCanvasViewModel, IReactiveCommand<TCommand, TCommand>> commandSelector,
-        Func<PointerEventArgs, TCommand> commandFactory)
+        Func<PointerEventArgs, TCommand> commandFactory,
+        bool isInContact = true)
     {
-        var args = new TestPointerEventArgs(viewPoint);
+        var args = new TestPointerEventArgs(viewPoint, isInContact: isInContact);
         commandSelector(FloorViewModel)
             .Execute(commandFactory(args))
             .FirstAsync()

@@ -7,7 +7,6 @@ using LightBDD.Framework.Scenarios;
 using LightBDD.XUnit2;
 using Microsoft.Extensions.Logging;
 using Shouldly;
-using Xunit.Abstractions;
 
 namespace ChoreoApp.Components.Tests.Floor.Behaviors;
 
@@ -15,7 +14,7 @@ namespace ChoreoApp.Components.Tests.Floor.Behaviors;
     @"In order to resize formations
 As a user
 I want to scale selected positions around their center")]
-public sealed class ScalePositionsBehaviorTests(ITestOutputHelper testOutputHelper) : FeatureFixture
+public sealed class ScalePositionsBehaviorTests : FeatureFixture
 {
     private FloorBehaviorTestContext<ScalePositionsBehavior>? _context;
     private PositionModel? _first;
@@ -42,7 +41,7 @@ public sealed class ScalePositionsBehaviorTests(ITestOutputHelper testOutputHelp
             services.AddLogging(logger =>
             {
                 logger.SetMinimumLevel(LogLevel.Debug);
-                logger.AddXUnit(testOutputHelper);
+                logger.AddXUnit(TestOutput);
             });
         });
     }
@@ -84,12 +83,17 @@ public sealed class ScalePositionsBehaviorTests(ITestOutputHelper testOutputHelp
         _second.ShouldNotBeNull();
         _third.ShouldNotBeNull();
 
-        _first.X.ShouldBe(-2d, 0.0001);
-        _first.Y.ShouldBe(1d, 0.0001);
-        _second.X.ShouldBe(2d, 0.0001);
-        _second.Y.ShouldBe(1d, 0.0001);
-        _third.X.ShouldBe(3d, 0.0001);
-        _third.Y.ShouldBe(-2d, 0.0001);
+        var scaled = SpinWait.SpinUntil(
+            () =>
+                Math.Abs(_first.X - -2d) < 0.0001
+                && Math.Abs(_first.Y - 1d) < 0.0001
+                && Math.Abs(_second.X - 2d) < 0.0001
+                && Math.Abs(_second.Y - 1d) < 0.0001
+                && Math.Abs(_third.X - 3d) < 0.0001
+                && Math.Abs(_third.Y - -2d) < 0.0001,
+            TimeSpan.FromSeconds(1));
+
+        scaled.ShouldBeTrue();
     }
 
     private void Then_cleanup_resources()

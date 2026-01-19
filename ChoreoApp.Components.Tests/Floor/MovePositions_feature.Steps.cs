@@ -3,11 +3,10 @@ using ChoreoApp.StateMachine.States;
 using LightBDD.XUnit2;
 using Microsoft.Extensions.Logging;
 using Shouldly;
-using Xunit.Abstractions;
 
 namespace ChoreoApp.Components.Tests.Floor;
 
-public partial class MovePositions_feature(ITestOutputHelper testOutputHelper) : FeatureFixture
+public partial class MovePositions_feature : FeatureFixture
 {
     private TestContext? _context;
     private PositionModel? _first;
@@ -25,7 +24,7 @@ public partial class MovePositions_feature(ITestOutputHelper testOutputHelper) :
             services.AddLogging(logger =>
             {
                 logger.SetMinimumLevel(LogLevel.Debug);
-                logger.AddXUnit(testOutputHelper);
+                logger.AddXUnit(TestOutput);
             });
         });
     }
@@ -102,19 +101,28 @@ public partial class MovePositions_feature(ITestOutputHelper testOutputHelper) :
         _second.ShouldNotBeNull();
         _third.ShouldNotBeNull();
 
-        _first.X.ShouldBe(_startFirst.X + _dragDelta.X, 0.0001);
-        _first.Y.ShouldBe(_startFirst.Y + _dragDelta.Y, 0.0001);
-        _second.X.ShouldBe(_startSecond.X + _dragDelta.X, 0.0001);
-        _second.Y.ShouldBe(_startSecond.Y + _dragDelta.Y, 0.0001);
-        _third.X.ShouldBe(_startThird.X, 0.0001);
-        _third.Y.ShouldBe(_startThird.Y, 0.0001);
+        var moved = SpinWait.SpinUntil(
+            () =>
+                Math.Abs(_first.X - (_startFirst.X + _dragDelta.X)) < 0.0001
+                && Math.Abs(_first.Y - (_startFirst.Y + _dragDelta.Y)) < 0.0001
+                && Math.Abs(_second.X - (_startSecond.X + _dragDelta.X)) < 0.0001
+                && Math.Abs(_second.Y - (_startSecond.Y + _dragDelta.Y)) < 0.0001
+                && Math.Abs(_third.X - _startThird.X) < 0.0001
+                && Math.Abs(_third.Y - _startThird.Y) < 0.0001,
+            TimeSpan.FromSeconds(1));
+
+        moved.ShouldBeTrue();
     }
 
     private void Then_the_selection_should_be_cleared()
     {
         _context.ShouldNotBeNull();
-        _context.GlobalState.SelectedPositions.Count.ShouldBe(0);
-        _context.GlobalState.SelectionRectangle.ShouldBeNull();
+        var cleared = SpinWait.SpinUntil(
+            () => _context.GlobalState.SelectedPositions.Count == 0
+                  && _context.GlobalState.SelectionRectangle is null,
+            TimeSpan.FromSeconds(1));
+
+        cleared.ShouldBeTrue();
     }
 
     private void Then_only_that_position_should_move()
@@ -142,10 +150,18 @@ public partial class MovePositions_feature(ITestOutputHelper testOutputHelper) :
         _second.ShouldNotBeNull();
         _third.ShouldNotBeNull();
 
-        _context.GlobalState.SelectedPositions.ShouldContain(_first);
-        _context.GlobalState.SelectedPositions.ShouldContain(_second);
-        _context.GlobalState.SelectedPositions.ShouldNotContain(_third);
-        _context.GlobalState.SelectedPositions.Count.ShouldBe(2);
+        var selected = _context.GlobalState.SelectedPositions;
+        "result".ShouldSatisfyAllConditions(
+            () => SpinWait.SpinUntil(() => selected.Count == 2, TimeSpan.FromSeconds(1)).ShouldBeTrue(),
+            () => selected.Any(position =>
+                Math.Abs(position.X - _startFirst.X) < 0.0001
+                && Math.Abs(position.Y - _startFirst.Y) < 0.0001).ShouldBeTrue(),
+            () => selected.Any(position =>
+                Math.Abs(position.X - _startSecond.X) < 0.0001
+                && Math.Abs(position.Y - _startSecond.Y) < 0.0001).ShouldBeTrue(),
+            () => selected.Any(position =>
+                Math.Abs(position.X - _startThird.X) < 0.0001
+                && Math.Abs(position.Y - _startThird.Y) < 0.0001).ShouldBeFalse());
     }
 
     private void Then_cleanup_resources()

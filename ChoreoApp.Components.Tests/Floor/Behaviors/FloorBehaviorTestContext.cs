@@ -6,6 +6,7 @@ using ChoreoApp.Floor.Messages;
 using ChoreoApp.Global;
 using ChoreoApp.Scenes;
 using ChoreoApp.StateMachine;
+using ChoreoApp.StateMachine.States;
 using MaterialDesignThemes.Maui;
 using NSubstitute;
 using SkiaSharp;
@@ -19,12 +20,14 @@ internal sealed class FloorBehaviorTestContext<TBehavior> : IDisposable
     private readonly ServiceProvider _serviceProvider;
     private readonly IDisposable _activation;
     private readonly SKRect _floorBounds;
+    private long _touchIdCounter;
 
     private FloorBehaviorTestContext(
         ServiceProvider serviceProvider,
         GlobalStateModel globalState,
         ApplicationStateMachine stateMachine,
         FloorCanvasViewModel viewModel,
+        TBehavior behavior,
         ISKCanvasView canvasView,
         IDisposable activation,
         SKRect floorBounds)
@@ -33,6 +36,7 @@ internal sealed class FloorBehaviorTestContext<TBehavior> : IDisposable
         GlobalState = globalState;
         StateMachine = stateMachine;
         ViewModel = viewModel;
+        Behavior = behavior;
         CanvasView = canvasView;
         _activation = activation;
         _floorBounds = floorBounds;
@@ -41,6 +45,7 @@ internal sealed class FloorBehaviorTestContext<TBehavior> : IDisposable
     public GlobalStateModel GlobalState { get; }
     public ApplicationStateMachine StateMachine { get; }
     public FloorCanvasViewModel ViewModel { get; }
+    public TBehavior Behavior { get; }
     public ISKCanvasView CanvasView { get; }
 
     public static FloorBehaviorTestContext<TBehavior> Create(Action<ServiceCollection>? configureServices = null)
@@ -79,6 +84,7 @@ internal sealed class FloorBehaviorTestContext<TBehavior> : IDisposable
         var globalState = serviceProvider.GetRequiredService<GlobalStateModel>();
         var stateMachine = serviceProvider.GetRequiredService<ApplicationStateMachine>();
         var viewModel = serviceProvider.GetRequiredService<FloorCanvasViewModel>();
+        var behavior = serviceProvider.GetRequiredService<TBehavior>();
 
         var canvasView = Substitute.For<ISKCanvasView>();
         canvasView.Width.Returns(100d);
@@ -96,6 +102,7 @@ internal sealed class FloorBehaviorTestContext<TBehavior> : IDisposable
             globalState,
             stateMachine,
             viewModel,
+            behavior,
             canvasView,
             activation,
             floorBounds);
@@ -127,15 +134,49 @@ internal sealed class FloorBehaviorTestContext<TBehavior> : IDisposable
     public void SelectByRectangle(Point startFloorPoint, Point endFloorPoint)
     {
         DragFromFloorTo(startFloorPoint, endFloorPoint);
+        SpinWait.SpinUntil(
+            () => GlobalState.SelectionRectangle is null
+                  && GlobalState.SelectedPositions.Count > 0,
+            TimeSpan.FromSeconds(1));
     }
 
     public void DragFromFloorTo(Point startFloorPoint, Point endFloorPoint)
     {
         var startView = ToViewPoint(startFloorPoint);
         var endView = ToViewPoint(endFloorPoint);
-        SendPointer(startView, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command));
-        SendPointer(endView, vm => vm.PointerMovedCommand, command => new PointerMovedCommand(CanvasView, command));
-        SendPointer(endView, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command));
+        SendPointer(startView, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command), isInContact: true);
+        SpinWait.SpinUntil(() => false, TimeSpan.FromMilliseconds(10));
+        SendPointer(endView, vm => vm.PointerMovedCommand, command => new PointerMovedCommand(CanvasView, command), isInContact: true);
+        SpinWait.SpinUntil(() => false, TimeSpan.FromMilliseconds(10));
+        SendPointer(endView, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command), isInContact: false);
+    }
+
+    public void DragFromFloorTo(Point startFloorPoint, Point endFloorPoint, Func<ApplicationState, bool> waitForState)
+    {
+        var startView = ToViewPoint(startFloorPoint);
+        var endView = ToViewPoint(endFloorPoint);
+        SendPointer(startView, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command), isInContact: true);
+        SpinWait.SpinUntil(() => waitForState(StateMachine.State), TimeSpan.FromSeconds(1));
+        SendPointer(endView, vm => vm.PointerMovedCommand, command => new PointerMovedCommand(CanvasView, command), isInContact: true);
+        SpinWait.SpinUntil(() => false, TimeSpan.FromMilliseconds(10));
+        SendPointer(endView, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command), isInContact: false);
+    }
+
+    public void DragFromFloorToUsingTouch(Point startFloorPoint, Point endFloorPoint)
+    {
+        DragFromFloorToUsingTouch(startFloorPoint, endFloorPoint, _ => true);
+    }
+
+    public void DragFromFloorToUsingTouch(Point startFloorPoint, Point endFloorPoint, Func<ApplicationState, bool> waitForState)
+    {
+        var startView = ToViewPoint(startFloorPoint);
+        var endView = ToViewPoint(endFloorPoint);
+        var touchId = ++_touchIdCounter;
+        SendTouch(touchId, startView, SKTouchAction.Pressed, true);
+        SpinWait.SpinUntil(() => waitForState(StateMachine.State), TimeSpan.FromSeconds(1));
+        SendTouch(touchId, endView, SKTouchAction.Moved, true);
+        SpinWait.SpinUntil(() => false, TimeSpan.FromMilliseconds(10));
+        SendTouch(touchId, endView, SKTouchAction.Released, false);
     }
 
     public void ClickFloorPoint(Point floorPoint)
@@ -144,10 +185,19 @@ internal sealed class FloorBehaviorTestContext<TBehavior> : IDisposable
         ClickViewPoint(viewPoint);
     }
 
+    public void TapFloorPoint(Point floorPoint)
+    {
+        var viewPoint = ToViewPoint(floorPoint);
+        var touchId = ++_touchIdCounter;
+        SendTouch(touchId, viewPoint, SKTouchAction.Pressed, true);
+        SendTouch(touchId, viewPoint, SKTouchAction.Released, false);
+    }
+
     public void ClickViewPoint(Point viewPoint)
     {
-        SendPointer(viewPoint, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command));
-        SendPointer(viewPoint, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command));
+        SendPointer(viewPoint, vm => vm.PointerPressedCommand, command => new PointerPressedCommand(CanvasView, command), isInContact: true);
+        SpinWait.SpinUntil(() => false, TimeSpan.FromMilliseconds(10));
+        SendPointer(viewPoint, vm => vm.PointerReleasedCommand, command => new PointerReleasedCommand(command), isInContact: false);
     }
 
     public void Dispose()
@@ -160,11 +210,28 @@ internal sealed class FloorBehaviorTestContext<TBehavior> : IDisposable
     private void SendPointer<TCommand>(
         Point viewPoint,
         Func<FloorCanvasViewModel, IReactiveCommand<TCommand, TCommand>> commandSelector,
-        Func<PointerEventArgs, TCommand> commandFactory)
+        Func<PointerEventArgs, TCommand> commandFactory,
+        bool isInContact = true)
     {
-        var args = new TestPointerEventArgs(viewPoint);
+        var args = new TestPointerEventArgs(viewPoint, isInContact: isInContact);
         commandSelector(ViewModel)
             .Execute(commandFactory(args))
+            .FirstAsync()
+            .Wait();
+    }
+
+    private void SendTouch(long touchId, Point viewPoint, SKTouchAction actionType, bool inContact)
+    {
+        var args = new SKTouchEventArgs(
+            touchId,
+            actionType,
+            SKMouseButton.Left,
+            SKTouchDeviceType.Touch,
+            new SKPoint((float)viewPoint.X, (float)viewPoint.Y),
+            inContact);
+
+        ViewModel.TouchCommand
+            .Execute(new TouchCommand(CanvasView, args))
             .FirstAsync()
             .Wait();
     }

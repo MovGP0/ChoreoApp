@@ -130,7 +130,7 @@ public sealed class GestureHandlingBehavior(
 
         _lastHoverPosition = position.Value;
 
-        if (_lastPointerPosition is null || command.EventArgs.Button != ButtonsMask.Primary)
+        if (_lastPointerPosition is null)
         {
             return;
         }

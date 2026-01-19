@@ -76,6 +76,8 @@ internal sealed class GestureHandlingBehaviorTestContext : IDisposable
 
         var provider = services.BuildServiceProvider();
         var viewModel = provider.GetRequiredService<FloorCanvasViewModel>();
+        viewModel.CanvasView = canvasView;
+        viewModel.UpdateFloorBounds(new SKRect(0, 0, 100, 100), new SKSize(100, 100));
         var behavior = provider.GetRequiredService<GestureHandlingBehavior>();
         return new GestureHandlingBehaviorTestContext(provider, viewModel, canvasView, behavior);
     }

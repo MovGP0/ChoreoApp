@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Reflection;
 
 namespace ChoreoApp.Components.Tests.Floor;
@@ -10,10 +9,11 @@ internal sealed class TestPointerEventArgs : PointerEventArgs
 
     private readonly Point _point;
 
-    public TestPointerEventArgs(Point point, ButtonsMask button = ButtonsMask.Primary)
+    public TestPointerEventArgs(Point point, ButtonsMask button = ButtonsMask.Primary, bool isInContact = true)
     {
         _point = point;
         TrySetButton(this, button);
+        TrySetIsInContact(this, isInContact);
     }
 
     public override Point? GetPosition(Element? relativeTo) => _point;
@@ -22,7 +22,9 @@ internal sealed class TestPointerEventArgs : PointerEventArgs
     {
         for (var type = args.GetType(); type is not null; type = type.BaseType)
         {
-            if (TrySetButtonProperty(args, type, button))
+            var setButton = TrySetButtonProperty(args, type, "Button", button);
+            var setButtons = TrySetButtonProperty(args, type, "Buttons", button);
+            if (setButton || setButtons)
             {
                 return;
             }
@@ -34,10 +36,9 @@ internal sealed class TestPointerEventArgs : PointerEventArgs
         }
     }
 
-    private static bool TrySetButtonProperty(PointerEventArgs args, Type type, ButtonsMask button)
+    private static bool TrySetButtonProperty(PointerEventArgs args, Type type, string propertyName, ButtonsMask button)
     {
-        var property = type.GetProperty("Button", Flags)
-            ?? type.GetProperty("Buttons", Flags);
+        var property = type.GetProperty(propertyName, Flags);
         if (property is null)
         {
             return false;
@@ -71,6 +72,57 @@ internal sealed class TestPointerEventArgs : PointerEventArgs
         }
 
         field.SetValue(args, button);
+        return true;
+    }
+
+    private static void TrySetIsInContact(PointerEventArgs args, bool isInContact)
+    {
+        for (var type = args.GetType(); type is not null; type = type.BaseType)
+        {
+            if (TrySetBooleanProperty(args, type, "IsInContact", isInContact)
+                || TrySetBooleanProperty(args, type, "IsPressed", isInContact)
+                || TrySetBooleanField(args, type, isInContact))
+            {
+                return;
+            }
+        }
+    }
+
+    private static bool TrySetBooleanProperty(PointerEventArgs args, Type type, string propertyName, bool value)
+    {
+        var property = type.GetProperty(propertyName, Flags);
+        if (property is null)
+        {
+            return false;
+        }
+
+        if (property.PropertyType != typeof(bool) && property.PropertyType != typeof(bool?))
+        {
+            return false;
+        }
+
+        var setter = property.GetSetMethod(true);
+        if (setter is null)
+        {
+            return false;
+        }
+
+        setter.Invoke(args, [value]);
+        return true;
+    }
+
+    private static bool TrySetBooleanField(PointerEventArgs args, Type type, bool value)
+    {
+        var field = type.GetField("<IsInContact>k__BackingField", Flags)
+            ?? type.GetField("<IsPressed>k__BackingField", Flags)
+            ?? type.GetFields(Flags).FirstOrDefault(candidate => candidate.FieldType == typeof(bool))
+            ?? type.GetFields(Flags).FirstOrDefault(candidate => candidate.FieldType == typeof(bool?));
+        if (field is null)
+        {
+            return false;
+        }
+
+        field.SetValue(args, value);
         return true;
     }
 }

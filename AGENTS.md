@@ -32,6 +32,50 @@ font.Size = 12;
 ```
 - Never return `async void`. Use `async Task` instead.
 
+## Primary Constructors
+- Primary constructor parameters are in scope for the whole type, but they are not fields; `this.param` does not work.
+- Primary constructor parameters are part of the public signature and can be used in field/property initializers.
+- There is no `readonly` equivalent for primary constructor parameters; create readonly fields/properties when you need immutability.
+
+Bad example:
+```csharp
+public sealed class CacheService(ILogger<CacheService> logger)
+{
+    public void LogHit()
+    {
+        this.logger.LogDebug("cache hit");
+    }
+}
+```
+Correct example:
+```csharp
+public sealed class CacheService(ILogger<CacheService> logger)
+{
+    private readonly ILogger<CacheService> _logger = logger;
+
+    public void LogHit()
+    {
+        _logger.LogDebug("cache hit");
+    }
+}
+```
+Exception: when business logic needs to be executed in the constructor, we can't use primary constructors.
+```csharp
+public sealed class MyViewModel: IActivatableViewModel
+{
+    public MyViewModel(IEnumerable<IBehavior<MyViewModel>> behaviors)
+    {
+        this.WhenActivated(disposables => 
+        {
+            foreach (var behavior in behaviors)
+            {
+                behavior.Activate(this, disposables);
+            }
+        });
+    }
+}
+```
+
 ## Testing Guidelines
 - Prefer xUnit + Shouldy assertions. Test class names: `<Subject>Tests`; method names start with `Should...` (set `DisplayName`).
 - Structure tests with `// Arrange`, `// Act`, `// Assert`; name the main instance `subject` and the outcome `result`.
@@ -46,17 +90,18 @@ font.Size = 12;
 
 ### Logging in tests and behaviors
 - Use `MartinCostello.Logging.XUnit` for unit test logging. Keep the package in test projects.
-- For test output logging, inject `ITestOutputHelper` in the test class primary ctor and configure logging like:
+- For LightBDD `FeatureFixture` tests, keep the fixture parameterless (the `ITestOutputHelper` constructor is obsolete). Use the `TestOutput` property for logging like:
 ```csharp
 _context = FloorBehaviorTestContext<MovePositionsBehavior>.Create(services =>
 {
     services.AddLogging(logger =>
     {
         logger.SetMinimumLevel(LogLevel.Debug);
-        logger.AddXUnit(testOutputHelper);
+        logger.AddXUnit(TestOutput);
     });
 });
 ```
+- For non-LightBDD xUnit tests, use ctor injection of `ITestOutputHelper` and pass it to `AddXUnit(...)`.
 - Behaviors should accept `ILogger<TViewModel>` via DI.
 - Use source-generated logging (`LoggerMessage` attributes) for behavior logs instead of `logger.Log*` calls.
 

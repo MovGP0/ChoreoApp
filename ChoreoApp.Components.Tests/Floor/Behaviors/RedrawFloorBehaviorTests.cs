@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Shouldly;
 using SkiaSharp.Views.Maui;
-using Xunit.Abstractions;
 
 namespace ChoreoApp.Components.Tests.Floor.Behaviors;
 
@@ -16,7 +15,7 @@ namespace ChoreoApp.Components.Tests.Floor.Behaviors;
     @"In order to keep the floor up to date
 As a user
 I want redraws to happen when data changes")]
-public sealed class RedrawFloorBehaviorTests(ITestOutputHelper testOutputHelper) : FeatureFixture
+public sealed class RedrawFloorBehaviorTests : FeatureFixture
 {
     private RedrawFloorBehaviorTestContext? _context;
 
@@ -57,7 +56,7 @@ public sealed class RedrawFloorBehaviorTests(ITestOutputHelper testOutputHelper)
             services.AddLogging(logger =>
             {
                 logger.SetMinimumLevel(LogLevel.Debug);
-                logger.AddXUnit(testOutputHelper);
+                logger.AddXUnit(TestOutput);
             });
         });
     }

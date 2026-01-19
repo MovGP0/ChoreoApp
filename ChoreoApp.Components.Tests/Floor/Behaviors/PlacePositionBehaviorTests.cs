@@ -7,7 +7,6 @@ using LightBDD.Framework.Scenarios;
 using LightBDD.XUnit2;
 using Microsoft.Extensions.Logging;
 using Shouldly;
-using Xunit.Abstractions;
 
 namespace ChoreoApp.Components.Tests.Floor.Behaviors;
 
@@ -15,7 +14,7 @@ namespace ChoreoApp.Components.Tests.Floor.Behaviors;
     @"In order to add dancers to a scene
 As a user
 I want a click to place a new position")]
-public sealed class PlacePositionBehaviorTests(ITestOutputHelper testOutputHelper) : FeatureFixture
+public sealed class PlacePositionBehaviorTests : FeatureFixture
 {
     private FloorBehaviorTestContext<PlacePositionBehavior>? _context;
     private SceneModel? _scene;
@@ -40,7 +39,7 @@ public sealed class PlacePositionBehaviorTests(ITestOutputHelper testOutputHelpe
             services.AddLogging(logger =>
             {
                 logger.SetMinimumLevel(LogLevel.Debug);
-                logger.AddXUnit(testOutputHelper);
+                logger.AddXUnit(TestOutput);
             });
         });
     }
@@ -71,13 +70,17 @@ public sealed class PlacePositionBehaviorTests(ITestOutputHelper testOutputHelpe
         _scene.ShouldNotBeNull();
         _sceneViewModel.ShouldNotBeNull();
 
-        _sceneViewModel.Positions.Count.ShouldBe(1);
-        _scene.Positions.Count.ShouldBe(1);
-
-        var position = _sceneViewModel.Positions[0];
-        position.X.ShouldBe(1d, 0.0001);
-        position.Y.ShouldBe(1d, 0.0001);
-        _scene.Positions[0].ShouldBeSameAs(position);
+        "result".ShouldSatisfyAllConditions(
+            () => SpinWait.SpinUntil(
+                () => _sceneViewModel.Positions.Count == 1 && _scene.Positions.Count == 1,
+                TimeSpan.FromSeconds(1)).ShouldBeTrue(),
+            () =>
+            {
+                var position = _sceneViewModel.Positions[0];
+                position.X.ShouldBe(1d, 0.0001);
+                position.Y.ShouldBe(1d, 0.0001);
+                _scene.Positions[0].ShouldBeSameAs(position);
+            });
     }
 
     private void Then_cleanup_resources()

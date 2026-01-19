@@ -71,7 +71,7 @@ public sealed class PlacePositionBehavior(
 
     private void HandlePointerMoved(PointerMovedCommand command)
     {
-        if (_pointerPressedPosition is null || command.EventArgs.Button != ButtonsMask.Primary)
+        if (_pointerPressedPosition is null)
         {
             return;
         }
@@ -107,8 +107,7 @@ public sealed class PlacePositionBehavior(
 
         var position = GetPointerPosition(command, canvasView);
         var shouldPlace = !_pointerMoved
-            && position is not null
-            && command.EventArgs.Button == ButtonsMask.Primary;
+            && position is not null;
 
         _pointerPressedPosition = null;
         _pointerMoved = false;
