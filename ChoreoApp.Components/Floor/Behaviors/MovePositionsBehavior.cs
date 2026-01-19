@@ -7,6 +7,7 @@ using ChoreoApp.StateMachine.States;
 using ChoreoApp.StateMachine.Triggers;
 using MaterialDesignThemes.Maui;
 using MessagePipe;
+using Microsoft.Extensions.Logging;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using Position = ChoreoApp.Models.PositionModel;
@@ -18,7 +19,8 @@ public sealed class MovePositionsBehavior(
     ApplicationStateMachine stateMachine,
     IVibration vibration,
     IPublisher<RedrawFloorCommand> redrawFloorPublisher,
-    ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber)
+    ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber,
+    ILogger<FloorCanvasViewModel> logger)
     : IBehavior<FloorCanvasViewModel>
 {
     private const float PointerMoveThreshold = 6f;

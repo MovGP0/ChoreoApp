@@ -50,6 +50,7 @@ internal sealed class FloorBehaviorTestContext<TBehavior> : IDisposable
 
         var services = new ServiceCollection();
         services.AddMessagePipe();
+        services.AddLogging();
 
         var preferences = Substitute.For<IPreferences>();
         preferences.Get(Arg.Any<string>(), Arg.Any<string>()).Returns(string.Empty);

@@ -49,5 +49,6 @@
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <PackageVersion Include="Shouldly" Version="4.3.0" />
     <PackageVersion Include="Shouldly.FromAssert" Version="1.1.37" />
+    <PackageVersion Include="MartinCostello.Logging.XUnit" Version="0.7.0" />
   </ItemGroup>
 </Project>
