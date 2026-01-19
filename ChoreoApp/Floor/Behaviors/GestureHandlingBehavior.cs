@@ -6,6 +6,7 @@ using ChoreoApp.StateMachine;
 using ChoreoApp.StateMachine.States;
 using ChoreoApp.StateMachine.Triggers;
 using SkiaSharp;
+using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
 
 namespace ChoreoApp.Floor.Behaviors;
@@ -96,7 +97,7 @@ public sealed class GestureHandlingBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(command.CanvasView);
+        var position = command.EventArgs.GetPosition(command.CanvasView as SKCanvasView);
         _lastHoverPosition = position;
 
         if (command.EventArgs.Button != ButtonsMask.Primary || position is null)
@@ -115,7 +116,7 @@ public sealed class GestureHandlingBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(command.CanvasView);
+        var position = command.EventArgs.GetPosition(command.CanvasView as SKCanvasView);
         if (position is null)
         {
             return;
@@ -255,7 +256,7 @@ public sealed class GestureHandlingBehavior(
 
     private void HandleSingleTouchPan(
         FloorCanvasViewModel viewModel,
-        SKCanvasView canvasView,
+        ISKCanvasView canvasView,
         float dpiScaleX,
         float dpiScaleY)
     {
@@ -306,7 +307,7 @@ public sealed class GestureHandlingBehavior(
         viewModel.CanvasView?.InvalidateSurface();
     }
 
-    private static void ApplyTranslation(FloorCanvasViewModel viewModel, SKCanvasView canvasView, double deltaX, double deltaY)
+    private static void ApplyTranslation(FloorCanvasViewModel viewModel, ISKCanvasView canvasView, double deltaX, double deltaY)
     {
         var (dpiScaleX, dpiScaleY) = GetCanvasScale(canvasView);
         var sx = viewModel.TransformationMatrix.ScaleX;
@@ -360,7 +361,7 @@ public sealed class GestureHandlingBehavior(
         return matrix;
     }
 
-    private static (float ScaleX, float ScaleY) GetCanvasScale(SKCanvasView canvasView)
+    private static (float ScaleX, float ScaleY) GetCanvasScale(ISKCanvasView canvasView)
     {
         var width = canvasView.Width;
         var height = canvasView.Height;

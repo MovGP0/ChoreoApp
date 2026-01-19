@@ -52,7 +52,7 @@ public sealed class PlacePositionBehavior(
 
     private void HandlePointerPressed(PointerPressedCommand command)
     {
-        var position = command.EventArgs.GetPosition(command.CanvasView);
+        var position = command.EventArgs.GetPosition(command.CanvasView as SKCanvasView);
         if (position is null || command.EventArgs.Button != ButtonsMask.Primary)
         {
             _pointerPressedPosition = null;
@@ -71,7 +71,7 @@ public sealed class PlacePositionBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(command.CanvasView);
+        var position = command.EventArgs.GetPosition(command.CanvasView as SKCanvasView);
         if (position is null)
         {
             return;
@@ -100,7 +100,7 @@ public sealed class PlacePositionBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(canvasView);
+        var position = command.EventArgs.GetPosition(canvasView as SKCanvasView);
         var shouldPlace = !_pointerMoved
             && position is not null
             && command.EventArgs.Button == ButtonsMask.Primary;
@@ -176,7 +176,7 @@ public sealed class PlacePositionBehavior(
         }
     }
 
-    private void TryHandleTouchRelease(FloorCanvasViewModel viewModel, SKCanvasView canvasView, long touchId, SKPoint location)
+    private void TryHandleTouchRelease(FloorCanvasViewModel viewModel, ISKCanvasView canvasView, long touchId, SKPoint location)
     {
         if (_multiTouchActive || _touchMoved.Contains(touchId))
         {
@@ -478,7 +478,7 @@ public sealed class PlacePositionBehavior(
         return true;
     }
 
-    private static (float ScaleX, float ScaleY) GetCanvasScale(SKCanvasView canvasView)
+    private static (float ScaleX, float ScaleY) GetCanvasScale(ISKCanvasView canvasView)
     {
         var width = canvasView.Width;
         var height = canvasView.Height;

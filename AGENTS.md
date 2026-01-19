@@ -38,6 +38,9 @@ font.Size = 12;
 - Prefer xUnit + Shouldy; one assertion or `ShouldSatisfyAllConditions`.
 - Test class naming: `<TypeUnderTest>Tests`; facts/theories start with `Should...`.
 - Arrange/Act/Assert comments; name subject/result accordingly.
+- For behavior scenarios, prefer LightBDD with xUnit: use `FeatureFixture`, `[Scenario]`, and clear Given/When/Then step names.
+- Use NSubstitute for mocking interfaces in unit tests.
+- References: NSubstitute manual https://nsubstitute.github.io/ and LightBDD manual https://github.com/LightBDD/LightBDD/wiki/Quick-Start.
 
 ## Commit & Pull Request Guidelines
 - Commits: short, imperative subjects (≈50 chars); group logical changes; include context in body when needed. Current history is minimal—keep it tidy.

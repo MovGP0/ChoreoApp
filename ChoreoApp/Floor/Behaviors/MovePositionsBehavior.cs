@@ -80,7 +80,7 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(command.CanvasView);
+        var position = command.EventArgs.GetPosition(command.CanvasView as SKCanvasView);
         if (position is null || command.EventArgs.Button != ButtonsMask.Primary)
         {
             ResetPointerState();
@@ -117,7 +117,7 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(command.CanvasView);
+        var position = command.EventArgs.GetPosition(command.CanvasView as SKCanvasView);
         if (position is null)
         {
             return;
@@ -161,7 +161,7 @@ public sealed class MovePositionsBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(viewModel.CanvasView);
+        var position =  command.EventArgs.GetPosition(viewModel.CanvasView as SKCanvasView);
         if (position is not null && TryGetFloorPoint(viewModel, position.Value, out var floorPoint))
         {
             if (_dragActive)
@@ -636,7 +636,7 @@ public sealed class MovePositionsBehavior(
         return true;
     }
 
-    private static (float ScaleX, float ScaleY) GetCanvasScale(SKCanvasView canvasView)
+    private static (float ScaleX, float ScaleY) GetCanvasScale(ISKCanvasView canvasView)
     {
         var width = canvasView.Width;
         var height = canvasView.Height;
@@ -651,7 +651,7 @@ public sealed class MovePositionsBehavior(
         return (scaleX, scaleY);
     }
 
-    private static Point ToViewPoint(SKPoint point, SKCanvasView canvasView)
+    private static Point ToViewPoint(SKPoint point, ISKCanvasView canvasView)
     {
         var (scaleX, scaleY) = GetCanvasScale(canvasView);
         var x = point.X / scaleX;

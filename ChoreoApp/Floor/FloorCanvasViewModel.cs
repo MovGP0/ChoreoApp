@@ -1,6 +1,7 @@
 using ChoreoApp.Floor.Messages;
 using MessagePipe;
 using SkiaSharp;
+using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
 
 namespace ChoreoApp.Floor;
@@ -32,7 +33,7 @@ public sealed partial class FloorCanvasViewModel : ReactiveObject, IActivatableV
 
     public ViewModelActivator Activator { get; } = new();
     public IPublisher<DrawFloorCommand> DrawFloorCommandPublisher { get; }
-    public SKCanvasView? CanvasView { get; set; }
+    public ISKCanvasView? CanvasView { get; set; }
 
     public SKMatrix TransformationMatrix { get; internal set; } = SKMatrix.CreateIdentity();
 

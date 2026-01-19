@@ -16,7 +16,7 @@ public sealed class ColorPicker : TemplatedView
     private const double ThumbRadius = ThumbSize / 2d;
 
     private AbsoluteLayout? _saturationBrightnessLayout;
-    private GraphicsView? _saturationBrightnessView;
+    private IGraphicsView? _saturationBrightnessView;
     private Border? _saturationBrightnessThumb;
     private Slider? _hueSlider;
     private readonly SaturationBrightnessDrawable _saturationBrightnessDrawable = new();
@@ -186,7 +186,7 @@ public sealed class ColorPicker : TemplatedView
 
     private void OnSaturationBrightnessPointerPressed(object? sender, PointerEventArgs e)
     {
-        var position = e.GetPosition(_saturationBrightnessView);
+        var position = e.GetPosition(_saturationBrightnessView as GraphicsView);
         if (position is null)
         {
             return;
@@ -203,7 +203,7 @@ public sealed class ColorPicker : TemplatedView
             return;
         }
 
-        var position = e.GetPosition(_saturationBrightnessView);
+        var position = e.GetPosition(_saturationBrightnessView as GraphicsView);
         if (position is null)
         {
             return;
@@ -349,15 +349,15 @@ public sealed class ColorPicker : TemplatedView
             _saturationBrightnessLayout.SizeChanged -= OnSaturationBrightnessLayoutSizeChanged;
         }
 
-        if (_saturationBrightnessView is not null)
+        if (_saturationBrightnessView is GraphicsView graphicsView0)
         {
             if (_pointerGesture is not null)
             {
-                _saturationBrightnessView.GestureRecognizers.Remove(_pointerGesture);
+                graphicsView0.GestureRecognizers.Remove(_pointerGesture);
             }
             if (_panGesture is not null)
             {
-                _saturationBrightnessView.GestureRecognizers.Remove(_panGesture);
+                graphicsView0.GestureRecognizers.Remove(_panGesture);
             }
         }
 
@@ -371,16 +371,16 @@ public sealed class ColorPicker : TemplatedView
         _saturationBrightnessThumb = GetTemplateChild(SaturationBrightnessThumbPartName) as Border;
         _hueSlider = GetTemplateChild(HueSliderPartName) as Slider;
 
-        if (_saturationBrightnessView is not null)
+        if (_saturationBrightnessView is GraphicsView graphicsView1)
         {
-            _saturationBrightnessView.Drawable = _saturationBrightnessDrawable;
+            graphicsView1.Drawable = _saturationBrightnessDrawable;
             if (_pointerGesture is not null)
             {
-                _saturationBrightnessView.GestureRecognizers.Add(_pointerGesture);
+                graphicsView1.GestureRecognizers.Add(_pointerGesture);
             }
             if (_panGesture is not null)
             {
-                _saturationBrightnessView.GestureRecognizers.Add(_panGesture);
+                graphicsView1.GestureRecognizers.Add(_panGesture);
             }
         }
 

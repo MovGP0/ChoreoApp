@@ -25,7 +25,7 @@ public sealed class SkiaColorPicker : ContentView
     ];
 
     private readonly Grid _layoutGrid;
-    private readonly SKCanvasView _wheelView;
+    private readonly ISKCanvasView _wheelView;
     private readonly Slider _valueSlider;
 
     private Hsb _hsb;
@@ -38,12 +38,13 @@ public sealed class SkiaColorPicker : ContentView
     {
         MaximumWidthRequest = 240d;
 
-        _wheelView = new SKCanvasView
+        var wheelView = new SKCanvasView
         {
             EnableTouchEvents = true
         };
-        _wheelView.PaintSurface += OnWheelPaintSurface;
-        _wheelView.Touch += OnWheelTouch;
+        wheelView.PaintSurface += OnWheelPaintSurface;
+        wheelView.Touch += OnWheelTouch;
+        _wheelView = wheelView;
 
         _valueSlider = new Slider
         {
@@ -338,9 +339,12 @@ public sealed class SkiaColorPicker : ContentView
     {
         var isEnabled = IsEnabled;
         InputTransparent = !isEnabled;
-        _wheelView.IsEnabled = isEnabled;
-        _wheelView.InputTransparent = !isEnabled;
-        _wheelView.EnableTouchEvents = isEnabled;
+        if (_wheelView is SKCanvasView canvasView)
+        {
+            canvasView.IsEnabled = isEnabled;
+            canvasView.InputTransparent = !isEnabled;
+            canvasView.EnableTouchEvents = isEnabled;
+        }
         _valueSlider.IsEnabled = isEnabled;
         _valueSlider.InputTransparent = !isEnabled;
     }
@@ -385,8 +389,11 @@ public sealed class SkiaColorPicker : ContentView
             return;
         }
 
-        _wheelView.MinimumWidthRequest = WheelMinimumWidth;
-        _wheelView.MinimumHeightRequest = WheelMinimumHeight;
+        if (_wheelView is SKCanvasView canvasView)
+        {
+            canvasView.MinimumWidthRequest = WheelMinimumWidth;
+            canvasView.MinimumHeightRequest = WheelMinimumHeight;
+        }
     }
 
     private void UpdateSliderValue()
@@ -436,10 +443,13 @@ public sealed class SkiaColorPicker : ContentView
                 Grid.SetColumn(_valueSlider, 0);
                 Grid.SetColumnSpan(_valueSlider, 2);
                 Grid.SetRowSpan(_valueSlider, 1);
-                Grid.SetRow(_wheelView, 1);
-                Grid.SetColumn(_wheelView, 0);
-                Grid.SetColumnSpan(_wheelView, 2);
-                Grid.SetRowSpan(_wheelView, 1);
+                if (_wheelView is SKCanvasView topCanvasView)
+                {
+                    Grid.SetRow(topCanvasView, 1);
+                    Grid.SetColumn(topCanvasView, 0);
+                    Grid.SetColumnSpan(topCanvasView, 2);
+                    Grid.SetRowSpan(topCanvasView, 1);
+                }
                 break;
             case ColorPickerDock.Left:
                 _valueSlider.Rotation = -90;
@@ -449,10 +459,13 @@ public sealed class SkiaColorPicker : ContentView
                 Grid.SetColumn(_valueSlider, 0);
                 Grid.SetColumnSpan(_valueSlider, 1);
                 Grid.SetRowSpan(_valueSlider, 2);
-                Grid.SetRow(_wheelView, 0);
-                Grid.SetColumn(_wheelView, 1);
-                Grid.SetColumnSpan(_wheelView, 1);
-                Grid.SetRowSpan(_wheelView, 2);
+                if (_wheelView is SKCanvasView leftCanvasView)
+                {
+                    Grid.SetRow(leftCanvasView, 0);
+                    Grid.SetColumn(leftCanvasView, 1);
+                    Grid.SetColumnSpan(leftCanvasView, 1);
+                    Grid.SetRowSpan(leftCanvasView, 2);
+                }
                 break;
             case ColorPickerDock.Right:
                 _valueSlider.Rotation = 90;
@@ -462,20 +475,26 @@ public sealed class SkiaColorPicker : ContentView
                 Grid.SetColumn(_valueSlider, 1);
                 Grid.SetColumnSpan(_valueSlider, 1);
                 Grid.SetRowSpan(_valueSlider, 2);
-                Grid.SetRow(_wheelView, 0);
-                Grid.SetColumn(_wheelView, 0);
-                Grid.SetColumnSpan(_wheelView, 1);
-                Grid.SetRowSpan(_wheelView, 2);
+                if (_wheelView is SKCanvasView rightCanvasView)
+                {
+                    Grid.SetRow(rightCanvasView, 0);
+                    Grid.SetColumn(rightCanvasView, 0);
+                    Grid.SetColumnSpan(rightCanvasView, 1);
+                    Grid.SetRowSpan(rightCanvasView, 2);
+                }
                 break;
             default:
                 Grid.SetRow(_valueSlider, 1);
                 Grid.SetColumn(_valueSlider, 0);
                 Grid.SetColumnSpan(_valueSlider, 2);
                 Grid.SetRowSpan(_valueSlider, 1);
-                Grid.SetRow(_wheelView, 0);
-                Grid.SetColumn(_wheelView, 0);
-                Grid.SetColumnSpan(_wheelView, 2);
-                Grid.SetRowSpan(_wheelView, 1);
+                if (_wheelView is SKCanvasView canvasView)
+                {
+                    Grid.SetRow(canvasView, 0);
+                    Grid.SetColumn(canvasView, 0);
+                    Grid.SetColumnSpan(canvasView, 2);
+                    Grid.SetRowSpan(canvasView, 1);
+                }
                 break;
         }
     }

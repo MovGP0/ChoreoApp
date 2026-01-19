@@ -1,5 +1,5 @@
-using SkiaSharp.Views.Maui.Controls;
+using SkiaSharp.Views.Maui;
 
 namespace ChoreoApp.Floor.Messages;
 
-public sealed record PointerPressedCommand(SKCanvasView CanvasView, PointerEventArgs EventArgs);
+public sealed record PointerPressedCommand(ISKCanvasView CanvasView, PointerEventArgs EventArgs);
