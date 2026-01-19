@@ -53,10 +53,11 @@ internal sealed class TestContext : IDisposable
     public ScenesPaneViewModel ScenesPaneViewModel { get; }
     public ISKCanvasView CanvasView { get; }
 
-    public static TestContext Create()
+    public static TestContext Create(Action<ServiceCollection>? configureServices = null)
     {
         var services = new ServiceCollection();
         services.AddMessagePipe();
+        services.AddLogging();
 
         var preferences = Substitute.For<IPreferences>();
         preferences.Get(Arg.Any<string>(), Arg.Any<string>()).Returns(string.Empty);
@@ -84,6 +85,8 @@ internal sealed class TestContext : IDisposable
         services.AddTransient<IBehavior<ScenesPaneViewModel>, LoadScenesBehavior>();
         services.AddTransient<ScenesPaneViewModel>();
         services.AddTransient<SceneViewModel>();
+
+        configureServices?.Invoke(services);
 
         var serviceProvider = services.BuildServiceProvider();
         var globalState = serviceProvider.GetRequiredService<GlobalStateModel>();

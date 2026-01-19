@@ -11,6 +11,8 @@ using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
 using Position = ChoreoApp.Models.PositionModel;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Floor.Behaviors;
 
@@ -20,7 +22,8 @@ public sealed class ScaleAroundDancerBehavior(
     TimeProvider timeProvider,
     IVibration vibration,
     IPublisher<RedrawFloorCommand> redrawFloorPublisher,
-    ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber)
+    ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber,
+    ILogger<FloorCanvasViewModel> logger)
     : IBehavior<FloorCanvasViewModel>
 {
     private const float PointerMoveThreshold = 6f;
@@ -49,6 +52,7 @@ public sealed class ScaleAroundDancerBehavior(
 
     public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(ScaleAroundDancerBehavior), nameof(FloorCanvasViewModel));
         viewModel.PointerPressedCommand
             .Subscribe(command => HandlePointerPressed(viewModel, command))
             .DisposeWith(disposables);

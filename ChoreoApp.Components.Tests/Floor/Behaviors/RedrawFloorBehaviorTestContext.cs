@@ -47,13 +47,14 @@ internal sealed class RedrawFloorBehaviorTestContext : IDisposable
     public IPublisher<AudioPlayerPositionChangedEvent> AudioPositionChangedPublisher { get; }
     public IPublisher<RedrawFloorCommand> RedrawPublisher { get; }
 
-    public static RedrawFloorBehaviorTestContext Create()
+    public static RedrawFloorBehaviorTestContext Create(Action<ServiceCollection>? configureServices = null)
     {
         RxApp.MainThreadScheduler = ImmediateScheduler.Instance;
         RxApp.TaskpoolScheduler = ImmediateScheduler.Instance;
 
         var services = new ServiceCollection();
         services.AddMessagePipe();
+        services.AddLogging();
 
         var preferences = Substitute.For<IPreferences>();
         preferences.Get(Arg.Any<string>(), Arg.Any<string>()).Returns(string.Empty);
@@ -76,6 +77,8 @@ internal sealed class RedrawFloorBehaviorTestContext : IDisposable
         services.AddSingleton<RedrawFloorBehavior>();
         services.AddSingleton<IBehavior<FloorCanvasViewModel>>(sp => sp.GetRequiredService<RedrawFloorBehavior>());
         services.AddSingleton<FloorCanvasViewModel>();
+
+        configureServices?.Invoke(services);
 
         var canvasView = Substitute.For<ISKCanvasView>();
         canvasView.Width.Returns(100d);

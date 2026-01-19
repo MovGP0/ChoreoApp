@@ -2,16 +2,20 @@ using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Scenes.Events;
 using MessagePipe;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Scenes.Behaviors;
 
 public sealed class SelectSceneBehavior(
     ISubscriber<SceneSelectedEvent> sceneSelectedSubscriber,
-    IPublisher<SelectedSceneChangedEvent> selectedSceneChangedPublisher):
+    IPublisher<SelectedSceneChangedEvent> selectedSceneChangedPublisher,
+    ILogger<ScenesPaneViewModel> logger):
     IBehavior<ScenesPaneViewModel>
 {
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(SelectSceneBehavior), nameof(ScenesPaneViewModel));
         sceneSelectedSubscriber
             .Subscribe(evnt => viewModel.SelectedScene = evnt.SelectedScene)
             .DisposeWith(disposables);

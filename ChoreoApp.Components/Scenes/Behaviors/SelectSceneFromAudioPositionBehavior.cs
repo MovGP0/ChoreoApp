@@ -3,15 +3,19 @@ using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.AudioPlayer.Messages;
 using MessagePipe;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Scenes.Behaviors;
 
 public sealed class SelectSceneFromAudioPositionBehavior(
-    ISubscriber<AudioPlayerPositionChangedEvent> audioPositionChangedSubscriber)
+    ISubscriber<AudioPlayerPositionChangedEvent> audioPositionChangedSubscriber,
+    ILogger<ScenesPaneViewModel> logger)
     : IBehavior<ScenesPaneViewModel>
 {
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(SelectSceneFromAudioPositionBehavior), nameof(ScenesPaneViewModel));
         audioPositionChangedSubscriber
             .AsObservable()
             .ObserveOn(RxApp.MainThreadScheduler)

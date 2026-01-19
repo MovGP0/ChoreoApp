@@ -5,17 +5,21 @@ using ChoreoApp.Global;
 using ChoreoApp.Main.Messages;
 using ChoreoApp.Models;
 using MessagePipe;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Main.Behaviors;
 
 public sealed class OpenImageBehavior(
     GlobalStateModel globalState,
     IPreferences preferences,
-    IPublisher<OpenSvgFileCommand> publisher)
+    IPublisher<OpenSvgFileCommand> publisher,
+    ILogger<MainViewModel> logger)
     : IBehavior<MainViewModel>
 {
     public void Activate(MainViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(OpenImageBehavior), nameof(MainViewModel));
         viewModel.OpenImageCommand
             .SelectMany(_ => Observable.FromAsync(HandleOpenImageAsync))
             .Subscribe()

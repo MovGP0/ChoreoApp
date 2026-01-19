@@ -5,7 +5,9 @@ using ChoreoApp.StateMachine.Triggers;
 using LightBDD.Framework;
 using LightBDD.Framework.Scenarios;
 using LightBDD.XUnit2;
+using Microsoft.Extensions.Logging;
 using Shouldly;
+using Xunit.Abstractions;
 
 namespace ChoreoApp.Components.Tests.Floor.Behaviors;
 
@@ -13,7 +15,7 @@ namespace ChoreoApp.Components.Tests.Floor.Behaviors;
     @"In order to rotate formations
 As a user
 I want to rotate selected positions around their center")]
-public sealed class RotateAroundCenterBehaviorTests : FeatureFixture
+public sealed class RotateAroundCenterBehaviorTests(ITestOutputHelper testOutputHelper) : FeatureFixture
 {
     private FloorBehaviorTestContext<RotateAroundCenterBehavior>? _context;
     private PositionModel? _first;
@@ -35,7 +37,14 @@ public sealed class RotateAroundCenterBehaviorTests : FeatureFixture
 
     private void Given_a_rotate_around_center_context()
     {
-        _context = FloorBehaviorTestContext<RotateAroundCenterBehavior>.Create();
+        _context = FloorBehaviorTestContext<RotateAroundCenterBehavior>.Create(services =>
+        {
+            services.AddLogging(logger =>
+            {
+                logger.SetMinimumLevel(LogLevel.Debug);
+                logger.AddXUnit(testOutputHelper);
+            });
+        });
     }
 
     private void Given_a_choreography_with_positions_is_loaded()

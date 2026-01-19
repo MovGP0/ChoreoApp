@@ -3,15 +3,19 @@ using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.AudioPlayer;
 using MessagePipe;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Main.Behaviors;
 
 public sealed class OpenAudioBehavior(
-    IPublisher<OpenAudioFileCommand> publisher)
+    IPublisher<OpenAudioFileCommand> publisher,
+    ILogger<MainViewModel> logger)
     : IBehavior<MainViewModel>
 {
     public void Activate(MainViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(OpenAudioBehavior), nameof(MainViewModel));
         viewModel.OpenAudioCommand
             .SelectMany(_ => Observable.FromAsync(() => HandleOpenAsync(viewModel)))
             .Subscribe()

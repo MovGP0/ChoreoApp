@@ -3,17 +3,21 @@ using System.Reactive.Disposables.Fluent;
 using ChoreoApp.StateMachine;
 using ChoreoApp.StateMachine.Triggers;
 using MessagePipe;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Scenes.Behaviors;
 
 public sealed class ApplyPlacementModeBehavior(
     Global.GlobalStateModel globalState,
     ApplicationStateMachine stateMachine,
-    ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber)
+    ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber,
+    ILogger<ScenesPaneViewModel> logger)
     : IBehavior<ScenesPaneViewModel>
 {
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(ApplyPlacementModeBehavior), nameof(ScenesPaneViewModel));
         selectedSceneChangedSubscriber
             .Subscribe(evt => HandleSceneSelected(evt.SelectedScene))
             .DisposeWith(disposables);

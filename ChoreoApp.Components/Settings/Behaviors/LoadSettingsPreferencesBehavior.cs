@@ -1,13 +1,16 @@
 using System.Reactive.Disposables;
 using ChoreoApp.Models;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Settings.Behaviors;
 
-public sealed class LoadSettingsPreferencesBehavior(IPreferences preferences)
+public sealed class LoadSettingsPreferencesBehavior(IPreferences preferences, ILogger<SettingsViewModel> logger)
     : IBehavior<SettingsViewModel>
 {
     public void Activate(SettingsViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(LoadSettingsPreferencesBehavior), nameof(SettingsViewModel));
         var storedTheme = preferences.Get(SettingsPreferenceKeys.Theme, "Light");
         viewModel.IsDarkMode = storedTheme == "Dark";
 

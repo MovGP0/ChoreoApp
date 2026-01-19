@@ -10,11 +10,14 @@ using MaterialDesignThemes.Maui;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using SkiaSharp.Views.Maui.Controls;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Floor.Behaviors;
 
 public sealed class GestureHandlingBehavior(
-    ApplicationStateMachine stateMachine):
+    ApplicationStateMachine stateMachine,
+    ILogger<FloorCanvasViewModel> logger):
     IBehavior<FloorCanvasViewModel>
 {
     private const float TouchPanFactor = 0.5f;
@@ -38,6 +41,7 @@ public sealed class GestureHandlingBehavior(
 
     public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(GestureHandlingBehavior), nameof(FloorCanvasViewModel));
         viewModel.PointerPressedCommand
             .Subscribe(HandlePointerPressed)
             .DisposeWith(disposables);

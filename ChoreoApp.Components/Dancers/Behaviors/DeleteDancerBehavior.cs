@@ -1,12 +1,17 @@
 ﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Dancers.Behaviors;
 
-public sealed class DeleteDancerBehavior : IBehavior<DancerSettingsViewModel>
+public sealed class DeleteDancerBehavior(
+    ILogger<DancerSettingsViewModel> logger):
+    IBehavior<DancerSettingsViewModel>
 {
     public void Activate(DancerSettingsViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(DeleteDancerBehavior), nameof(DancerSettingsViewModel));
         viewModel.DeleteDancerCommand
             .Subscribe(_ => DeleteDancer(viewModel))
             .DisposeWith(disposables);

@@ -5,7 +5,9 @@ using ChoreoApp.StateMachine.Triggers;
 using LightBDD.Framework;
 using LightBDD.Framework.Scenarios;
 using LightBDD.XUnit2;
+using Microsoft.Extensions.Logging;
 using Shouldly;
+using Xunit.Abstractions;
 
 namespace ChoreoApp.Components.Tests.Floor.Behaviors;
 
@@ -13,7 +15,7 @@ namespace ChoreoApp.Components.Tests.Floor.Behaviors;
     @"In order to add dancers to a scene
 As a user
 I want a click to place a new position")]
-public sealed class PlacePositionBehaviorTests : FeatureFixture
+public sealed class PlacePositionBehaviorTests(ITestOutputHelper testOutputHelper) : FeatureFixture
 {
     private FloorBehaviorTestContext<PlacePositionBehavior>? _context;
     private SceneModel? _scene;
@@ -33,7 +35,14 @@ public sealed class PlacePositionBehaviorTests : FeatureFixture
 
     private void Given_a_place_position_context()
     {
-        _context = FloorBehaviorTestContext<PlacePositionBehavior>.Create();
+        _context = FloorBehaviorTestContext<PlacePositionBehavior>.Create(services =>
+        {
+            services.AddLogging(logger =>
+            {
+                logger.SetMinimumLevel(LogLevel.Debug);
+                logger.AddXUnit(testOutputHelper);
+            });
+        });
     }
 
     private void Given_a_choreography_with_an_empty_scene()

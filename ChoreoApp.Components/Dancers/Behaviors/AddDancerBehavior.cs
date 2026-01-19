@@ -2,13 +2,18 @@
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Models;
 using ChoreoMasterMobile.Json;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Dancers.Behaviors;
 
-public sealed class AddDancerBehavior : IBehavior<DancerSettingsViewModel>
+public sealed class AddDancerBehavior(
+    ILogger<DancerSettingsViewModel> logger):
+    IBehavior<DancerSettingsViewModel>
 {
     public void Activate(DancerSettingsViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(AddDancerBehavior), nameof(DancerSettingsViewModel));
         viewModel.AddDancerCommand
             .Subscribe(_ => AddDancer(viewModel))
             .DisposeWith(disposables);

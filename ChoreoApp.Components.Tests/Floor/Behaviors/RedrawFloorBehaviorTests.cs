@@ -4,9 +4,11 @@ using ChoreoApp.Scenes;
 using LightBDD.Framework;
 using LightBDD.Framework.Scenarios;
 using LightBDD.XUnit2;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Shouldly;
 using SkiaSharp.Views.Maui;
+using Xunit.Abstractions;
 
 namespace ChoreoApp.Components.Tests.Floor.Behaviors;
 
@@ -14,7 +16,7 @@ namespace ChoreoApp.Components.Tests.Floor.Behaviors;
     @"In order to keep the floor up to date
 As a user
 I want redraws to happen when data changes")]
-public sealed class RedrawFloorBehaviorTests : FeatureFixture
+public sealed class RedrawFloorBehaviorTests(ITestOutputHelper testOutputHelper) : FeatureFixture
 {
     private RedrawFloorBehaviorTestContext? _context;
 
@@ -50,7 +52,14 @@ public sealed class RedrawFloorBehaviorTests : FeatureFixture
 
     private void Given_a_redraw_context()
     {
-        _context = RedrawFloorBehaviorTestContext.Create();
+        _context = RedrawFloorBehaviorTestContext.Create(services =>
+        {
+            services.AddLogging(logger =>
+            {
+                logger.SetMinimumLevel(LogLevel.Debug);
+                logger.AddXUnit(testOutputHelper);
+            });
+        });
     }
 
     private void When_the_choreography_changes()

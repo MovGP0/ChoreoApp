@@ -2,16 +2,19 @@ using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.Global;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.ChoreographySettings.Behaviors;
 
-public sealed class LoadChoreographySettingsBehavior(GlobalStateModel globalState)
+public sealed class LoadChoreographySettingsBehavior(GlobalStateModel globalState, ILogger<ChoreographySettingsViewModel> logger)
     : IBehavior<ChoreographySettingsViewModel>
 {
     private static readonly ChoreographySettingsMapper Mapper = new();
 
     public void Activate(ChoreographySettingsViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(LoadChoreographySettingsBehavior), nameof(ChoreographySettingsViewModel));
         globalState
             .WhenAnyValue(gs => gs.Choreography)
             .ObserveOn(RxApp.MainThreadScheduler)

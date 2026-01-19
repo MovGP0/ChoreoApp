@@ -2,13 +2,18 @@
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Dancers.Behaviors;
 
-public sealed class SwapDancerSelectionBehavior : IBehavior<DancerSettingsViewModel>
+public sealed class SwapDancerSelectionBehavior(
+    ILogger<DancerSettingsViewModel> logger):
+    IBehavior<DancerSettingsViewModel>
 {
     public void Activate(DancerSettingsViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(SwapDancerSelectionBehavior), nameof(DancerSettingsViewModel));
         EnsureSwapSelections(viewModel);
         UpdateCanSwap(viewModel);
 

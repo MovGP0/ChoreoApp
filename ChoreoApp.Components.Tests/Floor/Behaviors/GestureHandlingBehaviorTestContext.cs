@@ -37,13 +37,14 @@ internal sealed class GestureHandlingBehaviorTestContext : IDisposable
     public FloorCanvasViewModel ViewModel { get; }
     public ISKCanvasView CanvasView { get; }
 
-    public static GestureHandlingBehaviorTestContext Create()
+    public static GestureHandlingBehaviorTestContext Create(Action<ServiceCollection>? configureServices = null)
     {
         RxApp.MainThreadScheduler = ImmediateScheduler.Instance;
         RxApp.TaskpoolScheduler = ImmediateScheduler.Instance;
 
         var services = new ServiceCollection();
         services.AddMessagePipe();
+        services.AddLogging();
 
         var preferences = Substitute.For<IPreferences>();
         preferences.Get(Arg.Any<string>(), Arg.Any<string>()).Returns(string.Empty);
@@ -65,6 +66,8 @@ internal sealed class GestureHandlingBehaviorTestContext : IDisposable
         services.AddSingleton<GestureHandlingBehavior>();
         services.AddSingleton<IBehavior<FloorCanvasViewModel>>(sp => sp.GetRequiredService<GestureHandlingBehavior>());
         services.AddSingleton<FloorCanvasViewModel>();
+
+        configureServices?.Invoke(services);
 
         var canvasView = Substitute.For<ISKCanvasView>();
         canvasView.Width.Returns(100d);

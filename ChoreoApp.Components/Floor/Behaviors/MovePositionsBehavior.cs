@@ -11,10 +11,11 @@ using Microsoft.Extensions.Logging;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 using Position = ChoreoApp.Models.PositionModel;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Floor.Behaviors;
 
-public sealed class MovePositionsBehavior(
+public sealed partial class MovePositionsBehavior(
     Global.GlobalStateModel globalState,
     ApplicationStateMachine stateMachine,
     IVibration vibration,
@@ -40,6 +41,7 @@ public sealed class MovePositionsBehavior(
 
     public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(MovePositionsBehavior), nameof(FloorCanvasViewModel));
         viewModel.PointerPressedCommand
             .Subscribe(command => HandlePointerPressed(viewModel, command))
             .DisposeWith(disposables);
@@ -85,15 +87,18 @@ public sealed class MovePositionsBehavior(
         var position = command.EventArgs.GetPosition(command.CanvasView as Element);
         if (position is null || command.EventArgs.Button != ButtonsMask.Primary)
         {
+            LogPointerIgnored(logger);
             ResetPointerState();
             return;
         }
 
         _pointerPressedPosition = position.Value;
         _pointerMoved = false;
+        LogPointerPressed(logger, position.Value);
 
         if (!TryGetFloorPoint(viewModel, position.Value, out var floorPoint))
         {
+            LogPointerOutsideFloor(logger);
             _clearSelectionOnRelease = true;
             return;
         }
@@ -166,6 +171,7 @@ public sealed class MovePositionsBehavior(
         var position =  command.EventArgs.GetPosition(viewModel.CanvasView as Element);
         if (position is not null && TryGetFloorPoint(viewModel, position.Value, out var floorPoint))
         {
+            LogPointerReleased(logger, position.Value);
             if (_dragActive)
             {
                 CompleteDrag();
@@ -179,6 +185,7 @@ public sealed class MovePositionsBehavior(
         {
             if (_clearSelectionOnRelease)
             {
+                LogSelectionCleared(logger);
                 ClearSelection();
             }
 
@@ -347,6 +354,7 @@ public sealed class MovePositionsBehavior(
         _clearSelectionOnRelease = false;
         globalState.SelectionRectangle = null;
         stateMachine.TryApply(new MovePositionsDragStartedTrigger());
+        LogDragStarted(logger, floorPoint, globalState.SelectedPositions.Count);
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
         if (vibration.IsSupported)
         {
@@ -372,6 +380,7 @@ public sealed class MovePositionsBehavior(
 
         _lastDragFloorPoint = floorPoint;
         SnapSelectedPositionsToGrid();
+        LogDragUpdated(logger, floorPoint, deltaX, deltaY);
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }
 
@@ -390,6 +399,7 @@ public sealed class MovePositionsBehavior(
         _dragStartFloorPoint = null;
         _lastDragFloorPoint = null;
         stateMachine.TryApply(new MovePositionsDragCompletedTrigger());
+        LogDragCompleted(logger, floorPoint.Value);
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
         if (vibration.IsSupported)
         {
@@ -405,6 +415,7 @@ public sealed class MovePositionsBehavior(
         globalState.SelectedPositions.Clear();
         globalState.SelectionRectangle = new Global.SelectionRectangle(floorPoint, floorPoint);
         stateMachine.TryApply(new MovePositionsSelectionStartedTrigger());
+        LogSelectionStarted(logger, floorPoint);
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }
 
@@ -420,6 +431,7 @@ public sealed class MovePositionsBehavior(
 
         var positions = GetPositionsInRectangle(globalState.SelectedScene, rectangle);
         SyncSelection(positions);
+        LogSelectionUpdated(logger, rectangle.Start, rectangle.End, positions.Count);
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }
 
@@ -433,6 +445,7 @@ public sealed class MovePositionsBehavior(
         globalState.SelectionRectangle = null;
         _selectionActive = false;
         stateMachine.TryApply(new MovePositionsSelectionCompletedTrigger());
+        LogSelectionCompleted(logger, globalState.SelectedPositions.Count);
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }
 
@@ -453,6 +466,7 @@ public sealed class MovePositionsBehavior(
         }
 
         ResetPointerState();
+        LogSelectionCleared(logger);
         redrawFloorPublisher.Publish(new RedrawFloorCommand());
     }
 
@@ -662,4 +676,37 @@ public sealed class MovePositionsBehavior(
         var y = point.Y / scaleY;
         return new Point(x, y);
     }
+
+    [LoggerMessage(EventId = 1000, Level = LogLevel.Debug, Message = "MovePositions: pointer pressed at view {ViewPoint}.")]
+    private static partial void LogPointerPressed(ILogger logger, Point viewPoint);
+
+    [LoggerMessage(EventId = 1001, Level = LogLevel.Debug, Message = "MovePositions: pointer released at view {ViewPoint}.")]
+    private static partial void LogPointerReleased(ILogger logger, Point viewPoint);
+
+    [LoggerMessage(EventId = 1002, Level = LogLevel.Debug, Message = "MovePositions: pointer ignored (not primary or no position).")]
+    private static partial void LogPointerIgnored(ILogger logger);
+
+    [LoggerMessage(EventId = 1003, Level = LogLevel.Debug, Message = "MovePositions: pointer outside floor bounds.")]
+    private static partial void LogPointerOutsideFloor(ILogger logger);
+
+    [LoggerMessage(EventId = 1010, Level = LogLevel.Debug, Message = "MovePositions: selection started at floor {FloorPoint}.")]
+    private static partial void LogSelectionStarted(ILogger logger, Point floorPoint);
+
+    [LoggerMessage(EventId = 1011, Level = LogLevel.Debug, Message = "MovePositions: selection updated from {Start} to {End}, selected {SelectedCount}.")]
+    private static partial void LogSelectionUpdated(ILogger logger, Point start, Point end, int selectedCount);
+
+    [LoggerMessage(EventId = 1012, Level = LogLevel.Debug, Message = "MovePositions: selection completed with {SelectedCount} selected.")]
+    private static partial void LogSelectionCompleted(ILogger logger, int selectedCount);
+
+    [LoggerMessage(EventId = 1013, Level = LogLevel.Debug, Message = "MovePositions: selection cleared.")]
+    private static partial void LogSelectionCleared(ILogger logger);
+
+    [LoggerMessage(EventId = 1020, Level = LogLevel.Debug, Message = "MovePositions: drag started at floor {FloorPoint} with {SelectedCount} selected.")]
+    private static partial void LogDragStarted(ILogger logger, Point floorPoint, int selectedCount);
+
+    [LoggerMessage(EventId = 1021, Level = LogLevel.Debug, Message = "MovePositions: drag updated at floor {FloorPoint} with delta ({DeltaX}, {DeltaY}).")]
+    private static partial void LogDragUpdated(ILogger logger, Point floorPoint, double deltaX, double deltaY);
+
+    [LoggerMessage(EventId = 1022, Level = LogLevel.Debug, Message = "MovePositions: drag completed at floor {FloorPoint}.")]
+    private static partial void LogDragCompleted(ILogger logger, Point floorPoint);
 }

@@ -5,6 +5,8 @@ using ChoreoApp.Models;
 using ChoreoApp.Scenes.Events;
 using MessagePipe;
 using Colors = Microsoft.Maui.Graphics.Colors;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Scenes.Behaviors;
 
@@ -15,7 +17,8 @@ public sealed class InsertSceneBehavior(
     IPublisher<ShowDialogCommand> showDialogPublisher,
     IPublisher<CloseDialogCommand> closeDialogPublisher,
     IPublisher<CopyScenePositionsDecisionEvent> copyScenePositionsDecisionPublisher,
-    ISubscriber<CopyScenePositionsDecisionEvent> copyScenePositionsDecisionSubscriber) :
+    ISubscriber<CopyScenePositionsDecisionEvent> copyScenePositionsDecisionSubscriber,
+    ILogger<ScenesPaneViewModel> logger) :
     IBehavior<ScenesPaneViewModel>
 {
     private bool _awaitingCopyDecision;
@@ -24,6 +27,7 @@ public sealed class InsertSceneBehavior(
 
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(InsertSceneBehavior), nameof(ScenesPaneViewModel));
         viewModel
             .AddSceneBeforeCommand
             .Subscribe(_ => HandleInsertScene(viewModel, insertAfter: false))

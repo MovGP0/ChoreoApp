@@ -2,14 +2,17 @@
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Global;
 using ChoreoApp.Models;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Dancers.Behaviors;
 
-public sealed class LoadDancerSettingsBehavior(GlobalStateModel globalState)
+public sealed class LoadDancerSettingsBehavior(GlobalStateModel globalState, ILogger<DancerSettingsViewModel> logger)
     : IBehavior<DancerSettingsViewModel>
 {
     public void Activate(DancerSettingsViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(LoadDancerSettingsBehavior), nameof(DancerSettingsViewModel));
         globalState
             .WhenAnyValue(state => state.Choreography)
             .Subscribe(choreography => LoadFromChoreography(viewModel, choreography))

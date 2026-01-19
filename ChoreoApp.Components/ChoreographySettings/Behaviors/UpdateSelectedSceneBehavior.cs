@@ -2,16 +2,19 @@ using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.Global;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.ChoreographySettings.Behaviors;
 
-public sealed class UpdateSelectedSceneBehavior(GlobalStateModel globalState)
+public sealed class UpdateSelectedSceneBehavior(GlobalStateModel globalState, ILogger<ChoreographySettingsViewModel> logger)
     : IBehavior<ChoreographySettingsViewModel>
 {
     private bool _isUpdating;
 
     public void Activate(ChoreographySettingsViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(UpdateSelectedSceneBehavior), nameof(ChoreographySettingsViewModel));
         globalState
             .WhenAnyValue(gs => gs.SelectedScene)
             .ObserveOn(RxApp.MainThreadScheduler)

@@ -5,7 +5,9 @@ using ChoreoApp.StateMachine.Triggers;
 using LightBDD.Framework;
 using LightBDD.Framework.Scenarios;
 using LightBDD.XUnit2;
+using Microsoft.Extensions.Logging;
 using Shouldly;
+using Xunit.Abstractions;
 
 namespace ChoreoApp.Components.Tests.Floor.Behaviors;
 
@@ -13,7 +15,7 @@ namespace ChoreoApp.Components.Tests.Floor.Behaviors;
     @"In order to rotate around a dancer
 As a user
 I want to rotate the selection around a tapped dancer")]
-public sealed class ScaleAroundDancerBehaviorTests : FeatureFixture
+public sealed class ScaleAroundDancerBehaviorTests(ITestOutputHelper testOutputHelper) : FeatureFixture
 {
     private FloorBehaviorTestContext<ScaleAroundDancerBehavior>? _context;
     private TestTimeProvider? _timeProvider;
@@ -39,7 +41,14 @@ public sealed class ScaleAroundDancerBehaviorTests : FeatureFixture
     {
         _timeProvider = new TestTimeProvider(new DateTimeOffset(2025, 1, 1, 0, 0, 0, TimeSpan.Zero));
         _context = FloorBehaviorTestContext<ScaleAroundDancerBehavior>.Create(services =>
-            services.AddSingleton<TimeProvider>(_timeProvider));
+        {
+            services.AddSingleton<TimeProvider>(_timeProvider);
+            services.AddLogging(logger =>
+            {
+                logger.SetMinimumLevel(LogLevel.Debug);
+                logger.AddXUnit(testOutputHelper);
+            });
+        });
     }
 
     private void Given_a_choreography_with_positions_is_loaded()

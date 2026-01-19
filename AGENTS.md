@@ -44,6 +44,22 @@ font.Size = 12;
 - For `ISKCanvasView` in tests, use an `NSubstitute` stub with `Width`, `Height`, and `CanvasSize` configured (no `Element`-derived test canvas).
 - References: NSubstitute manual https://nsubstitute.github.io/ and LightBDD manual https://github.com/LightBDD/LightBDD/wiki/Quick-Start.
 
+### Logging in tests and behaviors
+- Use `MartinCostello.Logging.XUnit` for unit test logging. Keep the package in test projects.
+- For test output logging, inject `ITestOutputHelper` in the test class primary ctor and configure logging like:
+```csharp
+_context = FloorBehaviorTestContext<MovePositionsBehavior>.Create(services =>
+{
+    services.AddLogging(logger =>
+    {
+        logger.SetMinimumLevel(LogLevel.Debug);
+        logger.AddXUnit(testOutputHelper);
+    });
+});
+```
+- Behaviors should accept `ILogger<TViewModel>` via DI.
+- Use source-generated logging (`LoggerMessage` attributes) for behavior logs instead of `logger.Log*` calls.
+
 ### Shouldy
 - Use Shouldy for assertions. 
 - Use one assertion only, but you may use `ShouldSatisfyAllConditions` when multiple assertions are required:

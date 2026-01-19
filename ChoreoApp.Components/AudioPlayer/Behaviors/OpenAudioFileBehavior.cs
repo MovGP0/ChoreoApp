@@ -2,16 +2,20 @@ using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Models;
 using MessagePipe;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.AudioPlayer.Behaviors;
 
 public sealed class OpenAudioFileBehavior(
     ISubscriber<OpenAudioFileCommand> subscriber,
-    IPreferences preferences):
+    IPreferences preferences,
+    ILogger<AudioPlayerViewModel> logger):
     IBehavior<AudioPlayerViewModel>
 {
     public void Activate(AudioPlayerViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(OpenAudioFileBehavior), nameof(AudioPlayerViewModel));
         subscriber
             .Subscribe(message => HandleOpen(viewModel, message))
             .DisposeWith(disposables);

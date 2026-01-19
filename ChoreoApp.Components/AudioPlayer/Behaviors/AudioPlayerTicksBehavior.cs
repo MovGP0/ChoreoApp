@@ -5,13 +5,16 @@ using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.Global;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.AudioPlayer.Behaviors;
 
-public sealed class AudioPlayerTicksBehavior(GlobalStateModel globalState) : IBehavior<AudioPlayerViewModel>
+public sealed class AudioPlayerTicksBehavior(GlobalStateModel globalState, ILogger<AudioPlayerViewModel> logger) : IBehavior<AudioPlayerViewModel>
 {
     public void Activate(AudioPlayerViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(AudioPlayerTicksBehavior), nameof(AudioPlayerViewModel));
         var sceneTimestampDisposable = new SerialDisposable().DisposeWith(disposables);
 
         RefreshSceneSubscriptions();

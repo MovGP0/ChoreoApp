@@ -2,16 +2,19 @@
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Models;
 using ChoreoMasterMobile.Json;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Scenes.Behaviors;
 
-public sealed class SaveChoreoBehavior(Global.GlobalStateModel globalState, IPreferences preferences) : IBehavior<ScenesPaneViewModel>
+public sealed class SaveChoreoBehavior(Global.GlobalStateModel globalState, IPreferences preferences, ILogger<ScenesPaneViewModel> logger) : IBehavior<ScenesPaneViewModel>
 {
     private static readonly ChoreographyModelMapper Mapper = new();
     private static readonly SceneMapper SceneMapper = new();
 
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(SaveChoreoBehavior), nameof(ScenesPaneViewModel));
         viewModel
             .SaveChoreoCommand
             .Subscribe(async _ => await HandleSaveAsync())

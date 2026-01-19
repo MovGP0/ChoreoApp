@@ -15,6 +15,8 @@ using Dancer = ChoreoApp.Models.DancerModel;
 using Position = ChoreoApp.Models.PositionModel;
 using Role = ChoreoApp.Models.RoleModel;
 using Scene = ChoreoApp.Models.SceneModel;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Floor.Behaviors;
 
@@ -25,7 +27,8 @@ public sealed class DrawFloorBehavior(
     ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber,
     ISubscriber<AudioPlayerPositionChangedEvent> audioPositionSubscriber,
     IFloorRenderGate renderGate,
-    IPreferences preferences):
+    IPreferences preferences,
+    ILogger<FloorCanvasViewModel> logger):
     IBehavior<FloorCanvasViewModel>
 {
     private readonly Dictionary<int, SKColor> _roleBorderColors = new();
@@ -49,6 +52,7 @@ public sealed class DrawFloorBehavior(
 
     public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(DrawFloorBehavior), nameof(FloorCanvasViewModel));
         _viewModel = viewModel;
         Disposable
             .Create(() => _viewModel = null)

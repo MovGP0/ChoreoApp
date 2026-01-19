@@ -5,6 +5,8 @@ using ChoreoApp.Main.Messages;
 using ChoreoApp.Models;
 using MessagePipe;
 using Svg.Skia;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Main.Behaviors;
 
@@ -12,10 +14,12 @@ public sealed class OpenSvgFileBehavior(
     GlobalStateModel globalState,
     Floor.IFloorRenderGate renderGate,
     IPreferences preferences,
-    ISubscriber<OpenSvgFileCommand> subscriber) : IBehavior<MainViewModel>
+    ISubscriber<OpenSvgFileCommand> subscriber,
+    ILogger<MainViewModel> logger) : IBehavior<MainViewModel>
 {
     public void Activate(MainViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(OpenSvgFileBehavior), nameof(MainViewModel));
         subscriber
             .Subscribe(async message => await HandleOpenAsync(message))
             .DisposeWith(disposables);

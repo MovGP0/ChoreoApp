@@ -2,18 +2,22 @@
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Models;
 using ChoreoMasterMobile.Json;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Scenes.Behaviors;
 
 public sealed class LoadScenesBehavior(
     Global.GlobalStateModel globalState,
-    IServiceProvider serviceProvider) :
+    IServiceProvider serviceProvider,
+    ILogger<ScenesPaneViewModel> logger) :
     IBehavior<ScenesPaneViewModel>
 {
     private static readonly SceneMapper Mapper = new();
 
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(LoadScenesBehavior), nameof(ScenesPaneViewModel));
         // when a new choreography is loaded, refresh the scenes list
         globalState
             .WhenAnyValue(gs => gs.Choreography)

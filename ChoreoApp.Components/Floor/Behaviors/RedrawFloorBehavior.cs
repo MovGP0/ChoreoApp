@@ -6,6 +6,8 @@ using ChoreoApp.AudioPlayer.Messages;
 using ChoreoApp.Floor.Messages;
 using ChoreoApp.Scenes;
 using MessagePipe;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Floor.Behaviors;
 
@@ -13,11 +15,13 @@ public sealed class RedrawFloorBehavior(
     Global.GlobalStateModel globalState,
     ISubscriber<SelectedSceneChangedEvent> selectedSceneChangedSubscriber,
     ISubscriber<AudioPlayerPositionChangedEvent> audioPositionChangedSubscriber,
-    ISubscriber<RedrawFloorCommand> redrawFloorSubscriber)
+    ISubscriber<RedrawFloorCommand> redrawFloorSubscriber,
+    ILogger<FloorCanvasViewModel> logger)
     : IBehavior<FloorCanvasViewModel>
 {
     public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(RedrawFloorBehavior), nameof(FloorCanvasViewModel));
         globalState
             .WhenAnyValue(gs => gs.Choreography)
             .ObserveOn(RxApp.MainThreadScheduler)

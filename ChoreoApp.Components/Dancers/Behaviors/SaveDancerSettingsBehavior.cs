@@ -3,14 +3,17 @@ using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.Global;
 using ChoreoApp.Models;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Dancers.Behaviors;
 
-public sealed class SaveDancerSettingsBehavior(GlobalStateModel globalState)
+public sealed class SaveDancerSettingsBehavior(GlobalStateModel globalState, ILogger<DancerSettingsViewModel> logger)
     : IBehavior<DancerSettingsViewModel>
 {
     public void Activate(DancerSettingsViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(SaveDancerSettingsBehavior), nameof(DancerSettingsViewModel));
         viewModel.SaveCommand
             .SelectMany(_ => Observable.FromAsync(() => SaveAsync(viewModel)))
             .Subscribe()

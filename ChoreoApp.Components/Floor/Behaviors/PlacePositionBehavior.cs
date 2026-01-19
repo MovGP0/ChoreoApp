@@ -14,13 +14,16 @@ using Choreography = ChoreoApp.Models.ChoreographyModel;
 using Dancer = ChoreoApp.Models.DancerModel;
 using Position = ChoreoApp.Models.PositionModel;
 using Scene = ChoreoApp.Models.SceneModel;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Floor.Behaviors;
 
 public sealed class PlacePositionBehavior(
     Global.GlobalStateModel globalState,
     ApplicationStateMachine stateMachine,
-    IPublisher<RedrawFloorCommand> redrawFloorPublisher)
+    IPublisher<RedrawFloorCommand> redrawFloorPublisher,
+    ILogger<FloorCanvasViewModel> logger)
     : IBehavior<FloorCanvasViewModel>
 {
     private const float PointerMoveThreshold = 6f;
@@ -34,6 +37,7 @@ public sealed class PlacePositionBehavior(
 
     public void Activate(FloorCanvasViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(PlacePositionBehavior), nameof(FloorCanvasViewModel));
         viewModel.PointerPressedCommand
             .Subscribe(command => HandlePointerPressed(command))
             .DisposeWith(disposables);

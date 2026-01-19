@@ -4,16 +4,20 @@ using System.Reactive.Linq;
 using ChoreoApp.Floor.Messages;
 using ChoreoApp.Models;
 using MessagePipe;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.ChoreographySettings.Behaviors;
 
 public sealed class UpdateDrawPathToBehavior(
     IPreferences preferences,
-    IPublisher<RedrawFloorCommand> redrawFloorPublisher):
+    IPublisher<RedrawFloorCommand> redrawFloorPublisher,
+    ILogger<ChoreographySettingsViewModel> logger):
     IBehavior<ChoreographySettingsViewModel>
 {
     public void Activate(ChoreographySettingsViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(UpdateDrawPathToBehavior), nameof(ChoreographySettingsViewModel));
         viewModel.DrawPathTo = preferences.Get(SettingsPreferenceKeys.DrawPathTo, false);
 
         viewModel

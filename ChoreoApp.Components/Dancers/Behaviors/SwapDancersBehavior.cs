@@ -2,17 +2,21 @@
 using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Dancers.Messages;
 using MessagePipe;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Dancers.Behaviors;
 
 public sealed class SwapDancersBehavior(
     IHapticFeedback hapticFeedback,
     IPublisher<ShowDancerDialogCommand> showDialogPublisher,
-    IPublisher<CloseDancerDialogCommand> closeDialogPublisher):
+    IPublisher<CloseDancerDialogCommand> closeDialogPublisher,
+    ILogger<DancerSettingsViewModel> logger):
     IBehavior<DancerSettingsViewModel>
 {
     public void Activate(DancerSettingsViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(SwapDancersBehavior), nameof(DancerSettingsViewModel));
         viewModel.SwapDancersCommand
             .Subscribe(_ => ShowSwapDialog(viewModel))
             .DisposeWith(disposables);

@@ -1,12 +1,17 @@
 ﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Dancers.Behaviors;
 
-public sealed class SelectedIconBehavior : IBehavior<DancerSettingsViewModel>
+public sealed class SelectedIconBehavior(
+    ILogger<DancerSettingsViewModel> logger):
+    IBehavior<DancerSettingsViewModel>
 {
     public void Activate(DancerSettingsViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(SelectedIconBehavior), nameof(DancerSettingsViewModel));
         viewModel
             .WhenAnyValue(vm => vm.SelectedIconOption)
             .Subscribe(option =>

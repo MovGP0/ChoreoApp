@@ -1,11 +1,13 @@
 using ChoreoApp.Models;
 using ChoreoApp.StateMachine.States;
 using LightBDD.XUnit2;
+using Microsoft.Extensions.Logging;
 using Shouldly;
+using Xunit.Abstractions;
 
 namespace ChoreoApp.Components.Tests.Floor;
 
-public partial class MovePositions_feature : FeatureFixture
+public partial class MovePositions_feature(ITestOutputHelper testOutputHelper) : FeatureFixture
 {
     private TestContext? _context;
     private PositionModel? _first;
@@ -18,7 +20,14 @@ public partial class MovePositions_feature : FeatureFixture
 
     private void Given_dependency_injection_is_configured()
     {
-        _context = TestContext.Create();
+        _context = TestContext.Create(services =>
+        {
+            services.AddLogging(logger =>
+            {
+                logger.SetMinimumLevel(LogLevel.Debug);
+                logger.AddXUnit(testOutputHelper);
+            });
+        });
     }
 
     private void Given_a_choreography_with_positions_is_loaded()

@@ -4,6 +4,8 @@ using ChoreoApp.AudioPlayer;
 using ChoreoApp.Models;
 using ChoreoMasterMobile.Json;
 using MessagePipe;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Scenes.Behaviors;
 
@@ -12,12 +14,14 @@ public sealed class OpenChoreoBehavior(
     Floor.IFloorRenderGate renderGate,
     IPreferences preferences,
     IPublisher<OpenAudioFileCommand> openAudioPublisher,
-    IPublisher<CloseAudioFileCommand> closeAudioPublisher) : IBehavior<ScenesPaneViewModel>
+    IPublisher<CloseAudioFileCommand> closeAudioPublisher,
+    ILogger<ScenesPaneViewModel> logger) : IBehavior<ScenesPaneViewModel>
 {
     private static readonly ChoreographyModelMapper Mapper = new();
 
     public void Activate(ScenesPaneViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(OpenChoreoBehavior), nameof(ScenesPaneViewModel));
         viewModel
             .OpenChoreoCommand
             .Subscribe(async _ => await HandleOpenAsync())

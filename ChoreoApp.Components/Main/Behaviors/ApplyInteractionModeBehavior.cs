@@ -3,16 +3,20 @@ using System.Reactive.Disposables.Fluent;
 using ChoreoApp.Global;
 using ChoreoApp.StateMachine;
 using ChoreoApp.StateMachine.Triggers;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Main.Behaviors;
 
 public sealed class ApplyInteractionModeBehavior(
     GlobalStateModel globalState,
-    ApplicationStateMachine stateMachine)
+    ApplicationStateMachine stateMachine,
+    ILogger<MainViewModel> logger)
     : IBehavior<MainViewModel>
 {
     public void Activate(MainViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(ApplyInteractionModeBehavior), nameof(MainViewModel));
         globalState
             .WhenAnyValue(state => state.InteractionMode)
             .Subscribe(ApplyMode)

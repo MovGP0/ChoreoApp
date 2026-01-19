@@ -1,7 +1,9 @@
 using LightBDD.Framework;
 using LightBDD.Framework.Scenarios;
 using LightBDD.XUnit2;
+using Microsoft.Extensions.Logging;
 using Shouldly;
+using Xunit.Abstractions;
 
 namespace ChoreoApp.Components.Tests.Floor.Behaviors;
 
@@ -9,7 +11,7 @@ namespace ChoreoApp.Components.Tests.Floor.Behaviors;
     @"In order to navigate the floor view
 As a user
 I want pointer drags to pan the view")]
-public sealed class GestureHandlingBehaviorTests : FeatureFixture
+public sealed class GestureHandlingBehaviorTests(ITestOutputHelper testOutputHelper) : FeatureFixture
 {
     private GestureHandlingBehaviorTestContext? _context;
 
@@ -55,7 +57,14 @@ public sealed class GestureHandlingBehaviorTests : FeatureFixture
 
     private void Given_a_gesture_handling_context()
     {
-        _context = GestureHandlingBehaviorTestContext.Create();
+        _context = GestureHandlingBehaviorTestContext.Create(services =>
+        {
+            services.AddLogging(logger =>
+            {
+                logger.SetMinimumLevel(LogLevel.Debug);
+                logger.AddXUnit(testOutputHelper);
+            });
+        });
     }
 
     private void When_the_user_drags_the_pointer()

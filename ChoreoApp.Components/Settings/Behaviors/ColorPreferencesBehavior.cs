@@ -3,13 +3,16 @@ using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.Models;
 using ChoreoApp.Settings;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.Settings.Behaviors;
 
-public sealed class ColorPreferencesBehavior(IPreferences preferences) : IBehavior<SettingsViewModel>
+public sealed class ColorPreferencesBehavior(IPreferences preferences, ILogger<SettingsViewModel> logger) : IBehavior<SettingsViewModel>
 {
     public void Activate(SettingsViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(ColorPreferencesBehavior), nameof(SettingsViewModel));
         viewModel
             .WhenAnyValue(vm => vm.UsePrimaryColor)
             .Skip(1)

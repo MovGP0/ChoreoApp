@@ -2,13 +2,16 @@ using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using Plugin.Maui.Audio;
+using Microsoft.Extensions.Logging;
+using ChoreoApp.Logging;
 
 namespace ChoreoApp.AudioPlayer.Behaviors;
 
-public sealed class AudioPlayerBehavior(IAudioManager audioManager) : IBehavior<AudioPlayerViewModel>
+public sealed class AudioPlayerBehavior(IAudioManager audioManager, ILogger<AudioPlayerViewModel> logger) : IBehavior<AudioPlayerViewModel>
 {
     public void Activate(AudioPlayerViewModel viewModel, CompositeDisposable disposables)
     {
+        BehaviorLog.BehaviorActivated(logger, nameof(AudioPlayerBehavior), nameof(AudioPlayerViewModel));
         var playerDisposable = new SerialDisposable().DisposeWith(disposables);
         var positionDisposable = new SerialDisposable().DisposeWith(disposables);
 
