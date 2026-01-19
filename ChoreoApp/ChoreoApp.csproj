@@ -76,6 +76,7 @@
     <ProjectReference Include="..\ChoreoApp.Models\ChoreoApp.Models.csproj" />
     <ProjectReference Include="..\ChoreoApp.i18n\ChoreoApp.i18n.csproj" />
     <ProjectReference Include="..\ChoreoApp.Algorithms\ChoreoApp.Algorithms.csproj" />
+    <ProjectReference Include="..\ChoreoApp.StateMachine\ChoreoApp.StateMachine.csproj" />
     <ProjectReference Include="..\MaterialDesignThemes.Maui\MaterialDesignThemes.Maui.csproj" />
     <ProjectReference Include="..\ChoreoMasterMobile.Json\ChoreoMasterMobile.Json.csproj" />
   </ItemGroup>

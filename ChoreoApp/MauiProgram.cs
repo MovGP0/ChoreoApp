@@ -35,6 +35,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<TimeProvider>(_ => TimeProvider.System);
         builder.Services.AddSingleton<Global.GlobalStateModel>();
+        builder.Services.AddSingleton<IGlobalStateModel>(sp => sp.GetRequiredService<Global.GlobalStateModel>());
         builder.Services.AddSingleton<IPreferences>(_ => Preferences.Default);
         builder.Services.AddSingleton<IHapticFeedback>(_ => HapticFeedback.Default);
         builder.Services.AddSingleton<IVibration>(_ => Vibration.Default);

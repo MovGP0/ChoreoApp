@@ -29,6 +29,7 @@
     <Project Path="ChoreoApp.i18n/ChoreoApp.i18n.csproj" />
     <Project Path="ChoreoApp.Algorithms/ChoreoApp.Algorithms.csproj" />
     <Project Path="ChoreoApp.Models/ChoreoApp.Models.csproj" />
+    <Project Path="ChoreoApp.StateMachine/ChoreoApp.StateMachine.csproj" />
     <Project Path="ChoreoApp.Models.Tests/ChoreoApp.Models.Tests.csproj" />
     <Project Path="ChoreoApp.Algorithms.Tests/ChoreoApp.Algorithms.Tests.csproj" />
     <Project Path="ChoreoApp/ChoreoApp.csproj" />

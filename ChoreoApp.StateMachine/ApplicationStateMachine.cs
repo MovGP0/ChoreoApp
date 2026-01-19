@@ -1,4 +1,3 @@
-using ChoreoApp.Global;
 using ChoreoApp.StateMachine.States;
 using ChoreoApp.StateMachine.Transitions;
 using ChoreoApp.StateMachine.Triggers;
@@ -6,7 +5,7 @@ using ChoreoApp.StateMachine.Triggers;
 namespace ChoreoApp.StateMachine;
 
 public sealed class ApplicationStateMachine(
-    GlobalStateModel globalState,
+    IGlobalStateModel globalState,
     IEnumerable<StateTransition> transitions)
 {
     public ApplicationState State { get; private set; } = new ViewSceneState();
