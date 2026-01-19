@@ -332,7 +332,8 @@ public sealed class MovePositionsBehavior(
         }
 
         _dragStartPositions.Clear();
-        foreach (var selected in globalState.SelectedPositions)
+        var selectedPositions = globalState.SelectedPositions.ToArray();
+        foreach (var selected in selectedPositions)
         {
             _dragStartPositions[selected] = new Point(selected.X, selected.Y);
         }
@@ -467,7 +468,9 @@ public sealed class MovePositionsBehavior(
             return false;
         }
 
-        return stateMachine.State is MovePositionsState;
+        return stateMachine.State is MovePositionsState
+            || stateMachine.State is MovePositionsSelectionState
+            || stateMachine.State is MovePositionsDragState;
     }
 
     private bool TryGetPositionAtPoint(SceneViewModel? scene, Point floorPoint, out Position position)

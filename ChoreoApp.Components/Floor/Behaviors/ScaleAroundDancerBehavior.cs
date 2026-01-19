@@ -91,7 +91,7 @@ public sealed class ScaleAroundDancerBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(command.CanvasView as SKCanvasView);
+        var position = command.EventArgs.GetPosition(command.CanvasView as Element);
         if (position is null || command.EventArgs.Button != ButtonsMask.Primary)
         {
             ResetPointerState();
@@ -128,7 +128,7 @@ public sealed class ScaleAroundDancerBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(command.CanvasView as SKCanvasView);
+        var position = command.EventArgs.GetPosition(command.CanvasView as Element);
         if (position is null)
         {
             return;
@@ -172,7 +172,7 @@ public sealed class ScaleAroundDancerBehavior(
             return;
         }
 
-        var position = command.EventArgs.GetPosition(viewModel.CanvasView as SKCanvasView);
+        var position = command.EventArgs.GetPosition(viewModel.CanvasView as Element);
         if (position is not null && TryGetFloorPoint(viewModel, position.Value, out var floorPoint))
         {
             var isTapOnPosition = false;
@@ -450,7 +450,8 @@ public sealed class ScaleAroundDancerBehavior(
         }
 
         _rotationStartPositions.Clear();
-        foreach (var selected in globalState.SelectedPositions)
+        var selectedPositions = globalState.SelectedPositions.ToArray();
+        foreach (var selected in selectedPositions)
         {
             _rotationStartPositions[selected] = new Point(selected.X, selected.Y);
         }
@@ -585,7 +586,11 @@ public sealed class ScaleAroundDancerBehavior(
             return false;
         }
 
-        return stateMachine.State is ScaleAroundDancerState;
+        return stateMachine.State is ScaleAroundDancerState
+            || stateMachine.State is ScaleAroundDancerSelectionStartState
+            || stateMachine.State is ScaleAroundDancerSelectionEndState
+            || stateMachine.State is ScaleAroundDancerDragStartState
+            || stateMachine.State is ScaleAroundDancerDragEndState;
     }
 
     private bool TryHandleDoubleTap(Point viewPoint, Point floorPoint, out bool isTapOnPosition)

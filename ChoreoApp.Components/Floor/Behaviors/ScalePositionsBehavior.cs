@@ -388,7 +388,8 @@ public sealed class ScalePositionsBehavior(
         }
 
         _scaleStartPositions.Clear();
-        foreach (var selected in globalState.SelectedPositions)
+        var selectedPositions = globalState.SelectedPositions.ToArray();
+        foreach (var selected in selectedPositions)
         {
             _scaleStartPositions[selected] = new Point(selected.X, selected.Y);
         }
@@ -499,7 +500,11 @@ public sealed class ScalePositionsBehavior(
             return false;
         }
 
-        return stateMachine.State is ScalePositionsState;
+        return stateMachine.State is ScalePositionsState
+            || stateMachine.State is ScalePositionsSelectionStartState
+            || stateMachine.State is ScalePositionsSelectionEndState
+            || stateMachine.State is ScalePositionsDragStartState
+            || stateMachine.State is ScalePositionsDragEndState;
     }
 
     private static Point CalculateCenter(IReadOnlyCollection<Position> positions)

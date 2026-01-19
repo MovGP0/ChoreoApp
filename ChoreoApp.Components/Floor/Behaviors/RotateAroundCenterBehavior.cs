@@ -387,7 +387,8 @@ public sealed class RotateAroundCenterBehavior(
         }
 
         _rotationStartPositions.Clear();
-        foreach (var selected in globalState.SelectedPositions)
+        var selectedPositions = globalState.SelectedPositions.ToArray();
+        foreach (var selected in selectedPositions)
         {
             _rotationStartPositions[selected] = new Point(selected.X, selected.Y);
         }
@@ -492,7 +493,11 @@ public sealed class RotateAroundCenterBehavior(
             return false;
         }
 
-        return stateMachine.State is RotateAroundCenterState;
+        return stateMachine.State is RotateAroundCenterState
+            || stateMachine.State is RotateAroundCenterSelectionStartState
+            || stateMachine.State is RotateAroundCenterSelectionEndState
+            || stateMachine.State is RotateAroundCenterRotationStartState
+            || stateMachine.State is RotateAroundCenterRotationEndState;
     }
 
     private static Point CalculateCenter(IReadOnlyCollection<Position> positions)

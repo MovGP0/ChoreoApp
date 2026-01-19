@@ -70,6 +70,21 @@ public sealed class RedrawFloorBehavior(
             return;
         }
 
-        MainThread.BeginInvokeOnMainThread(viewModel.CanvasView.InvalidateSurface);
+        try
+        {
+            MainThread.BeginInvokeOnMainThread(viewModel.CanvasView.InvalidateSurface);
+        }
+        catch (COMException)
+        {
+            viewModel.CanvasView.InvalidateSurface();
+        }
+        catch (TypeInitializationException)
+        {
+            viewModel.CanvasView.InvalidateSurface();
+        }
+        catch (InvalidOperationException)
+        {
+            viewModel.CanvasView.InvalidateSurface();
+        }
     }
 }
