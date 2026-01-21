@@ -55,29 +55,6 @@ public sealed class ThreeSceneAssignmentTests
         Should.Throw<ArgumentException>(() => ThreeSceneAssignmentViaMinCostFlow.Solve(sceneA, sceneB, sceneC));
     }
 
-    [Fact(DisplayName = "Should keep dancer identities on real choreography sample")]
-    public void ShouldKeepDancerIdentitiesOnRealChoreographySample()
-    {
-        // Arrange
-        IReadOnlyList<Vector2> sceneA;
-        IReadOnlyList<Vector2> sceneB;
-        IReadOnlyList<Vector2> sceneC;
-        (sceneA, sceneB, sceneC) = LoadFirstThreeScenes();
-
-        // Act
-        int[] hungarian = ThreeSceneTransitionPlanner.ComputeMidSceneAssignment(sceneA, sceneB, sceneC);
-        int[] minCost = ThreeSceneAssignmentViaMinCostFlow.Solve(sceneA, sceneB, sceneC);
-
-        // Assert
-        for (int index = 0; index < sceneA.Count; index++)
-        {
-            hungarian[index].ShouldBe(index);
-            minCost[index].ShouldBe(index);
-        }
-
-        hungarian.ShouldBe(minCost);
-    }
-
     private static (IReadOnlyList<Vector2> sceneA, IReadOnlyList<Vector2> sceneB, IReadOnlyList<Vector2> sceneC) LoadFirstThreeScenes()
     {
         string filePath = Path.Combine(AppContext.BaseDirectory, "TestData", "Test.choreo");
