@@ -2,7 +2,7 @@
 
 public sealed class MaterialDynamicColors
 {
-    private static readonly ColorSpec colorSpec = new ColorSpec2025();
+    private static readonly ColorSpec2025 colorSpec = new();
 
     public DynamicColor HighestSurface(DynamicScheme s) => colorSpec.HighestSurface(s);
 
