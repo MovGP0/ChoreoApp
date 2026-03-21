@@ -1,4 +1,4 @@
-using System.Reactive.Disposables;
+﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.AudioPlayer.Messages;
@@ -18,7 +18,7 @@ public sealed class SelectSceneFromAudioPositionBehavior(
         BehaviorLog.BehaviorActivated(logger, nameof(SelectSceneFromAudioPositionBehavior), nameof(ScenesPaneViewModel));
         audioPositionChangedSubscriber
             .AsObservable()
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(evt => UpdateSelection(viewModel, evt.PositionSeconds))
             .DisposeWith(disposables);
     }

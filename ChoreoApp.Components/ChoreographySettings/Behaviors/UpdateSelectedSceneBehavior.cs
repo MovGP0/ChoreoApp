@@ -1,4 +1,4 @@
-using System.Reactive.Disposables;
+﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.Global;
@@ -17,7 +17,7 @@ public sealed class UpdateSelectedSceneBehavior(GlobalStateModel globalState, IL
         BehaviorLog.BehaviorActivated(logger, nameof(UpdateSelectedSceneBehavior), nameof(ChoreographySettingsViewModel));
         globalState
             .WhenAnyValue(gs => gs.SelectedScene)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(scene =>
             {
                 _isUpdating = true;

@@ -1,4 +1,4 @@
-using System.Reactive.Disposables;
+﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.AudioPlayer.Messages;
@@ -19,7 +19,7 @@ public sealed class AudioPlayerPositionChangedBehavior(
         viewModel
             .WhenAnyValue(vm => vm.Position)
             .Skip(1)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(seconds => publisher.Publish(new AudioPlayerPositionChangedEvent(seconds)))
             .DisposeWith(disposables);
     }

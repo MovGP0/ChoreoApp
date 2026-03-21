@@ -13,6 +13,4 @@ public partial class ScenesPaneView
             ViewModel?.Activator.Activate().DisposeWith(disposables);
         });
     }
-
 }
-

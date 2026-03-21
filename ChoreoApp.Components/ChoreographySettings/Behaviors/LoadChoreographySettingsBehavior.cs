@@ -1,4 +1,4 @@
-using System.Reactive.Disposables;
+﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ChoreoApp.Global;
@@ -17,7 +17,7 @@ public sealed class LoadChoreographySettingsBehavior(GlobalStateModel globalStat
         BehaviorLog.BehaviorActivated(logger, nameof(LoadChoreographySettingsBehavior), nameof(ChoreographySettingsViewModel));
         globalState
             .WhenAnyValue(gs => gs.Choreography)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(choreography =>
             {
                 if (choreography is null)

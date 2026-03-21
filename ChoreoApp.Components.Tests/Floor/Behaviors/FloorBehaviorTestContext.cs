@@ -1,4 +1,4 @@
-using System.Reactive.Concurrency;
+﻿using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 
 using ChoreoApp.Floor;
@@ -50,8 +50,7 @@ internal sealed class FloorBehaviorTestContext<TBehavior> : IDisposable
 
     public static FloorBehaviorTestContext<TBehavior> Create(Action<ServiceCollection>? configureServices = null)
     {
-        RxApp.MainThreadScheduler = ImmediateScheduler.Instance;
-        RxApp.TaskpoolScheduler = ImmediateScheduler.Instance;
+        ReactiveUITestInitialization.Initialize();
 
         var services = new ServiceCollection();
         services.AddMessagePipe();

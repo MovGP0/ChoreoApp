@@ -1,4 +1,4 @@
-using SkiaSharp.Views.Maui.Controls.Hosting;
+﻿using SkiaSharp.Views.Maui.Controls.Hosting;
 using ChoreoApp.AudioPlayer;
 using ChoreoApp.ChoreographySettings;
 using ChoreoApp.Dancers;
@@ -9,6 +9,7 @@ using ChoreoApp.Scenes;
 using ChoreoApp.Settings;
 using ChoreoApp.StateMachine;
 using CommunityToolkit.Maui;
+using ReactiveUI.Builder;
 using Sharpnado.Shades;
 
 namespace ChoreoApp;
@@ -20,6 +21,10 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .UseReactiveUI(rxBuilder =>
+            {
+                rxBuilder.WithMaui();
+            })
             .UseMauiCommunityToolkit()
             .UseSkiaSharp()
             .ConfigureFonts(fonts =>

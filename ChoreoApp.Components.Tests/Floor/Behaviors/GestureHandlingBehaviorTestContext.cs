@@ -1,4 +1,4 @@
-using System.Reactive.Concurrency;
+﻿using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reflection;
 using ChoreoApp.Floor;
@@ -39,8 +39,7 @@ internal sealed class GestureHandlingBehaviorTestContext : IDisposable
 
     public static GestureHandlingBehaviorTestContext Create(Action<ServiceCollection>? configureServices = null)
     {
-        RxApp.MainThreadScheduler = ImmediateScheduler.Instance;
-        RxApp.TaskpoolScheduler = ImmediateScheduler.Instance;
+        ReactiveUITestInitialization.Initialize();
 
         var services = new ServiceCollection();
         services.AddMessagePipe();

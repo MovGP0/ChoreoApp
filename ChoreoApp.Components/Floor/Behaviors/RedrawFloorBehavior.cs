@@ -1,4 +1,4 @@
-using System.Reactive.Disposables;
+﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using System.Runtime.InteropServices;
@@ -24,13 +24,13 @@ public sealed class RedrawFloorBehavior(
         BehaviorLog.BehaviorActivated(logger, nameof(RedrawFloorBehavior), nameof(FloorCanvasViewModel));
         globalState
             .WhenAnyValue(gs => gs.Choreography)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(_ => InvalidateCanvas(viewModel))
             .DisposeWith(disposables);
 
         globalState
             .WhenAnyValue(gs => gs.SvgDocument)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(_ => InvalidateCanvas(viewModel))
             .DisposeWith(disposables);
 

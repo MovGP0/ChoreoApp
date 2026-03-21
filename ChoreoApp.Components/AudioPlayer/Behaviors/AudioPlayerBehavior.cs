@@ -1,4 +1,4 @@
-using System.Reactive.Disposables;
+﻿using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using Plugin.Maui.Audio;
@@ -28,7 +28,7 @@ public sealed class AudioPlayerBehavior(IAudioManager audioManager, ILogger<Audi
 
                 return player;
             })
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(player =>
             {
                 playerDisposable.Disposable = player;
@@ -39,7 +39,7 @@ public sealed class AudioPlayerBehavior(IAudioManager audioManager, ILogger<Audi
 
                 Observable
                     .FromEventPattern(h => player.PlaybackEnded += h, h => player.PlaybackEnded -= h)
-                    .ObserveOn(RxApp.MainThreadScheduler)
+                    .ObserveOn(RxSchedulers.MainThreadScheduler)
                     .Subscribe(_ =>
                     {
                         viewModel.IsPlaying = false;
@@ -49,7 +49,7 @@ public sealed class AudioPlayerBehavior(IAudioManager audioManager, ILogger<Audi
 
                 positionDisposable.Disposable = Observable
                     .Interval(TimeSpan.FromMilliseconds(200))
-                    .ObserveOn(RxApp.MainThreadScheduler)
+                    .ObserveOn(RxSchedulers.MainThreadScheduler)
                     .Subscribe(_ =>
                     {
                         viewModel.Duration = player.Duration;

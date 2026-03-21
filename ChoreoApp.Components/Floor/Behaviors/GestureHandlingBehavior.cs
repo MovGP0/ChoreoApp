@@ -1,4 +1,4 @@
-using System.Reactive.Concurrency;
+﻿using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Threading.Channels;
@@ -91,7 +91,7 @@ public sealed class GestureHandlingBehavior(
                 continue;
             }
 
-            RxApp.MainThreadScheduler.Schedule(() => HandleTouch(viewModel, latest));
+            RxSchedulers.MainThreadScheduler.Schedule(() => HandleTouch(viewModel, latest));
         }
     }
 

@@ -1,4 +1,4 @@
-using ChoreoApp.Floor;
+﻿using ChoreoApp.Floor;
 using ChoreoApp.Floor.Behaviors;
 using ChoreoApp.Floor.Messages;
 using ChoreoApp.Global;
@@ -55,6 +55,8 @@ internal sealed class TestContext : IDisposable
 
     public static TestContext Create(Action<ServiceCollection>? configureServices = null)
     {
+        ReactiveUITestInitialization.Initialize();
+
         var services = new ServiceCollection();
         services.AddMessagePipe();
         services.AddLogging();

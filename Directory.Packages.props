@@ -1,56 +1,56 @@
-<Project>
+﻿<Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Riok.Mapperly" Version="4.3.1" />
-    <PackageVersion Include="SkiaSharp.Views.Maui.Core" Version="3.119.1" />
+    <PackageVersion Include="SkiaSharp.Views.Maui.Core" Version="3.119.2" />
     <PackageVersion Include="StronglyTypedId" Version="1.0.0-beta08" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.1" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="10.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.5" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="10.0.5" />
     <PackageVersion Include="PolySharp" Version="1.15.0" />
     <PackageVersion Include="MessagePipe" Version="1.8.1" />
   </ItemGroup>
   <ItemGroup Label="MAUI">
-    <PackageVersion Include="Microsoft.Maui.Controls.Core" Version="10.0.20" />
-    <PackageVersion Include="Microsoft.Maui.Graphics" Version="10.0.20" />
-    <PackageVersion Include="Microsoft.Maui.Controls" Version="10.0.20" />
-    <PackageVersion Include="Microsoft.Maui.Essentials" Version="10.0.20" />
-    <PackageVersion Include="Microsoft.Maui.Controls.Foldable" Version="10.0.20" />
+    <PackageVersion Include="Microsoft.Maui.Controls.Core" Version="10.0.50" />
+    <PackageVersion Include="Microsoft.Maui.Graphics" Version="10.0.50" />
+    <PackageVersion Include="Microsoft.Maui.Controls" Version="10.0.50" />
+    <PackageVersion Include="Microsoft.Maui.Essentials" Version="10.0.50" />
+    <PackageVersion Include="Microsoft.Maui.Controls.Foldable" Version="10.0.50" />
     <PackageVersion Include="Plugin.Maui.Audio" Version="4.0.0" />
     <PackageVersion Include="ThomasLevesque.WeakEvent" Version="4.1.0" />
     <PackageVersion Include="Sharpnado.Maui.Shadows" Version="2.0.2" />
-    <PackageVersion Include="CommunityToolkit.Maui" Version="13.0.0" />
+    <PackageVersion Include="CommunityToolkit.Maui" Version="14.0.1" />
   </ItemGroup>
   <ItemGroup Label="ReactiveUI">
-    <PackageVersion Include="ReactiveUI" Version="22.3.1" />
-    <PackageVersion Include="ReactiveUI.Maui" Version="22.3.1" />
-    <PackageVersion Include="ReactiveUI.SourceGenerators" Version="2.5.1" />
-    <PackageVersion Include="ReactiveUI.SourceGenerators.Analyzers.CodeFixes" Version="2.5.1" />
-    <PackageVersion Include="DynamicData" Version="9.4.1" />
+    <PackageVersion Include="ReactiveUI" Version="23.1.8" />
+    <PackageVersion Include="ReactiveUI.Maui" Version="23.1.8" />
+    <PackageVersion Include="ReactiveUI.SourceGenerators" Version="2.6.1" />
+    <PackageVersion Include="ReactiveUI.SourceGenerators.Analyzers.CodeFixes" Version="2.6.1" />
+    <PackageVersion Include="DynamicData" Version="9.4.31" />
     <PackageVersion Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="1.3.1" />
   </ItemGroup>
   <ItemGroup Label="SkiaSharp">
-    <PackageVersion Include="SkiaSharp" Version="3.119.1" />
-    <PackageVersion Include="SkiaSharp.Views.Maui.Controls" Version="3.119.1" />
+    <PackageVersion Include="SkiaSharp" Version="3.119.2" />
+    <PackageVersion Include="SkiaSharp.Views.Maui.Controls" Version="3.119.2" />
     <PackageVersion Include="SkiaSharp.Extended" Version="3.0.0" />
-    <PackageVersion Include="Svg.Skia" Version="3.4.0" />
+    <PackageVersion Include="Svg.Skia" Version="3.6.0" />
   </ItemGroup>
   <ItemGroup Label="Testing">
     <PackageVersion Include="GitHubActionsTestLogger" Version="2.4.1" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-    <PackageVersion Include="LightBDD.Framework" Version="3.11.1" />
-    <PackageVersion Include="LightBDD.XUnit2" Version="3.11.1" />
-    <PackageVersion Include="LightBDD.Extensions.DependencyInjection" Version="3.11.1" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
+    <PackageVersion Include="LightBDD.Framework" Version="3.11.2" />
+    <PackageVersion Include="LightBDD.XUnit2" Version="3.11.2" />
+    <PackageVersion Include="LightBDD.Extensions.DependencyInjection" Version="3.11.2" />
     <PackageVersion Include="NSubstitute" Version="5.3.0" />
     <PackageVersion Include="NSubstitute.Analyzers.CSharp" Version="1.0.17" />
     <PackageVersion Include="Publicizer" Version="2.0.1" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
-    <PackageVersion Include="coverlet.collector" Version="6.0.4" />
+    <PackageVersion Include="coverlet.collector" Version="8.0.1" />
     <PackageVersion Include="Shouldly" Version="4.3.0" />
     <PackageVersion Include="Shouldly.FromAssert" Version="1.1.37" />
-    <PackageVersion Include="MartinCostello.Logging.XUnit" Version="0.7.0" />
+    <PackageVersion Include="MartinCostello.Logging.XUnit" Version="0.7.1" />
     <PackageVersion Include="System.Net.Http" Version="4.3.4" />
     <PackageVersion Include="System.Text.RegularExpressions" Version="4.3.1" />
     <PackageVersion Include="TUnit" Version="0.25.21" />

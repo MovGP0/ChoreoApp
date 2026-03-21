@@ -1,4 +1,4 @@
-using System.Reactive.Concurrency;
+﻿using System.Reactive.Concurrency;
 
 using ChoreoApp.AudioPlayer.Messages;
 using ChoreoApp.Floor;
@@ -49,8 +49,7 @@ internal sealed class RedrawFloorBehaviorTestContext : IDisposable
 
     public static RedrawFloorBehaviorTestContext Create(Action<ServiceCollection>? configureServices = null)
     {
-        RxApp.MainThreadScheduler = ImmediateScheduler.Instance;
-        RxApp.TaskpoolScheduler = ImmediateScheduler.Instance;
+        ReactiveUITestInitialization.Initialize();
 
         var services = new ServiceCollection();
         services.AddMessagePipe();

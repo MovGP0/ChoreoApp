@@ -27,7 +27,7 @@ public sealed class AudioPlayerTicksBehavior(GlobalStateModel globalState, ILogg
             .Select(_ => Unit.Default);
 
         scenesChanged
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(_ =>
             {
                 RefreshSceneSubscriptions();
@@ -38,14 +38,14 @@ public sealed class AudioPlayerTicksBehavior(GlobalStateModel globalState, ILogg
         viewModel
             .WhenAnyValue(vm => vm.Duration)
             .Skip(1)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(_ => UpdateTicks(viewModel))
             .DisposeWith(disposables);
 
         viewModel
             .WhenAnyValue(vm => vm.StreamFactory)
             .Skip(1)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(_ => UpdateTicks(viewModel))
             .DisposeWith(disposables);
 
@@ -57,7 +57,7 @@ public sealed class AudioPlayerTicksBehavior(GlobalStateModel globalState, ILogg
                 scene
                     .WhenAnyValue(vm => vm.Timestamp)
                     .Skip(1)
-                    .ObserveOn(RxApp.MainThreadScheduler)
+                    .ObserveOn(RxSchedulers.MainThreadScheduler)
                     .Subscribe(_ => UpdateTicks(viewModel))
                     .DisposeWith(inner);
             }

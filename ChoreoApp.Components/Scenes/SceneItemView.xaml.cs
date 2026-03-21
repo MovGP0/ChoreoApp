@@ -1,4 +1,4 @@
-using System.Reactive.Disposables.Fluent;
+﻿using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using ReactiveUI.Maui;
 
@@ -92,7 +92,7 @@ public partial class SceneItemView: ReactiveContentView<SceneViewModel>
 
             selectionChanges
                 .CombineLatest(selectedColors, unselectedColors, (isSelected, selected, unselected) => (isSelected, selected, unselected))
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(state =>
                 {
                     var (isSelected, selected, unselected) = state;

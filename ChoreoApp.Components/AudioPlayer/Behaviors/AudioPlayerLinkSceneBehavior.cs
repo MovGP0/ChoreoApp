@@ -24,7 +24,7 @@ public sealed class AudioPlayerLinkSceneBehavior(GlobalStateModel globalState, I
 
         globalState
             .WhenAnyValue(gs => gs.SelectedScene)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(_ =>
             {
                 RefreshSceneSubscriptions();
@@ -34,7 +34,7 @@ public sealed class AudioPlayerLinkSceneBehavior(GlobalStateModel globalState, I
 
         viewModel
             .WhenAnyValue(vm => vm.Position)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(_ => UpdateCanLink(viewModel))
             .DisposeWith(disposables);
 
@@ -42,7 +42,7 @@ public sealed class AudioPlayerLinkSceneBehavior(GlobalStateModel globalState, I
             .FromEventPattern<NotifyCollectionChangedEventHandler, NotifyCollectionChangedEventArgs>(
                 h => globalState.Scenes.CollectionChanged += h,
                 h => globalState.Scenes.CollectionChanged -= h)
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             .Subscribe(_ =>
             {
                 RefreshSceneSubscriptions();
@@ -61,7 +61,7 @@ public sealed class AudioPlayerLinkSceneBehavior(GlobalStateModel globalState, I
                 scene
                     .WhenAnyValue(vm => vm.Timestamp)
                     .Skip(1)
-                    .ObserveOn(RxApp.MainThreadScheduler)
+                    .ObserveOn(RxSchedulers.MainThreadScheduler)
                     .Subscribe(_ => UpdateCanLink(viewModel))
                     .DisposeWith(inner);
             }
